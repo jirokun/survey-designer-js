@@ -1,0 +1,109 @@
+{
+  title: "sample enquete",
+  creator: "Jiro Corporation",
+  version: 1,
+  questionDefs: {
+    "q_radio": {
+      questionHTML: "What is your favorite <span style='color: red;'>music</span>",
+      questionType: "radio",
+      direction: "vertical",
+      questionData: [
+        { value: 1, label: "Latin" },
+        { value: 2, label: "Pops" },
+        { value: 9, label: "Others" }
+      ]
+    },
+    "q_checkbox": {
+      questionHTML: "What is your favorite <span style='color: red;'>color</span>",
+      questionType: "checkbox",
+      direction: "horizontal",
+      questionData: [
+        { value: 1, label: "Red" },
+        { value: 2, label: "Blue" },
+        { value: 9, label: "Others" }
+      ]
+    },
+    "q_select": {
+      questionHTML: "What is your favorite <span style='color: red;'>color</span>",
+      questionType: "select",
+      direction: null,
+      questionData: [
+        { value: 1, label: "Red" },
+        { value: 2, label: "Blue" },
+        { value: 9, label: "Others" }
+      ]
+    },
+    "q_text": {
+      questionHTML: "What is your favorite <span style='color: red;'>color</span>",
+      questionType: "text",
+      direction: null,
+      questionData: null
+    },
+    "q_textarea": {
+      questionHTML: "What is your favorite <span style='color: red;'>color</span>",
+      questionType: "textarea",
+      direction: null,
+      questionData: null
+    }
+  ],
+  pageDefs: [
+    "p_1": {
+      pageTitle: "Page1 Title", pageHeaderHTML: "header HTML", pageFooterHTML: "footer HTML", questions: [
+      {
+        questionLocId: "loc_1",
+        questionIdRef: "q_radio",
+        conditions: []
+      },
+      {
+        questionLocId: "loc_2",
+        questionIdRef: "q_checkbox",
+        conditions: [
+          {
+            test: "q_radio.value == 'latin'",
+            type: "disabled"
+          },
+          {
+            test: "q_radio.value == 'others'",
+            type: "hidden"
+          }
+        ]
+      }
+    ]},
+    "p_2": {
+      pageTitle: "Page2 Title", questions: [
+      {
+        questionLocId: "loc_3",
+        questionIdRef: "q_select",
+        conditions: []
+      }
+    ]},
+    "p_3": {
+      pageTitle: "Page3 Title", questions: [
+      {
+        questionLocId: "loc_4",
+        questionIdRef: "q_text",
+        conditions: []
+      }
+    ]},
+    "p_4": {
+      pageTitle: "Page4 Title", questions: [
+      {
+        questionLocId: "loc_5",
+        questionIdRef: "q_textarea",
+        conditions: []
+      }
+    ]}
+  ],
+  pageFlow: [
+    "start": { type: "system", nextFlowId: "flow1" },
+    "flow1": { type: "page", pageIdRef: "p_1", nextFlowId: "flow2" },
+    "flow2": { type: "branch", conditinos: [
+      { test: "q_radio.value == 'latin'", nextFlowid: "flow3" }
+      { test: "q_radio.value == 'others'", nextFlowid: "flow4" }
+    ]}
+    "flow3": { type: "page", pageIdRef: "p_2", nextFlowId: "flow5" },
+    "flow4": { type: "page", pageIdRef: "p_3", nextFlowId: "flow5" },
+    "flow5": { type: "page", pageIdRef: "p_4", nextFlowId: "end" },
+    "end":   { type: "system" }
+  ]
+}
