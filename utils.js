@@ -17,3 +17,8 @@ export function findItem(name) {
   else if (typeof(window) !== 'undefined' && window[name]) return window[name];
   else throw 'Item is not defined: ' + name;
 }
+
+/** stateからpageを探す */
+export function findPage(state, pageId) {
+  return state.pageDefs.find((def) => def.id === pageId);
+}

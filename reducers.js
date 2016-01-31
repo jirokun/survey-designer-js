@@ -31,9 +31,6 @@ function showPage(state = FIRST, action) {
   }
 }
 
-const enqueteApp = combineReducers({
-  showPage,
-  todos: undoable(todos, { filter: distinctState() })
-})
-
-export default todoApp
+export default function reducer(state, action) {
+  return state;
+}

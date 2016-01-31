@@ -4,8 +4,10 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import App from './containers/App'
 import todoApp from './reducers'
+import state from './state'
 
-const store = createStore(todoApp)
+console.log(state);
+const store = createStore(todoApp, state)
 
 const rootElement = document.getElementById('root')
 render(
