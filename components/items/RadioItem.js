@@ -4,7 +4,7 @@ export default class RadioItem extends Component {
   makeRadio(itemName, choices) {
     return choices.map((choice) => {
       return (
-        <label>
+        <label key={choice.id}>
           <input type="radio" name={itemName} value={choice.value}/>
           {choice.label}
         </label>

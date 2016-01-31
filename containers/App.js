@@ -3,14 +3,17 @@ import { connect } from 'react-redux'
 import { ActionCreators } from 'redux-undo'
 import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions'
 import Page from '../components/Page'
-import { findPage } from '../utils'
+import { findPage, findFlow } from '../utils'
 
 class App extends Component {
   render() {
-    const { dispatch, pageTitle, questions } = this.props;
+    const { dispatch, state } = this.props;
+    var currentFlow = findFlow(state, state.currentFlowId);
+    var currentPage = findPage(state, currentFlow.pageId);
+    var { pageTitle, questions } = currentPage;
     return (
       <div>
-        <Page pageTitle={pageTitle} questions={questions}/>
+        <Page pageTitle={pageTitle} questions={questions} state={state}/>
       </div>
     )
   }
@@ -21,8 +24,7 @@ App.propTypes = {
 }
 
 function select(state) {
-  return findPage(state, state.currentPage);
+  return {state};
 }
-
 
 export default connect(select)(App)

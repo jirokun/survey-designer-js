@@ -17,10 +17,6 @@ function nextPage(state) {
     throw 'Unknown pageFlow: ' + pageFlow.type;
   }
 }
-/** ページIDからページを取得する */
-function findPage(state, id) {
-  return state.pageDef[id];
-}
 function showPage(state = FIRST, action) {
   switch (action.type) {
     case NEXT_PAGE:

@@ -4,7 +4,7 @@ export default class CheckboxItem extends Component {
   makeCheckbox(itemName, choices) {
     return choices.map((choice) => {
       return (
-        <label>
+        <label key={choice.id}>
           <input type="checkbox" name={itemName} value={choice.value}/>
           {choice.label}
         </label>
