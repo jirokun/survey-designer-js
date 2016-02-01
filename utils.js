@@ -20,14 +20,14 @@ export function findItem(name) {
 
 /** stateからflowを探す */
 export function findFlow(state, flowId) {
-  return state.flowDefs.find((def) => def.id === flowId);
+  return state.defs.flowDefs.find((def) => def.id === flowId);
 }
 /** stateからpageを探す */
 export function findPage(state, pageId) {
-  return state.pageDefs.find((def) => def.id === pageId);
+  return state.defs.pageDefs.find((def) => def.id === pageId);
 }
 
 /** stateからquestionを探す */
 export function findQuestion(state, questionId) {
-  return state.questionDefs.find((def) => def.id === questionId);
+  return state.defs.questionDefs.find((def) => def.id === questionId);
 }

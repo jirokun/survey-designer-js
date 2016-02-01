@@ -3,11 +3,10 @@ import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import App from './containers/App'
-import todoApp from './reducers'
 import state from './state'
+import configureStore from './store/configureStore'
 
-console.log(state);
-const store = createStore(todoApp, state)
+const store = configureStore(state);
 
 const rootElement = document.getElementById('root')
 render(

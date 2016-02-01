@@ -5,8 +5,9 @@ import { findItem } from '../../utils'
 
 export default class DefaultQuestion extends Component {
   makeItems(items) {
+    const { valueChange, state } = this.props;
     return items.map((item) => {
-      return React.createElement(findItem(item.itemType), item);
+      return React.createElement(findItem(item.itemType), Object.assign({}, item, { state, valueChange }));
     });
   }
   render() {
