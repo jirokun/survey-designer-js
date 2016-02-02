@@ -43,25 +43,49 @@ export default {
       {
         id: 'page1',
         pageTitle: 'ページタイトル1',
-        questions: [
+        questionIds: [
           'question1',
-          'question2'
         ]
       },
       {
         id: 'page2',
         pageTitle: 'ページタイトル2',
-        questions: [
-          'question2'
+        questionIds: [
+          'question2',
         ]
+      },
+      {
+        id: 'page3',
+        pageTitle: 'ページタイトル3',
+        questionIds: [ ]
+      },
+      {
+        id: 'page4',
+        pageTitle: 'ページタイトル4',
+        questionIds: [ ]
       }
     ],
     flowDefs: [
       { id: 'flow1', type: 'page', pageId: 'page1', nextFlowId: 'flow2'},
       { id: 'flow2', type: 'page', pageId: 'page2', nextFlowId: 'flow3'},
-      { id: "flow3", type: "branch", conditinos: [
-      ]},
-      { id: "end", type: "system" }
+      { id: "flow3", type: "branch",
+        /*
+        condition: {
+          type: 'javascript',
+          formula: "var value = state.values.inputValues.q4; return value == 'fuga1' ? 'flow4' : 'flow5';"
+        }
+        */
+        condition: {
+          type: 'simple',
+          ifs: [
+            { question: 'q4', operator: '==', value: 'fuga1', nextFlowId: 'flow4' },
+            { question: 'q4', operator: '==', value: 'fuga2', nextFlowId: 'flow5' }
+          ],
+          "else": 'flow1'
+        }
+      },
+      { id: 'flow4', type: 'page', pageId: 'page3', nextFlowId: '__END__'},
+      { id: 'flow5', type: 'page', pageId: 'page4', nextFlowId: '__END__'}
     ]
   },
   values: {

@@ -4,36 +4,64 @@ import { VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from './constants'
 import { findPage, findFlow, findValue } from './utils'
 
 /**
+ * branchを評価する
+ */
+function evaluateBranch(state, branchFlow) {
+  const condition = branchFlow.condition;
+  if (condition.type === 'javascript') {
+    const func = new Function('state', condition.formula);
+    const nextFlowId = func(state);
+    return nextFlowId;
+  } else if (condition.type === 'simple') {
+    const { ifs, else_ } = condition;
+    for (var i = 0, len = ifs.length; i < len; i++) {
+      const if_ = ifs[i];
+      const value = state.values[if_.question];
+      const func = new Function('state', 'if_',
+          `return state.values.inputValues[if_.question] ${if_.operator} if_.value`);
+      const bool = func(state, if_);
+      if (bool) return if_.nextFlowId;
+    }
+    return condition['else'];
+  } else {
+    throw 'unkown condition type: ' + condition.type;
+  }
+}
+/**
  * typeがpageの次のflowを返す
  */
 function nextFlowPage(state, flowId) {
   const flow = findFlow(state, flowId);
-  const nextFlow = findFlow(state, flow.nextFlowId);
+  let nextFlow = findFlow(state, flow.nextFlowId);
   switch (nextFlow.type) {
     case 'page':
       return nextFlow;
     case 'branch':
-      return nextFlow;
+      while (true) {
+        const nextFlowId = evaluateBranch(state, nextFlow);
+        nextFlow = findFlow(state, nextFlowId);
+        if (nextFlow.type === 'page') return nextFlow;
+      }
     default:
       throw 'unkwon flow type: ' + nextFlow.type;
   }
 }
 function showPage(state, action) {
-  var { currentFlowId, flowStack } = state.values;
+  const { currentFlowId, flowStack } = state.values;
   switch (action.type) {
     case NEXT_PAGE:
-      var nextFlow = nextFlowPage(state, currentFlowId);
+      const nextFlow = nextFlowPage(state, currentFlowId);
       return { currentFlowId: nextFlow.id, flowStack: [...flowStack, currentFlowId]};
     case PREV_PAGE:
-      var newFlowStack = [...flowStack];
-      var prevFlowId = newFlowStack.pop();
-      return { currentFlowId: prevFlowId, flowStack };
+      let newFlowStack = [...flowStack];
+      const prevFlowId = newFlowStack.pop();
+      return { currentFlowId: prevFlowId, flowStack: newFlowStack };
     default:
       return { currentFlowId: currentFlowId, flowStack: [...flowStack]};
   }
 }
 function changeValue(state, action) {
-  var inputValues = Object.assign({}, state.values.inputValues);
+  let inputValues = Object.assign({}, state.values.inputValues);
   switch (action.type) {
     case VALUE_CHANGE:
       inputValues[action.itemName] = action.value;

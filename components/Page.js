@@ -7,9 +7,9 @@ import DefaultQuestion from '../components/questions/DefaultQuestion'
 import { findQuestion } from '../utils'
 
 export default class Page extends Component {
-  makeQuestions(state, questions) {
+  makeQuestions(state, questionIds) {
     const { actions } = this.props;
-    return questions.map((questionId) => {
+    return questionIds.map((questionId) => {
       return findQuestion(state, questionId);
     }).map((q) => {
       let component = (q.questionType === 'default') ? DefaultQuestion : null;
@@ -24,11 +24,11 @@ export default class Page extends Component {
     });
   }
   render() {
-    const { state, pageTitle, questions, actions } = this.props;
+    const { state, pageTitle, questionIds, actions } = this.props;
     return (
       <div>
         <h2>{pageTitle}</h2>
-        {this.makeQuestions(state, questions)}
+        {this.makeQuestions(state, questionIds)}
         <Footer handleBack={actions.prevPage} handleNext={actions.nextPage}/>
       </div>
     );
