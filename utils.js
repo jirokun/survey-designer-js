@@ -1,6 +1,6 @@
-import CheckboxItem from './components/items/CheckboxItem'
-import RadioItem from './components/items/RadioItem'
-import TextItem from './components/items/TextItem'
+import CheckboxItem from './runtime/components/items/CheckboxItem'
+import RadioItem from './runtime/components/items/RadioItem'
+import TextItem from './runtime/components/items/TextItem'
 
 let items = {
   CheckboxItem,

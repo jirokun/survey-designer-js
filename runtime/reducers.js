@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import undoable, { distinctState } from 'redux-undo'
 import { VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from './constants'
-import { findPage, findFlow, findValue } from './utils'
+import { findPage, findFlow, findValue } from '../utils'
 
 /**
  * branchを評価する

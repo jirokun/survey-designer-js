@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import CheckboxItem from '../items/CheckboxItem'
 import RadioItem from '../items/RadioItem'
-import { findItem } from '../../utils'
+import { findItem } from '../../../utils'
 
 export default class DefaultQuestion extends Component {
   makeItems(items) {

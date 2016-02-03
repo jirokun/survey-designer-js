@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions'
 import Page from '../components/Page'
-import { findPage, findFlow } from '../utils'
+import { findPage, findFlow } from '../../utils'
 import * as EnqueteActions from '../actions'
 
-class App extends Component {
+class EnqueteRuntuimeApp extends Component {
   render() {
     const { state, actions } = this.props;
     var currentFlow = findFlow(state, state.values.currentFlowId);
@@ -20,7 +20,7 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+EnqueteRuntuimeApp.propTypes = {
   state: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 }
@@ -38,4 +38,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   select,
   mapDispatchToProps
-)(App)
+)(EnqueteRuntuimeApp)

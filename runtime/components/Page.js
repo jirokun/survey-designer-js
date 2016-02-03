@@ -4,7 +4,7 @@ import { ActionCreators } from 'redux-undo'
 import Footer from '../components/Footer'
 import RadioQuestion from '../components/questions/RadioQuestion'
 import DefaultQuestion from '../components/questions/DefaultQuestion'
-import { findQuestion } from '../utils'
+import { findQuestion } from '../../utils'
 
 export default class Page extends Component {
   makeQuestions(state, questionIds) {
