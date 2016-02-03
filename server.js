@@ -11,6 +11,8 @@ app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output
 app.use(webpackHotMiddleware(compiler));
 
 app.use('/', express.static('www'));
+app.use('/node_modules/', express.static('node_modules'));
+app.use('/bower_components/', express.static('bower_components'));
 /*
 app.get("/", function(req, res) {
   res.sendFile(__dirname + 'www/index.html')
