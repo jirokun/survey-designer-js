@@ -13,7 +13,7 @@ export default class EnqueteEditorApp extends Component {
     ];
 
     var hot = new Handsontable(this.refs.flowsHot, {
-      colHeaders: ['ID', 'Type', 'PageId', 'NextFlowId', 'ConditionId'],
+      colHeaders: ['ID', 'Type', 'PageID', 'NextFlowID', 'ConditionID'],
       columns: [
         {data: 'id'},
         {data: 'type', editor: 'select', selectOptions: ['page', 'branch']},
@@ -21,9 +21,28 @@ export default class EnqueteEditorApp extends Component {
         {data: 'nextFlowId'},
         {data: 'conditionId'}
       ],
-      width: 100,
+      colWidths: [100, 60, 100, 100, 100],
+      width: 1000,
       data: data
     });
+    var conditionsHot = new Handsontable(this.refs.conditionsHot, {
+      colHeaders: ['FlowID', 'Type', 'Question', 'Operator', 'Value', 'NextFlowID'],
+      columns: [
+        {data: 'flowId'},
+        {data: 'type', editor: 'select', selectOptions: ['if', 'else']},
+        {data: 'question'},
+        {data: 'operator', editor: 'select', selectOptions: ['==', '!=', '<', '>', '<=', '>=']},
+        {data: 'value'},
+        {data: 'nextFlowId'}
+      ],
+      colWidths: [100, 50, 100, 70, 100, 100],
+      data: [
+        { flowId: 'flow3', type: 'if', question: 'q4', operator: '==', value: 'fuga1', nextFlowId: 'flow4' },
+        { flowId: 'flow3', type: 'if', question: 'q4', operator: '==', value: 'fuga2', nextFlowId: 'flow5' },
+        { flowId: 'flow3', type: 'else', nextFlowId: 'flow1'}
+      ]
+    });
+
   }
   render() {
     return (
@@ -41,6 +60,9 @@ export default class EnqueteEditorApp extends Component {
           <div className="tab-content">
             <div role="tabpanel" className="tab-pane active" id="flows-tab">
               <div ref="flowsHot"></div>
+            </div>
+            <div role="tabpanel" className="tab-pane" id="conditions-tab">
+              <div ref="conditionsHot"></div>
             </div>
             <div role="tabpanel" className="tab-pane" id="pages-tab">
               <div ref="pagesHot"></div>
