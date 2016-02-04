@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "jquery": "^2.2.0",
     "node-uuid": "^1.4.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
