@@ -65,25 +65,15 @@ export default {
         questionIds: [ ]
       }
     ],
+    conditionDefs: [
+      { flowId: 'flow3', type: 'if', question: 'q4', operator: '==', value: 'fuga1', nextFlowId: 'flow4' },
+      { flowId: 'flow3', type: 'if', question: 'q4', operator: '==', value: 'fuga2', nextFlowId: 'flow5' },
+      { flowId: 'flow3', type: 'else', nextFlowId: 'flow1'}
+    ],
     flowDefs: [
       { id: 'flow1', type: 'page', pageId: 'page1', nextFlowId: 'flow2'},
       { id: 'flow2', type: 'page', pageId: 'page2', nextFlowId: 'flow3'},
-      { id: "flow3", type: "branch",
-        /*
-        condition: {
-          type: 'javascript',
-          formula: "var value = state.values.inputValues.q4; return value == 'fuga1' ? 'flow4' : 'flow5';"
-        }
-        */
-        condition: {
-          type: 'simple',
-          ifs: [
-            { question: 'q4', operator: '==', value: 'fuga1', nextFlowId: 'flow4' },
-            { question: 'q4', operator: '==', value: 'fuga2', nextFlowId: 'flow5' }
-          ],
-          "else": 'flow1'
-        }
-      },
+      { id: "flow3", type: "branch"},
       { id: 'flow4', type: 'page', pageId: 'page3', nextFlowId: '__END__'},
       { id: 'flow5', type: 'page', pageId: 'page4', nextFlowId: '__END__'}
     ]

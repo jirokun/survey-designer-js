@@ -26,8 +26,11 @@ export function findFlow(state, flowId) {
 export function findPage(state, pageId) {
   return state.defs.pageDefs.find((def) => def.id === pageId);
 }
-
 /** stateからquestionを探す */
 export function findQuestion(state, questionId) {
   return state.defs.questionDefs.find((def) => def.id === questionId);
+}
+/** stateからconditionを探す */
+export function findConditions(state, flowId) {
+  return state.defs.conditionDefs.filter((def) => def.flowId === flowId);
 }

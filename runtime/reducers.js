@@ -1,30 +1,26 @@
 import { combineReducers } from 'redux'
 import undoable, { distinctState } from 'redux-undo'
 import { VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from './constants'
-import { findPage, findFlow, findValue } from '../utils'
+import { findPage, findFlow, findValue, findConditions } from '../utils'
 
 /**
  * branchを評価する
  */
 function evaluateBranch(state, branchFlow) {
-  const condition = branchFlow.condition;
-  if (condition.type === 'javascript') {
-    const func = new Function('state', condition.formula);
-    const nextFlowId = func(state);
-    return nextFlowId;
-  } else if (condition.type === 'simple') {
-    const { ifs, else_ } = condition;
-    for (var i = 0, len = ifs.length; i < len; i++) {
-      const if_ = ifs[i];
-      const value = state.values[if_.question];
-      const func = new Function('state', 'if_',
-          `return state.values.inputValues[if_.question] ${if_.operator} if_.value`);
-      const bool = func(state, if_);
-      if (bool) return if_.nextFlowId;
+  const conditions = findConditions(state, branchFlow.id);
+  for (var i = 0, len = conditions.length; i < len; i++) {
+    const c = conditions[i];
+    if (c.type === 'if') {
+      const value = state.values[c.question];
+      const func = new Function('state', 'cond',
+          `return state.values.inputValues[cond.question] ${c.operator} cond.value`);
+      const bool = func(state, c);
+      if (bool) return c.nextFlowId;
+    } else if (c.type === 'else') {
+      return c.nextFlowid;
+    } else {
+      throw 'unkown condition type: ' + c.type;
     }
-    return condition['else'];
-  } else {
-    throw 'unkown condition type: ' + condition.type;
   }
 }
 /**
