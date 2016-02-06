@@ -66,10 +66,5 @@ export default {
       { id: 'flow5', type: 'page', pageId: 'page4', nextFlowId: '__END__'}
     ]
   },
-  values: {
-    currentFlowId: 'flow1',
-    flowStack: [],
-    inputValues: {}
-  }
 };
 
