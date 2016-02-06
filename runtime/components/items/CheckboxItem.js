@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { findChoices } from '../../../utils'
 
 export default class CheckboxItem extends Component {
   handleChange(e) {
@@ -6,36 +7,36 @@ export default class CheckboxItem extends Component {
     var values = {};
 
     Array.prototype.forEach.call(els, (el) => { values[el.value] = el.checked; });
-    this.props.valueChange(this.props.itemName, values);
+    this.props.valueChange(this.props.item.itemName, values);
   }
-  makeCheckbox(itemName, choices) {
-    const value = this.props.state.values.inputValues[itemName] || {};
-    return choices.map((choice) => {
+  makeCheckbox() {
+    const { state, item } = this.props;
+    const value = state.values.inputValues[item.itemName] || {};
+    return findChoices(state, item.id).map((choice) => {
       return (
         <label key={choice.id}>
-          <input id={choice.id} type="checkbox" name={itemName} value={choice.value} onChange={this.handleChange.bind(this)} checked={value[choice.value]}/>
+          <input id={choice.id} type="checkbox" name={item.itemName} value={choice.value} onChange={this.handleChange.bind(this)} checked={value[choice.value]}/>
           {choice.label}
         </label>
       );
     });
   }
   render() {
-    const { state, itemTitle, itemName, choices } = this.props;
+    const { state, item } = this.props;
     return (
       <div ref="container">
-        <h3>{itemTitle}</h3>
-        {this.makeCheckbox(itemName, choices)}
+        <h3>{item.itemTitle}</h3>
+        {this.makeCheckbox()}
       </div>
     );
   }
 }
 
 CheckboxItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  itemTitle: PropTypes.string,
-  itemName: PropTypes.string,
+  item: PropTypes.object.isRequired,
   choices: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
   }).isRequired).isRequired
 };
+

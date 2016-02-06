@@ -5,7 +5,8 @@ export default class TextItem extends Component {
     this.props.valueChange(this.props.itemName, e.target.value);
   }
   render() {
-    const { itemTitle, itemName, choices, state } = this.props;
+    const { item, state } = this.props;
+    const { itemName, itemTitle } = item;
     const value = state.values.inputValues[itemName];
     return (
       <div>

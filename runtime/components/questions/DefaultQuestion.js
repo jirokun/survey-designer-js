@@ -1,21 +1,22 @@
 import React, { Component, PropTypes } from 'react'
 import CheckboxItem from '../items/CheckboxItem'
 import RadioItem from '../items/RadioItem'
-import { findItem } from '../../../utils'
+import { findItems, findItemConstructor } from '../../../utils'
 
 export default class DefaultQuestion extends Component {
-  makeItems(items) {
-    const { valueChange, state } = this.props;
-    return items.map((item) => {
-      return React.createElement(findItem(item.itemType), Object.assign({}, item, { state, valueChange }));
+  makeItems() {
+    const { question, valueChange, state } = this.props;
+    return findItems(state, question.id).map((item) => {
+      console.log(item);
+      return React.createElement(findItemConstructor(item.itemType), Object.assign({}, { item, state, valueChange }));
     });
   }
   render() {
-    const { questionTitle, items } = this.props;
+    const { question, items } = this.props;
     return (
       <div>
-        <h3>{questionTitle}</h3>
-        {this.makeItems(items)}
+        <h3>{question.questionTitle}</h3>
+        {this.makeItems()}
       </div>
     );
   }

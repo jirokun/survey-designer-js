@@ -5,64 +5,54 @@ export default {
     title: "sample enquete",
     creator: "Jiro Corporation",
     version: 1,
+    choiceDefs: [
+      { id: 'choice1', itemId: 'item1', label: '選択肢1-1', value: "hoge1" },
+      { id: 'choice2', itemId: 'item1', label: '選択肢1-2', value: "hoge2" },
+      { id: 'choice3', itemId: 'item2', label: '選択肢2-1', value: "hun1" },
+      { id: 'choice4', itemId: 'item2', label: '選択肢2-2', value: "hun2" },
+      { id: 'choice5', itemId: 'item4', label: '選択肢3-1', value: "fuga1" },
+      { id: 'choice6', itemId: 'item4', label: '選択肢3-2', value: "fuga2" },
+      { id: 'choice7', itemId: 'item5', label: '選択肢4-1', value: "piyo1" },
+      { id: 'choice8', itemId: 'item5', label: '選択肢4-2', value: "piyo2" }
+    ],
+    itemDefs: [
+      { id: 'item1', questionId: 'question1', itemType: 'RadioItem', itemTitle: "RadioItem1", itemName: "q1"},
+      { id: 'item2', questionId: 'question1', itemType: 'CheckboxItem', itemTitle: "CheckboxItem2", itemName: "q2"},
+      { id: 'item3', questionId: 'question1', itemType: 'TextItem', itemTitle: "TextItem2", itemName: "q3" },
+      { id: 'item4', questionId: 'question2', itemType: 'RadioItem', itemTitle: "RadioItem4", itemName: "q4"},
+      { id: 'item5', questionId: 'question2', itemType: 'CheckboxItem', itemTitle: "CheckboxItem5", itemName: "q5"},
+      { id: 'item6', questionId: 'question2', itemType: 'TextItem', itemTitle: "TextItem6", itemName: "q6" }
+    ],
     questionDefs: [
       {
         id: 'question1',
+        pageId: 'page1',
         questionTitle: 'Q1. 質問1',
-        questionType: 'default',
-        items: [
-          { id: uuid.v4(), itemType: 'RadioItem', itemTitle: "RadioItem1", itemName: "q1", choices: [
-            { id: uuid.v4(), label: '選択肢1-1', value: "hoge1" },
-            { id: uuid.v4(), label: '選択肢1-2', value: "hoge2" },
-          ]},
-          { id: 'checkbox1', itemType: 'CheckboxItem', itemTitle: "CheckboxItem2", itemName: "q2", choices: [
-            { id: uuid.v4(), label: '選択肢2-1', value: "hun1" },
-            { id: uuid.v4(), label: '選択肢2-2', value: "hun2" },
-          ]},
-          { itemType: 'TextItem', itemTitle: "TextItem2", itemName: "q3" }
-        ]
+        questionType: 'default'
       },
       {
         id: 'question2',
+        pageId: 'page2',
         questionTitle: 'Q2. 質問2',
-        questionType: 'default',
-        items: [
-          { id: uuid.v4(), itemType: 'RadioItem', itemTitle: "RadioItem1", itemName: "q4", choices: [
-            { id: uuid.v4(), label: '選択肢3-1', value: "fuga1" },
-            { id: uuid.v4(), label: '選択肢3-2', value: "fuga2" },
-          ]},
-          { id: 'checkbox2', itemType: 'CheckboxItem', itemTitle: "CheckboxItem2", itemName: "q5", choices: [
-            { id: uuid.v4(), label: '選択肢4-1', value: "piyo1" },
-            { id: uuid.v4(), label: '選択肢4-2', value: "piyo2" },
-          ]},
-          { id: uuid.v4(), itemType: 'TextItem', itemTitle: "TextItem2", itemName: "q6" }
-        ]
+        questionType: 'default'
       }
     ],
     pageDefs: [
       {
         id: 'page1',
-        pageTitle: 'ページタイトル1',
-        questionIds: [
-          'question1',
-        ]
+        pageTitle: 'ページタイトル1'
       },
       {
         id: 'page2',
-        pageTitle: 'ページタイトル2',
-        questionIds: [
-          'question2',
-        ]
+        pageTitle: 'ページタイトル2'
       },
       {
         id: 'page3',
-        pageTitle: 'ページタイトル3',
-        questionIds: [ ]
+        pageTitle: 'ページタイトル3'
       },
       {
         id: 'page4',
-        pageTitle: 'ページタイトル4',
-        questionIds: [ ]
+        pageTitle: 'ページタイトル4'
       }
     ],
     conditionDefs: [

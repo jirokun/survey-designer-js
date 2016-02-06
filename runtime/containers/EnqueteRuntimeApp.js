@@ -11,10 +11,9 @@ class EnqueteRuntuimeApp extends Component {
     const { state, actions } = this.props;
     var currentFlow = findFlow(state, state.values.currentFlowId);
     var currentPage = findPage(state, currentFlow.pageId);
-    var { pageTitle, questionIds } = currentPage;
     return (
       <div>
-        <Page pageTitle={pageTitle} questionIds={questionIds} state={state} actions={actions}/>
+        <Page page={currentPage} state={state} actions={actions}/>
       </div>
     )
   }

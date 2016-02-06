@@ -1,26 +1,28 @@
 import React, { Component, PropTypes } from 'react'
+import { findChoices } from '../../../utils'
 
 export default class RadioItem extends Component {
   handleChange(e) {
-    this.props.valueChange(this.props.itemName, e.target.value);
+    this.props.valueChange(this.props.item.itemName, e.target.value);
   }
-  makeRadio(itemName, choices) {
-    const value = this.props.state.values.inputValues[itemName];
-    return choices.map((choice) => {
+  makeRadio() {
+    const { state, item } = this.props;
+    const value = this.props.state.values.inputValues[item.itemName];
+    return findChoices(state, item.id).map((choice) => {
       return (
         <label key={choice.id}>
-          <input type="radio" name={itemName} value={choice.value} onChange={this.handleChange.bind(this)} checked={value === choice.value}/>
+          <input type="radio" name={item.itemName} value={choice.value} onChange={this.handleChange.bind(this)} checked={value === choice.value}/>
           {choice.label}
         </label>
       );
     });
   }
   render() {
-    const { itemTitle, itemName, choices } = this.props;
+    const { state, item } = this.props;
     return (
       <div>
-        <h3>{itemTitle}</h3>
-        {this.makeRadio(itemName, choices)}
+        <h3>{item.itemTitle}</h3>
+        {this.makeRadio()}
       </div>
     );
   }
