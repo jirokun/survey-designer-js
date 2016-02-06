@@ -1,1 +1,1 @@
-export const CHANGE_FLOW_DEFS = 'CHANGE_FLOW_DEFS';
+export const CHANGE_DEFS = 'CHANGE_DEFS';

@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import PagesTab from '../components/PagesTab'
-import FlowsTab from '../components/FlowsTab'
+import PagesHotEditorTab from '../components/PagesHotEditorTab'
+import FlowsHotEditorTab from '../components/FlowsHotEditorTab'
+import * as EnqueteActions from '../actions'
 
 export default class EnqueteEditorApp extends Component {
   constructor(props) {
@@ -11,12 +12,12 @@ export default class EnqueteEditorApp extends Component {
   }
   renderTab() {
     const tab = this.state.tab;
-    const { state } = this.props;
+    const { state, actions } = this.props;
     switch (tab) {
       case 'FlowsTab':
-        return <FlowsTab state={state}/>
+        return <FlowsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       case 'PagesTab':
-        return <PagesTab state={state}/>
+        return <PagesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       default:
         throw 'undfined tab: ' + tab;
     }
@@ -26,6 +27,7 @@ export default class EnqueteEditorApp extends Component {
   }
   render() {
     const _this = this;
+    const { state, actions } = this.props;
     return (
       <div>
         <div className="left" ref="left">cytoscape.jsを動かす</div>
@@ -33,7 +35,7 @@ export default class EnqueteEditorApp extends Component {
           <ul className="nav nav-tabs">
             {
               ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
-                return <li className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
+                return <li className={state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
               })
             }
           </ul>
@@ -49,6 +51,13 @@ function select(state) {
   return {state};
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(EnqueteActions, dispatch)
+  }
+}
+
 export default connect(
-  select
+  select,
+  mapDispatchToProps
 )(EnqueteEditorApp)

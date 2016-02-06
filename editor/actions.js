@@ -1,7 +1,8 @@
-import { CHANGE_FLOW_DEFS } from './constants'
-export function changeFlowDefs(flowDefs, fromHOT) {
+import { CHANGE_DEFS } from './constants'
+export function changeDefs(defsName, defs) {
   return {
-    type: CHANGE_FLOW_DEFS,
-    fromHOT: !!fromHOT
+    type: CHANGE_DEFS,
+    defsName: defsName,
+    defs: defs
   };
 }

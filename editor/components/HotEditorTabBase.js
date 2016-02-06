@@ -1,19 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import { findFlow } from '../../utils'
 
-export default class FlowsTab extends Component {
+export default class HotEditorTabBase extends Component {
+  constructor(props, defsName, colHeaders, columns, colWidths) {
+    super(props);
+    this.defsName = defsName;
+    this.colHeaders = colHeaders;
+    this.columns = columns;
+    this.colWidths = colWidths;
+  }
   componentDidMount() {
-    const data = this.props.state.defs.flowDefs;
+    const data = this.props.state.defs[this.defsName];
     this.hot = new Handsontable(this.refs.hot, {
-      colHeaders: ['FlowID', 'Type', 'PageId', 'NextFlowID'],
-      columns: [
-        {data: 'id'},
-        {data: 'type', editor: 'select', selectOptions: ['page', 'branch']},
-        {data: 'pageId'},
-        {data: 'nextFlowId'}
-      ],
-      colWidths: [100, 70, 100, 100],
-      dataSchema: {id: null, type: null, pageId: null, nextFlowId: null},
+      colHeaders: this.colHeaders,
+      columns: this.columns,
+      colWidths: this.colWidths,
       contextMenu: {
         items: {
           row_above: {},
@@ -25,21 +26,23 @@ export default class FlowsTab extends Component {
           redo: {}
         }
       },
+      data: data,
       afterChange: this.afterChange.bind(this)
     });
-    console.log(data);
-    this.hot.loadData(data);
   }
   componentWillUnmount() {
     this.hot.destroy();
   }
   afterChange(changes, source) {
-    console.log(changes, source);
     if (source === 'loadData') return;
-    //var data = this.hot.getData();
-    var data = this.hot.getDataAtRow(1);
+    const data = this.hot.getData();
     console.log(data);
-    //this.props.defsChange(data);
+    const retObj = data.map((row) => {
+      var ret = {};
+      row.forEach((val, i) => { ret[this.columns[i].data] = val});
+      return ret;
+    });
+    this.props.onDefsChange(this.defsName, retObj);
   }
 
   render() {
@@ -51,6 +54,6 @@ export default class FlowsTab extends Component {
   }
 }
 
-FlowsTab.propTypes = {
+HotEditorTabBase.propTypes = {
   state: PropTypes.object.isRequired
 }
