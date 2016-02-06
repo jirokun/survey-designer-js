@@ -4,14 +4,14 @@ export default {
     creator: "Jiro Corporation",
     version: 1,
     choiceDefs: [
-      { id: 'choice1', itemId: 'item1', label: '選択肢1-1', value: "hoge1" },
-      { id: 'choice2', itemId: 'item1', label: '選択肢1-2', value: "hoge2" },
-      { id: 'choice3', itemId: 'item2', label: '選択肢2-1', value: "hun1" },
-      { id: 'choice4', itemId: 'item2', label: '選択肢2-2', value: "hun2" },
-      { id: 'choice5', itemId: 'item4', label: '選択肢3-1', value: "fuga1" },
-      { id: 'choice6', itemId: 'item4', label: '選択肢3-2', value: "fuga2" },
-      { id: 'choice7', itemId: 'item5', label: '選択肢4-1', value: "piyo1" },
-      { id: 'choice8', itemId: 'item5', label: '選択肢4-2', value: "piyo2" }
+      { itemId: 'item1', label: '選択肢1-1', value: "hoge1" },
+      { itemId: 'item1', label: '選択肢1-2', value: "hoge2" },
+      { itemId: 'item2', label: '選択肢2-1', value: "hun1" },
+      { itemId: 'item2', label: '選択肢2-2', value: "hun2" },
+      { itemId: 'item4', label: '選択肢3-1', value: "fuga1" },
+      { itemId: 'item4', label: '選択肢3-2', value: "fuga2" },
+      { itemId: 'item5', label: '選択肢4-1', value: "piyo1" },
+      { itemId: 'item5', label: '選択肢4-2', value: "piyo2" }
     ],
     itemDefs: [
       { id: 'item1', questionId: 'question1', itemType: 'RadioItem', itemTitle: "RadioItem1", itemName: "q1"},

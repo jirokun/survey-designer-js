@@ -3,6 +3,10 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PagesHotEditorTab from '../components/PagesHotEditorTab'
 import FlowsHotEditorTab from '../components/FlowsHotEditorTab'
+import ConditionsHotEditorTab from '../components/ConditionsHotEditorTab'
+import QuestionsHotEditorTab from '../components/QuestionsHotEditorTab'
+import ItemsHotEditorTab from '../components/ItemsHotEditorTab'
+import ChoicesHotEditorTab from '../components/ChoicesHotEditorTab'
 import * as EnqueteActions from '../actions'
 
 export default class EnqueteEditorApp extends Component {
@@ -16,8 +20,16 @@ export default class EnqueteEditorApp extends Component {
     switch (tab) {
       case 'FlowsTab':
         return <FlowsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+      case 'ConditionsTab':
+        return <ConditionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       case 'PagesTab':
         return <PagesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+      case 'QuestionsTab':
+        return <QuestionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+      case 'ItemsTab':
+        return <ItemsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+      case 'ChoicesTab':
+        return <ChoicesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       default:
         throw 'undfined tab: ' + tab;
     }
@@ -35,7 +47,7 @@ export default class EnqueteEditorApp extends Component {
           <ul className="nav nav-tabs">
             {
               ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
-                return <li className={state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
+                return <li className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
               })
             }
           </ul>

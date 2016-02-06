@@ -26,6 +26,8 @@ export default class HotEditorTabBase extends Component {
           redo: {}
         }
       },
+      height: 400,
+      minSpareRows: 1,
       data: data,
       afterChange: this.afterChange.bind(this)
     });
