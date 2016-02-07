@@ -1,4 +1,11 @@
-import { NEXT_PAGE, PREV_PAGE, VALUE_CHANGE } from './constants'
+import { CHANGE_DEFS, NEXT_PAGE, PREV_PAGE, VALUE_CHANGE } from './constants'
+export function changeDefs(defsName, defs) {
+  return {
+    type: CHANGE_DEFS,
+    defsName: defsName,
+    defs: defs
+  };
+}
 export function nextPage() {
   return {
     type: NEXT_PAGE

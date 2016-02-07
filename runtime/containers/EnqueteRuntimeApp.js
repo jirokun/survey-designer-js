@@ -7,10 +7,21 @@ import { findPage, findFlow } from '../../utils'
 import * as EnqueteActions from '../actions'
 
 class EnqueteRuntuimeApp extends Component {
+  componentDidMount() {
+    // iframe用の処理
+    if (window) {
+      window.addEventListener('message', this.changeDefs.bind(this), false);
+    }
+  }
+  changeDefs(e) {
+    const { state, actions } = this.props;
+    const { defsName, defs } = JSON.parse(e.data);
+    actions.changeDefs(defsName, defs);
+  }
   render() {
     const { state, actions } = this.props;
-    var currentFlow = findFlow(state, state.values.currentFlowId);
-    var currentPage = findPage(state, currentFlow.pageId);
+    const currentFlow = findFlow(state, state.values.currentFlowId);
+    const currentPage = findPage(state, currentFlow.pageId);
     return (
       <div>
         <Page page={currentPage} state={state} actions={actions}/>

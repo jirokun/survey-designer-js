@@ -14,22 +14,25 @@ export default class EnqueteEditorApp extends Component {
     super(props);
     this.state = {tab: 'FlowsTab'};
   }
+  getPreviewWindow() {
+    return this.refs.previewWindow;
+  }
   renderTab() {
     const tab = this.state.tab;
     const { state, actions } = this.props;
     switch (tab) {
       case 'FlowsTab':
-        return <FlowsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+        return <FlowsHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
       case 'ConditionsTab':
-        return <ConditionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+        return <ConditionsHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
       case 'PagesTab':
-        return <PagesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+        return <PagesHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
       case 'QuestionsTab':
-        return <QuestionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+        return <QuestionsHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
       case 'ItemsTab':
-        return <ItemsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+        return <ItemsHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
       case 'ChoicesTab':
-        return <ChoicesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+        return <ChoicesHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
       default:
         throw 'undfined tab: ' + tab;
     }
@@ -44,15 +47,20 @@ export default class EnqueteEditorApp extends Component {
       <div>
         <div className="left" ref="left">cytoscape.jsを動かす</div>
         <div className="right" ref="right">
-          <ul className="nav nav-tabs">
-            {
-              ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
-                return <li className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
-              })
-            }
-          </ul>
-          <div className="tab-content">
-            { this.renderTab() }
+          <div className="hot-pane">
+            <ul className="nav nav-tabs">
+              {
+                ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
+                  return <li className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
+                })
+              }
+            </ul>
+            <div className="tab-content">
+              { this.renderTab() }
+            </div>
+          </div>
+          <div className="preview-pane">
+            <iframe ref="previewWindow" src="runtime.html"></iframe>
           </div>
         </div>
       </div>

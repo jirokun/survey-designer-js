@@ -7,7 +7,6 @@ export default class DefaultQuestion extends Component {
   makeItems() {
     const { question, valueChange, state } = this.props;
     return findItems(state, question.id).map((item) => {
-      console.log(item);
       return React.createElement(findItemConstructor(item.itemType), Object.assign({}, { item, state, valueChange }));
     });
   }

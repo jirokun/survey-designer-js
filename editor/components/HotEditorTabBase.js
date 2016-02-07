@@ -38,13 +38,12 @@ export default class HotEditorTabBase extends Component {
   afterChange(changes, source) {
     if (source === 'loadData') return;
     const data = this.hot.getData();
-    console.log(data);
-    const retObj = data.map((row) => {
+    const defs = data.map((row) => {
       var ret = {};
       row.forEach((val, i) => { ret[this.columns[i].data] = val});
       return ret;
     });
-    this.props.onDefsChange(this.defsName, retObj);
+    this.props.onDefsChange(this.defsName, defs, this.props.getPreviewWindow);
   }
 
   render() {

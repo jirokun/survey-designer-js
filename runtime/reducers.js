@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import undoable, { distinctState } from 'redux-undo'
-import { VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from './constants'
+import { CHANGE_DEFS, VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from './constants'
 import { findPage, findFlow, findValue, findConditions } from '../utils'
 
 /**
@@ -66,6 +66,16 @@ function changeValue(state, action) {
       return inputValues;
   }
 }
+function changeDefs(state, action) {
+  let newState = Object.assign({}, state.defs);
+  switch (action.type) {
+    case CHANGE_DEFS:
+      newState[action.defsName] = action.defs;
+      return newState;
+    default:
+      return newState;
+  }
+}
 
 export default function reducer(state, action) {
   const{ currentFlowId, flowStack } = showPage(state, action);
@@ -75,6 +85,6 @@ export default function reducer(state, action) {
       flowStack,
       inputValues: changeValue(state, action)
     },
-    defs: Object.assign({}, state.defs)
+    defs: changeDefs(state, action)
   }
 }
