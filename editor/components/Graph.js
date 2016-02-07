@@ -1,16 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import { findFlow, makeCytoscapeElements } from '../../utils'
 const cytoscape = require('cytoscape');
-const cycola = require('cytoscape-cola');
-const cola = require('cola');
+//const cycola = require('cytoscape-cola');
+//const cola = require('cola');
 
-cycola(cytoscape, cola);
+//cycola(cytoscape, cola);
 
 export default class Graph extends Component {
   componentDidMount() {
     const data = this.props.state.defs[this.defsName];
     const { state } = this.props;
     const elements = makeCytoscapeElements(state);
+    console.log(elements);
     var cy = cytoscape({
       container: this.refs.graph, // container to render in
       elements: elements, /*
@@ -46,8 +47,8 @@ export default class Graph extends Component {
         }
       ],
       layout: {
-        name: 'cola',
-        edgeLength: 2
+        name: 'grid',
+        rows: 1
       }
     });
   }
