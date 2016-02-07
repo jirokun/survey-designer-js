@@ -56,14 +56,17 @@ export default {
     conditionDefs: [
       { flowId: 'flow3', type: 'if', question: 'q4', operator: '==', value: 'fuga1', nextFlowId: 'flow4' },
       { flowId: 'flow3', type: 'if', question: 'q4', operator: '==', value: 'fuga2', nextFlowId: 'flow5' },
-      { flowId: 'flow3', type: 'else', nextFlowId: 'flow1'}
+      { flowId: 'flow3', type: 'if', question: 'q4', operator: '==', value: 'fuga3', nextFlowId: 'flow6' },
+      { flowId: 'flow3', type: 'else', nextFlowId: '__END__'}
     ],
     flowDefs: [
       { id: 'flow1', type: 'page', pageId: 'page1', nextFlowId: 'flow2'},
       { id: 'flow2', type: 'page', pageId: 'page2', nextFlowId: 'flow3'},
       { id: "flow3", type: "branch"},
-      { id: 'flow4', type: 'page', pageId: 'page3', nextFlowId: '__END__'},
-      { id: 'flow5', type: 'page', pageId: 'page4', nextFlowId: '__END__'}
+      { id: 'flow4', type: 'page', pageId: 'page3', nextFlowId: 'flow5'},
+      { id: 'flow5', type: 'page', pageId: 'page4', nextFlowId: 'flow6'},
+      { id: 'flow6', type: 'page', pageId: 'page4', nextFlowId: 'flow7'},
+      { id: 'flow7', type: 'page', pageId: 'page4', nextFlowId: '__END__'}
     ]
   },
 };

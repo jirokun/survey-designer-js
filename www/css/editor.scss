@@ -18,6 +18,13 @@ html, body {
       .graph {
         height: 100%;
         width: 100%;
+        position: relative;
+        .controller {
+          position: absolute;
+          z-index: 100;
+          right: 5px;
+          top: 5px;
+        }
       }
     }
     div.right {
