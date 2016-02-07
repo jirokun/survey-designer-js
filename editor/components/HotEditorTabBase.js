@@ -43,6 +43,7 @@ export default class HotEditorTabBase extends Component {
       row.forEach((val, i) => { ret[this.columns[i].data] = val});
       return ret;
     });
+    defs.splice(defs.length - 1, 1);
     this.props.onDefsChange(this.defsName, defs, this.props.getPreviewWindow);
   }
 

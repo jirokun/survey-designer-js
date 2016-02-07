@@ -78,12 +78,10 @@ export function makeCytoscapeElements(state) {
           }
         }
       });
-      console.log(ret);
       return ret;
     }
   });
   const mergedElements = elements.concat(flatten(edges));
-  console.log(mergedElements);
   return mergedElements.filter((e) => { return e != null; });
 }
 
