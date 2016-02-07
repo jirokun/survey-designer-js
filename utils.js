@@ -1,6 +1,7 @@
 import CheckboxItem from './runtime/components/items/CheckboxItem'
 import RadioItem from './runtime/components/items/RadioItem'
 import TextItem from './runtime/components/items/TextItem'
+import uuid from 'node-uuid'
 
 /**
  * Itemを探す
@@ -45,4 +46,49 @@ export function findChoices(state, itemId) {
 /** stateからconditionを探す */
 export function findConditions(state, flowId) {
   return state.defs.conditionDefs.filter((def) => def.flowId === flowId);
+}
+
+/** flowDefs,condionDefsからcytoscape用のelementsを作成する */
+export function makeCytoscapeElements(state) {
+  const { flowDefs, condionDefs } = state.defs;
+  const elements = flowDefs.map((def) => {
+    return {
+      data: {
+        id: def.id
+      }
+    };
+  });
+  const edges = flowDefs.map((def) => {
+    if (def.type === 'page') {
+      return {
+        data: {
+          id: `__edge-${def.id}-${uuid.v1()}`,
+          source: def.id,
+          target: def.nextFlowId
+        }
+      };
+    } else if (def.type === 'branch') {
+      const conditionDefs = findConditions(state, def.id);
+      const ret = conditionDefs.map((c) => {
+        return {
+          data: {
+            id: `__edge-${uuid.v1()}`,
+            source: def.id,
+            target: c.nextFlowId
+          }
+        }
+      });
+      console.log(ret);
+      return ret;
+    }
+  });
+  const mergedElements = elements.concat(flatten(edges));
+  console.log(mergedElements);
+  return mergedElements.filter((e) => { return e != null; });
+}
+
+export function flatten(ary) {
+  return ary.reduce(function (p, c) {
+    return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
+  }, []);
 }

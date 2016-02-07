@@ -16,6 +16,9 @@ html, body {
       border-right: 1px solid black;
       width: $left_pane_size;
       height: 100%;
+      .graph {
+        height: 100%;
+      }
     }
     div.right {
       float: left;

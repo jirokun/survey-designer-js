@@ -7,6 +7,7 @@ import ConditionsHotEditorTab from '../components/ConditionsHotEditorTab'
 import QuestionsHotEditorTab from '../components/QuestionsHotEditorTab'
 import ItemsHotEditorTab from '../components/ItemsHotEditorTab'
 import ChoicesHotEditorTab from '../components/ChoicesHotEditorTab'
+import Graph from '../components/Graph'
 import * as EnqueteActions from '../actions'
 
 export default class EnqueteEditorApp extends Component {
@@ -45,7 +46,9 @@ export default class EnqueteEditorApp extends Component {
     const { state, actions } = this.props;
     return (
       <div>
-        <div className="left" ref="left">cytoscape.jsを動かす</div>
+        <div className="left" ref="left">
+          <Graph state={state}/>
+        </div>
         <div className="right" ref="right">
           <div className="hot-pane">
             <ul className="nav nav-tabs">
