@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { findFlow, makeCytoscapeElements } from '../../utils'
+import { findPage, findFlow, makeCytoscapeElements } from '../../utils'
 const cytoscape = require('cytoscape');
 const cycola = require('cytoscape-cola');
 
@@ -8,36 +8,43 @@ cycola(cytoscape, cola);
 export default class Graph extends Component {
   componentDidMount() {
     const data = this.props.state.defs[this.defsName];
-    const { state } = this.props;
+    const { state, onFlowSelected, getPreviewWindow } = this.props;
     const elements = makeCytoscapeElements(state);
     this.cy = cytoscape({
       container: this.refs.graph, // container to render in
-      elements: 
-      [
-        { // node a
-          data: { id: 'a' }
-        },
-        { // node b
-          data: { id: 'b' }
-        },
-        { // edge ab
-          data: { id: 'ab', source: 'a', target: 'b' }
-        }
-      ],
+      elements: elements,
       style: [ // the stylesheet for the graph
         {
           selector: 'node',
           style: {
             'background-color': '#666',
+            'border-width': 3,
+            'border-color': '#666',
             'label': 'data(id)'
           }
         },
-
+        {
+          selector: ':selected',
+          style: {
+            'border-width': 3,
+            'border-color': '#8cc'
+          }
+        },
+        {
+          selector: '.branch',
+          style: {
+            'background-color': '#666',
+            'shape': 'diamond',
+            'label': 'data(id)'
+          }
+        },
         {
           selector: 'edge',
           style: {
             'width': 3,
+            'label': 'data(label)',
             'line-color': '#ccc',
+            'edge-text-rotation': 'autorotate',
             'target-arrow-color': '#ccc',
             'target-arrow-shape': 'triangle'
           }
@@ -45,10 +52,18 @@ export default class Graph extends Component {
       ],
       layout: {
         name: 'breadthfirst',
+        spacingFactor: 2.5,
         directed: true
       }
     });
-    this.cy.load(elements);
+    this.cy.on("click", 'node.page', (e) => {
+      const data = e.cyTarget.data();
+      const flow = findFlow(state, data.id);
+      if (!flow) return;
+      const page = findPage(state, flow.pageId);
+      if (!page) return;
+      onFlowSelected(flow.id, getPreviewWindow);
+    });
   }
   componentWillUnmount() {
   }

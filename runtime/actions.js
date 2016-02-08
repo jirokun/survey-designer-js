@@ -1,4 +1,4 @@
-import { CHANGE_DEFS, NEXT_PAGE, PREV_PAGE, VALUE_CHANGE } from './constants'
+import { SELECT_FLOW, CHANGE_DEFS, NEXT_PAGE, PREV_PAGE, VALUE_CHANGE } from '../constants'
 export function changeDefs(defsName, defs) {
   return {
     type: CHANGE_DEFS,
@@ -18,4 +18,7 @@ export function prevPage() {
 }
 export function valueChange(itemName, value) {
   return { type: VALUE_CHANGE, itemName, value };
+}
+export function setFlowId(flowId) {
+  return { type: SELECT_FLOW, flowId };
 }

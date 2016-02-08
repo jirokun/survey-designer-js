@@ -55,7 +55,8 @@ export function makeCytoscapeElements(state) {
     return {
       data: {
         id: def.id
-      }
+      },
+      classes: def.type === 'page' ? 'page' : 'branch'
     };
   });
   const edges = flowDefs.map((def) => {
@@ -73,6 +74,7 @@ export function makeCytoscapeElements(state) {
         return {
           data: {
             id: `__edge-${uuid.v1()}`,
+            label: `${c.question}==${c.value}`,
             source: def.id,
             target: c.nextFlowId
           }

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import undoable, { distinctState } from 'redux-undo'
-import { CHANGE_DEFS, VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from './constants'
+import { SELECT_FLOW, CHANGE_DEFS, VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from '../constants'
 import { findPage, findFlow, findValue, findConditions } from '../utils'
 
 /**
@@ -45,6 +45,8 @@ function nextFlowPage(state, flowId) {
 function showPage(state, action) {
   const { currentFlowId, flowStack } = state.values;
   switch (action.type) {
+    case SELECT_FLOW:
+      return { currentFlowId: action.flowId, flowStack: [] };
     case NEXT_PAGE:
       const nextFlow = nextFlowPage(state, currentFlowId);
       return { currentFlowId: nextFlow.id, flowStack: [...flowStack, currentFlowId]};

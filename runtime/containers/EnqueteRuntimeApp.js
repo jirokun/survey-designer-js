@@ -5,18 +5,30 @@ import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '.
 import Page from '../components/Page'
 import { findPage, findFlow } from '../../utils'
 import * as EnqueteActions from '../actions'
+import { CHANGE_DEFS, SELECT_FLOW } from '../../constants'
 
 class EnqueteRuntuimeApp extends Component {
   componentDidMount() {
     // iframe用の処理
     if (window) {
-      window.addEventListener('message', this.changeDefs.bind(this), false);
+      window.addEventListener('message', this.onMessage.bind(this), false);
     }
   }
-  changeDefs(e) {
+  onMessage(e) {
     const { state, actions } = this.props;
-    const { defsName, defs } = JSON.parse(e.data);
-    actions.changeDefs(defsName, defs);
+    const action = JSON.parse(e.data);
+    switch (action.type) {
+      case CHANGE_DEFS:
+        const { defsName, defs } = JSON.parse(e.data);
+        actions.changeDefs(defsName, defs);
+        break;
+      case SELECT_FLOW:
+        const { flowId } = JSON.parse(e.data);
+        actions.setFlowId(flowId);
+        break;
+      default:
+        break;
+    }
   }
   render() {
     const { state, actions } = this.props;
