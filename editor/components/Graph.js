@@ -65,12 +65,8 @@ export default class Graph extends Component {
       onFlowSelected(flow.id, getPreviewWindow);
     });
   }
-  componentWillUnmount() {
-  }
   shouldComponentUpdate(nextProps, nextState) {
-    const { flowDefs, conditionDefs } = this.props.state.defs;
-    const { newFlowDefs, newConditionDefs } = nextProps.state.defs;
-    return true;
+    return JSON.stringify(nextProps.state.defs) != JSON.stringify(this.props.state.defs);
   }
   componentDidUpdate() {
     const { state } = this.props;

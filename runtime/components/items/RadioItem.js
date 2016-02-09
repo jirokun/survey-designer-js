@@ -8,9 +8,9 @@ export default class RadioItem extends Component {
   makeRadio() {
     const { state, item } = this.props;
     const value = this.props.state.values.inputValues[item.itemName];
-    return findChoices(state, item.id).map((choice) => {
+    return findChoices(state, item.id).map((choice, i) => {
       return (
-        <label key={choice.id}>
+        <label key={item.id + i}>
           <input type="radio" name={item.itemName} value={choice.value} onChange={this.handleChange.bind(this)} checked={value === choice.value}/>
           {choice.label}
         </label>
@@ -29,10 +29,4 @@ export default class RadioItem extends Component {
 }
 
 RadioItem.propTypes = {
-  itemTitle: PropTypes.string,
-  itemName: PropTypes.string,
-  choices: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
-  }).isRequired).isRequired
 };

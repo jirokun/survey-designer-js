@@ -10,7 +10,7 @@ export default class HotEditorTabBase extends Component {
     this.colWidths = colWidths;
   }
   componentDidMount() {
-    const data = this.props.state.defs[this.defsName];
+    const data = this.props.state.defs[this.defsName].slice(); // clone
     this.hot = new Handsontable(this.refs.hot, {
       colHeaders: this.colHeaders,
       columns: this.columns,

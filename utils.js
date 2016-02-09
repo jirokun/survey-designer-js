@@ -92,3 +92,7 @@ export function flatten(ary) {
     return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
   }, []);
 }
+/** オブジェクトをcloneする */
+export function cloneObj(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}

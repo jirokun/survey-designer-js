@@ -12,9 +12,9 @@ export default class CheckboxItem extends Component {
   makeCheckbox() {
     const { state, item } = this.props;
     const value = state.values.inputValues[item.itemName] || {};
-    return findChoices(state, item.id).map((choice) => {
+    return findChoices(state, item.id).map((choice, i) => {
       return (
-        <label key={choice.id}>
+        <label key={item.id + i}>
           <input id={choice.id} type="checkbox" name={item.itemName} value={choice.value} onChange={this.handleChange.bind(this)} checked={value[choice.value]}/>
           {choice.label}
         </label>
@@ -33,10 +33,5 @@ export default class CheckboxItem extends Component {
 }
 
 CheckboxItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  choices: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
-  }).isRequired).isRequired
 };
 

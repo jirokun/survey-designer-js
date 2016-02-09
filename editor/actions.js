@@ -1,4 +1,4 @@
-import { CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { GRAPH, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 export function changeDefs(defsName, defs, getPreviewWindow) {
   const previewWindow = getPreviewWindow();
   if (previewWindow) {
@@ -19,6 +19,7 @@ export function selectFlow(flowId, getPreviewWindow) {
   }
   return {
     type: SELECT_FLOW,
+    from: GRAPH,
     flowId
   }
 }

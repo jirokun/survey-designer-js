@@ -20,6 +20,4 @@ export default class TextItem extends Component {
 }
 
 TextItem.propTypes = {
-  itemTitle: PropTypes.string,
-  itemName: PropTypes.string,
 };

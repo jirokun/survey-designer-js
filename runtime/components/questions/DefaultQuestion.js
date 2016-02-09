@@ -7,7 +7,7 @@ export default class DefaultQuestion extends Component {
   makeItems() {
     const { question, valueChange, state } = this.props;
     return findItems(state, question.id).map((item) => {
-      return React.createElement(findItemConstructor(item.itemType), Object.assign({}, { item, state, valueChange }));
+      return React.createElement(findItemConstructor(item.itemType), Object.assign({}, { item, state, valueChange, key: item.id }));
     });
   }
   render() {
@@ -22,5 +22,4 @@ export default class DefaultQuestion extends Component {
 }
 
 DefaultQuestion.propTypes = {
-  questionTitle: PropTypes.string.isRequired
 };
