@@ -57,11 +57,15 @@ export function makeCytoscapeElements(state) {
         id: def.id,
         label: `${def.id} (${def.pageId})`
       },
-      classes: def.type === 'page' ? 'page' : 'branch'
+      classes: def.type === 'branch' ? 'branch' : 'page'
     };
   });
   const edges = flowDefs.map((def) => {
     if (def.type === 'page') {
+      // sourceが入っているとedgeとして解釈されてしまうため
+      // pageかつnextflowIdが定義されてない場合はここでは作成しない。
+      // 後でfilterする
+      if (!def.nextFlowId || def.nextFlowId === '') return null; 
       return {
         data: {
           id: `__edge-${def.id}-${uuid.v1()}`,
@@ -83,7 +87,7 @@ export function makeCytoscapeElements(state) {
       });
       return ret;
     }
-  });
+  }).filter((edge) => { return edge !== null });
   const mergedElements = elements.concat(flatten(edges));
   return mergedElements.filter((e) => { return e != null; });
 }
