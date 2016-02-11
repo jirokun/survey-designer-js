@@ -12,7 +12,8 @@ export default class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rightClickPosition: null
+      rightClickPosition: null,
+      connectMode: false
     };
   }
   componentDidMount() {
@@ -96,14 +97,14 @@ export default class Graph extends Component {
     this.cy.cxtmenu({
       selector: 'node.page',
       commands: [
-        { content: 'connect flow', select: (ele) => { console.log(ele.id()); }},
+        { content: 'connect flow', select: this.connectFlow.bind(this) },
         { content: 'remove page flow', select: this.removeFlow.bind(this) }
       ]
     });
     this.cy.cxtmenu({
       selector: 'node.branch',
       commands: [
-        { content: 'connect flow', select: (ele) => { console.log(ele.id()); }},
+        { content: 'connect flow', select: this.connectFlow.bind(this) },
         { content: 'remove branch flow', select: this.removeFlow.bind(this) }
       ]
     });
@@ -113,12 +114,14 @@ export default class Graph extends Component {
       this.setState({ updating: false });
       return false;
     }
-    return JSON.stringify(nextProps.state.defs) != JSON.stringify(this.props.state.defs);
+    return true;
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     const { state } = this.props;
     const elements = makeCytoscapeElements(state);
-    this.cy.load(elements);
+    if (JSON.stringify(prevProps.state.defs) != JSON.stringify(this.props.state.defs)) {
+      this.cy.load(elements);
+    }
   }
   /** page flowを追加 */
   addPage() {
@@ -151,6 +154,41 @@ export default class Graph extends Component {
     this.setState({ updating: true });
     onDefsChange('flowDefs', flowDefs, this.props.getPreviewWindow);
   }
+  connectFlow(ele) {
+    const { state, onDefsChange, getPreviewWindow } = this.props;
+    const flowId = ele.id();
+    this.setState({ connectMode: true });
+    this.cy.on('click', (e) => {
+      if (this.state.connectMode !== true) return;
+      this.setState({ connectMode: false });
+      const target = e.cyTarget;
+      if (!target.isNode || !target.isNode()) return;
+      const targetFlowId = target.id();
+      let newState = cloneObj(state);
+      let sourceFlow = findFlow(newState, flowId);
+      if (sourceFlow.type === 'page') {
+        this.cy.add({
+          data: { source: sourceFlow.id, target: targetFlowId }
+        });
+        this.setState({ updating: true });
+        sourceFlow.nextFlowId = targetFlowId;
+        onDefsChange('flowDefs', newState.defs.flowDefs, getPreviewWindow);
+      } else if (sourceFlow.type === 'branch') {
+        this.cy.add({
+          data: { source: sourceFlow.id, target: targetFlowId }
+        });
+        this.setState({ updating: true });
+        newState.defs.conditionDefs.push({
+          flowId: sourceFlow.id,
+          type: 'if',
+          nextFlowId: targetFlowId
+        });
+        onDefsChange('conditionDefs', newState.defs.conditionDefs, getPreviewWindow);
+      } else {
+        throw 'unknown flow type: ' + sourceFlow.type;
+      }
+    });
+  }
   autoLayout() {
     this.cy.layout();
   }
@@ -160,8 +198,8 @@ export default class Graph extends Component {
     const { state } = this.props;
     const href = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(state, null, 2));
     return (
-      <div ref="graph" className="graph">
-        <div className="controller btn-group">
+      <div ref="graph" className={ this.state.connectMode ? "graph connect-mode" : "graph" }>
+        <div className="graph-controller btn-group">
           <button className="btn btn-default btn-sm" onClick={this.autoLayout.bind(this)}><span className="glyphicon glyphicon-th"></span></button>
           <a className="btn btn-default btn-sm" href={href} download="enquete.json"><span className="glyphicon glyphicon-floppy-save"></span></a>
           <button className="btn btn-default btn-sm" onClick={this.load.bind(this)}><span className="glyphicon glyphicon-floppy-open"></span></button>

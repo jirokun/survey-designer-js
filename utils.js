@@ -1,7 +1,6 @@
 import CheckboxItem from './runtime/components/items/CheckboxItem'
 import RadioItem from './runtime/components/items/RadioItem'
 import TextItem from './runtime/components/items/TextItem'
-import uuid from 'node-uuid'
 
 /**
  * Itemを探す
@@ -78,7 +77,6 @@ export function makeCytoscapeElements(state) {
       if (!def.nextFlowId || def.nextFlowId === '') return null; 
       return {
         data: {
-          id: `__edge-${def.id}-${uuid.v1()}`,
           source: def.id,
           target: def.nextFlowId
         }
@@ -88,7 +86,6 @@ export function makeCytoscapeElements(state) {
       const ret = conditionDefs.map((c) => {
         return {
           data: {
-            id: `__edge-${uuid.v1()}`,
             label: `${c.question}==${c.value}`,
             source: def.id,
             target: c.nextFlowId
