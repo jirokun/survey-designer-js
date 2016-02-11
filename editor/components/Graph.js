@@ -90,20 +90,21 @@ export default class Graph extends Component {
       selector: 'core',
       commands: [
         { content: 'add page flow', select: this.addPage.bind(this) },
-        { content: 'add branch flow', select: this.addBranch.bind(this) },
+        { content: 'add branch flow', select: this.addBranch.bind(this) }
       ]
     });
     this.cy.cxtmenu({
       selector: 'node.page',
       commands: [
         { content: 'connect flow', select: (ele) => { console.log(ele.id()); }},
-        { content: 'remove page flow', select: (ele) => { console.log(ele.id()); }},
+        { content: 'remove page flow', select: this.removeFlow.bind(this) }
       ]
     });
     this.cy.cxtmenu({
       selector: 'node.branch',
       commands: [
-        { content: 'remove branch flow', select: (ele) => { console.log(ele.id()); }}
+        { content: 'connect flow', select: (ele) => { console.log(ele.id()); }},
+        { content: 'remove branch flow', select: this.removeFlow.bind(this) }
       ]
     });
   }
@@ -137,6 +138,16 @@ export default class Graph extends Component {
     });
     let flowDefs = cloneObj(state.defs.flowDefs);
     flowDefs.push({ id: flowId, type: type });
+    this.setState({ updating: true });
+    onDefsChange('flowDefs', flowDefs, this.props.getPreviewWindow);
+  }
+  removeFlow(ele) {
+    const { state, onDefsChange } = this.props;
+    const flowId = ele.id();
+    this.cy.remove('#' + flowId);
+    let flowDefs = cloneObj(state.defs.flowDefs);
+    const index = flowDefs.findIndex((def) => { return def.id === flowId; });
+    flowDefs.splice(index, 1);
     this.setState({ updating: true });
     onDefsChange('flowDefs', flowDefs, this.props.getPreviewWindow);
   }
