@@ -4,3 +4,4 @@ export const PREV_PAGE = 'PREV_PAGE';
 export const VALUE_CHANGE = 'VALUE_CHANGE';
 export const SELECT_FLOW = 'SELECT_FLOW';
 export const GRAPH = 'GRAPH';
+export const INIT_ALL_DEFS = 'INIT_ALL_DEFS';

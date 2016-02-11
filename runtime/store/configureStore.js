@@ -1,7 +1,21 @@
 import { createStore } from 'redux'
 import rootReducer from '../reducers'
 
-export default function configureStore(initialState) {
+var defaultState = {
+  defs: {
+    choiceDefs: [],
+    itemDefs: [],
+    questionDefs: [],
+    pageDefs: [],
+    conditionDefs: [],
+    flowDefs: []
+  },
+  values: {
+    flowStack: [],
+    inputValues: {}
+  }
+};
+export default function configureStore(initialState = defaultState) {
   const store = createStore(rootReducer, initialState);
 
   if (module.hot) {

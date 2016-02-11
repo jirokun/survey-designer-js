@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import undoable, { distinctState } from 'redux-undo'
-import { SELECT_FLOW, CHANGE_DEFS, VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from '../constants'
-import { findPage, findFlow, findValue, findConditions } from '../utils'
+import { INIT_ALL_DEFS, SELECT_FLOW, CHANGE_DEFS, VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from '../constants'
+import { cloneObj, findPage, findFlow, findValue, findConditions } from '../utils'
 
 /**
  * branchを評価する
@@ -69,8 +69,10 @@ function changeValue(state, action) {
   }
 }
 function changeDefs(state, action) {
-  let newState = Object.assign({}, state.defs);
+  let newState = cloneObj(state.defs);
   switch (action.type) {
+    case INIT_ALL_DEFS:
+      return cloneObj(action.allDefs);
     case CHANGE_DEFS:
       newState[action.defsName] = action.defs;
       return newState;
@@ -80,6 +82,17 @@ function changeDefs(state, action) {
 }
 
 export default function reducer(state, action) {
+  if (action.type == INIT_ALL_DEFS) {
+    // 初期化処理だけ別処理
+    return {
+      values: {
+        currentFlowId: action.allDefs.flowDefs[0].id,
+        flowStack: [],
+        inputValues: [],
+      },
+      defs: cloneObj(action.allDefs)
+    };
+  }
   const{ currentFlowId, flowStack } = showPage(state, action);
   return {
     values: {

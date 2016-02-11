@@ -15,6 +15,13 @@ export default class EnqueteEditorApp extends Component {
     super(props);
     this.state = {tab: 'FlowsTab'};
   }
+  componentDidMount() {
+    const previewWindow = this.refs.previewWindow;
+    const { state, actions } = this.props;
+    previewWindow.addEventListener('load', (e) => {
+      actions.initializeDefs(state.defs, previewWindow);
+    }, false);
+  }
   getPreviewWindow() {
     return this.refs.previewWindow;
   }
