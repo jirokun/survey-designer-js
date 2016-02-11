@@ -54,7 +54,8 @@ export function makeCytoscapeElements(state) {
   const elements = flowDefs.map((def) => {
     return {
       data: {
-        id: def.id
+        id: def.id,
+        label: `${def.id} (${def.pageId})`
       },
       classes: def.type === 'page' ? 'page' : 'branch'
     };

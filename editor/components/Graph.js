@@ -20,7 +20,7 @@ export default class Graph extends Component {
             'background-color': '#666',
             'border-width': 3,
             'border-color': '#666',
-            'label': 'data(id)'
+            'label': 'data(label)'
           }
         },
         {
@@ -52,7 +52,6 @@ export default class Graph extends Component {
       ],
       layout: {
         name: 'breadthfirst',
-        spacingFactor: 2.5,
         directed: true
       }
     });
