@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { findFlow } from '../../utils'
+import { cloneObj, findFlow } from '../../utils'
 
 export default class HotEditorTabBase extends Component {
   constructor(props, defsName, colHeaders, columns, colWidths) {
@@ -8,9 +8,10 @@ export default class HotEditorTabBase extends Component {
     this.colHeaders = colHeaders;
     this.columns = columns;
     this.colWidths = colWidths;
+    this.state = { updating: false };
   }
   componentDidMount() {
-    const data = this.props.state.defs[this.defsName].slice(); // clone
+    const data = cloneObj(this.props.state.defs[this.defsName]);
     this.hot = new Handsontable(this.refs.hot, {
       colHeaders: this.colHeaders,
       columns: this.columns,
@@ -31,6 +32,13 @@ export default class HotEditorTabBase extends Component {
       data: data,
       afterChange: this.afterChange.bind(this)
     });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.state.updating === true) {
+      this.setState({ updating: false });
+    } else {
+      this.hot.loadData(cloneObj(nextProps.state.defs[this.defsName]));
+    }
   }
   componentWillUnmount() {
     this.hot.destroy();

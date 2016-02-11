@@ -30,3 +30,11 @@ export function selectFlow(flowId, getPreviewWindow) {
     flowId
   }
 }
+export function addFlow(getPreviewWindow) {
+}
+export function deleteFlow(flowId, getPreviewWindow) {
+}
+export function addEdge(getPreviewWindow) {
+}
+export function deleteEdge(edgeId, getPreviewWindow) {
+}

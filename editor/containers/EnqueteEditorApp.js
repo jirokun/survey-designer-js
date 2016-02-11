@@ -54,7 +54,7 @@ export default class EnqueteEditorApp extends Component {
     return (
       <div>
         <div className="left" ref="left">
-          <Graph state={state} onFlowSelected={actions.selectFlow} getPreviewWindow={this.getPreviewWindow.bind(this)}/>
+          <Graph state={state} onFlowSelected={actions.selectFlow} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs} />
         </div>
         <div className="right" ref="right">
           <div className="hot-pane">

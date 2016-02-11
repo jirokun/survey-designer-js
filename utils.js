@@ -47,6 +47,16 @@ export function findChoices(state, itemId) {
 export function findConditions(state, flowId) {
   return state.defs.conditionDefs.filter((def) => def.flowId === flowId);
 }
+/** ユニークとなるflowIdを返す */
+export function nextFlowId(state) {
+  let i = 0;
+  while (true) {
+    let nextId = `flow${i++}`;
+    if (findFlow(state, nextId) == null) {
+      return nextId;
+    }
+  }
+}
 
 /** flowDefs,condionDefsからcytoscape用のelementsを作成する */
 export function makeCytoscapeElements(state) {
