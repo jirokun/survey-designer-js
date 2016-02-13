@@ -25,7 +25,12 @@ export default class Graph extends Component {
     const { state } = this.props;
     const elements = makeCytoscapeElements(state);
     if (JSON.stringify(prevProps.state.defs) != JSON.stringify(this.props.state.defs)) {
+      const zoom = this.cy.zoom();
+      const pan = this.cy.pan();
       this.cy.load(elements);
+      // zoomとpanが更新されないように上書きする
+      this.cy.zoom(zoom);
+      this.cy.pan(pan);
     }
   }
   // event listener
@@ -187,6 +192,9 @@ export default class Graph extends Component {
       ]
     });
   }
+  fit() {
+    this.cy.fit();
+  }
   autoLayout() {
     const { actions } = this.props;
     this.cy.layout({ name: 'breadthfirst', directed: true });
@@ -207,6 +215,7 @@ export default class Graph extends Component {
     return (
       <div ref="graph" className={ this.state.connectMode ? "graph connect-mode" : "graph" }>
         <div className="graph-controller btn-group">
+          <button className="btn btn-default btn-sm" onClick={this.fit.bind(this)}><span className="glyphicon glyphicon-screenshot"></span></button>
           <button className="btn btn-default btn-sm" onClick={this.autoLayout.bind(this)}><span className="glyphicon glyphicon-th"></span></button>
           <a className="btn btn-default btn-sm" href={href} download="enquete.json"><span className="glyphicon glyphicon-floppy-save"></span></a>
           <input id="fileInput" type="file" onChange={this.onFileSelected.bind(this)} accept=".json"/>

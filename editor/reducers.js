@@ -52,6 +52,7 @@ function connectFlow(state, sourceFlowId, dstFlowId) {
       nextFlowId: dstFlowId
     });
   } else {
+    // デフォルトはpage
     throw 'unknown flow type: ' + sourceFlow.type;
   }
   return state;
@@ -72,7 +73,6 @@ export default function reducer(state, action) {
     newState.values.currentFlowId = action.flowId;
     return newState;
   case ADD_PAGE_FLOW:
-    debugger;
     return addFlow(newState, action.x, action.y, 'page');
   case ADD_BRANCH_FLOW:
     return addFlow(newState, action.x, action.y, 'branch');

@@ -30,6 +30,7 @@ export default class HotEditorTabBase extends Component {
       height: 400,
       minSpareRows: 1,
       data: data,
+      beforeChange: this.beforeChange.bind(this),
       afterChange: this.afterChange.bind(this)
     });
   }
@@ -42,6 +43,12 @@ export default class HotEditorTabBase extends Component {
   }
   componentWillUnmount() {
     this.hot.destroy();
+  }
+  findColumnIndex(columnName) {
+    const columns = this.hot.getSettings().columns;
+    return columns.findIndex((col) => col.data === columnName);
+  }
+  beforeChange(changes, source) {
   }
   afterChange(changes, source) {
     if (source === 'loadData') return;
