@@ -68,29 +68,19 @@ export default class Graph extends Component {
   }
   /** page flowを追加 */
   addPage() {
-    this.addFlow('page');
+    const { actions, getPreviewWindow } = this.props;
+    const { x, y } = this.state.rightClickPosition;
+    actions.addPageFlow(x, y, getPreviewWindow);
   }
   /** branch flowを追加 */
   addBranch() {
-    this.addFlow('branch');
-  }
-  addFlow(type) {
-    const { state, actions } = this.props;
-    const flowId = nextFlowId(state);
-    const positionDefs = cloneObj(state.defs.positionDefs);
-
-    const position = this.state.rightClickPosition;
-    positionDefs.push({ flowId, x: position.x, y: position.y });
-    actions.changeDefs('positionDefs', positionDefs, this.props.getPreviewWindow);
-
-    const flowDefs = cloneObj(state.defs.flowDefs);
-    flowDefs.push({ id: flowId, type: type });
-    actions.changeDefs('flowDefs', flowDefs, this.props.getPreviewWindow);
+    const { actions, getPreviewWindow } = this.props;
+    const { x, y } = this.state.rightClickPosition;
+    actions.addBranchFlow(x, y, getPreviewWindow);
   }
   removeFlow(ele) {
     const { state, onDefsChange } = this.props;
     const flowId = ele.id();
-    this.cy.remove('#' + flowId);
     let flowDefs = cloneObj(state.defs.flowDefs);
     const index = flowDefs.findIndex((def) => { return def.id === flowId; });
     flowDefs.splice(index, 1);
