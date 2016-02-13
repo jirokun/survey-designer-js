@@ -59,7 +59,7 @@ export function nextFlowId(state) {
   let i = 0;
   for (;;) {
     let nextId = `flow${i++}`;
-    if (findFlow(state, nextId) === null) {
+    if (!findFlow(state, nextId)) {
       return nextId;
     }
   }
@@ -112,7 +112,7 @@ export function makeCytoscapeElements(state) {
         };
       });
     } else {
-      throw 'unkown flow type: ' + def.type;
+      return null;
     }
   }).filter((edge) => edge !== null);
   const mergedElements = elements.concat(flatten(edges));

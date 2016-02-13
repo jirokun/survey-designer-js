@@ -157,6 +157,7 @@ export default class Graph extends Component {
     this.cy.on("click", 'node.page', this.onClickNodePage.bind(this));
     this.cy.on('click', this.finishConnectFlow.bind(this));
     this.cy.on('cxttapstart', this.onCxtTapstart.bind(this));
+    this.cy.on('tapstart', this.onCxtTapstart.bind(this));
     this.cy.on('tapend', 'node', this.onPositionChange.bind(this));
     this.cy.cxtmenu({
       selector: 'edge',
