@@ -3,6 +3,15 @@ export default {
     title: "sample enquete",
     creator: "Jiro Corporation",
     version: 1,
+    positionDefs: [
+      {"x":139.5,"y":168,"flowId":"flow1"},
+      {"x":149.5,"y":336,"flowId":"flow2"},
+      {"x":199.5,"y":504,"flowId":"flow3"},
+      {"x":31.5,"y":672,"flowId":"flow4"},
+      {"x":199.5,"y":672,"flowId":"flow5"},
+      {"x":367.5,"y":672,"flowId":"flow6"},
+      {"x":199.5,"y":840,"flowId":"flow7"}
+    ],
     choiceDefs: [
       { itemId: 'item1', label: '選択肢1-1', value: "hoge1" },
       { itemId: 'item1', label: '選択肢1-2', value: "hoge2" },

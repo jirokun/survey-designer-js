@@ -57,15 +57,27 @@ export function nextFlowId(state) {
   }
 }
 
+/** flowIdからpositionを取得する */
+export function findPosition(state, flowId) {
+  const { positionDefs } = state.defs;
+  return positionDefs.find((pos) => {
+    return pos.flowId === flowId;
+  });
+}
 /** flowDefs,condionDefsからcytoscape用のelementsを作成する */
 export function makeCytoscapeElements(state) {
   const { flowDefs, condionDefs } = state.defs;
   const elements = flowDefs.map((def) => {
+    let pos = findPosition(state, def.id);
+    if (pos == null) {
+      pos = {x: 0, y: 0};
+    }
     return {
       data: {
         id: def.id,
         label: `${def.id} (${def.pageId})`
       },
+      position: { x: pos.x, y: pos.y },
       classes: def.type === 'branch' ? 'branch' : 'page'
     };
   });

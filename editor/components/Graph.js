@@ -17,6 +17,93 @@ export default class Graph extends Component {
     };
   }
   componentDidMount() {
+    this.cy = this.makeCytoscape();
+    this.addEventListenerToCytoscape();
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.updating === true) {
+      this.setState({ updating: false });
+      return false;
+    }
+    return true;
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const { state } = this.props;
+    const elements = makeCytoscapeElements(state);
+    if (JSON.stringify(prevProps.state.defs) != JSON.stringify(this.props.state.defs)) {
+      this.cy.load(elements);
+    }
+  }
+  // event listener
+
+  /** page flowを追加 */
+  addPage() {
+    this.addFlow('page');
+  }
+  /** branch flowを追加 */
+  addBranch() {
+    this.addFlow('branch');
+  }
+  addFlow(type) {
+    const { state, onDefsChange } = this.props;
+    const flowId = nextFlowId(state);
+    this.cy.add({
+      data: { id: flowId, label: flowId + '()' },
+      classes: type,
+      position: this.state.rightClickPosition
+    });
+    let flowDefs = cloneObj(state.defs.flowDefs);
+    flowDefs.push({ id: flowId, type: type });
+    this.setState({ updating: true });
+    onDefsChange('flowDefs', flowDefs, this.props.getPreviewWindow);
+  }
+  removeFlow(ele) {
+    const { state, onDefsChange } = this.props;
+    const flowId = ele.id();
+    this.cy.remove('#' + flowId);
+    let flowDefs = cloneObj(state.defs.flowDefs);
+    const index = flowDefs.findIndex((def) => { return def.id === flowId; });
+    flowDefs.splice(index, 1);
+    this.setState({ updating: true });
+    onDefsChange('flowDefs', flowDefs, this.props.getPreviewWindow);
+  }
+  connectFlow(ele) {
+    const { state, onDefsChange, getPreviewWindow } = this.props;
+    const flowId = ele.id();
+    this.setState({ connectMode: true });
+    // TODO これは一度実行すればOK
+    this.cy.on('click', (e) => {
+      if (this.state.connectMode !== true) return;
+      this.setState({ connectMode: false });
+      const target = e.cyTarget;
+      if (!target.isNode || !target.isNode()) return;
+      const targetFlowId = target.id();
+      let newState = cloneObj(state);
+      let sourceFlow = findFlow(newState, flowId);
+      if (sourceFlow.type === 'page') {
+        this.cy.add({
+          data: { source: sourceFlow.id, target: targetFlowId }
+        });
+        this.setState({ updating: true });
+        sourceFlow.nextFlowId = targetFlowId;
+        onDefsChange('flowDefs', newState.defs.flowDefs, getPreviewWindow);
+      } else if (sourceFlow.type === 'branch') {
+        this.cy.add({
+          data: { source: sourceFlow.id, target: targetFlowId }
+        });
+        this.setState({ updating: true });
+        newState.defs.conditionDefs.push({
+          flowId: sourceFlow.id,
+          type: 'if',
+          nextFlowId: targetFlowId
+        });
+        onDefsChange('conditionDefs', newState.defs.conditionDefs, getPreviewWindow);
+      } else {
+        throw 'unknown flow type: ' + sourceFlow.type;
+      }
+    });
+  }
+  makeCytoscape() {
     const data = this.props.state.defs[this.defsName];
     const { state, onFlowSelected, getPreviewWindow,
       onDeleteFlow, onAddFlow,
@@ -24,7 +111,7 @@ export default class Graph extends Component {
     } = this.props;
     const elements = makeCytoscapeElements(state);
     const _this = this;
-    this.cy = cytoscape({
+    return cytoscape({
       container: this.refs.graph, // container to render in
       elements: elements,
       style: [ // the stylesheet for the graph
@@ -65,10 +152,13 @@ export default class Graph extends Component {
         }
       ],
       layout: {
-        name: 'breadthfirst',
-        directed: true
+        name: 'preset'
       }
     });
+  }
+  addEventListenerToCytoscape() {
+    const _this = this;
+    // TODO 全部メソッドに移動すべき
     this.cy.on("click", 'node.page', (e) => {
       const data = e.cyTarget.data();
       const flow = findFlow(state, data.id);
@@ -80,6 +170,13 @@ export default class Graph extends Component {
     this.cy.on('cxttapstart', (e) => {
       // nodeを追加するポイントを記録しておく
       _this.state.rightClickPosition = e.cyPosition;
+    });
+    this.cy.on('position', (e) => {
+      const node = e.cyTarget;
+      const flowId = node.data('id');
+      const { x, y } = node.position();
+      console.log(node.data('id'));
+      // TODO positionDefsを更新
     });
     this.cy.cxtmenu({
       selector: 'edge',
@@ -108,91 +205,16 @@ export default class Graph extends Component {
         { content: 'remove branch flow', select: this.removeFlow.bind(this) }
       ]
     });
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.updating === true) {
-      this.setState({ updating: false });
-      return false;
-    }
-    return true;
-  }
-  componentDidUpdate(prevProps, prevState) {
-    const { state } = this.props;
-    const elements = makeCytoscapeElements(state);
-    if (JSON.stringify(prevProps.state.defs) != JSON.stringify(this.props.state.defs)) {
-      this.cy.load(elements);
-    }
-  }
-  /** page flowを追加 */
-  addPage() {
-    this.addFlow('page');
-  }
-  /** branch flowを追加 */
-  addBranch() {
-    this.addFlow('branch');
-  }
-  addFlow(type) {
-    const { state, onDefsChange } = this.props;
-    const flowId = nextFlowId(state);
-    this.cy.add({
-      data: { id: flowId, label: flowId + '()' },
-      classes: type,
-      position: this.state.rightClickPosition
-    });
-    let flowDefs = cloneObj(state.defs.flowDefs);
-    flowDefs.push({ id: flowId, type: type });
-    this.setState({ updating: true });
-    onDefsChange('flowDefs', flowDefs, this.props.getPreviewWindow);
-  }
-  removeFlow(ele) {
-    const { state, onDefsChange } = this.props;
-    const flowId = ele.id();
-    this.cy.remove('#' + flowId);
-    let flowDefs = cloneObj(state.defs.flowDefs);
-    const index = flowDefs.findIndex((def) => { return def.id === flowId; });
-    flowDefs.splice(index, 1);
-    this.setState({ updating: true });
-    onDefsChange('flowDefs', flowDefs, this.props.getPreviewWindow);
-  }
-  connectFlow(ele) {
-    const { state, onDefsChange, getPreviewWindow } = this.props;
-    const flowId = ele.id();
-    this.setState({ connectMode: true });
-    this.cy.on('click', (e) => {
-      if (this.state.connectMode !== true) return;
-      this.setState({ connectMode: false });
-      const target = e.cyTarget;
-      if (!target.isNode || !target.isNode()) return;
-      const targetFlowId = target.id();
-      let newState = cloneObj(state);
-      let sourceFlow = findFlow(newState, flowId);
-      if (sourceFlow.type === 'page') {
-        this.cy.add({
-          data: { source: sourceFlow.id, target: targetFlowId }
-        });
-        this.setState({ updating: true });
-        sourceFlow.nextFlowId = targetFlowId;
-        onDefsChange('flowDefs', newState.defs.flowDefs, getPreviewWindow);
-      } else if (sourceFlow.type === 'branch') {
-        this.cy.add({
-          data: { source: sourceFlow.id, target: targetFlowId }
-        });
-        this.setState({ updating: true });
-        newState.defs.conditionDefs.push({
-          flowId: sourceFlow.id,
-          type: 'if',
-          nextFlowId: targetFlowId
-        });
-        onDefsChange('conditionDefs', newState.defs.conditionDefs, getPreviewWindow);
-      } else {
-        throw 'unknown flow type: ' + sourceFlow.type;
-      }
-    });
+
   }
   autoLayout() {
-    this.cy.layout();
+    this.cy.layout({ name: 'breadthfirst', directed: true });
   }
   load() {
+    var defs = this.cy.json().elements.nodes.map((el) => {
+      return { x: el.position.x, y: el.position.y, flowId: el.data.id };
+    });
+    console.log(this.cy.json().elements.nodes);
   }
   render() {
     const { state } = this.props;
