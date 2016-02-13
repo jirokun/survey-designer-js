@@ -56,7 +56,6 @@ export function nextFlowId(state) {
     }
   }
 }
-
 /** flowIdからpositionを取得する */
 export function findPosition(state, flowId) {
   const { positionDefs } = state.defs;
@@ -69,7 +68,7 @@ export function makeCytoscapeElements(state) {
   const { flowDefs, condionDefs } = state.defs;
   const elements = flowDefs.map((def) => {
     let pos = findPosition(state, def.id);
-    if (pos == null) {
+    if (!pos) {
       pos = {x: 0, y: 0};
     }
     return {

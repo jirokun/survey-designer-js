@@ -51,10 +51,11 @@ export default class EnqueteEditorApp extends Component {
   render() {
     const _this = this;
     const { state, actions } = this.props;
+    console.log(state);
     return (
       <div>
         <div className="left" ref="left">
-          <Graph state={state} onFlowSelected={actions.selectFlow} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs} />
+          <Graph state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} actions={actions} />
         </div>
         <div className="right" ref="right">
           <div className="hot-pane">
