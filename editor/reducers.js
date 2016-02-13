@@ -1,6 +1,4 @@
-import { combineReducers } from 'redux'
-import undoable, { distinctState } from 'redux-undo'
-import { nextFlowId, cloneObj, findPage, findFlow, findValue, findConditions } from '../utils'
+import { nextFlowId, cloneObj, findFlow, findConditions } from '../utils'
 import { LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 
 function addFlow(state, x, y, type) {

@@ -24,7 +24,6 @@ export default class Graph extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { state } = this.props;
     const elements = makeCytoscapeElements(state);
-    console.log(elements);
     if (JSON.stringify(prevProps.state.defs) != JSON.stringify(this.props.state.defs)) {
       this.cy.load(elements);
     }

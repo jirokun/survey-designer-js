@@ -2,6 +2,11 @@ import CheckboxItem from './runtime/components/items/CheckboxItem'
 import RadioItem from './runtime/components/items/RadioItem'
 import TextItem from './runtime/components/items/TextItem'
 
+export function flatten(ary) {
+  return ary.reduce((p, c) => {
+    return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
+  }, []);
+}
 /**
  * Itemを探す
  *
@@ -13,9 +18,12 @@ export function findItemConstructor(name) {
     RadioItem,
     TextItem
   };
-  if (items[name]) return items[name];
-  else if (typeof(window) !== 'undefined' && window[name]) return window[name];
-  else throw 'Item is not defined: ' + name;
+  if (items[name]) {
+    return items[name];
+  } else if (typeof window !== 'undefined' && window[name]) {
+    return window[name];
+  }
+  throw 'Item is not defined: ' + name;
 }
 
 /** stateからflowを探す */
@@ -49,9 +57,9 @@ export function findConditions(state, flowId) {
 /** ユニークとなるflowIdを返す */
 export function nextFlowId(state) {
   let i = 0;
-  while (true) {
+  for (;;) {
     let nextId = `flow${i++}`;
-    if (findFlow(state, nextId) == null) {
+    if (findFlow(state, nextId) === null) {
       return nextId;
     }
   }
@@ -59,13 +67,11 @@ export function nextFlowId(state) {
 /** flowIdからpositionを取得する */
 export function findPosition(state, flowId) {
   const { positionDefs } = state.defs;
-  return positionDefs.find((pos) => {
-    return pos.flowId === flowId;
-  });
+  return positionDefs.find((pos) => pos.flowId === flowId);
 }
 /** flowDefs,condionDefsからcytoscape用のelementsを作成する */
 export function makeCytoscapeElements(state) {
-  const { flowDefs, condionDefs } = state.defs;
+  const { flowDefs } = state.defs;
   const elements = flowDefs.map((def) => {
     let pos = findPosition(state, def.id);
     if (!pos) {
@@ -85,7 +91,9 @@ export function makeCytoscapeElements(state) {
       // sourceが入っているとedgeとして解釈されてしまうため
       // pageかつnextflowIdが定義されてない場合はここでは作成しない。
       // 後でfilterする
-      if (!def.nextFlowId || def.nextFlowId === '') return null; 
+      if (!def.nextFlowId || def.nextFlowId === '') {
+        return null;
+      }
       return {
         data: {
           source: def.id,
@@ -94,27 +102,23 @@ export function makeCytoscapeElements(state) {
       };
     } else if (def.type === 'branch') {
       const conditionDefs = findConditions(state, def.id);
-      const ret = conditionDefs.map((c) => {
+      return conditionDefs.map((c) => {
         return {
           data: {
             label: `${c.question}==${c.value}`,
             source: def.id,
             target: c.nextFlowId
           }
-        }
+        };
       });
-      return ret;
+    } else {
+      throw 'unkown flow type: ' + def.type;
     }
-  }).filter((edge) => { return edge !== null });
+  }).filter((edge) => edge !== null);
   const mergedElements = elements.concat(flatten(edges));
-  return mergedElements.filter((e) => { return e != null; });
+  return mergedElements.filter((e) => e !== null);
 }
 
-export function flatten(ary) {
-  return ary.reduce(function (p, c) {
-    return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
-  }, []);
-}
 /** オブジェクトをcloneする */
 export function cloneObj(obj) {
   return JSON.parse(JSON.stringify(obj));
