@@ -9,3 +9,5 @@ export const REMOVE_EDGE = 'REMOVE_EDGE';
 export const ADD_PAGE_FLOW = 'ADD_PAGE_FLOW';
 export const ADD_BRANCH_FLOW = 'ADD_BRANCH_FLOW';
 export const REMOVE_FLOW = 'REMOVE_FLOW';
+export const CHANGE_POSITION = 'CHANGE_POSITION';
+export const CONNECT_FLOW = 'CONNECT_FLOW';

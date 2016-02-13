@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import undoable, { distinctState } from 'redux-undo'
 import { nextFlowId, cloneObj, findPage, findFlow, findValue, findConditions } from '../utils'
-import { ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 
 function addFlow(state, x, y, type) {
   const flowId = nextFlowId(state);
@@ -23,6 +23,41 @@ function removeEdge(state, sourceFlowId, targetFlowId) {
   }
   return state;
 }
+function changePosition(state, flowId, x, y) {
+  const pos = state.defs.positionDefs.find((def) => {
+    return def.flowId === flowId;
+  });
+  if (pos) {
+    pos.x = x;
+    pos.y = y;
+  } else {
+    state.defs.positionDefs.push({ flowId, x, y });
+  }
+  return state;
+}
+/** flowを削除する */
+function removeFlow(state, flowId) {
+  const flowDefs = state.defs.flowDefs;
+  const index = flowDefs.findIndex((def) => { return def.id === flowId; });
+  flowDefs.splice(index, 1);
+  return state;
+}
+/** Flowを接続する */
+function connectFlow(state, sourceFlowId, dstFlowId) {
+  let sourceFlow = findFlow(state, sourceFlowId);
+  if (sourceFlow.type === 'page') {
+    sourceFlow.nextFlowId = dstFlowId;
+  } else if (sourceFlow.type === 'branch') {
+    state.defs.conditionDefs.push({
+      flowId: sourceFlow.id,
+      type: 'if',
+      nextFlowId: dstFlowId
+    });
+  } else {
+    throw 'unknown flow type: ' + sourceFlow.type;
+  }
+  return state;
+}
 
 export default function reducer(state, action) {
   let newState = cloneObj(state);
@@ -39,6 +74,12 @@ export default function reducer(state, action) {
     return addFlow(newState, action.x, action.y, 'branch');
   case REMOVE_EDGE:
     return removeEdge(newState, action.sourceFlowId, action.targetFlowId);
+  case REMOVE_FLOW:
+    return removeFlow(newState, action.flowId);
+  case CHANGE_POSITION:
+    return changePosition(newState, action.flowId, action.x, action.y);
+  case CONNECT_FLOW:
+    return connectFlow(newState, action.sourceFlowId, action.dstFlowId);
   default:
     return newState;
   }

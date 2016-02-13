@@ -24,6 +24,7 @@ export default class Graph extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { state } = this.props;
     const elements = makeCytoscapeElements(state);
+    console.log(elements);
     if (JSON.stringify(prevProps.state.defs) != JSON.stringify(this.props.state.defs)) {
       this.cy.load(elements);
     }
@@ -47,18 +48,7 @@ export default class Graph extends Component {
     const node = e.cyTarget;
     const flowId = node.data('id');
     const { x, y } = node.position();
-    // TODO positionDefsを更新
-    const positionDefs = cloneObj(state).defs.positionDefs;
-    const pos = positionDefs.find((def) => {
-      return def.flowId === flowId;
-    });
-    if (pos) {
-      pos.x = x;
-      pos.y = y;
-    } else {
-      positionDefs.push({ flowId, x, y });
-    }
-    actions.changeDefs('positionDefs', positionDefs, getPreviewWindow);
+    actions.changePosition(flowId, x, y);
   }
   removeEdge(edge) {
     const { state, actions, getPreviewWindow } = this.props;
@@ -79,12 +69,8 @@ export default class Graph extends Component {
     actions.addBranchFlow(x, y, getPreviewWindow);
   }
   removeFlow(ele) {
-    const { state, onDefsChange } = this.props;
     const flowId = ele.id();
-    let flowDefs = cloneObj(state.defs.flowDefs);
-    const index = flowDefs.findIndex((def) => { return def.id === flowId; });
-    flowDefs.splice(index, 1);
-    onDefsChange('flowDefs', flowDefs, this.props.getPreviewWindow);
+    this.props.actions.removeFlow(flowId);
   }
   startConnectFlow(ele) {
     const { state } = this.props;
@@ -98,21 +84,7 @@ export default class Graph extends Component {
     const target = e.cyTarget;
     if (!target.isNode || !target.isNode()) return;
     const targetFlowId = target.id();
-    let newState = cloneObj(state);
-    let sourceFlow = findFlow(newState, this.state.sourceFlowId);
-    if (sourceFlow.type === 'page') {
-      sourceFlow.nextFlowId = targetFlowId;
-      actions.changeDefs('flowDefs', newState.defs.flowDefs, getPreviewWindow);
-    } else if (sourceFlow.type === 'branch') {
-      newState.defs.conditionDefs.push({
-        flowId: sourceFlow.id,
-        type: 'if',
-        nextFlowId: targetFlowId
-      });
-      actions.changeDefs('conditionDefs', newState.defs.conditionDefs, getPreviewWindow);
-    } else {
-      throw 'unknown flow type: ' + sourceFlow.type;
-    }
+    actions.connectFlow(this.state.sourceFlowId, targetFlowId);
   }
   makeCytoscape() {
     const data = this.props.state.defs[this.defsName];
@@ -173,7 +145,7 @@ export default class Graph extends Component {
     this.cy.on("click", 'node.page', this.onClickNodePage.bind(this));
     this.cy.on('click', this.finishConnectFlow.bind(this));
     this.cy.on('cxttapstart', this.onCxtTapstart.bind(this));
-    this.cy.on('position', this.onPositionChange.bind(this));
+    this.cy.on('tapend', 'node', this.onPositionChange.bind(this));
     this.cy.cxtmenu({
       selector: 'edge',
       commands: [

@@ -51,7 +51,6 @@ export default class EnqueteEditorApp extends Component {
   render() {
     const _this = this;
     const { state, actions } = this.props;
-    console.log(state);
     return (
       <div>
         <div className="left" ref="left">
