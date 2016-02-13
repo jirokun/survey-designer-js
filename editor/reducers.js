@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import undoable, { distinctState } from 'redux-undo'
 import { nextFlowId, cloneObj, findPage, findFlow, findValue, findConditions } from '../utils'
-import { CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 
 function addFlow(state, x, y, type) {
   const flowId = nextFlowId(state);
@@ -58,6 +58,11 @@ function connectFlow(state, sourceFlowId, dstFlowId) {
   }
   return state;
 }
+/** elementのpositionを全て設定する */
+function setElementsPosition(state, positions) {
+  state.defs.positionDefs = positions;
+  return state;
+}
 
 export default function reducer(state, action) {
   let newState = cloneObj(state);
@@ -80,6 +85,10 @@ export default function reducer(state, action) {
     return changePosition(newState, action.flowId, action.x, action.y);
   case CONNECT_FLOW:
     return connectFlow(newState, action.sourceFlowId, action.dstFlowId);
+  case SET_ELEMENTS_POSITION:
+    return setElementsPosition(newState, action.positions);
+  case LOAD_STATE:
+    return action.state;
   default:
     return newState;
   }

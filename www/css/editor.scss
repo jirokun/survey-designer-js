@@ -24,6 +24,9 @@ html, body {
           z-index: 100;
           right: 5px;
           top: 5px;
+          input[type="file"] {
+            display: none;
+          }
         }
         &.connect-mode {
           background-color: #eef;

@@ -30,6 +30,19 @@ export default class Graph extends Component {
     }
   }
   // event listener
+  onFileSelected(e) {
+    const { actions } = this.props;
+    if (e.target.files.length !== 1) {
+      return;
+    }
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const state = JSON.parse(e.target.result);
+      actions.loadState(state);
+    }
+    reader.readAsText(file, 'UTF-8');
+  }
   onClickNodePage(e) {
     const { state, actions, getPreviewWindow } = this.props;
     const data = e.cyTarget.data();
@@ -175,7 +188,13 @@ export default class Graph extends Component {
     });
   }
   autoLayout() {
+    const { actions } = this.props;
     this.cy.layout({ name: 'breadthfirst', directed: true });
+    const positions = this.cy.elements().map((e) => {
+      const position = e.position()
+      return { flowId: e.data('id'), x: position.x, y:position.y };
+    });
+    actions.setElementsPosition(positions);
   }
   load() {
     var defs = this.cy.json().elements.nodes.map((el) => {
@@ -190,7 +209,8 @@ export default class Graph extends Component {
         <div className="graph-controller btn-group">
           <button className="btn btn-default btn-sm" onClick={this.autoLayout.bind(this)}><span className="glyphicon glyphicon-th"></span></button>
           <a className="btn btn-default btn-sm" href={href} download="enquete.json"><span className="glyphicon glyphicon-floppy-save"></span></a>
-          <button className="btn btn-default btn-sm" onClick={this.load.bind(this)}><span className="glyphicon glyphicon-floppy-open"></span></button>
+          <input id="fileInput" type="file" onChange={this.onFileSelected.bind(this)} accept=".json"/>
+          <label htmlFor="fileInput" className="btn btn-default btn-sm" onClick={this.load.bind(this)}><span className="glyphicon glyphicon-floppy-open"></span></label>
         </div>
       </div>
     )

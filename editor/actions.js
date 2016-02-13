@@ -1,4 +1,4 @@
-import { CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, INIT_ALL_DEFS, GRAPH, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, INIT_ALL_DEFS, GRAPH, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 export function initializeDefs(allDefs, previewWindow) {
   const str = JSON.stringify({type: INIT_ALL_DEFS, allDefs});
   previewWindow.contentWindow.postMessage(str, location.origin);
@@ -51,4 +51,10 @@ export function changePosition(flowId, x, y) {
 }
 export function connectFlow(sourceFlowId, dstFlowId) {
   return { type: CONNECT_FLOW, sourceFlowId, dstFlowId };
+}
+export function setElementsPosition(positions) {
+  return { type: SET_ELEMENTS_POSITION, positions };
+}
+export function loadState(state) {
+  return { type: LOAD_STATE, state };
 }

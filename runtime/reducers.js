@@ -35,6 +35,7 @@ function nextFlowPage(state, flowId) {
     case 'branch':
       while (true) {
         const nextFlowId = evaluateBranch(state, nextFlow);
+        if (!nextFlowId) throw 'next flow is not defined';
         nextFlow = findFlow(state, nextFlowId);
         if (nextFlow.type === 'page') return nextFlow;
       }
