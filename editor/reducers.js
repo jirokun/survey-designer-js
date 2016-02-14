@@ -1,5 +1,5 @@
 import { nextFlowId, cloneObj, findFlow, findConditions } from '../utils'
-import { RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 
 function addFlow(state, x, y, type) {
   const flowId = nextFlowId(state);
@@ -67,6 +67,11 @@ function resizeGraphPane(state, width) {
   state.viewSettings.graphWidth = width;
   return state;
 }
+/** hotPaneをリサイズする */
+function resizeHotPane(state, height) {
+  state.viewSettings.hotHeight = height;
+  return state;
+}
 
 export default function reducer(state, action) {
   let newState = cloneObj(state);
@@ -95,6 +100,8 @@ export default function reducer(state, action) {
     return action.state;
   case RESIZE_GRAPH_PANE:
     return resizeGraphPane(newState, action.graphWidth);
+  case RESIZE_HOT_PANE:
+    return resizeHotPane(newState, action.hotHeight);
   default:
     return newState;
   }

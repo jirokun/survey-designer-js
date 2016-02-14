@@ -1,6 +1,7 @@
 export default {
   "viewSettings": {
-    "graphWidth": 400
+    "graphWidth": 400,
+    "hotHeight": 400
   },
   "defs": {
     "title": "sample enquete",

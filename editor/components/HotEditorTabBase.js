@@ -27,11 +27,12 @@ export default class HotEditorTabBase extends Component {
           redo: {}
         }
       },
-      height: 400,
+      height: this.props.state.viewSettings.hotHeight,
       minSpareRows: 1,
       data: data,
       beforeChange: this.beforeChange.bind(this),
-      afterChange: this.afterChange.bind(this)
+      afterChange: this.afterChange.bind(this),
+      afterRemoveRow: this.afterRemoveRow.bind(this)
     });
   }
   componentWillReceiveProps(nextProps) {
@@ -39,6 +40,14 @@ export default class HotEditorTabBase extends Component {
       this.setState({ updating: false });
     } else {
       this.hot.loadData(cloneObj(nextProps.state.defs[this.defsName]));
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const height = this.props.state.viewSettings.hotHeight;
+    if (prevProps.state.viewSettings.hotHeight !== height) {
+      const settings = this.hot.getSettings();
+      settings.height = height;
+      this.hot.updateSettings(settings);
     }
   }
   componentWillUnmount() {
@@ -52,6 +61,14 @@ export default class HotEditorTabBase extends Component {
   }
   afterChange(changes, source) {
     if (source === 'loadData') return;
+    this.props.onDefsChange(this.defsName, this.getDefs(), this.props.getPreviewWindow);
+  }
+  afterRemoveRow(index, amount) {
+    if (this.hot.countRows() === index) return; // 最終行が削除された場合には何もしない
+    this.props.onDefsChange(this.defsName, this.getDefs(), this.props.getPreviewWindow);
+  }
+  /** 現在hotで定義されているデータをdefsに変換する */
+  getDefs() {
     const data = this.hot.getData();
     const defs = data.map((row) => {
       var ret = {};
@@ -59,7 +76,7 @@ export default class HotEditorTabBase extends Component {
       return ret;
     });
     defs.splice(defs.length - 1, 1);
-    this.props.onDefsChange(this.defsName, defs, this.props.getPreviewWindow);
+    return defs;
   }
 
   render() {

@@ -34,10 +34,12 @@ html, body {
       height: 100%;
       .hot-pane {
         box-sizing: border-box;
-        height: $hot_pane_height;
+        height: 100%;
+        width: 100%;
       }
       .preview-pane {
-        height: calc(100% - #{$hot_pane_height});
+        height: 100%;
+        width: 100%;
         iframe {
           box-sizing: border-box;
           border: none;

@@ -22,11 +22,19 @@ export default class EnqueteEditorApp extends Component {
     previewWindow.addEventListener('load', (e) => {
       actions.initializeDefs(state.defs, previewWindow);
     }, false);
+    // hotHeightを調整しておく
+    const height = this.props.state.viewSettings.hotHeight - this.refs.nav.getBoundingClientRect().height;
+    actions.resizeHotPane(height);
   }
   resizeGraphPane(e) {
     const { actions } = this.props;
     const width = this.refs.left.getBoundingClientRect().width;
     actions.resizeGraphPane(width);
+  }
+  resizeHotPane(e) {
+    const { actions } = this.props;
+    const height = this.refs.top.getBoundingClientRect().height - this.refs.nav.getBoundingClientRect().height;
+    actions.resizeHotPane(height);
   }
   getPreviewWindow() {
     return this.refs.previewWindow;
@@ -64,9 +72,9 @@ export default class EnqueteEditorApp extends Component {
           <Graph state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} actions={actions} />
         </div>
         <div className="right" ref="right">
-          <SplitPane split="horizontal" minSize="100" defaultSize="400">
-            <div className="hot-pane">
-              <ul className="nav nav-tabs">
+          <SplitPane split="horizontal" minSize="100" defaultSize="400" onDragFinished={this.resizeHotPane.bind(this)}>
+            <div ref="top" className="hot-pane">
+              <ul ref="nav"className="nav nav-tabs">
                 {
                   ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
                     return <li className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
