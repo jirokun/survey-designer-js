@@ -71,6 +71,7 @@ function changeValue(state, action) {
   let inputValues = Object.assign({}, state.values.inputValues);
   switch (action.type) {
     case VALUE_CHANGE:
+      debugger;
       inputValues[action.itemName] = action.value;
       return inputValues;
     default:

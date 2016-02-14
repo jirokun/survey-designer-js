@@ -4,7 +4,6 @@ export const PREV_PAGE = 'PREV_PAGE';
 export const VALUE_CHANGE = 'VALUE_CHANGE';
 export const SELECT_FLOW = 'SELECT_FLOW';
 export const GRAPH = 'GRAPH';
-export const INIT_ALL_DEFS = 'INIT_ALL_DEFS';
 export const REMOVE_EDGE = 'REMOVE_EDGE';
 export const ADD_PAGE_FLOW = 'ADD_PAGE_FLOW';
 export const ADD_BRANCH_FLOW = 'ADD_BRANCH_FLOW';
