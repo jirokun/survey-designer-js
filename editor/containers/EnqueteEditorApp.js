@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import SplitPane from 'react-split-pane'
 import PagesHotEditorTab from '../components/PagesHotEditorTab'
 import FlowsHotEditorTab from '../components/FlowsHotEditorTab'
 import ConditionsHotEditorTab from '../components/ConditionsHotEditorTab'
@@ -21,6 +22,11 @@ export default class EnqueteEditorApp extends Component {
     previewWindow.addEventListener('load', (e) => {
       actions.initializeDefs(state.defs, previewWindow);
     }, false);
+  }
+  resizeGraphPane(e) {
+    const { actions } = this.props;
+    const width = this.refs.left.getBoundingClientRect().width;
+    actions.resizeGraphPane(width);
   }
   getPreviewWindow() {
     return this.refs.previewWindow;
@@ -51,29 +57,32 @@ export default class EnqueteEditorApp extends Component {
   render() {
     const _this = this;
     const { state, actions } = this.props;
+    // TODO SplitPaneをiframeに対応する
     return (
-      <div>
+      <SplitPane split="vertical" minSize="100" defaultSize="400" onDragFinished={this.resizeGraphPane.bind(this)}>
         <div className="left" ref="left">
           <Graph state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} actions={actions} />
         </div>
         <div className="right" ref="right">
-          <div className="hot-pane">
-            <ul className="nav nav-tabs">
-              {
-                ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
-                  return <li className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
-                })
-              }
-            </ul>
-            <div className="tab-content">
-              { this.renderTab() }
+          <SplitPane split="horizontal" minSize="100" defaultSize="400">
+            <div className="hot-pane">
+              <ul className="nav nav-tabs">
+                {
+                  ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
+                    return <li className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
+                  })
+                }
+              </ul>
+              <div className="tab-content">
+                { this.renderTab() }
+              </div>
             </div>
-          </div>
-          <div className="preview-pane">
-            <iframe ref="previewWindow" src="runtime.html"></iframe>
-          </div>
+            <div className="preview-pane">
+              <iframe ref="previewWindow" src="runtime.html"></iframe>
+            </div>
+          </SplitPane>
         </div>
-      </div>
+      </SplitPane>
     )
   }
 }

@@ -1,4 +1,4 @@
-import { LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, INIT_ALL_DEFS, GRAPH, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, INIT_ALL_DEFS, GRAPH, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 export function initializeDefs(allDefs, previewWindow) {
   const str = JSON.stringify({type: INIT_ALL_DEFS, allDefs});
   previewWindow.contentWindow.postMessage(str, location.origin);
@@ -57,4 +57,7 @@ export function setElementsPosition(positions) {
 }
 export function loadState(state) {
   return { type: LOAD_STATE, state };
+}
+export function resizeGraphPane(graphWidth) {
+  return { type: RESIZE_GRAPH_PANE, graphWidth };
 }

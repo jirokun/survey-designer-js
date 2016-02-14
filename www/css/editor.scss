@@ -11,9 +11,6 @@ html, body {
     height: 100%;
     div.left {
       box-sizing: border-box;
-      float: left;
-      border-right: 1px solid black;
-      width: $left_pane_size;
       height: 100%;
       .graph {
         height: 100%;
@@ -34,13 +31,10 @@ html, body {
       }
     }
     div.right {
-      float: left;
-      width: calc(100% - #{$left_pane_size});
       height: 100%;
       .hot-pane {
         box-sizing: border-box;
         height: $hot_pane_height;
-        border-bottom: 1px solid black;
       }
       .preview-pane {
         height: calc(100% - #{$hot_pane_height});
@@ -54,4 +48,49 @@ html, body {
     }
   }
 }
+.SplitPane.vertical {
+  .Pane.vertical {
+    height: 100%;
+  }
+}
+.Resizer {
+  background: #000;
+  opacity: .2;
+  z-index: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  &:hover {
+    -webkit-transition: all 2s ease;
+    transition: all 2s ease;
+  }
 
+  &.horizontal {
+    height: 11px;
+    margin: -5px 0;
+    border-top: 5px solid rgba(255, 255, 255, 0);
+    border-bottom: 5px solid rgba(255, 255, 255, 0);
+    cursor: row-resize;
+    width: 100%;
+    &:hover {
+      border-top: 5px solid rgba(0, 0, 0, 0.5);
+      border-bottom: 5px solid rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &.vertical {
+    width: 11px;
+    margin: 0 -5px;
+    border-left: 5px solid rgba(255, 255, 255, 0);
+    border-right: 5px solid rgba(255, 255, 255, 0);
+    cursor: col-resize;
+    height: 100%;
+    &:hover {
+      border-left: 5px solid rgba(0, 0, 0, 0.5);
+      border-right: 5px solid rgba(0, 0, 0, 0.5);
+    }
+  }
+}

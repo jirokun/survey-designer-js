@@ -32,6 +32,9 @@ export default class Graph extends Component {
       this.cy.zoom(zoom);
       this.cy.pan(pan);
     }
+    if (prevProps.state.viewSettings.graphWidth !== this.props.state.viewSettings.graphWidth) {
+      this.cy.fit();
+    }
   }
   // event listener
   onFileSelected(e) {
