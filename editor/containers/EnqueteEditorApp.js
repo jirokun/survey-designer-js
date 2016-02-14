@@ -20,10 +20,8 @@ export default class EnqueteEditorApp extends Component {
     this.state = {tab: 'FlowsTab'};
   }
   componentDidMount() {
-    const { state, actions } = this.props;
-    // hotHeightを調整しておく
-    const height = this.props.state.viewSettings.hotHeight - this.refs.nav.getBoundingClientRect().height;
-    actions.resizeHotPane(height);
+    this.resizeHotPane();
+    this.resizeGraphPane();
   }
   resizeGraphPane(e) {
     const { actions } = this.props;
@@ -31,10 +29,15 @@ export default class EnqueteEditorApp extends Component {
     actions.resizeGraphPane(width);
   }
   resizeHotPane(e) {
-    const { actions } = this.props;
-    const height = this.refs.top.getBoundingClientRect().height - this.refs.nav.getBoundingClientRect().height;
-    actions.resizeHotPane(height);
-    // previewPaneも更新する
+    // 一瞬おいてからじゃないとうまくいかない
+    setTimeout(() => {
+      const { actions } = this.props;
+      const height = this.refs.top.getBoundingClientRect().height - this.refs.nav.getBoundingClientRect().height;
+      actions.resizeHotPane(height);
+      this.resizePreviewPane();
+    }, 1);
+  }
+  resizePreviewPane() {
     const previewHeight = this.refs.preview.parentNode.getBoundingClientRect().height;
     this.refs.preview.style.height = previewHeight + 'px';
   }
@@ -101,7 +104,6 @@ function select(state) {
 
 function mapDispatchToProps(dispatch) {
   var MergedActions = Object.assign({}, RuntimeActions, EditorActions);
-  console.log(MergedActions);
   return {
     actions: bindActionCreators(MergedActions, dispatch)
   }
