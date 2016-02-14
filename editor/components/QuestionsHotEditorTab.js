@@ -8,7 +8,7 @@ export default class QuestionsHotEditorTab extends HotEditorTabBase {
       {data: 'id'},
       {data: 'pageId'},
       {data: 'questionTitle'},
-      {data: 'questionType', editor: 'select', selectOptions: ['default']},
+      {data: 'questionType', editor: 'select', selectOptions: ['default', 'table']},
     ];
     const colWidths = [100, 70, 100, 100];
     super(props, 'questionDefs', colHeaders, columns, colWidths);

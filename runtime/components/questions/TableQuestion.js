@@ -5,7 +5,7 @@ import * as TextItem from '../items/TextItem'
 import * as SelectItem from '../items/SelectItem'
 import { findItems, findItemConstructor } from '../../../utils'
 
-export default class DefaultQuestion extends Component {
+export default class TableQuestion extends Component {
   makeItem(item) {
     switch (item.itemType) {
       case 'RadioItem':
@@ -22,13 +22,12 @@ export default class DefaultQuestion extends Component {
   }
   makeItems() {
     const { question, valueChange, state } = this.props;
-    console.log(this.makeCheckbox);
     return findItems(state, question.id).map((item) => {
       return (
-        <div>
-          <h4>{item.itemTitle}</h4>
-          {this.makeItem(item)}
-        </div>
+        <tr>
+          <th>{item.itemTitle}</th>
+          <td>{this.makeItem(item)}</td>
+        </tr>
       );
     });
   }
@@ -37,13 +36,15 @@ export default class DefaultQuestion extends Component {
     return (
       <div>
         <h3>{question.questionTitle}</h3>
-        {this.makeItems()}
+        <table>
+          {this.makeItems()}
+        </table>
       </div>
     );
   }
 }
 
-DefaultQuestion.propTypes = {
+TableQuestion.propTypes = {
 };
 
 [
@@ -53,6 +54,6 @@ DefaultQuestion.propTypes = {
   TextItem
 ].forEach((item) => {
   for (const prop in item) {
-    DefaultQuestion.prototype[prop] = item[prop];
+    TableQuestion.prototype[prop] = item[prop];
   }
 });
