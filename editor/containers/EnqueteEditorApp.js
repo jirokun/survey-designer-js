@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import SplitPane from 'react-split-pane'
+import Frame from 'react-frame-component'
+import EnqueteRuntimeApp from '../../runtime/containers/EnqueteRuntimeApp'
 import PagesHotEditorTab from '../components/PagesHotEditorTab'
 import FlowsHotEditorTab from '../components/FlowsHotEditorTab'
 import ConditionsHotEditorTab from '../components/ConditionsHotEditorTab'
@@ -17,11 +19,7 @@ export default class EnqueteEditorApp extends Component {
     this.state = {tab: 'FlowsTab'};
   }
   componentDidMount() {
-    const previewWindow = this.refs.previewWindow;
     const { state, actions } = this.props;
-    previewWindow.addEventListener('load', (e) => {
-      actions.initializeDefs(state.defs, previewWindow);
-    }, false);
     // hotHeightを調整しておく
     const height = this.props.state.viewSettings.hotHeight - this.refs.nav.getBoundingClientRect().height;
     actions.resizeHotPane(height);
@@ -39,25 +37,22 @@ export default class EnqueteEditorApp extends Component {
     const previewHeight = this.refs.preview.parentNode.getBoundingClientRect().height;
     this.refs.preview.style.height = previewHeight + 'px';
   }
-  getPreviewWindow() {
-    return this.refs.previewWindow;
-  }
   renderTab() {
     const tab = this.state.tab;
     const { state, actions } = this.props;
     switch (tab) {
       case 'FlowsTab':
-        return <FlowsHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
+        return <FlowsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       case 'ConditionsTab':
-        return <ConditionsHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
+        return <ConditionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       case 'PagesTab':
-        return <PagesHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
+        return <PagesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       case 'QuestionsTab':
-        return <QuestionsHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
+        return <QuestionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       case 'ItemsTab':
-        return <ItemsHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
+        return <ItemsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       case 'ChoicesTab':
-        return <ChoicesHotEditorTab state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} onDefsChange={actions.changeDefs}/>
+        return <ChoicesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       default:
         throw 'undfined tab: ' + tab;
     }
@@ -72,7 +67,7 @@ export default class EnqueteEditorApp extends Component {
     return (
       <SplitPane split="vertical" minSize="100" defaultSize="400" onDragFinished={this.resizeGraphPane.bind(this)}>
         <div className="left" ref="left">
-          <Graph state={state} getPreviewWindow={this.getPreviewWindow.bind(this)} actions={actions} />
+          <Graph state={state} actions={actions} />
         </div>
         <div className="right" ref="right">
           <SplitPane split="horizontal" minSize="100" defaultSize="400" onDragFinished={this.resizeHotPane.bind(this)}>
@@ -89,7 +84,9 @@ export default class EnqueteEditorApp extends Component {
               </div>
             </div>
             <div ref="preview" className="preview-pane">
-              <iframe ref="previewWindow" src="runtime.html"></iframe>
+              <Frame>
+                <EnqueteRuntimeApp />
+              </Frame>
             </div>
           </SplitPane>
         </div>

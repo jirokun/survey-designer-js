@@ -51,42 +51,42 @@ export default class Graph extends Component {
     reader.readAsText(file, 'UTF-8');
   }
   onClickNodePage(e) {
-    const { state, actions, getPreviewWindow } = this.props;
+    const { state, actions } = this.props;
     const data = e.cyTarget.data();
     const flow = findFlow(state, data.id);
     if (!flow) return;
     const page = findPage(state, flow.pageId);
     if (!page) return;
-    actions.selectFlow(flow.id, getPreviewWindow);
+    actions.selectFlow(flow.id);
   }
   onCxtTapstart(e) {
     // nodeを追加するポイントを記録しておく
     this.state.rightClickPosition = e.cyPosition;
   }
   onPositionChange(e) {
-    const { state, actions, getPreviewWindow } = this.props;
+    const { state, actions } = this.props;
     const node = e.cyTarget;
     const flowId = node.data('id');
     const { x, y } = node.position();
     actions.changePosition(flowId, x, y);
   }
   removeEdge(edge) {
-    const { state, actions, getPreviewWindow } = this.props;
+    const { state, actions } = this.props;
     const sourceFlowId = edge.source().data('id');
     const targetFlowId = edge.target().data('id');
     actions.removeEdge(sourceFlowId, targetFlowId);
   }
   /** page flowを追加 */
   addPage() {
-    const { actions, getPreviewWindow } = this.props;
+    const { actions } = this.props;
     const { x, y } = this.state.rightClickPosition;
-    actions.addPageFlow(x, y, getPreviewWindow);
+    actions.addPageFlow(x, y);
   }
   /** branch flowを追加 */
   addBranch() {
-    const { actions, getPreviewWindow } = this.props;
+    const { actions } = this.props;
     const { x, y } = this.state.rightClickPosition;
-    actions.addBranchFlow(x, y, getPreviewWindow);
+    actions.addBranchFlow(x, y);
   }
   removeFlow(ele) {
     const flowId = ele.id();
@@ -99,7 +99,7 @@ export default class Graph extends Component {
   }
   finishConnectFlow(e) {
     if (this.state.connectMode !== true) return;
-    const { state, actions, getPreviewWindow } = this.props;
+    const { state, actions } = this.props;
     this.setState({ connectMode: false });
     const target = e.cyTarget;
     if (!target.isNode || !target.isNode()) return;
@@ -108,7 +108,7 @@ export default class Graph extends Component {
   }
   makeCytoscape() {
     const data = this.props.state.defs[this.defsName];
-    const { state, onFlowSelected, getPreviewWindow,
+    const { state, onFlowSelected,
       onDeleteFlow, onAddFlow,
       onDeleteEdge, onAddEdge
     } = this.props;

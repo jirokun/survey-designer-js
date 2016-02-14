@@ -1,49 +1,34 @@
 import { RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, INIT_ALL_DEFS, GRAPH, CHANGE_DEFS, SELECT_FLOW} from '../constants'
-export function initializeDefs(allDefs, previewWindow) {
+export function initializeDefs(allDefs) {
   const str = JSON.stringify({type: INIT_ALL_DEFS, allDefs});
-  previewWindow.contentWindow.postMessage(str, location.origin);
   return {
     type: INIT_ALL_DEFS
   };
 }
-export function changeDefs(defsName, defs, getPreviewWindow) {
-  const previewWindow = getPreviewWindow();
-  if (previewWindow) {
-    const str = JSON.stringify({type: CHANGE_DEFS, defsName, defs});
-    previewWindow.contentWindow.postMessage(str, location.origin);
-  }
+export function changeDefs(defsName, defs) {
   return {
     type: CHANGE_DEFS,
     defsName: defsName,
     defs: defs
   };
 }
-export function selectFlow(flowId, getPreviewWindow) {
-  const previewWindow = getPreviewWindow();
-  if (previewWindow) {
-    const str = JSON.stringify({type: SELECT_FLOW, flowId});
-    previewWindow.contentWindow.postMessage(str, location.origin);
-  }
+export function selectFlow(flowId) {
   return {
     type: SELECT_FLOW,
     from: GRAPH,
     flowId
   }
 }
-export function addPageFlow(x, y, getPreviewWindow) {
+export function addPageFlow(x, y) {
   return { type: ADD_PAGE_FLOW, x, y };
 }
-export function addBranchFlow(x, y, getPreviewWindow) {
+export function addBranchFlow(x, y) {
   return { type: ADD_BRANCH_FLOW, x, y };
 }
-export function addEdgeFlow(getPreviewWindow) {
-}
-export function removeFlow(flowId, getPreviewWindow) {
+export function removeFlow(flowId) {
   return { type: REMOVE_FLOW, flowId };
 }
-export function addEdge(getPreviewWindow) {
-}
-export function removeEdge(sourceFlowId, targetFlowId, getPreviewWindow) {
+export function removeEdge(sourceFlowId, targetFlowId) {
   return { type: REMOVE_EDGE, sourceFlowId, targetFlowId };
 }
 export function changePosition(flowId, x, y) {

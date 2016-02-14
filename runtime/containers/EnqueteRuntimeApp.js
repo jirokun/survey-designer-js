@@ -7,7 +7,7 @@ import { findPage, findFlow } from '../../utils'
 import * as EnqueteActions from '../actions'
 import { INIT_ALL_DEFS, CHANGE_DEFS, SELECT_FLOW } from '../../constants'
 
-class EnqueteRuntuimeApp extends Component {
+class EnqueteRuntimeApp extends Component {
   componentDidMount() {
     // iframe用の処理
     if (window) {
@@ -51,7 +51,7 @@ class EnqueteRuntuimeApp extends Component {
   }
 }
 
-EnqueteRuntuimeApp.propTypes = {
+EnqueteRuntimeApp.propTypes = {
   state: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 }
@@ -69,4 +69,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   select,
   mapDispatchToProps
-)(EnqueteRuntuimeApp)
+)(EnqueteRuntimeApp)
