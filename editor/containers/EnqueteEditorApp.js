@@ -11,7 +11,8 @@ import QuestionsHotEditorTab from '../components/QuestionsHotEditorTab'
 import ItemsHotEditorTab from '../components/ItemsHotEditorTab'
 import ChoicesHotEditorTab from '../components/ChoicesHotEditorTab'
 import Graph from '../components/Graph'
-import * as EnqueteActions from '../actions'
+import * as EditorActions from '../actions'
+import * as RuntimeActions from '../../runtime/actions'
 
 export default class EnqueteEditorApp extends Component {
   constructor(props) {
@@ -99,8 +100,10 @@ function select(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+  var MergedActions = Object.assign({}, RuntimeActions, EditorActions);
+  console.log(MergedActions);
   return {
-    actions: bindActionCreators(EnqueteActions, dispatch)
+    actions: bindActionCreators(MergedActions, dispatch)
   }
 }
 

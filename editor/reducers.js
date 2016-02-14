@@ -1,5 +1,6 @@
 import { nextFlowId, cloneObj, findFlow, findConditions } from '../utils'
 import { RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import runtimeReducer from '../runtime/reducers'
 
 function addFlow(state, x, y, type) {
   const flowId = nextFlowId(state);
@@ -73,7 +74,7 @@ function resizeHotPane(state, height) {
   return state;
 }
 
-export default function reducer(state, action) {
+function editorReducer(state, action) {
   let newState = cloneObj(state);
   switch (action.type) {
   case CHANGE_DEFS:
@@ -105,4 +106,8 @@ export default function reducer(state, action) {
   default:
     return newState;
   }
+}
+export default function reducer(state, action) {
+  // runtimeとeditorのreducerを両方実行する
+  return runtimeReducer(editorReducer(state, action), action);
 }

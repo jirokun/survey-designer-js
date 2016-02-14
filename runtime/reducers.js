@@ -71,7 +71,6 @@ function changeValue(state, action) {
   let inputValues = Object.assign({}, state.values.inputValues);
   switch (action.type) {
     case VALUE_CHANGE:
-      debugger;
       inputValues[action.itemName] = action.value;
       return inputValues;
     default:
@@ -92,6 +91,7 @@ function changeDefs(state, action) {
 }
 
 export default function reducer(state, action) {
+  const newState = cloneObj(state);
   if (action.type === INIT_ALL_DEFS) {
     // 初期化処理だけ別処理
     return {
@@ -100,7 +100,8 @@ export default function reducer(state, action) {
         flowStack: [],
         inputValues: []
       },
-      defs: cloneObj(action.allDefs)
+      defs: cloneObj(action.allDefs),
+      viewSettings: newState.viewSettings
     };
   }
   const { currentFlowId, flowStack } = showPage(state, action);
@@ -110,6 +111,7 @@ export default function reducer(state, action) {
       flowStack,
       inputValues: changeValue(state, action)
     },
-    defs: changeDefs(state, action)
+    defs: changeDefs(state, action),
+    viewSettings: newState.viewSettings
   }
 }
