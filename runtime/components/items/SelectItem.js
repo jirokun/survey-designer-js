@@ -9,10 +9,10 @@ export function makeSelect(item) {
   const { state } = this.props;
   const value = this.props.state.values.inputValues[item.itemName];
   const options = findChoices(state, item.id).map((choice, i) =>
-    <option value={choice.value} selected={value === choice.value}>{choice.label}</option>
+    <option key={item.id + "-" + i} value={choice.value}>{choice.label}</option>
   );
   return (
-    <select name={item.itemName} onChange={this.handleSelectChange.bind(this)}>
+    <select name={item.itemName} onChange={this.handleSelectChange.bind(this)} value={value}>
       {options}
     </select>
   );

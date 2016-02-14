@@ -24,7 +24,7 @@ export default class TableQuestion extends Component {
     const { question, valueChange, state } = this.props;
     return findItems(state, question.id).map((item) => {
       return (
-        <tr>
+        <tr key={'tr-' + item.id} >
           <th>{item.itemTitle}</th>
           <td>{this.makeItem(item)}</td>
         </tr>
@@ -37,7 +37,9 @@ export default class TableQuestion extends Component {
       <div>
         <h3>{question.questionTitle}</h3>
         <table>
-          {this.makeItems()}
+          <tbody>
+            {this.makeItems()}
+          </tbody>
         </table>
       </div>
     );

@@ -79,7 +79,7 @@ export default class EnqueteEditorApp extends Component {
               <ul ref="nav"className="nav nav-tabs">
                 {
                   ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
-                    return <li className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
+                    return <li key={'tab-' + tabName} className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
                   })
                 }
               </ul>

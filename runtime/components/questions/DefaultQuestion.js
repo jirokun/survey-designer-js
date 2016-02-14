@@ -22,10 +22,9 @@ export default class DefaultQuestion extends Component {
   }
   makeItems() {
     const { question, valueChange, state } = this.props;
-    console.log(this.makeCheckbox);
     return findItems(state, question.id).map((item) => {
       return (
-        <div>
+        <div key={'item-' + item.id}>
           <h4>{item.itemTitle}</h4>
           {this.makeItem(item)}
         </div>
