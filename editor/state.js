@@ -149,42 +149,42 @@ export default {
       {
         "id": "item1",
         "questionId": "question1",
-        "itemType": "RadioItem",
+        "itemType": "H-Radio",
         "itemTitle": "RadioItem1",
         "itemName": "q1"
       },
       {
         "id": "item2",
         "questionId": "question1",
-        "itemType": "CheckboxItem",
+        "itemType": "H-Checkbox",
         "itemTitle": "CheckboxItem2",
         "itemName": "q2"
       },
       {
         "id": "item3",
         "questionId": "question1",
-        "itemType": "TextItem",
+        "itemType": "Text",
         "itemTitle": "TextItem2",
         "itemName": "q3"
       },
       {
         "id": "item4",
         "questionId": "question2",
-        "itemType": "RadioItem",
+        "itemType": "H-Radio",
         "itemTitle": "RadioItem4",
         "itemName": "q4"
       },
       {
         "id": "item5",
         "questionId": "question2",
-        "itemType": "CheckboxItem",
+        "itemType": "H-Checkbox",
         "itemTitle": "CheckboxItem5",
         "itemName": "q5"
       },
       {
         "id": "item6",
         "questionId": "question2",
-        "itemType": "TextItem",
+        "itemType": "Text",
         "itemTitle": "TextItem6",
         "itemName": "q6"
       }

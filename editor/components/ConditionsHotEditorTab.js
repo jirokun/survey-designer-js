@@ -12,7 +12,7 @@ export default class ConditionsHotEditorTab extends HotEditorTabBase {
       {data: 'value'},
       {data: 'nextFlowId'}
     ];
-    const colWidths = [100, 70, 100, 50, 100, 100];
+    const colWidths = [150, 70, 150, 80, 150, 150];
     super(props, 'conditionDefs', colHeaders, columns, colWidths);
   }
 }

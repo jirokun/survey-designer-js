@@ -1,0 +1,22 @@
+h4 {
+  background-color: #eef;
+  margin-top: 1em;
+  margin-bottom: 0; }
+
+label.vertical {
+  display: block; }
+label input {
+  vertical-align: text-top; }
+
+table {
+  border-collapse: collapse; }
+  table th {
+    text-align: right;
+    background-color: #eef;
+    border: 1px solid #ccc;
+    padding: 0.2em 0.5em; }
+  table td {
+    border: 1px solid #ccc;
+    padding: 0.2em 0.5em; }
+
+/*# sourceMappingURL=runtime.css.map */

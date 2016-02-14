@@ -8,15 +8,17 @@ export default class ItemsHotEditorTab extends HotEditorTabBase {
       {data: 'id'},
       {data: 'questionId'},
       {data: 'itemType', editor: 'select', selectOptions: [
-        'RadioItem',
-        'CheckboxItem',
-        'SelectItem',
-        'TextItem']
+        'H-Radio',
+        'H-Checkbox',
+        'V-Radio',
+        'V-Checkbox',
+        'Select',
+        'Text']
       },
       {data: 'itemTitle'},
       {data: 'itemName'}
     ];
-    const colWidths = [100, 100, 150, 400, 100];
+    const colWidths = [150, 150, 150, 400, 150];
     super(props, 'itemDefs', colHeaders, columns, colWidths);
   }
 }

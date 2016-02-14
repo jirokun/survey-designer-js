@@ -1,0 +1,29 @@
+@mixin cell-margin() {
+  border: 1px solid #ccc;
+  padding: 0.2em 0.5em;
+}
+
+h4 {
+  background-color: #eef;
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+label {
+  &.vertical {
+    display: block;
+  }
+  input {
+    vertical-align: text-top;
+  }
+}
+table {
+  border-collapse: collapse;
+  th {
+    text-align: right;
+    background-color: #eef;
+    @include cell-margin();
+  }
+  td {
+    @include cell-margin();
+  }
+}

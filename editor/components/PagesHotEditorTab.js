@@ -8,7 +8,7 @@ export default class PagesHotEditorTab extends HotEditorTabBase {
       {data: 'id'},
       {data: 'pageTitle'}
     ];
-    const colWidth = [100, 400];
+    const colWidth = [150, 400];
     super(props, 'pageDefs', colHeaders, columns, colWidth);
   }
 }

@@ -9,7 +9,7 @@ export default class ChoicesHotEditorTab extends HotEditorTabBase {
       {data: 'label'},
       {data: 'value'}
     ];
-    const colWidths = [100, 400, 200];
+    const colWidths = [150, 400, 200];
     super(props, 'choiceDefs', colHeaders, columns, colWidths);
   }
 }

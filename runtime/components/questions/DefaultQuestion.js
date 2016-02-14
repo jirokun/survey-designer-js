@@ -8,13 +8,17 @@ import { findItems, findItemConstructor } from '../../../utils'
 export default class DefaultQuestion extends Component {
   makeItem(item) {
     switch (item.itemType) {
-      case 'RadioItem':
-        return this.makeRadio(item);
-      case 'CheckboxItem':
-        return this.makeCheckbox(item);
-      case 'TextItem':
+      case 'H-Radio':
+        return this.makeRadio(item, false);
+      case 'H-Checkbox':
+        return this.makeCheckbox(item, false);
+      case 'V-Radio':
+        return this.makeRadio(item, true);
+      case 'V-Checkbox':
+        return this.makeCheckbox(item, true);
+      case 'Text':
         return this.makeText(item);
-      case 'SelectItem':
+      case 'Select':
         return this.makeSelect(item);
       default:
         return;
