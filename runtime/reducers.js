@@ -18,7 +18,7 @@ function evaluateBranch(state, branchFlow) {
     } else if (c.type === 'else') {
       return c.nextFlowid;
     } else {
-      throw 'unkown condition type: ' + c.type;
+      throw `unkown condition type: "${c.type}" at FlowID=${c.flowId}`;
     }
   }
   throw 'next flow is not defined';
@@ -92,26 +92,31 @@ function changeDefs(state, action) {
 
 export default function reducer(state, action) {
   const newState = cloneObj(state);
-  if (action.type === INIT_ALL_DEFS) {
-    // 初期化処理だけ別処理
+  try {
+    if (action.type === INIT_ALL_DEFS) {
+      // 初期化処理だけ別処理
+      return {
+        values: {
+          currentFlowId: action.allDefs.flowDefs[0].id,
+          flowStack: [],
+          inputValues: []
+        },
+        defs: cloneObj(action.allDefs),
+        viewSettings: newState.viewSettings
+      };
+    }
+    const { currentFlowId, flowStack } = showPage(state, action);
     return {
       values: {
-        currentFlowId: action.allDefs.flowDefs[0].id,
-        flowStack: [],
-        inputValues: []
+        currentFlowId,
+        flowStack,
+        inputValues: changeValue(state, action)
       },
-      defs: cloneObj(action.allDefs),
+      defs: changeDefs(state, action),
       viewSettings: newState.viewSettings
-    };
-  }
-  const { currentFlowId, flowStack } = showPage(state, action);
-  return {
-    values: {
-      currentFlowId,
-      flowStack,
-      inputValues: changeValue(state, action)
-    },
-    defs: changeDefs(state, action),
-    viewSettings: newState.viewSettings
+    }
+  } catch(e) {
+    alert(e);
+    return newState;
   }
 }

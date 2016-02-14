@@ -24,14 +24,12 @@ export default class Graph extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { state } = this.props;
     const elements = makeCytoscapeElements(state);
-    if (JSON.stringify(prevProps.state.defs) != JSON.stringify(this.props.state.defs)) {
-      const zoom = this.cy.zoom();
-      const pan = this.cy.pan();
-      this.cy.load(elements);
-      // zoomとpanが更新されないように上書きする
-      this.cy.zoom(zoom);
-      this.cy.pan(pan);
-    }
+    const zoom = this.cy.zoom();
+    const pan = this.cy.pan();
+    this.cy.load(elements);
+    // zoomとpanが更新されないように上書きする
+    this.cy.zoom(zoom);
+    this.cy.pan(pan);
     if (prevProps.state.viewSettings.graphWidth !== this.props.state.viewSettings.graphWidth) {
       this.cy.fit();
     }
@@ -50,13 +48,11 @@ export default class Graph extends Component {
     }
     reader.readAsText(file, 'UTF-8');
   }
-  onClickNodePage(e) {
+  onSelectFlow(e) {
     const { state, actions } = this.props;
     const data = e.cyTarget.data();
     const flow = findFlow(state, data.id);
     if (!flow) return;
-    const page = findPage(state, flow.pageId);
-    if (!page) return;
     actions.selectFlow(flow.id);
   }
   onCxtTapstart(e) {
@@ -122,22 +118,18 @@ export default class Graph extends Component {
           selector: 'node',
           style: {
             'background-color': '#666',
-            'border-width': 3,
-            'border-color': '#666',
             'label': 'data(label)'
           }
         },
         {
-          selector: ':selected',
+          selector: '.selected',
           style: {
-            'border-width': 3,
-            'border-color': '#8cc'
+            'background-color': '#0ff',
           }
         },
         {
           selector: '.branch',
           style: {
-            'background-color': '#666',
             'shape': 'diamond',
             'label': 'data(id)'
           }
@@ -162,7 +154,7 @@ export default class Graph extends Component {
   addEventListenerToCytoscape() {
     const _this = this;
     // TODO 全部メソッドに移動すべき
-    this.cy.on("click", 'node.page', this.onClickNodePage.bind(this));
+    this.cy.on("click", 'node', this.onSelectFlow.bind(this));
     this.cy.on('click', this.finishConnectFlow.bind(this));
     this.cy.on('cxttapstart', this.onCxtTapstart.bind(this));
     this.cy.on('tapstart', this.onCxtTapstart.bind(this));

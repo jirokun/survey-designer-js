@@ -79,13 +79,18 @@ export function makeCytoscapeElements(state) {
     if (!pos) {
       pos = {x: 0, y: 0};
     }
+    const classes = [];
+    classes.push(def.type === 'branch' ? 'branch' : 'page');
+    if (state.values.currentFlowId === def.id) {
+      classes.push('selected');
+    }
     return {
       data: {
         id: def.id,
         label: `${def.id} (${def.pageId})`
       },
       position: { x: pos.x, y: pos.y },
-      classes: def.type === 'branch' ? 'branch' : 'page'
+      classes: classes.join(' ')
     };
   });
   const edges = flowDefs.map((def) => {
