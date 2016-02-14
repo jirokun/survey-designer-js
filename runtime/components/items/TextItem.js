@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 export default class TextItem extends Component {
   handleChange(e) {
-    this.props.valueChange(this.props.itemName, e.target.value);
+    this.props.valueChange(this.props.item.itemName, e.target.value);
   }
   render() {
     const { item, state } = this.props;

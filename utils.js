@@ -1,6 +1,7 @@
 import CheckboxItem from './runtime/components/items/CheckboxItem'
 import RadioItem from './runtime/components/items/RadioItem'
 import TextItem from './runtime/components/items/TextItem'
+import SelectItem from './runtime/components/items/SelectItem'
 
 export function flatten(ary) {
   return ary.reduce((p, c) => {
@@ -16,6 +17,7 @@ export function findItemConstructor(name) {
   let items = {
     CheckboxItem,
     RadioItem,
+    SelectItem,
     TextItem
   };
   if (items[name]) {

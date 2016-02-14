@@ -10,6 +10,7 @@ export default class ItemsHotEditorTab extends HotEditorTabBase {
       {data: 'itemType', editor: 'select', selectOptions: [
         'RadioItem',
         'CheckboxItem',
+        'SelectItem',
         'TextItem']
       },
       {data: 'itemTitle'},
