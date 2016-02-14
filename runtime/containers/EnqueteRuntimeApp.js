@@ -36,8 +36,13 @@ class EnqueteRuntuimeApp extends Component {
   render() {
     const { state, actions } = this.props;
     const currentFlow = findFlow(state, state.values.currentFlowId);
-    if (!currentFlow) return <div/>;
+    if (!currentFlow) {
+      return <div>undefined flow</div>;
+    }
     const currentPage = findPage(state, currentFlow.pageId);
+    if (!currentPage) {
+      return <div>undefined page</div>;
+    }
     return (
       <div>
         <Page page={currentPage} state={state} actions={actions}/>

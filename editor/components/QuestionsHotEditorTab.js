@@ -13,4 +13,5 @@ export default class QuestionsHotEditorTab extends HotEditorTabBase {
     const colWidths = [100, 70, 100, 100];
     super(props, 'questionDefs', colHeaders, columns, colWidths);
   }
+  // TODO QuestionTypeのデフォルト値を設定する
 }
