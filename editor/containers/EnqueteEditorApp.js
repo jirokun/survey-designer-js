@@ -35,6 +35,9 @@ export default class EnqueteEditorApp extends Component {
     const { actions } = this.props;
     const height = this.refs.top.getBoundingClientRect().height - this.refs.nav.getBoundingClientRect().height;
     actions.resizeHotPane(height);
+    // previewPaneも更新する
+    const previewHeight = this.refs.preview.parentNode.getBoundingClientRect().height;
+    this.refs.preview.style.height = previewHeight + 'px';
   }
   getPreviewWindow() {
     return this.refs.previewWindow;
@@ -85,7 +88,7 @@ export default class EnqueteEditorApp extends Component {
                 { this.renderTab() }
               </div>
             </div>
-            <div className="preview-pane">
+            <div ref="preview" className="preview-pane">
               <iframe ref="previewWindow" src="runtime.html"></iframe>
             </div>
           </SplitPane>
