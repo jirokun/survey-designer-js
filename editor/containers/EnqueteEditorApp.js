@@ -10,6 +10,7 @@ import ConditionsHotEditorTab from '../components/ConditionsHotEditorTab'
 import QuestionsHotEditorTab from '../components/QuestionsHotEditorTab'
 import ItemsHotEditorTab from '../components/ItemsHotEditorTab'
 import ChoicesHotEditorTab from '../components/ChoicesHotEditorTab'
+import CustomPageTab from '../components/CustomPageTab'
 import Graph from '../components/Graph'
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
@@ -17,7 +18,7 @@ import * as RuntimeActions from '../../runtime/actions'
 export default class EnqueteEditorApp extends Component {
   constructor(props) {
     super(props);
-    this.state = {tab: 'FlowsTab'};
+    this.state = {tab: 'Flows'};
   }
   componentDidMount() {
     this.resizeHotPane();
@@ -45,18 +46,20 @@ export default class EnqueteEditorApp extends Component {
     const tab = this.state.tab;
     const { state, actions } = this.props;
     switch (tab) {
-      case 'FlowsTab':
+      case 'Flows':
         return <FlowsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'ConditionsTab':
+      case 'Conditions':
         return <ConditionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'PagesTab':
+      case 'Pages':
         return <PagesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'QuestionsTab':
+      case 'Questions':
         return <QuestionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'ItemsTab':
+      case 'Items':
         return <ItemsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'ChoicesTab':
+      case 'Choices':
         return <ChoicesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
+      case 'CustomPage':
+        return <CustomPageTab state={state} onDefsChange={actions.changeDefs}/>
       default:
         throw 'undfined tab: ' + tab;
     }
@@ -78,7 +81,7 @@ export default class EnqueteEditorApp extends Component {
             <div ref="top" className="hot-pane">
               <ul ref="nav"className="nav nav-tabs">
                 {
-                  ['FlowsTab', 'ConditionsTab', 'PagesTab', 'QuestionsTab', 'ItemsTab', 'ChoicesTab'].map((tabName) => {
+                  ['Flows', 'Conditions', 'Pages', 'Questions', 'Items', 'Choices', 'CustomPage'].map((tabName) => {
                     return <li key={'tab-' + tabName} className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
                   })
                 }
