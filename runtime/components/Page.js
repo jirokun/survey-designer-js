@@ -4,7 +4,7 @@ import { ActionCreators } from 'redux-undo'
 import Footer from '../components/Footer'
 import DefaultQuestion from '../components/questions/DefaultQuestion'
 import TableQuestion from '../components/questions/TableQuestion'
-import { findQuestions } from '../../utils'
+import { findQuestions, findCustomPage } from '../../utils'
 
 export default class Page extends Component {
   makeQuestions() {
@@ -29,11 +29,20 @@ export default class Page extends Component {
       });
     });
   }
+  renderDefaultPage() {
+    return this.makeQuestions();
+  }
+  renderCustomPage() {
+    const { page, state } = this.props;
+    const customPage = findCustomPage(state, page.customPageId);
+    return <div dangerouslySetInnerHTML={ { __html: customPage.html } }/>
+  }
   render() {
     const { page, actions, state } = this.props;
     return (
       <div>
         <h2>{page.pageTitle}</h2>
+        { page.pageType === 'custom' ? this.renderCustomPage() : this.renderDefaultPage() }
         {this.makeQuestions()}
         <Footer state={state} handleBack={actions.prevPage} handleNext={actions.nextPage}/>
       </div>

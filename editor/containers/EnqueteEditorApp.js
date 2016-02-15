@@ -59,7 +59,7 @@ export default class EnqueteEditorApp extends Component {
       case 'Choices':
         return <ChoicesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
       case 'CustomPage':
-        return <CustomPageTab state={state} onDefsChange={actions.changeDefs}/>
+        return <CustomPageTab state={state} actions={actions}/>
       default:
         throw 'undfined tab: ' + tab;
     }

@@ -6,9 +6,20 @@ export default class CustomPageTab extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    const { state, actions } = this.props;
+    this.editor = CKEDITOR.replace(this.refs.htmlEditor);
+    this.editor.on('change', (e) => {
+      actions.changeCustomPage('custom1', this.editor.getData());
+    });
+  }
+  componentDidUpdate(prevProps, prevState) {
+  }
+
   render() {
     return (
       <div className="tab-pane active">
+        <div ref="htmlEditor"></div>
       </div>
     )
   }

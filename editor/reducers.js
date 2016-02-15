@@ -1,5 +1,5 @@
 import { nextFlowId, cloneObj, findFlow, findConditions } from '../utils'
-import { RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { CHANGE_CUSTOM_PAGE, RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 import runtimeReducer from '../runtime/reducers'
 
 function addFlow(state, x, y, type) {
@@ -19,6 +19,18 @@ function removeEdge(state, sourceFlowId, targetFlowId) {
     targetCondition.nextFlowId = null;
   } else {
     throw "unkown flow type: " + sourceFlow.type;
+  }
+  return state;
+}
+function changeCustomPage(state, customPageId, html) {
+  let customPage = state.defs.customPageDefs.find((def) => {
+    return def.id === customPageId;
+  });
+  if (!customPage) {
+    customPage = { id: customPageId, html }
+    state.defs.customPageDefs.push(customPage);
+  } else {
+    customPage.html = html;
   }
   return state;
 }
@@ -103,6 +115,8 @@ function editorReducer(state, action) {
     return resizeGraphPane(newState, action.graphWidth);
   case RESIZE_HOT_PANE:
     return resizeHotPane(newState, action.hotHeight);
+  case CHANGE_CUSTOM_PAGE:
+    return changeCustomPage(newState, action.customPageId, action.html);
   default:
     return newState;
   }

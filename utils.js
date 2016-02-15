@@ -36,6 +36,10 @@ export function findFlow(state, flowId) {
 export function findPage(state, pageId) {
   return state.defs.pageDefs.find((def) => def.id === pageId);
 }
+/** stateからcustom pageを探す */
+export function findCustomPage(state, customPageId) {
+  return state.defs.customPageDefs.find((def) => def.id === customPageId);
+}
 /** stateからquestionを探す */
 export function findQuestion(state, questionId) {
   return state.defs.questionDefs.find((def) => def.id === questionId);

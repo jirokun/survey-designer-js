@@ -1,4 +1,4 @@
-import { RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, INIT_ALL_DEFS, GRAPH, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { CHANGE_CUSTOM_PAGE, RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, INIT_ALL_DEFS, GRAPH, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 export function initializeDefs(allDefs) {
   const str = JSON.stringify({type: INIT_ALL_DEFS, allDefs});
   return {
@@ -33,6 +33,9 @@ export function removeEdge(sourceFlowId, targetFlowId) {
 }
 export function changePosition(flowId, x, y) {
   return { type: CHANGE_POSITION, flowId, x, y };
+}
+export function changeCustomPage(customPageId, html) {
+  return { type: CHANGE_CUSTOM_PAGE, customPageId, html };
 }
 export function connectFlow(sourceFlowId, dstFlowId) {
   return { type: CONNECT_FLOW, sourceFlowId, dstFlowId };

@@ -7,6 +7,12 @@ export default {
     "title": "sample enquete",
     "creator": "Jiro Corporation",
     "version": 1,
+    "customPageDefs": [
+      {
+        "id": "custom1",
+        "html": "<h1>custom page</h1>"
+      }
+    ],
     "positionDefs": [
       {
         "flowId": "flow1",
@@ -206,19 +212,27 @@ export default {
     "pageDefs": [
       {
         "id": "page1",
-        "pageTitle": "ページタイトル1"
+        "pageTitle": "ページタイトル1",
+        "pageType": "default",
+        "customPageId": ""
       },
       {
         "id": "page2",
-        "pageTitle": "ページタイトル2"
+        "pageTitle": "ページタイトル2",
+        "pageType": "default",
+        "customPageId": ""
       },
       {
         "id": "page3",
-        "pageTitle": "ページタイトル3"
+        "pageTitle": "ページタイトル3",
+        "pageType": "default",
+        "customPageId": ""
       },
       {
         "id": "page4",
-        "pageTitle": "ページタイトル4"
+        "pageTitle": "ページタイトル4",
+        "pageType": "custom",
+        "customPageId": "custom1"
       }
     ],
     "conditionDefs": [
