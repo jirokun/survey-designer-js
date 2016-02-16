@@ -43,7 +43,6 @@ export default class Page extends Component {
       <div>
         <h2>{page.pageTitle}</h2>
         { page.pageType === 'custom' ? this.renderCustomPage() : this.renderDefaultPage() }
-        {this.makeQuestions()}
         <Footer state={state} handleBack={actions.prevPage} handleNext={actions.nextPage}/>
       </div>
     );
