@@ -8,7 +8,9 @@ export default class CustomPageTab extends Component {
 
   componentDidMount() {
     const { state, actions } = this.props;
-    this.editor = CKEDITOR.replace(this.refs.htmlEditor);
+    this.editor = CKEDITOR.replace(this.refs.htmlEditor, {
+      extraPlugins: 'tableresize'
+    });
     this.editor.on('change', (e) => {
       actions.changeCustomPage('custom1', this.editor.getData());
     });

@@ -8,7 +8,6 @@
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^3.3.6",
-    "ckeditor": "^4.5.7",
     "cytoscape": "^2.6.1",
     "cytoscape-cola": "^1.3.0",
     "cytoscape-cxtmenu": "^2.4.0",
