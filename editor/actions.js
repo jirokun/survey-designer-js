@@ -52,3 +52,6 @@ export function resizeGraphPane(graphWidth) {
 export function resizeEditorPane(hotHeight) {
   return { type: C.RESIZE_EDITOR_PANE, hotHeight };
 }
+export function updateCodemirror(value) {
+  return { type: C.UPDATE_CODEMIRROR, value };
+}

@@ -32,6 +32,11 @@ export function findItemConstructor(name) {
 export function findFlow(state, flowId) {
   return state.defs.flowDefs.find((def) => def.id === flowId);
 }
+/** flowIdからpageIdを引く */
+export function findPageFromFlow(state, flowId) {
+  const flow = findFlow(state, flowId);
+  return findPage(state, flow.pageId);
+}
 /** stateからpageを探す */
 export function findPage(state, pageId) {
   return state.defs.pageDefs.find((def) => def.id === pageId);
