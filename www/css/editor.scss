@@ -37,6 +37,10 @@ html, body {
         box-sizing: border-box;
         height: 100%;
         width: 100%;
+        .CodeMirror {
+          font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+
+        }
       }
       .preview-pane {
         height: 100%;

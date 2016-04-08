@@ -7,16 +7,21 @@ import EnqueteRuntimeApp from '../../runtime/containers/EnqueteRuntimeApp'
 import CustomPageTab from '../components/CustomPageTab'
 import Graph from '../components/Graph'
 import Codemirror from 'react-codemirror'
-import yaml from 'codemirror/mode/yaml/yaml'
+import CodemirrorYaml from 'codemirror/mode/yaml/yaml'
 import javascript from 'codemirror/mode/javascript/javascript'
+import yaml from 'js-yaml'
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
 import * as Utils from '../../utils'
 import '../../node_modules/codemirror/lib/codemirror.css'
+import '../../node_modules/codemirror/theme/erlang-dark.css'
 
 export default class EnqueteEditorApp extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      code: ''
+    };
   }
   componentDidMount() {
     this.resizeEditorPane();
@@ -42,7 +47,8 @@ export default class EnqueteEditorApp extends Component {
     const _this = this;
     const { state, actions } = this.props;
     const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
-    const code = JSON.stringify(page);
+    const draft = Utils.findDraft(state, page.id);
+    const code = draft.yaml;
     const codemirrorOptions = {
       lineNumbers: true,
       mode: 'yaml'
@@ -56,7 +62,7 @@ export default class EnqueteEditorApp extends Component {
         <div className="right" ref="right">
           <SplitPane split="horizontal" minSize="100" defaultSize="400" onDragFinished={this.resizeEditorPane.bind(this)}>
             <div ref="top" className="hot-pane">
-              <Codemirror ref="codemirror" value={code} onChange={this.updateCode} options={codemirrorOptions} />
+              <Codemirror ref="codemirror" value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
             </div>
             <div ref="preview" className="preview-pane">
               <Frame head={

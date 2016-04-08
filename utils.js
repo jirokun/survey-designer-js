@@ -28,6 +28,10 @@ export function findItemConstructor(name) {
   throw 'Item is not defined: ' + name;
 }
 
+/** stateからdraftを探す */
+export function findDraft(state, id) {
+  return state.defs.draftDefs.find((def) => def.id === id);
+}
 /** stateからflowを探す */
 export function findFlow(state, flowId) {
   return state.defs.flowDefs.find((def) => def.id === flowId);

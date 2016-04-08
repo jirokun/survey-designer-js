@@ -1,6 +1,7 @@
-import { nextFlowId, cloneObj, findFlow, findConditions } from '../utils'
-import { CHANGE_CUSTOM_PAGE, RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import { findDraft, findPageFromFlow, nextFlowId, cloneObj, findFlow, findConditions } from '../utils'
+import { CHANGE_CODEMIRROR, CHANGE_CUSTOM_PAGE, RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
 import runtimeReducer from '../runtime/reducers'
+import yaml from 'js-yaml'
 
 function addFlow(state, x, y, type) {
   const flowId = nextFlowId(state);
@@ -34,6 +35,28 @@ function changeCustomPage(state, customPageId, html) {
   }
   return state;
 }
+// 正しい値のときdraftにvalid=trueを設定し、pageも更新する
+// 正しくない値でもdraftのyamlには値を代入する
+function changeCodemirror(state, str) {
+  const flow = findFlow(state, state.values.currentFlowId);
+  const draft = findDraft(state, flow.pageId);
+  draft.yaml = str;
+  draft.valid = false;
+  try {
+    const page = yaml.load(str);
+    if (typeof(page) === 'string' || typeof(page) === 'undefined' || Array.isArray(page)) {
+      return state;
+    }
+    page.id = flow.pageId;
+    removePage(state, flow.pageId);
+    state.defs.pageDefs.push(page);
+    console.log(page);
+  } catch (e) {
+    return state;
+  }
+  draft.valid = true;
+  return state;
+}
 function changePosition(state, flowId, x, y) {
   const pos = state.defs.positionDefs.find((def) => {
     return def.flowId === flowId;
@@ -51,6 +74,13 @@ function removeFlow(state, flowId) {
   const flowDefs = state.defs.flowDefs;
   const index = flowDefs.findIndex((def) => { return def.id === flowId; });
   flowDefs.splice(index, 1);
+  return state;
+}
+/** pageを削除する */
+function removePage(state, pageId) {
+  const pageDefs = state.defs.pageDefs;
+  const index = pageDefs.findIndex((def) => { return def.id === pageId; });
+  pageDefs.splice(index, 1);
   return state;
 }
 /** Flowを接続する */
@@ -117,6 +147,8 @@ function editorReducer(state, action) {
     return resizeHotPane(newState, action.hotHeight);
   case CHANGE_CUSTOM_PAGE:
     return changeCustomPage(newState, action.customPageId, action.html);
+  case CHANGE_CODEMIRROR:
+    return changeCodemirror(newState, action.yaml);
   default:
     return newState;
   }

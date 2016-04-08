@@ -7,6 +7,12 @@ export default {
     "title": "sample enquete",
     "creator": "Jiro Corporation",
     "version": 1,
+    "draftDefs": [
+      {
+        "id": "page1",
+        "yaml": "title: 初めて触ったプログラミング言語についてお伺いします\nquestions:\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3"
+      }
+    ],
     "customPageDefs": [
       {
         "id": "custom1",
