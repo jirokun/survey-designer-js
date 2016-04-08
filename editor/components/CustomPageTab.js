@@ -30,3 +30,5 @@ export default class CustomPageTab extends Component {
 CustomPageTab.propTypes = {
   state: PropTypes.object.isRequired
 }
+
+

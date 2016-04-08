@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import HotEditorTabBase from './HotEditorTabBase'
+import { connect } from 'react-redux'
 
-export default class FlowsHotEditorTab extends HotEditorTabBase {
+class FlowsHotEditorTab extends HotEditorTabBase {
   constructor(props) {
     const colHeaders = ['FlowID', 'Type', 'PageId', 'NextFlowID'];
     const columns = [
@@ -31,3 +32,16 @@ export default class FlowsHotEditorTab extends HotEditorTabBase {
     }
   }
 }
+const stateToProps = state => ({
+  defs: state.defs
+});
+
+const actionsToProps = dispatch => ({
+  changeLanguage: lang => dispatch(changeLanguage(lang))
+});
+
+export default connect(
+  stateToProps,
+  actionsToProps
+)(FlowsHotEditorTab);
+

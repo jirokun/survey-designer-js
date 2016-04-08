@@ -4,11 +4,12 @@ const cytoscape = require('cytoscape');
 const cycola = require('cytoscape-cola');
 const jquery = require('jquery');
 const cxtmenu = require('cytoscape-cxtmenu');
+import { connect } from 'react-redux'
 
 cycola(cytoscape, cola);
 cxtmenu(cytoscape, jquery);
 
-export default class Graph extends Component {
+class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -224,3 +225,19 @@ export default class Graph extends Component {
 Graph.propTypes = {
   state: PropTypes.object.isRequired
 }
+
+const stateToProps = state => ({
+  state: state,
+  
+  defs: state.defs
+});
+
+const actionsToProps = dispatch => ({
+  changeLanguage: lang => dispatch(changeLanguage(lang))
+});
+
+export default connect(
+  stateToProps,
+  actionsToProps
+)(Graph);
+
