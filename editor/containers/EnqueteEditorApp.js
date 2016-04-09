@@ -125,4 +125,4 @@ const actionsToProps = dispatch => ({
 export default connect(
   stateToProps,
   actionsToProps
-)(EnqueteEditorApp)
+)(EnqueteEditorApp);

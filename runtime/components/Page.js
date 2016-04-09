@@ -6,9 +6,11 @@ import DefaultQuestion from '../components/questions/DefaultQuestion'
 import TableQuestion from '../components/questions/TableQuestion'
 import { findQuestions, findCustomPage } from '../../utils'
 
-export default class Page extends Component {
+class Page extends Component {
   makeQuestions() {
-    const { page, actions, state } = this.props;
+    const { page } = this.props;
+    console.log(page);
+    return null;
     return findQuestions(state, page.id).map((q) => {
       let component;
       switch (q.questionType) {
@@ -22,28 +24,19 @@ export default class Page extends Component {
           throw 'invalid component';
       }
       return React.createElement(component, {
-        state: state,
         question: q,
         key: q.id,
         valueChange: actions.valueChange
       });
     });
   }
-  renderDefaultPage() {
-    return this.makeQuestions();
-  }
-  renderCustomPage() {
-    const { page, state } = this.props;
-    const customPage = findCustomPage(state, page.customPageId);
-    return <div dangerouslySetInnerHTML={ { __html: customPage.html } }/>
-  }
   render() {
-    const { page, actions, state } = this.props;
+    const { page } = this.props;
     return (
       <div>
-        <h2>{page.pageTitle}</h2>
-        { page.pageType === 'custom' ? this.renderCustomPage() : this.renderDefaultPage() }
-        <Footer state={state} handleBack={actions.prevPage} handleNext={actions.nextPage}/>
+        <h2>{page.title}</h2>
+        { this.makeQuestions() }
+        <Footer />
       </div>
     );
   }
@@ -52,3 +45,13 @@ export default class Page extends Component {
 Page.propTypes = {
   page: PropTypes.object.isRequired
 };
+
+const stateToProps = state => ({
+});
+const actionsToProps = dispatch => ({
+});
+
+export default connect(
+  stateToProps,
+  actionsToProps
+)(Page);

@@ -50,7 +50,7 @@ function changeCodemirror(state, str) {
     page.id = flow.pageId;
     removePage(state, flow.pageId);
     state.defs.pageDefs.push(page);
-    console.log(page);
+    console.log(JSON.stringify(page));
   } catch (e) {
     return state;
   }
