@@ -19,7 +19,7 @@
     "react-dom": "^0.14.7",
     "react-frame-component": "^0.5.0",
     "react-redux": "^4.1.1",
-    "react-split-pane": "^0.1.23",
+    "react-split-pane": "^0.1.30",
     "redux": "^3.1.2",
     "redux-thunk": "^1.0.3",
     "redux-undo": "^0.6.0",

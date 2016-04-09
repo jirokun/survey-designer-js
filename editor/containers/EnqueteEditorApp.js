@@ -31,17 +31,33 @@ export default class EnqueteEditorApp extends Component {
     const { resizeGraphPane } = this.props;
     const width = this.refs.left.getBoundingClientRect().width;
     resizeGraphPane(width);
+    this.onDragEnd();
   }
   resizeEditorPane(e) {
-    // 一瞬おいてからじゃないとうまくいかない
     const { resizeEditorPane } = this.props;
     const height = this.refs.top.getBoundingClientRect().height;
     resizeEditorPane(height);
     this.resizePreviewPane();
+    this.onDragEnd();
   }
   resizePreviewPane() {
     const previewHeight = this.refs.preview.parentNode.getBoundingClientRect().height;
     this.refs.preview.style.height = previewHeight + 'px';
+  }
+  onDragStarted() {
+    this.overlay = document.createElement('div');
+    this.overlay.style.width = window.innerWidth + 'px';
+    this.overlay.style.height = window.innerHeight + 'px';
+    this.overlay.style.position = 'absolute';
+    this.overlay.style.top = '0px';
+    this.overlay.style.left = '0px';
+    document.body.appendChild(this.overlay);
+  }
+  onDragEnd() {
+    if (this.overlay) {
+      document.body.removeChild(this.overlay);
+      delete this.overlay;
+    }
   }
   render() {
     const _this = this;
@@ -54,14 +70,18 @@ export default class EnqueteEditorApp extends Component {
       lineNumbers: true,
       mode: 'yaml'
     };
+    const splitPaneSize = {
+      minSize: 100,
+      defaultSize: 400
+    };
     // TODO SplitPaneをiframeに対応する
     return (
-      <SplitPane split="vertical" minSize="100" defaultSize="400" onDragFinished={this.resizeGraphPane.bind(this)}>
+      <SplitPane ref="root" split="vertical" {...splitPaneSize} onDragFinished={this.resizeGraphPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
         <div className="left" ref="left">
           <Graph actions={actions} />
         </div>
         <div className="right" ref="right">
-          <SplitPane split="horizontal" minSize="100" defaultSize="400" onDragFinished={this.resizeEditorPane.bind(this)}>
+          <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.resizeEditorPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
             <div ref="top" className="hot-pane">
               <Codemirror ref="codemirror" value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
             </div>
