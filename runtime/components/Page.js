@@ -4,29 +4,24 @@ import { ActionCreators } from 'redux-undo'
 import Footer from '../components/Footer'
 import DefaultQuestion from '../components/questions/DefaultQuestion'
 import TableQuestion from '../components/questions/TableQuestion'
+import CheckboxQuestion from '../components/questions/CheckboxQuestion'
 import { findQuestions, findCustomPage } from '../../utils'
 
 class Page extends Component {
   makeQuestions() {
     const { page } = this.props;
-    console.log(page);
-    return null;
-    return findQuestions(state, page.id).map((q) => {
+    return page.questions.map((q) => {
       let component;
-      switch (q.questionType) {
-        case 'default':
-          component = DefaultQuestion;
-          break;
-        case 'table':
-          component = TableQuestion;
+      console.log(q);
+      switch(q.type) {
+        case 'checkbox':
+          component = CheckboxQuestion;
           break;
         default:
           throw 'invalid component';
       }
       return React.createElement(component, {
-        question: q,
-        key: q.id,
-        valueChange: actions.valueChange
+        ...q
       });
     });
   }
