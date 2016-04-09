@@ -10,7 +10,8 @@ export default {
     "draftDefs": [
       {
         "id": "page1",
-        "yaml": "title: 初めて触ったプログラミング言語についてお伺いします\nquestions:\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3"
+        "yaml": "title: 初めて触ったプログラミング言語についてお伺いします\nquestions:\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3",
+        "valid": true
       }
     ],
     "customPageDefs": [

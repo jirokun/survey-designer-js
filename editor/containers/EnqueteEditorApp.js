@@ -63,9 +63,15 @@ export default class EnqueteEditorApp extends Component {
     const _this = this;
     const { state, actions } = this.props;
     const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
-    const draft = Utils.findDraft(state, page.id);
-    const code = draft.yaml;
-    const isYamlValid = draft.valid;
+    let code = '';
+    let isYamlValid = false;
+    if (page) {
+      const draft = Utils.findDraft(state, page.id);
+      if (draft) {
+        code = draft.yaml;
+        isYamlValid = draft.valid;
+      }
+    }
     const codemirrorOptions = {
       lineNumbers: true,
       mode: 'yaml'
