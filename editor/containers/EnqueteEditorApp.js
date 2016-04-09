@@ -49,6 +49,7 @@ export default class EnqueteEditorApp extends Component {
     const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
     const draft = Utils.findDraft(state, page.id);
     const code = draft.yaml;
+    const isYamlValid = draft.valid;
     const codemirrorOptions = {
       lineNumbers: true,
       mode: 'yaml'
@@ -65,11 +66,16 @@ export default class EnqueteEditorApp extends Component {
               <Codemirror ref="codemirror" value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
             </div>
             <div ref="preview" className="preview-pane">
-              <Frame head={
+              <Frame className={isYamlValid ? "" : "hidden"} head={
                 <link rel="stylesheet" href="/css/runtime.css"/>
               }>
                 <EnqueteRuntimeApp />
               </Frame>
+              <div className={isYamlValid ? "hidden" : "alert alert-danger error"}>
+                <span className="glyphicon glyphicon-exclamation-sign"></span>
+                <span className="sr-only">Error:</span>
+                データが正しくありません
+              </div>
             </div>
           </SplitPane>
         </div>
