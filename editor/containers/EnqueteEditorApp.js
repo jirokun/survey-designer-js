@@ -74,6 +74,9 @@ export default class EnqueteEditorApp extends Component {
       minSize: 100,
       defaultSize: 400
     };
+    const codeMirrorStyle = {
+      height: '100%'
+    }
     // TODO SplitPaneをiframeに対応する
     return (
       <SplitPane ref="root" split="vertical" {...splitPaneSize} onDragFinished={this.resizeGraphPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
@@ -83,7 +86,7 @@ export default class EnqueteEditorApp extends Component {
         <div className="right" ref="right">
           <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.resizeEditorPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
             <div ref="top" className="hot-pane">
-              <Codemirror ref="codemirror" value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
+              <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
             </div>
             <div ref="preview" className="preview-pane">
               <Frame className={isYamlValid ? "" : "hidden"} head={
