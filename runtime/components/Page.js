@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { ActionCreators } from 'redux-undo'
 import Footer from '../components/Footer'
 import InvalidTypeQuestion from '../components/questions/InvalidTypeQuestion'
 import TextQuestion from '../components/questions/TextQuestion'
