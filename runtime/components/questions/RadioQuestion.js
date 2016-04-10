@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 
-export default class CheckboxQuestion extends Component {
+export default class RadioQuestion extends Component {
   constructor(props) {
     super(props);
   }
   makeItems() {
     const { labels, values, vertical } = this.props;
     const labelClassName = vertical ? 'vertical' : 'horizontal';
-    return labels.map((label, i) => <label className={labelClassName}><input type="checkbox" value={values && values[i] ? values[i] : i + 1}/> {label}</label>);
+    return labels.map((label, i) => <label className={labelClassName}><input type="radio" value={values && values[i] ? values[i] : i + 1}/> {label}</label>);
   }
   render() {
     return (
@@ -18,12 +18,12 @@ export default class CheckboxQuestion extends Component {
   }
 }
 
-CheckboxQuestion.defaultProps = {
+RadioQuestion.defaultProps = {
   values: [],
   vertical: true
 };
 
-CheckboxQuestion.propTypes = {
+RadioQuestion.propTypes = {
   type: PropTypes.string.isRequired,
   labels: PropTypes.array.isRequired,
   vertical: PropTypes.bool.isRequired,
