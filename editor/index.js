@@ -10,9 +10,10 @@ import '../www/css/editor.scss'
 const store = configureStore(state);
 
 const rootElement = document.getElementById('root');
-render(
+const el = render(
   <Provider store={store}>
     <EnqueteEditorApp />
   </Provider>,
   rootElement
 )
+console.log(el);

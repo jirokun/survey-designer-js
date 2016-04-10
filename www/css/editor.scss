@@ -37,6 +37,13 @@ html, body {
         box-sizing: border-box;
         height: 100%;
         width: 100%;
+        .ReactCodeMirror {
+          height: 100%;
+          .CodeMirror {
+            font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+            height: 100%;
+          }
+        }
       }
       .preview-pane {
         height: 100%;
@@ -59,6 +66,7 @@ html, body {
 }
 .Pane.horizontal {
   height: 100%;
+  overflow: auto;
 }
 .Resizer {
   background: #000;

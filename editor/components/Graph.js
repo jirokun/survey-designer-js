@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { cloneObj, nextFlowId, findPage, findFlow, makeCytoscapeElements } from '../../utils'
+import { connect } from 'react-redux'
+import { loadState, setElementsPosition, changePosition, selectFlow, removeEdge, removeFlow, addBranch, addPageFlow, addBranchFlow, connectFlow } from '../actions'
 const cytoscape = require('cytoscape');
 const cycola = require('cytoscape-cola');
 const jquery = require('jquery');
@@ -8,7 +10,7 @@ const cxtmenu = require('cytoscape-cxtmenu');
 cycola(cytoscape, cola);
 cxtmenu(cytoscape, jquery);
 
-export default class Graph extends Component {
+class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +38,7 @@ export default class Graph extends Component {
   }
   // event listener
   onFileSelected(e) {
-    const { actions } = this.props;
+    const { loadState } = this.props;
     if (e.target.files.length !== 1) {
       return;
     }
@@ -44,49 +46,50 @@ export default class Graph extends Component {
     const reader = new FileReader();
     reader.onload = (e) => {
       const state = JSON.parse(e.target.result);
-      actions.loadState(state);
+      loadState(state);
     }
     reader.readAsText(file, 'UTF-8');
   }
   onSelectFlow(e) {
-    const { state, actions } = this.props;
+    const { state, selectFlow } = this.props;
     const data = e.cyTarget.data();
     const flow = findFlow(state, data.id);
     if (!flow) return;
-    actions.selectFlow(flow.id);
+    selectFlow(flow.id);
   }
   onCxtTapstart(e) {
     // nodeを追加するポイントを記録しておく
     this.state.rightClickPosition = e.cyPosition;
   }
   onPositionChange(e) {
-    const { state, actions } = this.props;
+    const { state, changePosition } = this.props;
     const node = e.cyTarget;
     const flowId = node.data('id');
     const { x, y } = node.position();
-    actions.changePosition(flowId, x, y);
+    changePosition(flowId, x, y);
   }
   removeEdge(edge) {
-    const { state, actions } = this.props;
+    const { state, removeEdge } = this.props;
     const sourceFlowId = edge.source().data('id');
     const targetFlowId = edge.target().data('id');
-    actions.removeEdge(sourceFlowId, targetFlowId);
+    removeEdge(sourceFlowId, targetFlowId);
   }
   /** page flowを追加 */
   addPage() {
-    const { actions } = this.props;
+    const { addPageFlow } = this.props;
     const { x, y } = this.state.rightClickPosition;
-    actions.addPageFlow(x, y);
+    addPageFlow(x, y);
   }
   /** branch flowを追加 */
   addBranch() {
-    const { actions } = this.props;
+    const { addBranchFlow } = this.props;
     const { x, y } = this.state.rightClickPosition;
-    actions.addBranchFlow(x, y);
+    addBranchFlow(x, y);
   }
   removeFlow(ele) {
+    const { removeFlow } = this.props;
     const flowId = ele.id();
-    this.props.actions.removeFlow(flowId);
+    removeFlow(flowId);
   }
   startConnectFlow(ele) {
     const { state } = this.props;
@@ -95,12 +98,12 @@ export default class Graph extends Component {
   }
   finishConnectFlow(e) {
     if (this.state.connectMode !== true) return;
-    const { state, actions } = this.props;
+    const { state, connectFlow } = this.props;
     this.setState({ connectMode: false });
     const target = e.cyTarget;
     if (!target.isNode || !target.isNode()) return;
     const targetFlowId = target.id();
-    actions.connectFlow(this.state.sourceFlowId, targetFlowId);
+    connectFlow(this.state.sourceFlowId, targetFlowId);
   }
   makeCytoscape() {
     const data = this.props.state.defs[this.defsName];
@@ -224,3 +227,26 @@ export default class Graph extends Component {
 Graph.propTypes = {
   state: PropTypes.object.isRequired
 }
+
+const stateToProps = state => ({
+  state: state,
+  defs: state.defs
+});
+
+const actionsToProps = dispatch => ({
+  loadState: state => dispatch(loadState(state)),
+  setElementsPosition: positions => dispatch(setElementsPosition(positions)),
+  changePosition: (flowId, x, y) => dispatch(changePosition(flowId, x, y)),
+  selectFlow: flowId => dispatch(selectFlow(flowId)),
+  removeEdge: (sourceFlowId, targetFlowId) => dispatch(removeEdge(sourceFlowId, targetFlowId)),
+  removeFlow: flowId => dispatch(removeFlow(flowId)),
+  addPageFlow: (x, y) => dispatch(addPageFlow(x, y)),
+  addBranchFlow: (x, y) => dispatch(addBranchFlow(x, y)),
+  connectFlow: (sourceFlowId, targetFlowId) => dispatch(connectFlow(sourceFlowId, targetFlowId)),
+});
+
+export default connect(
+  stateToProps,
+  actionsToProps
+)(Graph);
+

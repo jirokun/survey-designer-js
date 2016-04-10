@@ -1,36 +1,21 @@
-import CheckboxItem from './runtime/components/items/CheckboxItem'
-import RadioItem from './runtime/components/items/RadioItem'
-import TextItem from './runtime/components/items/TextItem'
-import SelectItem from './runtime/components/items/SelectItem'
-
 export function flatten(ary) {
   return ary.reduce((p, c) => {
     return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
   }, []);
 }
-/**
- * Itemを探す
- *
- * まず最初にitemsを探し、その後windowを探す
- */
-export function findItemConstructor(name) {
-  let items = {
-    CheckboxItem,
-    RadioItem,
-    SelectItem,
-    TextItem
-  };
-  if (items[name]) {
-    return items[name];
-  } else if (typeof window !== 'undefined' && window[name]) {
-    return window[name];
-  }
-  throw 'Item is not defined: ' + name;
-}
 
+/** stateからdraftを探す */
+export function findDraft(state, id) {
+  return state.defs.draftDefs.find((def) => def.id === id);
+}
 /** stateからflowを探す */
 export function findFlow(state, flowId) {
   return state.defs.flowDefs.find((def) => def.id === flowId);
+}
+/** flowIdからpageIdを引く */
+export function findPageFromFlow(state, flowId) {
+  const flow = findFlow(state, flowId);
+  return findPage(state, flow.pageId);
 }
 /** stateからpageを探す */
 export function findPage(state, pageId) {

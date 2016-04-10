@@ -1,49 +1,49 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { ActionCreators } from 'redux-undo'
 import Footer from '../components/Footer'
-import DefaultQuestion from '../components/questions/DefaultQuestion'
-import TableQuestion from '../components/questions/TableQuestion'
+import InvalidTypeQuestion from '../components/questions/InvalidTypeQuestion'
+import TextQuestion from '../components/questions/TextQuestion'
+import TextareaQuestion from '../components/questions/TextareaQuestion'
+import CheckboxQuestion from '../components/questions/CheckboxQuestion'
+import RadioQuestion from '../components/questions/RadioQuestion'
+import SelectQuestion from '../components/questions/SelectQuestion'
 import { findQuestions, findCustomPage } from '../../utils'
 
-export default class Page extends Component {
+class Page extends Component {
   makeQuestions() {
-    const { page, actions, state } = this.props;
-    return findQuestions(state, page.id).map((q) => {
+    const { page } = this.props;
+    return page.questions.map((q) => {
       let component;
-      switch (q.questionType) {
-        case 'default':
-          component = DefaultQuestion;
+      switch(q.type) {
+        case 'text':
+          component = TextQuestion;
           break;
-        case 'table':
-          component = TableQuestion;
+        case 'textarea':
+          component = TextareaQuestion;
+          break;
+        case 'checkbox':
+          component = CheckboxQuestion;
+          break;
+        case 'radio':
+          component = RadioQuestion;
+          break;
+        case 'select':
+          component = SelectQuestion;
           break;
         default:
-          throw 'invalid component';
+          component = InvalidTypeQuestion;
+          break;
       }
-      return React.createElement(component, {
-        state: state,
-        question: q,
-        key: q.id,
-        valueChange: actions.valueChange
-      });
+      return <div className="question">{ React.createElement(component, { ...q }) }</div>
     });
   }
-  renderDefaultPage() {
-    return this.makeQuestions();
-  }
-  renderCustomPage() {
-    const { page, state } = this.props;
-    const customPage = findCustomPage(state, page.customPageId);
-    return <div dangerouslySetInnerHTML={ { __html: customPage.html } }/>
-  }
   render() {
-    const { page, actions, state } = this.props;
+    const { page } = this.props;
     return (
-      <div>
-        <h2>{page.pageTitle}</h2>
-        { page.pageType === 'custom' ? this.renderCustomPage() : this.renderDefaultPage() }
-        <Footer state={state} handleBack={actions.prevPage} handleNext={actions.nextPage}/>
+      <div className="page">
+        <h2 className="page-title">{page.title}</h2>
+        { this.makeQuestions() }
+        <Footer />
       </div>
     );
   }
@@ -52,3 +52,13 @@ export default class Page extends Component {
 Page.propTypes = {
   page: PropTypes.object.isRequired
 };
+
+const stateToProps = state => ({
+});
+const actionsToProps = dispatch => ({
+});
+
+export default connect(
+  stateToProps,
+  actionsToProps
+)(Page);

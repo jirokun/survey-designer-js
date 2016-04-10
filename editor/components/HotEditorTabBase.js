@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { cloneObj, findFlow } from '../../utils'
+import { connect } from 'react-redux'
 
 export default class HotEditorTabBase extends Component {
   constructor(props, defsName, colHeaders, columns, colWidths) {

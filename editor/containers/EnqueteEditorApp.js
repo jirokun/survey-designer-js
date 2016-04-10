@@ -4,98 +4,107 @@ import { connect } from 'react-redux'
 import SplitPane from 'react-split-pane'
 import Frame from 'react-frame-component'
 import EnqueteRuntimeApp from '../../runtime/containers/EnqueteRuntimeApp'
-import PagesHotEditorTab from '../components/PagesHotEditorTab'
-import FlowsHotEditorTab from '../components/FlowsHotEditorTab'
-import ConditionsHotEditorTab from '../components/ConditionsHotEditorTab'
-import QuestionsHotEditorTab from '../components/QuestionsHotEditorTab'
-import ItemsHotEditorTab from '../components/ItemsHotEditorTab'
-import ChoicesHotEditorTab from '../components/ChoicesHotEditorTab'
 import CustomPageTab from '../components/CustomPageTab'
 import Graph from '../components/Graph'
+import Codemirror from 'react-codemirror'
+import CodemirrorYaml from 'codemirror/mode/yaml/yaml'
+import javascript from 'codemirror/mode/javascript/javascript'
+import yaml from 'js-yaml'
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
+import * as Utils from '../../utils'
+import '../../node_modules/codemirror/lib/codemirror.css'
+import '../../node_modules/codemirror/theme/erlang-dark.css'
 
 export default class EnqueteEditorApp extends Component {
   constructor(props) {
     super(props);
-    this.state = {tab: 'Flows'};
+    this.state = {
+      code: ''
+    };
   }
   componentDidMount() {
-    this.resizeHotPane();
+    this.resizeEditorPane();
     this.resizeGraphPane();
   }
   resizeGraphPane(e) {
-    const { actions } = this.props;
+    const { resizeGraphPane } = this.props;
     const width = this.refs.left.getBoundingClientRect().width;
-    actions.resizeGraphPane(width);
+    resizeGraphPane(width);
+    this.onDragEnd();
   }
-  resizeHotPane(e) {
-    // 一瞬おいてからじゃないとうまくいかない
-    setTimeout(() => {
-      const { actions } = this.props;
-      const height = this.refs.top.getBoundingClientRect().height - this.refs.nav.getBoundingClientRect().height;
-      actions.resizeHotPane(height);
-      this.resizePreviewPane();
-    }, 1);
+  resizeEditorPane(e) {
+    const { resizeEditorPane } = this.props;
+    const height = this.refs.top.getBoundingClientRect().height;
+    resizeEditorPane(height);
+    this.resizePreviewPane();
+    this.onDragEnd();
   }
   resizePreviewPane() {
     const previewHeight = this.refs.preview.parentNode.getBoundingClientRect().height;
     this.refs.preview.style.height = previewHeight + 'px';
   }
-  renderTab() {
-    const tab = this.state.tab;
-    const { state, actions } = this.props;
-    switch (tab) {
-      case 'Flows':
-        return <FlowsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'Conditions':
-        return <ConditionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'Pages':
-        return <PagesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'Questions':
-        return <QuestionsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'Items':
-        return <ItemsHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'Choices':
-        return <ChoicesHotEditorTab state={state} onDefsChange={actions.changeDefs}/>
-      case 'CustomPage':
-        return <CustomPageTab state={state} actions={actions}/>
-      default:
-        throw 'undfined tab: ' + tab;
-    }
+  onDragStarted() {
+    this.overlay = document.createElement('div');
+    this.overlay.style.width = window.innerWidth + 'px';
+    this.overlay.style.height = window.innerHeight + 'px';
+    this.overlay.style.position = 'absolute';
+    this.overlay.style.top = '0px';
+    this.overlay.style.left = '0px';
+    document.body.appendChild(this.overlay);
   }
-  showTab(tabName) {
-    this.setState({tab: tabName});
+  onDragEnd() {
+    if (this.overlay) {
+      document.body.removeChild(this.overlay);
+      delete this.overlay;
+    }
   }
   render() {
     const _this = this;
     const { state, actions } = this.props;
+    const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
+    let code = '';
+    let isYamlValid = false;
+    if (page) {
+      const draft = Utils.findDraft(state, page.id);
+      if (draft) {
+        code = draft.yaml;
+        isYamlValid = draft.valid;
+      }
+    }
+    const codemirrorOptions = {
+      lineNumbers: true,
+      mode: 'yaml'
+    };
+    const splitPaneSize = {
+      minSize: 100,
+      defaultSize: 400
+    };
+    const codeMirrorStyle = {
+      height: '100%'
+    }
     // TODO SplitPaneをiframeに対応する
     return (
-      <SplitPane split="vertical" minSize="100" defaultSize="400" onDragFinished={this.resizeGraphPane.bind(this)}>
+      <SplitPane ref="root" split="vertical" {...splitPaneSize} onDragFinished={this.resizeGraphPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
         <div className="left" ref="left">
-          <Graph state={state} actions={actions} />
+          <Graph actions={actions} />
         </div>
         <div className="right" ref="right">
-          <SplitPane split="horizontal" minSize="100" defaultSize="400" onDragFinished={this.resizeHotPane.bind(this)}>
+          <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.resizeEditorPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
             <div ref="top" className="hot-pane">
-              <ul ref="nav"className="nav nav-tabs">
-                {
-                  ['Flows', 'Conditions', 'Pages', 'Questions', 'Items', 'Choices', 'CustomPage'].map((tabName) => {
-                    return <li key={'tab-' + tabName} className={_this.state.tab === tabName ? 'active' : ''}><a onClick={() => _this.showTab(tabName)}>{tabName}</a></li>
-                  })
-                }
-              </ul>
-              <div className="tab-content">
-                { this.renderTab() }
-              </div>
+              <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
             </div>
             <div ref="preview" className="preview-pane">
-              <Frame head={
+              <Frame className={isYamlValid ? "" : "hidden"} head={
                 <link rel="stylesheet" href="/css/runtime.css"/>
               }>
                 <EnqueteRuntimeApp />
               </Frame>
+              <div className={isYamlValid ? "hidden" : "alert alert-danger error"}>
+                <span className="glyphicon glyphicon-exclamation-sign"></span>
+                <span className="sr-only">Error:</span>
+                データが正しくありません
+              </div>
             </div>
           </SplitPane>
         </div>
@@ -103,18 +112,17 @@ export default class EnqueteEditorApp extends Component {
     )
   }
 }
-function select(state) {
-  return {state};
-}
 
-function mapDispatchToProps(dispatch) {
-  var MergedActions = Object.assign({}, RuntimeActions, EditorActions);
-  return {
-    actions: bindActionCreators(MergedActions, dispatch)
-  }
-}
+const stateToProps = state => ({
+  state: state
+});
+const actionsToProps = dispatch => ({
+  resizeGraphPane: width => dispatch(EditorActions.resizeGraphPane(width)),
+  resizeEditorPane: height => dispatch(EditorActions.resizeEditorPane(height)),
+  changeCodemirror: value => dispatch(EditorActions.changeCodemirror(value))
+});
 
 export default connect(
-  select,
-  mapDispatchToProps
-)(EnqueteEditorApp)
+  stateToProps,
+  actionsToProps
+)(EnqueteEditorApp);
