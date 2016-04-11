@@ -1,3 +1,4 @@
+import React from 'react'
 export function flatten(ary) {
   return ary.reduce((p, c) => {
     return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
@@ -118,4 +119,8 @@ export function makeCytoscapeElements(state) {
 /** オブジェクトをcloneする */
 export function cloneObj(obj) {
   return JSON.parse(JSON.stringify(obj));
+}
+/** エラーメッセージ用のエレメントを返す */
+export function errorMessage(msg) {
+  return <h3 className="error-message">{msg}</h3>;
 }

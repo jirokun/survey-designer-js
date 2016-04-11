@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { errorMessage } from '../../../utils'
 
 export default class CheckboxQuestion extends Component {
   constructor(props) {
@@ -6,6 +7,9 @@ export default class CheckboxQuestion extends Component {
   }
   makeItems() {
     const { labels, values, vertical } = this.props;
+    if (!labels) {
+      return errorMessage('labels attribute is not defined');
+    }
     const labelClassName = vertical ? 'vertical' : 'horizontal';
     return labels.map((label, i) => <label className={labelClassName}><input type="checkbox" value={values && values[i] ? values[i] : i + 1}/> {label}</label>);
   }

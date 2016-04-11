@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { errorMessage } from '../../../utils'
 
 export default class SelectQuestion extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class SelectQuestion extends Component {
   makeOptions() {
     const { labels, values } = this.props;
     if (!labels) {
-      return [];
+      return errorMessage('labels attribute is not defined');
     }
     return labels.map((label, i) => <option value={values && values[i] ? values[i] : i + 1}>{label}</option>);
   }

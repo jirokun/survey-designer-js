@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+import { errorMessage } from '../../../utils'
 
 export default class InvalidTypeQuestion extends Component {
   render() {
-    return (
-      <h3 style={{color: 'red', background: '#fcc', border: '2px solid #f33'}}>
-        Invalid Question Type: {this.props.type}
-      </h3>
-    );
+    return errorMessage(`Invalid Question Type: ${this.props.type}`);
   }
 }
 
