@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import RadioButtonGroup from 'material-ui/lib/radio-button-group';
+import RadioButton from 'material-ui/lib/radio-button'
 import { errorMessage } from '../../../utils'
 
 export default class RadioQuestion extends Component {
@@ -11,12 +13,15 @@ export default class RadioQuestion extends Component {
       return errorMessage('labels attribute is not defined');
     }
     const labelClassName = vertical ? 'vertical' : 'horizontal';
-    return labels.map((label, i) => <label className={labelClassName}><input type="radio" value={values && values[i] ? values[i] : i + 1}/> {label}</label>);
+    const style = { marginBottom: 16 };
+    return labels.map((label, i) => <RadioButton label="Simple" style={style} className={labelClassName} value={values && values[i] ? values[i] : i + 1}/>);
   }
   render() {
     return (
       <div className={this.constructor.name}>
-        {this.makeItems()}
+        <RadioButtonGroup name="hoge">
+          {this.makeItems()}
+        </RadioButtonGroup>
       </div>
     );
   }

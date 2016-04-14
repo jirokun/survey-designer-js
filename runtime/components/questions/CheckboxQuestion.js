@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Checkbox from 'material-ui/lib/checkbox'
 import { errorMessage } from '../../../utils'
 
 export default class CheckboxQuestion extends Component {
@@ -11,7 +12,8 @@ export default class CheckboxQuestion extends Component {
       return errorMessage('labels attribute is not defined');
     }
     const labelClassName = vertical ? 'vertical' : 'horizontal';
-    return labels.map((label, i) => <label className={labelClassName}><input type="checkbox" value={values && values[i] ? values[i] : i + 1}/> {label}</label>);
+    const style = { marginBottom: 16 };
+    return labels.map((label, i) => <Checkbox label="Simple" style={style} className={labelClassName} value={values && values[i] ? values[i] : i + 1}/>);
   }
   render() {
     return (

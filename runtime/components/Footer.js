@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import RaisedButton from 'material-ui/lib/raised-button'
 import { connect } from 'react-redux'
 import { findFlow } from '../../utils'
 import { nextPage, prevPage } from '../actions'
@@ -12,8 +13,8 @@ export default class Footer extends Component {
     }
     return (
       <div>
-        <input type="button" value="戻る" style={backButtonStyle} onClick={prevPage}/>
-        <input type="button" value="次へ" onClick={nextPage}/>
+        <RaisedButton label="戻る" secondary={true} style={backButtonStyle} onClick={prevPage}/>
+        <RaisedButton label="次へ" primary={true} onClick={nextPage}/>
       </div>
     )
   }
