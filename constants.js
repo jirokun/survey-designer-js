@@ -6,6 +6,7 @@ export const SELECT_FLOW = 'SELECT_FLOW';
 export const GRAPH = 'GRAPH';
 export const REMOVE_EDGE = 'REMOVE_EDGE';
 export const ADD_PAGE_FLOW = 'ADD_PAGE_FLOW';
+export const CLONE_PAGE = 'CLONE_PAGE';
 export const ADD_BRANCH_FLOW = 'ADD_BRANCH_FLOW';
 export const REMOVE_FLOW = 'REMOVE_FLOW';
 export const CHANGE_POSITION = 'CHANGE_POSITION';

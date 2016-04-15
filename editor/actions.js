@@ -22,6 +22,9 @@ export function selectFlow(flowId) {
 export function addPageFlow(x, y) {
   return { type: C.ADD_PAGE_FLOW, x, y };
 }
+export function clonePage(flowId, x, y) {
+  return { type: C.CLONE_PAGE, flowId, x, y };
+}
 export function addBranchFlow(x, y) {
   return { type: C.ADD_BRANCH_FLOW, x, y };
 }

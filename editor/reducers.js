@@ -19,6 +19,15 @@ function addFlow(state, x, y, type) {
   state.defs.draftDefs.push({ pageId: pageId, valid: true, yaml: yaml.safeDump(defaultPage) });
   return state;
 }
+// ページを複製する
+function clonePage(state, flowId, x, y) {
+  const flow = Utils.findFlow(state, flowId);
+  const clonedFlow = Utils.cloneObj(flow);
+  clonedFlow.id = Utils.generateNextId(state, 'flow');
+  state.defs.flowDefs.push(clonedFlow);
+  state.defs.positionDefs.push({ flowId: clonedFlow.id, x, y });
+  return state;
+}
 function removeEdge(state, sourceFlowId, targetFlowId) {
   const sourceFlow = Utils.findFlow(state, sourceFlowId);
   if (sourceFlow.type === 'page') {
@@ -81,14 +90,19 @@ function changePosition(state, flowId, x, y) {
 /** flowを削除する */
 function removeFlow(state, flowId) {
   const flowDefs = state.defs.flowDefs;
-  const index = flowDefs.findIndex((def) => { return def.id === flowId; });
+  const index = flowDefs.findIndex((def) => def.id === flowId);
+  const pageId = flowDefs[index].pageId;
   flowDefs.splice(index, 1);
+  const pageRemained = flowDefs.findIndex(def => def.pageId === pageId) !== -1;
+  if (!pageRemained) {
+    removePage(state, pageId);
+  }
   return state;
 }
 /** pageを削除する */
 function removePage(state, pageId) {
   const pageDefs = state.defs.pageDefs;
-  const index = pageDefs.findIndex((def) => { return def.id === pageId; });
+  const index = pageDefs.findIndex((def) => def.id === pageId);
   pageDefs.splice(index, 1);
   return state;
 }
@@ -138,6 +152,8 @@ function editorReducer(state, action) {
     return addFlow(newState, action.x, action.y, 'page');
   case C.ADD_BRANCH_FLOW:
     return addFlow(newState, action.x, action.y, 'branch');
+  case C.CLONE_PAGE:
+    return clonePage(newState, action.flowId, action.x, action.y);
   case C.REMOVE_EDGE:
     return removeEdge(newState, action.sourceFlowId, action.targetFlowId);
   case C.REMOVE_FLOW:

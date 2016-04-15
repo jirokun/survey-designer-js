@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { cloneObj, nextFlowId, findPage, findFlow, makeCytoscapeElements } from '../../utils'
 import { connect } from 'react-redux'
-import { loadState, setElementsPosition, changePosition, selectFlow, removeEdge, removeFlow, addBranch, addPageFlow, addBranchFlow, connectFlow } from '../actions'
+import { loadState, setElementsPosition, changePosition, selectFlow, removeEdge, removeFlow, addBranch, addPageFlow, addBranchFlow, connectFlow, clonePage } from '../actions'
 const cytoscape = require('cytoscape');
 const cycola = require('cytoscape-cola');
 const jquery = require('jquery');
@@ -80,6 +80,15 @@ class Graph extends Component {
     const { x, y } = this.state.rightClickPosition;
     addPageFlow(x, y);
   }
+  /** page 複製する */
+  clonePage(ele) {
+    const { clonePage } = this.props;
+    const { x, y } = this.state.rightClickPosition;
+    const flowId = ele.id();
+    console.log(flowId);
+    clonePage(flowId, x, y);
+  }
+
   /** branch flowを追加 */
   addBranch() {
     const { addBranchFlow } = this.props;
@@ -171,14 +180,15 @@ class Graph extends Component {
     this.cy.cxtmenu({
       selector: 'core',
       commands: [
-        { content: 'add page flow', select: this.addPage.bind(this) },
-        { content: 'add branch flow', select: this.addBranch.bind(this) }
+        { content: 'add page', select: this.addPage.bind(this) },
+        { content: 'add branch', select: this.addBranch.bind(this) }
       ]
     });
     this.cy.cxtmenu({
       selector: 'node.page',
       commands: [
         { content: 'connect flow', select: this.startConnectFlow.bind(this) },
+        { content: 'clone page', select: this.clonePage.bind(this) },
         { content: 'remove page flow', select: this.removeFlow.bind(this) }
       ]
     });
@@ -242,6 +252,7 @@ const actionsToProps = dispatch => ({
   removeFlow: flowId => dispatch(removeFlow(flowId)),
   addPageFlow: (x, y) => dispatch(addPageFlow(x, y)),
   addBranchFlow: (x, y) => dispatch(addBranchFlow(x, y)),
+  clonePage: (flowId, x, y) => dispatch(clonePage(flowId, x, y)),
   connectFlow: (sourceFlowId, targetFlowId) => dispatch(connectFlow(sourceFlowId, targetFlowId)),
 });
 
