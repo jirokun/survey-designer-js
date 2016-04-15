@@ -1,20 +1,30 @@
-import { findDraft, findPageFromFlow, nextFlowId, cloneObj, findFlow, findConditions } from '../utils'
-import { CHANGE_CODEMIRROR, CHANGE_CUSTOM_PAGE, RESIZE_HOT_PANE, RESIZE_GRAPH_PANE, LOAD_STATE, SET_ELEMENTS_POSITION, CONNECT_FLOW, REMOVE_FLOW, CHANGE_POSITION, ADD_BRANCH_FLOW, ADD_PAGE_FLOW, REMOVE_EDGE, CHANGE_DEFS, SELECT_FLOW} from '../constants'
+import * as Utils from '../utils'
+import * as C from '../constants'
 import runtimeReducer from '../runtime/reducers'
 import yaml from 'js-yaml'
 
 function addFlow(state, x, y, type) {
-  const flowId = nextFlowId(state);
+  const flowId = Utils.generateNextId(state, 'flow');
+  const pageId = Utils.generateNextId(state, 'page');
+  const defaultPage = {
+    title: 'ここに設問を書いてください',
+    questions: [
+      { type: 'checkbox', labels: ['選択肢1', '選択肢2']},
+      { type: 'radio', labels: ['選択肢1', '選択肢2']},
+    ]
+  };
   state.defs.positionDefs.push({ flowId, x, y });
-  state.defs.flowDefs.push({ id: flowId, type: type });
+  state.defs.flowDefs.push({ id: flowId, type: type, pageId: pageId });
+  state.defs.pageDefs.push(Object.assign({}, defaultPage, { id: pageId }));
+  state.defs.draftDefs.push({ pageId: pageId, valid: true, yaml: yaml.safeDump(defaultPage) });
   return state;
 }
 function removeEdge(state, sourceFlowId, targetFlowId) {
-  const sourceFlow = findFlow(state, sourceFlowId);
+  const sourceFlow = Utils.findFlow(state, sourceFlowId);
   if (sourceFlow.type === 'page') {
     sourceFlow.nextFlowId = null;
   } else if (sourceFlow.type === 'branch') {
-    const targetCondition = findConditions(state, sourceFlowId).find((def) => {
+    const targetCondition = Utils.findConditions(state, sourceFlowId).find((def) => {
       return def.nextFlowId === targetFlowId;
     });
     targetCondition.nextFlowId = null;
@@ -38,8 +48,8 @@ function changeCustomPage(state, customPageId, html) {
 // 正しい値のときdraftにvalid=trueを設定し、pageも更新する
 // 正しくない値でもdraftのyamlには値を代入する
 function changeCodemirror(state, str) {
-  const flow = findFlow(state, state.values.currentFlowId);
-  const draft = findDraft(state, flow.pageId);
+  const flow = Utils.findFlow(state, state.values.currentFlowId);
+  const draft = Utils.findDraft(state, flow.pageId);
   draft.yaml = str;
   draft.valid = false;
   try {
@@ -84,7 +94,7 @@ function removePage(state, pageId) {
 }
 /** Flowを接続する */
 function connectFlow(state, sourceFlowId, dstFlowId) {
-  let sourceFlow = findFlow(state, sourceFlowId);
+  let sourceFlow = Utils.findFlow(state, sourceFlowId);
   if (sourceFlow.type === 'page') {
     sourceFlow.nextFlowId = dstFlowId;
   } else if (sourceFlow.type === 'branch') {
@@ -116,37 +126,37 @@ function resizeHotPane(state, height) {
 }
 
 function editorReducer(state, action) {
-  let newState = cloneObj(state);
+  let newState = Utils.cloneObj(state);
   switch (action.type) {
-  case CHANGE_DEFS:
-    newState.defs[action.defsName] = cloneObj(action.defs);
+  case C.CHANGE_DEFS:
+    newState.defs[action.defsName] = Utils.cloneObj(action.defs);
     return newState;
-  case SELECT_FLOW:
+  case C.SELECT_FLOW:
     newState.values.currentFlowId = action.flowId;
     return newState;
-  case ADD_PAGE_FLOW:
+  case C.ADD_PAGE_FLOW:
     return addFlow(newState, action.x, action.y, 'page');
-  case ADD_BRANCH_FLOW:
+  case C.ADD_BRANCH_FLOW:
     return addFlow(newState, action.x, action.y, 'branch');
-  case REMOVE_EDGE:
+  case C.REMOVE_EDGE:
     return removeEdge(newState, action.sourceFlowId, action.targetFlowId);
-  case REMOVE_FLOW:
+  case C.REMOVE_FLOW:
     return removeFlow(newState, action.flowId);
-  case CHANGE_POSITION:
+  case C.CHANGE_POSITION:
     return changePosition(newState, action.flowId, action.x, action.y);
-  case CONNECT_FLOW:
+  case C.CONNECT_FLOW:
     return connectFlow(newState, action.sourceFlowId, action.dstFlowId);
-  case SET_ELEMENTS_POSITION:
+  case C.SET_ELEMENTS_POSITION:
     return setElementsPosition(newState, action.positions);
-  case LOAD_STATE:
+  case C.LOAD_STATE:
     return action.state;
-  case RESIZE_GRAPH_PANE:
+  case C.RESIZE_GRAPH_PANE:
     return resizeGraphPane(newState, action.graphWidth);
-  case RESIZE_HOT_PANE:
+  case C.RESIZE_HOT_PANE:
     return resizeHotPane(newState, action.hotHeight);
-  case CHANGE_CUSTOM_PAGE:
+  case C.CHANGE_CUSTOM_PAGE:
     return changeCustomPage(newState, action.customPageId, action.html);
-  case CHANGE_CODEMIRROR:
+  case C.CHANGE_CODEMIRROR:
     return changeCodemirror(newState, action.yaml);
   default:
     return newState;

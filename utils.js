@@ -6,8 +6,8 @@ export function flatten(ary) {
 }
 
 /** stateからdraftを探す */
-export function findDraft(state, id) {
-  return state.defs.draftDefs.find((def) => def.id === id);
+export function findDraft(state, pageId) {
+  return state.defs.draftDefs.find((def) => def.pageId === pageId);
 }
 /** stateからflowを探す */
 export function findFlow(state, flowId) {
@@ -123,4 +123,14 @@ export function cloneObj(obj) {
 /** エラーメッセージ用のエレメントを返す */
 export function errorMessage(msg) {
   return <h3 className="error-message">{msg}</h3>;
+}
+/** 次のIDを生成する */
+export function generateNextId(state, type) {
+  let num = (state.defs[type + 'Defs'].map(def => parseInt(def.id.substr(1), 10)).reduce((x, y) => x > y ? x : y) + 1).toString();
+  let padding = '';
+  for (let i = num.length; i < 3; i++) {
+    padding += '0';
+  }
+  const prefix = type.substr(0, 1).toUpperCase();
+  return `${prefix}${padding}${num}`;
 }

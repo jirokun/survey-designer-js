@@ -9,31 +9,31 @@ export default {
     "version": 1,
     "draftDefs": [
       {
-        "id": "page1",
+        "pageId": "P001",
         "yaml": "title: 初めて触ったプログラミング言語についてお伺いします\nquestions:\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3",
         "valid": true
       },
       {
-        "id": "page2",
+        "pageId": "P002",
         "yaml": "title: 初めてパソコンについてお伺いします\nquestions:\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3\n  - type: checkbox\n    labels:\n      - 選択肢1\n      - 選択肢2\n      - 選択肢3\n    values:\n      - 1\n      - 2\n      - 3",
         "valid": true
       }
     ],
     "positionDefs": [
       {
-        "flowId": "flow1",
+        "flowId": "F001",
         "x": 306.25,
         "y": 640.5
       },
       {
-        "flowId": "flow2",
+        "flowId": "F002",
         "x": 306.25,
         "y": 854
       }
     ],
     "pageDefs": [
       {
-        "id":"page1",
+        "id":"P001",
         "title":"初めて触ったプログラミング言語についてお伺いします",
         "questions":[
           {"type":"checkbox","labels":["選択肢1","選択肢2","選択肢3"],"values":[1,2,3]},
@@ -41,7 +41,7 @@ export default {
         ]
       },
       {
-        "id": "page2",
+        "id": "P002",
         "title":"初めてパソコンについてお伺いします",
         "questions":[
           {"type":"checkbox","labels":["選択肢1","選択肢2","選択肢3"],"values":[1,2,3]},
@@ -52,21 +52,21 @@ export default {
     "conditionDefs": [],
     "flowDefs": [
       {
-        "id": "flow1",
+        "id": "F001",
         "type": "page",
-        "pageId": "page1",
-        "nextFlowId": "flow2"
+        "pageId": "P001",
+        "nextFlowId": "F002"
       },
       {
-        "id": "flow2",
+        "id": "F002",
         "type": "page",
-        "pageId": "page2",
+        "pageId": "P002",
         "nextFlowId": null
       }
     ]
   },
   "values": {
-    "currentFlowId": "flow1",
+    "currentFlowId": "F001",
     "flowStack": [],
     "inputValues": {}
   }

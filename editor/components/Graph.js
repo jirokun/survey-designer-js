@@ -194,13 +194,13 @@ class Graph extends Component {
     this.cy.fit();
   }
   autoLayout() {
-    const { actions } = this.props;
+    const { setElementsPosition } = this.props;
     this.cy.layout({ name: 'breadthfirst', directed: true });
     const positions = this.cy.elements().map((e) => {
       const position = e.position()
       return { flowId: e.data('id'), x: position.x, y:position.y };
     });
-    actions.setElementsPosition(positions);
+    setElementsPosition(positions);
   }
   load() {
     var defs = this.cy.json().elements.nodes.map((el) => {

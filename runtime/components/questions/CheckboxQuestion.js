@@ -13,7 +13,7 @@ export default class CheckboxQuestion extends Component {
     }
     const labelClassName = vertical ? 'vertical' : 'horizontal';
     const style = { marginBottom: 16 };
-    return labels.map((label, i) => <Checkbox label="Simple" style={style} className={labelClassName} value={values && values[i] ? values[i] : i + 1}/>);
+    return labels.map((label, i) => <Checkbox label={label} style={style} className={labelClassName} value={values && values[i] ? values[i] : i + 1}/>);
   }
   render() {
     return (

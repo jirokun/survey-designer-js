@@ -24,7 +24,6 @@ export default class EnqueteEditorApp extends Component {
     };
   }
   componentDidMount() {
-    this.resizeEditorPane();
     this.resizeGraphPane();
   }
   resizeGraphPane(e) {
@@ -32,17 +31,6 @@ export default class EnqueteEditorApp extends Component {
     const width = this.refs.left.getBoundingClientRect().width;
     resizeGraphPane(width);
     this.onDragEnd();
-  }
-  resizeEditorPane(e) {
-    const { resizeEditorPane } = this.props;
-    const height = this.refs.top.getBoundingClientRect().height;
-    resizeEditorPane(height);
-    this.resizePreviewPane();
-    this.onDragEnd();
-  }
-  resizePreviewPane() {
-    const previewHeight = this.refs.preview.parentNode.getBoundingClientRect().height;
-    this.refs.preview.style.height = previewHeight + 'px';
   }
   onDragStarted() {
     this.overlay = document.createElement('div');
@@ -90,7 +78,7 @@ export default class EnqueteEditorApp extends Component {
           <Graph actions={actions} />
         </div>
         <div className="right" ref="right">
-          <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.resizeEditorPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
+          <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.onDragEnd.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
             <div ref="top" className="hot-pane">
               <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
             </div>
