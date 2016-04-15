@@ -67,7 +67,7 @@ function changeCodemirror(state, str) {
       return state;
     }
     page.id = flow.pageId;
-    removePage(state, flow.pageId);
+    removePage(state, flow.pageId, true);
     state.defs.pageDefs.push(page);
   } catch (e) {
     return state;
@@ -100,7 +100,7 @@ function removeFlow(state, flowId) {
   return state;
 }
 /** pageを削除する */
-function removePage(state, pageId) {
+function removePage(state, pageId, doNotRemoveDraft = false) {
   // pageDefsから削除
   const pageDefs = state.defs.pageDefs;
   const pageIndex= pageDefs.findIndex(def => def.id === pageId);
@@ -109,13 +109,15 @@ function removePage(state, pageId) {
   }
   pageDefs.splice(pageIndex, 1);
 
-  // draftDefsからも削除
-  const draftDefs = state.defs.draftDefs;
-  const draftIndex = draftDefs.findIndex(def => def.pageId === pageId);
-  if (draftIndex === -1) {
-    throw 'draftdef is not found: ' + pageId;
+  if (doNotRemoveDraft === false) {
+    // draftDefsからも削除
+    const draftDefs = state.defs.draftDefs;
+    const draftIndex = draftDefs.findIndex(def => def.pageId === pageId);
+    if (draftIndex === -1) {
+      throw 'draftdef is not found: ' + pageId;
+    }
+    draftDefs.splice(draftIndex, 1);
   }
-  draftDefs.splice(draftIndex, 1);
 
   return state;
 }

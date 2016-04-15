@@ -7,13 +7,14 @@ import configureStore from './store'
 import state from './state'
 import '../www/css/editor.scss'
 
-const store = configureStore(state);
+$.getJSON('sample.json').done(json => {
+  const store = configureStore(json);
 
-const rootElement = document.getElementById('root');
-const el = render(
-  <Provider store={store}>
-    <EnqueteEditorApp />
-  </Provider>,
-  rootElement
-)
-console.log(el);
+  const rootElement = document.getElementById('root');
+  const el = render(
+    <Provider store={store}>
+      <EnqueteEditorApp />
+    </Provider>,
+    rootElement
+  )
+});

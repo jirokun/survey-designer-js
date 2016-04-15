@@ -137,3 +137,7 @@ export function generateNextId(state, type) {
   const prefix = type.substr(0, 1).toUpperCase();
   return `${prefix}${padding}${num}`;
 }
+/** 引数がstringかどうかを判定する */
+export function isString(str) {
+  return typeof(str) === 'string';
+}
