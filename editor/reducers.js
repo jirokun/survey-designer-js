@@ -101,9 +101,22 @@ function removeFlow(state, flowId) {
 }
 /** pageを削除する */
 function removePage(state, pageId) {
+  // pageDefsから削除
   const pageDefs = state.defs.pageDefs;
-  const index = pageDefs.findIndex((def) => def.id === pageId);
-  pageDefs.splice(index, 1);
+  const pageIndex= pageDefs.findIndex(def => def.id === pageId);
+  if (pageIndex === -1) {
+    throw 'pagedef is not found: ' + pageId;
+  }
+  pageDefs.splice(pageIndex, 1);
+
+  // draftDefsからも削除
+  const draftDefs = state.defs.draftDefs;
+  const draftIndex = draftDefs.findIndex(def => def.pageId === pageId);
+  if (draftIndex === -1) {
+    throw 'draftdef is not found: ' + pageId;
+  }
+  draftDefs.splice(draftIndex, 1);
+
   return state;
 }
 /** Flowを接続する */

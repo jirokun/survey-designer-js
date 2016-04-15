@@ -16,6 +16,9 @@ export function findFlow(state, flowId) {
 /** flowIdからpageIdを引く */
 export function findPageFromFlow(state, flowId) {
   const flow = findFlow(state, flowId);
+  if (!flow) {
+    return null;
+  }
   return findPage(state, flow.pageId);
 }
 /** stateからpageを探す */
