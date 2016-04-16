@@ -11,12 +11,12 @@
     "draftDefs": [
       {
         "pageId": "P001",
-        "yaml": "title: Checkbox\nquestions:\n  - type: checkbox\n    choices:\n      - 通常の選択肢\n      - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n        value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n      - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n      - |                                                # 複数行記載する場合\n        1行目\n        2行目\n  - type: checkbox\n    vertical: false                                      # 横並びにするときはvertical: falseをつける\n    choices:\n      - 通常の選択肢\n      - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n        value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n      - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n      - |                                                # 複数行記載する場合\n        1行目\n        2行目\n",
+        "yaml": "title: Checkbox\nquestions:\n- type: checkbox\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: checkbox\n  vertical: false                                      # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n",
         "valid": true
       },
       {
         "pageId": "P002",
-        "yaml": "title: matrix\nquestions:\n  - type: matrix\n    vChoices:\n      - 選択肢1\n      - 選択肢2\n    hChoices:\n      - 値1\n      - 値2\n",
+        "yaml": "title: matrix\nquestions:\n- type: matrix\n  direction: horizontal  # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: radio        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:             # 縦の選択肢\n  - 選択肢123\n  - 選択肢2\n  values:                # 横の選択肢\n  - 値1\n  - label: 値2\n    prefix: 前\n    postfix: 後\n",
         "valid": true
       }
     ],
@@ -72,13 +72,19 @@
         "questions": [
           {
             "type": "matrix",
-            "vChoices": [
-              "選択肢1",
+            "direction": "horizontal",
+            "cellType": "radio",
+            "questions": [
+              "選択肢123",
               "選択肢2"
             ],
-            "hChoices": [
+            "values": [
               "値1",
-              "値2"
+              {
+                "label": "値2",
+                "prefix": "前",
+                "postfix": "後"
+              }
             ]
           }
         ],
@@ -102,7 +108,7 @@
     ]
   },
   "viewSettings": {
-    "graphWidth": 932.9861450195312,
+    "graphWidth": 1066.99658203125,
     "hotHeight": 400
   }
 }
