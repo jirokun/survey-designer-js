@@ -7,6 +7,7 @@ import TextareaQuestion from '../components/questions/TextareaQuestion'
 import CheckboxQuestion from '../components/questions/CheckboxQuestion'
 import RadioQuestion from '../components/questions/RadioQuestion'
 import SelectQuestion from '../components/questions/SelectQuestion'
+import MatrixQuestion from '../components/questions/MatrixQuestion'
 import { findQuestions, findCustomPage } from '../../utils'
 
 class Page extends Component {
@@ -29,6 +30,9 @@ class Page extends Component {
           break;
         case 'select':
           component = SelectQuestion;
+          break;
+        case 'matrix':
+          component = MatrixQuestion;
           break;
         default:
           component = InvalidTypeQuestion;

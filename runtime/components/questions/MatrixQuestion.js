@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import * as Utils from '../../../utils'
 
-export default class CheckboxQuestion extends Component {
+export default class MatrixQuestion extends Component {
   constructor(props) {
     super(props);
   }
@@ -25,22 +25,41 @@ export default class CheckboxQuestion extends Component {
       </label>;
     });
   }
+  renderhHeader() {
+    const { vChoices, hChoices } = this.props;
+    return <thead><tr><td/>{hChoices.map(c => <td>{c}</td>)}</tr></thead>;
+  }
+  renderBody() {
+    const { vChoices, hChoices } = this.props;
+    return <tbody>
+      {vChoices.map(v => (
+        <tr>
+          <td>{v}</td>
+          {hChoices.map(h => <td><input type="checkbox"/></td>)}
+        </tr>
+      ))}
+      </tbody>;
+  }
   render() {
+    const { vChoices, hChoices } = this.props;
     return (
       <div className={this.constructor.name}>
-        {this.makeItems()}
+        <table>
+          {this.renderhHeader()}
+          {this.renderBody()}
+        </table>
       </div>
     );
   }
 }
 
-CheckboxQuestion.defaultProps = {
+MatrixQuestion.defaultProps = {
   values: [],
   vertical: true
 };
 
-CheckboxQuestion.propTypes = {
+MatrixQuestion.propTypes = {
   type: PropTypes.string.isRequired,
-  choices: PropTypes.array.isRequired,
-  vertical: PropTypes.bool.isRequired,
+  vChoices: PropTypes.array.isRequired,
+  hChoices: PropTypes.array.isRequired,
 };
