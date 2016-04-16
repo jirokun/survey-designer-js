@@ -13,7 +13,7 @@ import { findQuestions, findCustomPage } from '../../utils'
 class Page extends Component {
   makeQuestions() {
     const { page } = this.props;
-    return page.questions.map((q) => {
+    return page.questions.map((q, index) => {
       let component;
       switch(q.type) {
         case 'text':
@@ -38,7 +38,8 @@ class Page extends Component {
           component = InvalidTypeQuestion;
           break;
       }
-      return <div className="question">{ React.createElement(component, { ...q }) }</div>
+      const key = `${page.id}-${index + 1}`;
+      return <div className="question">{ React.createElement(component, { key, id: key, ...q }) }</div>
     });
   }
   render() {

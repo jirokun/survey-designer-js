@@ -16,7 +16,7 @@
       },
       {
         "pageId": "P002",
-        "yaml": "title: matrix\nquestions:\n- type: matrix\n  direction: horizontal  # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: radio        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:             # 縦の選択肢\n  - 選択肢123\n  - 選択肢2\n  values:                # 横の選択肢\n  - 値1\n  - label: 値2\n    prefix: 前\n    postfix: 後\n",
+        "yaml": "title: matrix\nquestions:\n- type: matrix\n  direction: horizontal                                                 # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n",
         "valid": true
       }
     ],
@@ -24,12 +24,12 @@
       {
         "flowId": "F001",
         "x": 200,
-        "y": 228
+        "y": 239.33333333333334
       },
       {
         "flowId": "F002",
         "x": 200,
-        "y": 456
+        "y": 478.6666666666667
       },
       {
         "flowId": "ele1"
@@ -73,16 +73,16 @@
           {
             "type": "matrix",
             "direction": "horizontal",
-            "cellType": "radio",
+            "cellType": "text",
             "questions": [
-              "選択肢123",
+              "<span style=\"color: red;\">選択</span>肢1",
               "選択肢2"
             ],
             "values": [
-              "値1",
+              "<span style=\"color: red;\">値</span>1",
               {
                 "label": "値2",
-                "prefix": "前",
+                "prefix": "<span style=\"font-weight: bold; color: green\">前</span>",
                 "postfix": "後"
               }
             ]

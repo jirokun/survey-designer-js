@@ -40,23 +40,24 @@ export default class MatrixQuestion extends Component {
     const labels = this.isHorizontal() ? values : questions;
     return <thead><tr><td/>{labels.map(c => {
       if (Utils.isString(c)) {
-        return <td>{c}</td>;
+        return <td dangerouslySetInnerHTML={{__html: c}}/>;
       } else {
-        return <td>{c.label}</td>;
+        return <td dangerouslySetInnerHTML={{__html: c.label}}/>;
       }
     })}</tr></thead>;
   }
-  renderCell() {
-    const { cellType } = this.props;
+  renderCell(index) {
+    const { cellType, id } = this.props;
+    const name = `${id}-${index + 1}`;
     switch (cellType) {
       case 'checkbox':
-        return <input type="checkbox"/>;
+        return <input type="checkbox" name={name}/>;
       case 'radio':
-        return <input type="radio"/>;
+        return <input type="radio" name={name}/>;
       case 'text':
-        return <input type="text"/>;
+        return <input type="text" name={name}/>;
       case 'textarea':
-        return <textarea />;
+        return <textarea name={name}/>;
       default:
         throw 'unknown cellType: ' + cellType;
     }
@@ -69,21 +70,21 @@ export default class MatrixQuestion extends Component {
       {rowLabels.map((v, vIndex) => {
         let prefix = '', postfix = '', label = '';
         if (!this.isHorizontal() && !Utils.isString(v)) {
-          prefix = v.prefix ? <span className="prefix">{v.prefix}</span> : '';
-          postfix = v.postfix ? <span className="postfix">{v.postfix}</span> : '';
+          prefix = v.prefix ? <span className="prefix" dangerouslySetInnerHTML={{__html: v.prefix}}/> : '';
+          postfix = v.postfix ? <span className="postfix" dangerouslySetInnerHTML={{__html: v.postfix}}/> : '';
           label = v.label;
         } else {
           label = v;
         }
         return (
           <tr>
-            <td>{label}</td>
+            <td dangerouslySetInnerHTML={{__html: label}}/>
             {columnLabels.map((h, hIndex) => {
               if (this.isHorizontal() && !Utils.isString(h)) {
-                prefix = h.prefix ? <span className="prefix">{h.prefix}</span> : '';
-                postfix = h.postfix ? <span className="postfix">{h.postfix}</span> : '';
+                prefix = h.prefix ? <span className="prefix" dangerouslySetInnerHTML={{__html: h.prefix}}/> : '';
+                postfix = h.postfix ? <span className="postfix" dangerouslySetInnerHTML={{__html: h.postfix}}/> : '';
               }
-              return <td>{prefix}{this.renderCell()}{postfix}</td>
+              return <td>{prefix}{this.renderCell(this.isHorizontal() ? vIndex : hIndex)}{postfix}</td>
             })}
           </tr>
         );
