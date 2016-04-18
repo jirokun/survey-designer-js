@@ -14,7 +14,7 @@ export default class MatrixQuestion extends Component {
     const style = { marginBottom: 16 };
     return choices.map((label, i) => {
       const obj = { label: '', value: i + 1 };
-      if (Utils.isString(label)) {
+      if (label === null || Utils.isString(label)) {
         obj.label = label;
       } else {
         Object.assign(obj, label);
@@ -39,7 +39,7 @@ export default class MatrixQuestion extends Component {
     const { questions, values, direction } = this.props;
     const labels = this.isHorizontal() ? values : questions;
     return <thead><tr><td/>{labels.map(c => {
-      if (Utils.isString(c)) {
+      if (c === null || Utils.isString(c)) {
         return <td dangerouslySetInnerHTML={{__html: c}}/>;
       } else {
         return <td dangerouslySetInnerHTML={{__html: c.label}}/>;
@@ -80,9 +80,12 @@ export default class MatrixQuestion extends Component {
           <tr>
             <td dangerouslySetInnerHTML={{__html: label}}/>
             {columnLabels.map((h, hIndex) => {
-              if (this.isHorizontal() && !Utils.isString(h)) {
+              if (this.isHorizontal() && (h !== null && !Utils.isString(h))) {
                 prefix = h.prefix ? <span className="prefix" dangerouslySetInnerHTML={{__html: h.prefix}}/> : '';
                 postfix = h.postfix ? <span className="postfix" dangerouslySetInnerHTML={{__html: h.postfix}}/> : '';
+              } else {
+                prefix = '';
+                postfix = '';
               }
               return <td>{prefix}{this.renderCell(this.isHorizontal() ? vIndex : hIndex)}{postfix}</td>
             })}

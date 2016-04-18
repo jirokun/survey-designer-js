@@ -9,6 +9,6 @@ export function prevPage() {
     type: PREV_PAGE
   };
 }
-export function valueChange(itemName, value) {
-  return { type: VALUE_CHANGE, itemName, value };
+export function valueChange(values) {
+  return { type: VALUE_CHANGE, values };
 }
