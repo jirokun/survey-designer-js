@@ -57,7 +57,7 @@ class Page extends Component {
   }
 
   makeQuestions() {
-    const { page } = this.props;
+    const { page, inputValues } = this.props;
     return page.questions.map((q, index) => {
       let component;
       switch(q.type) {
@@ -84,7 +84,7 @@ class Page extends Component {
           break;
       }
       const key = `${page.id}-${index + 1}`;
-      return <div className="question">{ React.createElement(component, { key, id: key, ...q }) }</div>
+      return <div className="question">{ React.createElement(component, { key, id: key, inputValues, ...q }) }</div>
     });
   }
   render() {
@@ -104,6 +104,7 @@ Page.propTypes = {
 };
 
 const stateToProps = state => ({
+  inputValues: state.values.inputValues
 });
 const actionsToProps = dispatch => ({
   valueChange: (itemName, value) => dispatch(valueChange(itemName, value)),
