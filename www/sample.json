@@ -1,44 +1,49 @@
 {
   "values": {
-    "currentFlowId": "F005",
+    "currentFlowId": "F006",
     "flowStack": [],
     "inputValues": {
-      "P001-1": "1",
-      "P001-2": {
+      "P001_1": {
+        "1": true,
+        "3": false,
+        "4": false,
+        "ABC": false
+      },
+      "P001_2": {
         "1": false,
         "3": false,
         "4": false,
         "ABC": false
       },
-      "P004-1": "",
-      "P004-2": {
+      "P004_1": "",
+      "P004_2": {
         "1": true,
         "3": true,
         "4": false,
         "": false,
         "ABC": true
       },
-      "P002-1-1": [
+      "P002_1_1": [
         "",
         ""
       ],
-      "P002-1-2": [
+      "P002_1_2": [
         "",
         ""
       ],
-      "P002-2-1": [
+      "P002_2_1": [
         "",
         ""
       ],
-      "P002-2-2": [
+      "P002_2_2": [
         "",
         ""
       ],
-      "P005-1": {
+      "P005_1": {
         "1": false,
         "2": false
       },
-      "P005-2": null
+      "P005_2": null
     }
   },
   "defs": {
@@ -70,6 +75,11 @@
         "pageId": "P005",
         "valid": true,
         "yaml": "title: JavaScript実行\njavascript: |\n  var element = document.querySelector('label');\n  element.style.position = 'relative';\n  element.style.left = '50px';\n  document.querySelector('input').addEventListener('change', function(e) {\n    document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n  }, false);\nquestions:\n  - type: checkbox\n    choices:\n      - 選択肢1\n      - 選択肢2\n  - type: radio\n    choices:\n      - 選択肢1\n      - 選択肢2\n"
+      },
+      {
+        "pageId": "P006",
+        "valid": true,
+        "yaml": "type: simple\nconditions:\n- key: P001_1.c1       # 配列の一つ一つがif文になる\n  operator: ==\n  value: true\n  nextFlowId: F003\n- nextFlowId: F004     # 最後の項目はelseになる"
       }
     ],
     "positionDefs": [
@@ -85,12 +95,12 @@
       },
       {
         "flowId": "F003",
-        "x": 200,
-        "y": 301
+        "x": 124.75,
+        "y": 451.5
       },
       {
         "flowId": "F004",
-        "x": 200,
+        "x": 275.25,
         "y": 451.5
       },
       {
@@ -99,16 +109,27 @@
         "y": 752.5
       },
       {
-        "flowId": "ele4"
+        "flowId": "F006",
+        "x": 200,
+        "y": 301
       },
       {
-        "flowId": "ele5"
+        "flowId": "ele478"
       },
       {
-        "flowId": "ele6"
+        "flowId": "ele479"
       },
       {
-        "flowId": "ele7"
+        "flowId": "ele480"
+      },
+      {
+        "flowId": "ele481"
+      },
+      {
+        "flowId": "ele482"
+      },
+      {
+        "flowId": "ele483"
       }
     ],
     "pageDefs": [
@@ -265,15 +286,41 @@
           }
         ],
         "id": "P003"
+      },
+      {
+        "type": "simple",
+        "conditions": [
+          {
+            "key": "P001_1.c1",
+            "operator": "==",
+            "value": true,
+            "nextFlowId": "F003"
+          },
+          {
+            "nextFlowId": "F004"
+          }
+        ],
+        "id": "P006"
       }
     ],
-    "conditionDefs": [],
+    "conditionDefs": [
+      {
+        "flowId": "F006",
+        "type": "if",
+        "nextFlowId": "F003"
+      },
+      {
+        "flowId": "F006",
+        "type": "if",
+        "nextFlowId": "F004"
+      }
+    ],
     "flowDefs": [
       {
         "id": "F001",
         "type": "page",
         "pageId": "P001",
-        "nextFlowId": "F003"
+        "nextFlowId": "F006"
       },
       {
         "id": "F002",
@@ -297,6 +344,11 @@
         "id": "F005",
         "type": "page",
         "pageId": "P005"
+      },
+      {
+        "id": "F006",
+        "type": "branch",
+        "pageId": "P006"
       }
     ]
   },

@@ -92,6 +92,9 @@ class Page extends Component {
 
   makeQuestions() {
     const { page, inputValues } = this.props;
+    if (!page.questions) {
+      return;
+    }
     return page.questions.map((q, index) => {
       let component;
       switch(q.type) {
@@ -117,7 +120,7 @@ class Page extends Component {
           component = InvalidTypeQuestion;
           break;
       }
-      const key = `${page.id}-${index + 1}`;
+      const key = `${page.id}_${index + 1}`;
       return <div className="question">{ React.createElement(component, { key, id: key, inputValues, ...q }) }</div>
     });
   }

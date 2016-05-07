@@ -9,8 +9,8 @@ function addFlow(state, x, y, type) {
   const defaultPage = {
     title: 'ここに設問を書いてください',
     questions: [
-      { type: 'checkbox', labels: ['選択肢1', '選択肢2']},
-      { type: 'radio', labels: ['選択肢1', '選択肢2']},
+      { type: 'checkbox', choices: ['選択肢1', '選択肢2']},
+      { type: 'radio', choices: ['選択肢1', '選択肢2']},
     ]
   };
   state.defs.positionDefs.push({ flowId, x, y });

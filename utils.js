@@ -101,6 +101,7 @@ export function makeCytoscapeElements(state) {
         }
       };
     } else if (def.type === 'branch') {
+      console.log(def);
       const conditionDefs = findConditions(state, def.id);
       return conditionDefs.map((c) => {
         return {
