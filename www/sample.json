@@ -1,8 +1,45 @@
 {
   "values": {
-    "currentFlowId": "F002",
+    "currentFlowId": "F005",
     "flowStack": [],
-    "inputValues": {}
+    "inputValues": {
+      "P001-1": "1",
+      "P001-2": {
+        "1": false,
+        "3": false,
+        "4": false,
+        "ABC": false
+      },
+      "P004-1": "",
+      "P004-2": {
+        "1": true,
+        "3": true,
+        "4": false,
+        "": false,
+        "ABC": true
+      },
+      "P002-1-1": [
+        "",
+        ""
+      ],
+      "P002-1-2": [
+        "",
+        ""
+      ],
+      "P002-2-1": [
+        "",
+        ""
+      ],
+      "P002-2-2": [
+        "",
+        ""
+      ],
+      "P005-1": {
+        "1": false,
+        "2": false
+      },
+      "P005-2": null
+    }
   },
   "defs": {
     "title": "sample enquete",
@@ -11,31 +48,162 @@
     "draftDefs": [
       {
         "pageId": "P001",
-        "yaml": "title: Checkbox\nquestions:\n- type: checkbox\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: checkbox\n  vertical: false                                      # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n",
+        "yaml": "title: Checkbox\nquestions:\n- type: checkbox\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: checkbox\n  vertical: false                                    # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n",
         "valid": true
       },
       {
         "pageId": "P002",
-        "yaml": "title: matrix\nquestions:\n- type: matrix\n  direction: horizontal                                                 # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n",
+        "yaml": "title: Matrix\nquestions:\n- type: matrix\n  direction: horizontal                                                 # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n- type: matrix\n  direction: vertical                                                   # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n",
         "valid": true
+      },
+      {
+        "pageId": "P003",
+        "valid": true,
+        "yaml": "title: Radio\nquestions:\n- type: radio\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: radio\n  vertical: false                                    # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n"
+      },
+      {
+        "pageId": "P004",
+        "valid": true,
+        "yaml": "title: Select\nquestions:\n- type: select\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: select\n  multiple: true                                     # 複数選択するときはmultiple: trueと指定する\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目"
+      },
+      {
+        "pageId": "P005",
+        "valid": true,
+        "yaml": "title: JavaScript実行\njavascript: |\n  var element = document.querySelector('label');\n  element.style.position = 'relative';\n  element.style.left = '50px';\n  document.querySelector('input').addEventListener('change', function(e) {\n    document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n  }, false);\nquestions:\n  - type: checkbox\n    choices:\n      - 選択肢1\n      - 選択肢2\n  - type: radio\n    choices:\n      - 選択肢1\n      - 選択肢2\n"
       }
     ],
     "positionDefs": [
       {
         "flowId": "F001",
         "x": 200,
-        "y": 239.33333333333334
+        "y": 150.5
       },
       {
         "flowId": "F002",
         "x": 200,
-        "y": 478.6666666666667
+        "y": 602
       },
       {
-        "flowId": "ele1"
+        "flowId": "F003",
+        "x": 200,
+        "y": 301
+      },
+      {
+        "flowId": "F004",
+        "x": 200,
+        "y": 451.5
+      },
+      {
+        "flowId": "F005",
+        "x": 200,
+        "y": 752.5
+      },
+      {
+        "flowId": "ele4"
+      },
+      {
+        "flowId": "ele5"
+      },
+      {
+        "flowId": "ele6"
+      },
+      {
+        "flowId": "ele7"
       }
     ],
     "pageDefs": [
+      {
+        "title": "Select",
+        "questions": [
+          {
+            "type": "select",
+            "choices": [
+              "通常の選択肢",
+              {
+                "label": "選択肢2",
+                "value": "ABC"
+              },
+              "<span style=\"color: red;\">HTML</span> hogehoge",
+              "1行目\n2行目\n"
+            ]
+          },
+          {
+            "type": "select",
+            "multiple": true,
+            "choices": [
+              "通常の選択肢",
+              {
+                "label": "選択肢2",
+                "value": "ABC"
+              },
+              "<span style=\"color: red;\">HTML</span> hogehoge",
+              "1行目\n2行目\n"
+            ]
+          }
+        ],
+        "id": "P004"
+      },
+      {
+        "title": "Matrix",
+        "questions": [
+          {
+            "type": "matrix",
+            "direction": "horizontal",
+            "cellType": "text",
+            "questions": [
+              "<span style=\"color: red;\">選択</span>肢1",
+              "選択肢2"
+            ],
+            "values": [
+              "<span style=\"color: red;\">値</span>1",
+              {
+                "label": "値2",
+                "prefix": "<span style=\"font-weight: bold; color: green\">前</span>",
+                "postfix": "後"
+              }
+            ]
+          },
+          {
+            "type": "matrix",
+            "direction": "vertical",
+            "cellType": "text",
+            "questions": [
+              "<span style=\"color: red;\">選択</span>肢1",
+              "選択肢2"
+            ],
+            "values": [
+              "<span style=\"color: red;\">値</span>1",
+              {
+                "label": "値2",
+                "prefix": "<span style=\"font-weight: bold; color: green\">前</span>",
+                "postfix": "後"
+              }
+            ]
+          }
+        ],
+        "id": "P002"
+      },
+      {
+        "title": "JavaScript実行",
+        "javascript": "var element = document.querySelector('label');\nelement.style.position = 'relative';\nelement.style.left = '50px';\ndocument.querySelector('input').addEventListener('change', function(e) {\n  document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n}, false);\n",
+        "questions": [
+          {
+            "type": "checkbox",
+            "choices": [
+              "選択肢1",
+              "選択肢2"
+            ]
+          },
+          {
+            "type": "radio",
+            "choices": [
+              "選択肢1",
+              "選択肢2"
+            ]
+          }
+        ],
+        "id": "P005"
+      },
       {
         "title": "Checkbox",
         "questions": [
@@ -68,27 +236,35 @@
         "id": "P001"
       },
       {
-        "title": "matrix",
+        "title": "Radio",
         "questions": [
           {
-            "type": "matrix",
-            "direction": "horizontal",
-            "cellType": "text",
-            "questions": [
-              "<span style=\"color: red;\">選択</span>肢1",
-              "選択肢2"
-            ],
-            "values": [
-              "<span style=\"color: red;\">値</span>1",
+            "type": "radio",
+            "choices": [
+              "通常の選択肢",
               {
-                "label": "値2",
-                "prefix": "<span style=\"font-weight: bold; color: green\">前</span>",
-                "postfix": "後"
-              }
+                "label": "選択肢2",
+                "value": "ABC"
+              },
+              "<span style=\"color: red;\">HTML</span> hogehoge",
+              "1行目\n2行目\n"
+            ]
+          },
+          {
+            "type": "radio",
+            "vertical": false,
+            "choices": [
+              "通常の選択肢",
+              {
+                "label": "選択肢2",
+                "value": "ABC"
+              },
+              "<span style=\"color: red;\">HTML</span> hogehoge",
+              "1行目\n2行目\n"
             ]
           }
         ],
-        "id": "P002"
+        "id": "P003"
       }
     ],
     "conditionDefs": [],
@@ -97,18 +273,35 @@
         "id": "F001",
         "type": "page",
         "pageId": "P001",
-        "nextFlowId": "F002"
+        "nextFlowId": "F003"
       },
       {
         "id": "F002",
         "type": "page",
         "pageId": "P002",
-        "nextFlowId": null
+        "nextFlowId": "F005"
+      },
+      {
+        "id": "F003",
+        "type": "page",
+        "pageId": "P003",
+        "nextFlowId": "F004"
+      },
+      {
+        "id": "F004",
+        "type": "page",
+        "pageId": "P004",
+        "nextFlowId": "F002"
+      },
+      {
+        "id": "F005",
+        "type": "page",
+        "pageId": "P005"
       }
     ]
   },
   "viewSettings": {
-    "graphWidth": 1066.99658203125,
+    "graphWidth": 825,
     "hotHeight": 400
   }
 }

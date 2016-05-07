@@ -1,22 +1,32 @@
 import React, { Component, PropTypes } from 'react'
-import { errorMessage } from '../../../utils'
+import { errorMessage, isString, r } from '../../../utils'
 
 export default class SelectQuestion extends Component {
   constructor(props) {
     super(props);
   }
   makeOptions() {
-    const { labels, values } = this.props;
-    if (!labels) {
-      return errorMessage('labels attribute is not defined');
+    const { id, choices, vertical, inputValues } = this.props;
+    if (!choices) {
+      return errorMessage('choices attribute is not defined');
     }
-    return labels.map((label, i) => <option value={values && values[i] ? values[i] : i + 1}>{label}</option>);
+    const style = { marginBottom: 16 };
+    return choices.map((label, i) => {
+      const obj = { label: '', value: i + 1 };
+      if (isString(label)) {
+        obj.label = label;
+      } else {
+        Object.assign(obj, label);
+      }
+      return <option value={obj.value}>{obj.label}</option>;
+    });
   }
   render() {
-    const { multiple } = this.props;
+    const { multiple, id } = this.props;
     return (
       <div className={this.constructor.name}>
-        <select multiple={multiple}>
+        <select name={id} multiple={multiple}>
+          <option />
           {this.makeOptions()}
         </select>
       </div>
@@ -27,9 +37,8 @@ export default class SelectQuestion extends Component {
 SelectQuestion.defaultProps = {
   multiple: false
 };
-
 SelectQuestion.propTypes = {
   type: PropTypes.string.isRequired,
-  labels: PropTypes.array.isRequired,
+  choices: PropTypes.array.isRequired,
   vertical: PropTypes.bool.isRequired,
 };

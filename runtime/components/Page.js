@@ -16,6 +16,27 @@ class Page extends Component {
     this.refs.page.addEventListener('change', this.onChangeValue.bind(this), false);
     this.refs.page.addEventListener('keyup', this.onChangeValue.bind(this), false);
     this.refs.page.addEventListener('click', this.onChangeValue.bind(this), false);
+    this.executeJavaScript();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const prevPage = prevProps.page;
+    const currentPage = this.props.page;
+    if (prevPage.id !== currentPage.id) {
+      this.executeJavaScript();
+    }
+  }
+  // JavaScriptを実行する
+  executeJavaScript() {
+    const { page, inputValues } = this.props;
+    const js = this.props.page.javascript;
+    if (!js && js === '') return;
+    try {
+      const func = new Function('document', 'pageEl', 'pageId', 'values', js);
+      const ownerDoc = this.refs.page.ownerDocument;
+      func(ownerDoc, this.refs.page, page.id, inputValues);
+    } catch(e) {
+      console.error(e);
+    }
   }
   onChangeValue(e) {
     const target = e.target;
@@ -43,7 +64,8 @@ class Page extends Component {
     if (tagName === 'input') {
       const type = elements[0].type.toLowerCase();
       if (type === 'radio') {
-        return elements.find(el => el.checked).value;
+        const checkedEl = elements.find(el => el.checked);
+        return checkedEl ? checkedEl.value : null;
       }
       if (type === 'checkbox') {
         const ret = {};
@@ -51,6 +73,18 @@ class Page extends Component {
           ret[el.value] = el.checked;
         });
         return ret;
+      }
+    } else if (tagName === 'select') {
+      // selectのnameは一つとする
+      if (elements[0].multiple) {
+        const ret = {};
+        Array.prototype.slice.call(elements[0].querySelectorAll('option')).forEach(option => {
+          ret[option.value] = option.selected;
+        });
+        return ret;
+      } else {
+        const checkedOption = elements[0].querySelector('option:checked');
+        return checkedOption ? checkedOption.value : null;
       }
     }
     return elements.map(el => el.value);

@@ -182,7 +182,6 @@ export function r(str, values) {
         const variable = str.substring(variableStartIndex, variableEndIndex);
         try {
           const func = new Function('values', `return ${variable};`);
-          console.log(values);
           ret += func(values);
         } catch (e) {
           ret += '<span style="color: red">invalid value</span>';
@@ -191,6 +190,5 @@ export function r(str, values) {
       }
     }
   }
-  console.log(ret);
   return ret;
 }

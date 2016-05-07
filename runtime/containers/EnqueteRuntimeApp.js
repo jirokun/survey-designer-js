@@ -8,8 +8,8 @@ import * as EnqueteActions from '../actions'
 
 class EnqueteRuntimeApp extends Component {
   render() {
-    const { state, actions } = this.props;
-    const currentFlow = findFlow(state, state.values.currentFlowId);
+    const { state, currentFlowId } = this.props;
+    const currentFlow = findFlow(state, currentFlowId);
     if (!currentFlow) {
       return <div>undefined flow</div>;
     }
@@ -19,28 +19,23 @@ class EnqueteRuntimeApp extends Component {
     }
     return (
       <div>
-        <Page page={currentPage} state={state} actions={actions}/>
+        <Page page={currentPage}/>
       </div>
     )
   }
 }
 
 EnqueteRuntimeApp.propTypes = {
-  state: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
 }
 
-function select(state) {
-  return {state};
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(EnqueteActions, dispatch)
-  }
-}
+const stateToProps = state => ({
+  state: state,
+  currentFlowId: state.values.currentFlowId
+});
+const actionsToProps = dispatch => ({
+});
 
 export default connect(
-  select,
-  mapDispatchToProps
+  stateToProps,
+  actionsToProps
 )(EnqueteRuntimeApp)

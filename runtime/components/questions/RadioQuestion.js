@@ -1,39 +1,46 @@
 import React, { Component, PropTypes } from 'react'
-import RadioButtonGroup from 'material-ui/lib/radio-button-group';
-import RadioButton from 'material-ui/lib/radio-button'
-import { errorMessage } from '../../../utils'
+import { errorMessage, isString, r } from '../../../utils'
 
 export default class RadioQuestion extends Component {
   constructor(props) {
     super(props);
   }
   makeItems() {
-    const { labels, values, vertical } = this.props;
-    if (!labels) {
-      return errorMessage('labels attribute is not defined');
+    const { id, choices, vertical, inputValues } = this.props;
+    if (!choices) {
+      return errorMessage('choices attribute is not defined');
     }
-    const labelClassName = vertical ? 'vertical' : 'horizontal';
+    const labelClassName = `radio-label ${vertical ? 'vertical' : 'horizontal'}`;
     const style = { marginBottom: 16 };
-    return labels.map((label, i) => <RadioButton label={label} style={style} className={labelClassName} value={values && values[i] ? values[i] : i + 1}/>);
+    return choices.map((label, i) => {
+      const obj = { label: '', value: i + 1 };
+      if (isString(label)) {
+        obj.label = label;
+      } else {
+        Object.assign(obj, label);
+      }
+      return <label className={labelClassName}>
+        <input type="radio" name={id} value={obj.value}/>
+        <span dangerouslySetInnerHTML={{__html: r(obj.label, inputValues)}}/>
+      </label>;
+    });
   }
   render() {
     return (
       <div className={this.constructor.name}>
-        <RadioButtonGroup name="hoge">
-          {this.makeItems()}
-        </RadioButtonGroup>
+        {this.makeItems()}
       </div>
     );
   }
 }
 
 RadioQuestion.defaultProps = {
-  values: [],
+  inputValues: [],
   vertical: true
 };
 
 RadioQuestion.propTypes = {
   type: PropTypes.string.isRequired,
-  labels: PropTypes.array.isRequired,
+  choices: PropTypes.array.isRequired,
   vertical: PropTypes.bool.isRequired,
 };
