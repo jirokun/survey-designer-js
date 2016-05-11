@@ -5,18 +5,32 @@ import yaml from 'js-yaml'
 
 function addFlow(state, x, y, type) {
   const flowId = Utils.generateNextId(state, 'flow');
-  const pageId = Utils.generateNextId(state, 'page');
-  const defaultPage = {
-    title: 'ここに設問を書いてください',
-    questions: [
-      { type: 'checkbox', choices: ['選択肢1', '選択肢2']},
-      { type: 'radio', choices: ['選択肢1', '選択肢2']},
-    ]
-  };
+  const id = Utils.generateNextId(state, type);
+  state.defs.flowDefs.push({ id: flowId, type: type, refId: id });
   state.defs.positionDefs.push({ flowId, x, y });
-  state.defs.flowDefs.push({ id: flowId, type: type, pageId: pageId });
-  state.defs.pageDefs.push(Object.assign({}, defaultPage, { id: pageId }));
-  state.defs.draftDefs.push({ pageId: pageId, valid: true, yaml: yaml.safeDump(defaultPage) });
+  if (type === 'page') {
+    const defaultPage = {
+      title: 'ここに設問を書いてください',
+      questions: [
+        { type: 'checkbox', choices: ['選択肢1', '選択肢2']},
+        { type: 'radio', choices: ['選択肢1', '選択肢2']},
+      ]
+    };
+    state.defs.pageDefs.push(Object.assign({}, defaultPage, { id: id }));
+    state.defs.draftDefs.push({ id: id, valid: true, yaml: yaml.safeDump(defaultPage) });
+  } else if (type === 'branch') {
+    const defaultBranch = {
+      type: 'simple',
+      conditions: [
+        { key: null, operator: '==', value: null, nextFlowId: null },
+        { nextFlowId: null }
+      ]
+    };
+    state.defs.branchDefs.push(Object.assign({}, defaultBranch, { id: id }));
+    state.defs.draftDefs.push({ id: id, valid: true, yaml: yaml.safeDump(defaultBranch) });
+  } else {
+    throw 'Unexpected argument type: ' + type;
+  }
   return state;
 }
 // ページを複製する
@@ -33,10 +47,14 @@ function removeEdge(state, sourceFlowId, targetFlowId) {
   if (sourceFlow.type === 'page') {
     sourceFlow.nextFlowId = null;
   } else if (sourceFlow.type === 'branch') {
-    const targetCondition = Utils.findConditions(state, sourceFlowId).find((def) => {
+    const branchDef = Utils.findBranchDef(state, sourceFlowId);
+    const targetIndex = branchDef.conditions.findIndex((def) => {
       return def.nextFlowId === targetFlowId;
     });
-    targetCondition.nextFlowId = null;
+    branchDef.conditions.splice(targetIndex, 1);
+    // draftも更新
+    const draft = Utils.findDraft(state, branchDef.branchId);
+    console.log(draft);
   } else {
     throw "unkown flow type: " + sourceFlow.type;
   }
@@ -58,7 +76,7 @@ function changeCustomPage(state, customPageId, html) {
 // 正しくない値でもdraftのyamlには値を代入する
 function changeCodemirror(state, str) {
   const flow = Utils.findFlow(state, state.values.currentFlowId);
-  const draft = Utils.findDraft(state, flow.pageId);
+  const draft = Utils.findDraft(state, flow.refId);
   draft.yaml = str;
   draft.valid = false;
   try {
@@ -66,8 +84,8 @@ function changeCodemirror(state, str) {
     if (typeof(page) === 'string' || typeof(page) === 'undefined' || Array.isArray(page)) {
       return state;
     }
-    page.id = flow.pageId;
-    removePage(state, flow.pageId, true);
+    page.id = flow.refId;
+    removePage(state, flow.refId, true);
     state.defs.pageDefs.push(page);
   } catch (e) {
     return state;
@@ -91,13 +109,33 @@ function changePosition(state, flowId, x, y) {
 function removeFlow(state, flowId) {
   const flowDefs = state.defs.flowDefs;
   const index = flowDefs.findIndex((def) => def.id === flowId);
-  const pageId = flowDefs[index].pageId;
+  const refId = flowDefs[index].refId;
   flowDefs.splice(index, 1);
-  const pageRemained = flowDefs.findIndex(def => def.pageId === pageId) !== -1;
-  if (!pageRemained) {
-    removePage(state, pageId);
+  if (flowDefs[index].type === 'page') {
+    const pageRemained = flowDefs.findIndex(def => def.pageId === refId) !== -1;
+    if (!pageRemained) {
+      removePage(state, pageId);
+    }
+  } else if (flowDefs[index].type === 'branch') {
+    removeBranch(state, pageId);
   }
   return state;
+}
+/** branchを削除する */
+function removeBranch(state, branchId) {
+  const branchDefs = state.defs.branchDefs;
+  const branchIndex = branchDefs.findIndex(def => def.id === branchId);
+  branchDefs.splice(branchIndex, 1);
+  removeDraft(state, branchId);
+}
+/** draftを削除する */
+function removeDraft(state, id) {
+  const draftDefs = state.defs.draftDefs;
+  const draftIndex = draftDefs.findIndex(def => def.id === id);
+  if (draftIndex === -1) {
+    throw 'draftdef is not found: ' + pageId;
+  }
+  draftDefs.splice(draftIndex, 1);
 }
 /** pageを削除する */
 function removePage(state, pageId, doNotRemoveDraft = false) {
@@ -111,12 +149,7 @@ function removePage(state, pageId, doNotRemoveDraft = false) {
 
   if (doNotRemoveDraft === false) {
     // draftDefsからも削除
-    const draftDefs = state.defs.draftDefs;
-    const draftIndex = draftDefs.findIndex(def => def.pageId === pageId);
-    if (draftIndex === -1) {
-      throw 'draftdef is not found: ' + pageId;
-    }
-    draftDefs.splice(draftIndex, 1);
+    removeDraft(state, pageId);
   }
 
   return state;
@@ -127,7 +160,7 @@ function connectFlow(state, sourceFlowId, dstFlowId) {
   if (sourceFlow.type === 'page') {
     sourceFlow.nextFlowId = dstFlowId;
   } else if (sourceFlow.type === 'branch') {
-    state.defs.conditionDefs.push({
+    state.defs.branchDefs.push({
       flowId: sourceFlow.id,
       type: 'if',
       nextFlowId: dstFlowId

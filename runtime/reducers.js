@@ -1,11 +1,11 @@
 import { INIT_ALL_DEFS, SELECT_FLOW, CHANGE_DEFS, VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from '../constants'
-import { cloneObj, findFlow, findConditions } from '../utils'
+import { cloneObj, findFlow, findBranchDef } from '../utils'
 
 /**
  * branchを評価する
  */
 function evaluateBranch(state, branchFlow) {
-  const conditions = findConditions(state, branchFlow.id);
+  const conditions = findBranchDef(state, branchFlow.id).conditions;
   for (let i = 0, len = conditions.length; i < len; i++) {
     const c = conditions[i];
     if (c.type === 'if') {

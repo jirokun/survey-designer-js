@@ -6,8 +6,8 @@ export function flatten(ary) {
 }
 
 /** stateからdraftを探す */
-export function findDraft(state, pageId) {
-  return state.defs.draftDefs.find((def) => def.pageId === pageId);
+export function findDraft(state, id) {
+  return state.defs.draftDefs.find((def) => def.id === id);
 }
 /** stateからflowを探す */
 export function findFlow(state, flowId) {
@@ -19,7 +19,7 @@ export function findPageFromFlow(state, flowId) {
   if (!flow) {
     return null;
   }
-  return findPage(state, flow.pageId);
+  return findPage(state, flow.refId);
 }
 /** stateからpageを探す */
 export function findPage(state, pageId) {
@@ -45,9 +45,9 @@ export function findItems(state, questionId) {
 export function findChoices(state, itemId) {
   return state.defs.choiceDefs.filter((def) => def.itemId === itemId);
 }
-/** stateからconditionを探す */
-export function findConditions(state, flowId) {
-  return state.defs.conditionDefs.filter((def) => def.flowId === flowId);
+/** stateからbranchを探す */
+export function findBranchDef(state, branchId) {
+  return state.defs.branchDefs.find((def) => def.id === branchId);
 }
 /** ユニークとなるflowIdを返す */
 export function nextFlowId(state) {
@@ -80,7 +80,7 @@ export function makeCytoscapeElements(state) {
     return {
       data: {
         id: def.id,
-        label: `${def.id} (${def.pageId})`
+        label: `${def.id} (${def.refId})`
       },
       position: { x: pos.x, y: pos.y },
       classes: classes.join(' ')
@@ -101,12 +101,10 @@ export function makeCytoscapeElements(state) {
         }
       };
     } else if (def.type === 'branch') {
-      console.log(def);
-      const conditionDefs = findConditions(state, def.id);
-      return conditionDefs.map((c) => {
+      return findBranchDef(state, def.refId).conditions.map(c => {
         return {
           data: {
-            label: `${c.question}==${c.value}`,
+            label: c.key ? `if ${c.key}==${c.value}` : 'else',
             source: def.id,
             target: c.nextFlowId
           }
@@ -130,6 +128,7 @@ export function errorMessage(msg) {
 }
 /** 次のIDを生成する */
 export function generateNextId(state, type) {
+  console.log(type);
   let num = (state.defs[type + 'Defs'].map(def => parseInt(def.id.substr(1), 10)).reduce((x, y) => x > y ? x : y) + 1).toString();
   let padding = '';
   for (let i = num.length; i < 3; i++) {

@@ -85,7 +85,6 @@ class Graph extends Component {
     const { clonePage } = this.props;
     const { x, y } = this.state.rightClickPosition;
     const flowId = ele.id();
-    console.log(flowId);
     clonePage(flowId, x, y);
   }
 

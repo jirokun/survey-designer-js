@@ -51,6 +51,7 @@ export default class EnqueteEditorApp extends Component {
     const _this = this;
     const { state, actions } = this.props;
     const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
+    console.log(page);
     let code = '';
     let isYamlValid = false;
     if (page) {
