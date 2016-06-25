@@ -13,7 +13,7 @@ class EnqueteRuntimeApp extends Component {
     if (!currentFlow) {
       return <div>undefined flow</div>;
     }
-    const currentPage = findPage(state, currentFlow.pageId);
+    const currentPage = findPage(state, currentFlow.refId);
     if (!currentPage) {
       return <div>undefined page</div>;
     }
