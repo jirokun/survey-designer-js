@@ -6,22 +6,15 @@ import Frame from 'react-frame-component'
 import EnqueteRuntimeApp from '../../runtime/containers/EnqueteRuntimeApp'
 import CustomPageTab from '../components/CustomPageTab'
 import Graph from '../components/Graph'
-import Codemirror from 'react-codemirror'
-import CodemirrorYaml from 'codemirror/mode/yaml/yaml'
-import javascript from 'codemirror/mode/javascript/javascript'
+import Editor from '../components/Editor'
 import yaml from 'js-yaml'
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
 import * as Utils from '../../utils'
-import '../../node_modules/codemirror/lib/codemirror.css'
-import '../../node_modules/codemirror/theme/erlang-dark.css'
 
 export default class EnqueteEditorApp extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      code: ''
-    };
   }
   componentDidMount() {
     this.resizeGraphPane();
@@ -50,28 +43,19 @@ export default class EnqueteEditorApp extends Component {
   render() {
     const _this = this;
     const { state, actions } = this.props;
-    const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
-    console.log(page);
-    let code = '';
-    let isYamlValid = false;
-    if (page) {
-      const draft = Utils.findDraft(state, page.id);
-      if (draft) {
-        code = draft.yaml;
-        isYamlValid = draft.valid;
-      }
-    }
-    const codemirrorOptions = {
-      lineNumbers: true,
-      mode: 'yaml'
-    };
     const splitPaneSize = {
       minSize: 100,
       defaultSize: 400
     };
-    const codeMirrorStyle = {
-      height: '100%'
+    const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
+    let isYamlValid = false;
+    if (page) {
+      const draft = Utils.findDraft(state, page.id);
+      if (draft) {
+        isYamlValid = draft.valid;
+      }
     }
+
     // TODO SplitPaneをiframeに対応する
     return (
       <SplitPane ref="root" split="vertical" {...splitPaneSize} onDragFinished={this.resizeGraphPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
@@ -80,9 +64,7 @@ export default class EnqueteEditorApp extends Component {
         </div>
         <div className="right" ref="right">
           <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.onDragEnd.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
-            <div ref="top" className="hot-pane">
-              <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
-            </div>
+            <Editor/>
             <div ref="preview" className="preview-pane">
               <Frame className={isYamlValid ? "" : "hidden"} head={
                 <link rel="stylesheet" href="/css/runtime.css"/>
