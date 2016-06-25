@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror'
 import CodemirrorYaml from 'codemirror/mode/yaml/yaml'
+import EasyEditor from './EasyEditor'
 import javascript from 'codemirror/mode/javascript/javascript'
 import yaml from 'js-yaml'
 import * as EditorActions from '../actions'
@@ -39,9 +40,15 @@ class Editor extends Component {
     };
 
     const codeMirrorStyle = {
-      height: '100%'
+      height: '100%',
+      display: mode == 'advanced' ? '' : 'none'
     }
+
     const mode = this.state.mode;
+    const editor = (mode == 'advanced' ?
+      <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} /> :
+      <EasyEditor/>);
+
     const buttonClassBase = 'btn btn-default btn-sm ';
     return (
       <div ref="top" className="hot-pane">
@@ -49,7 +56,7 @@ class Editor extends Component {
           <button className={buttonClassBase + (mode == 'easy' ? 'active' : '')} onClick={this.setMode.bind(this, 'easy')}>簡易モード</button>
           <button className={buttonClassBase + (mode == 'advanced' ? 'active' : '')} onClick={this.setMode.bind(this, 'advanced')}>アドバンスドモード</button>
         </div>
-        <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} />
+        {editor}
       </div>
     );
   }
