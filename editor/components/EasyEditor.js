@@ -20,6 +20,12 @@ class EasyEditor extends Component {
   handleChangeQuestionTitle(e, editor) {
     this.props.changeQuestionTitle(editor.getContent());
   }
+  handleChangeQuestionBeforeNote(e, editor) {
+    this.props.changeQuestionBeforeNote(editor.getContent());
+  }
+  handleChangeQuestionAfterNote(e, editor) {
+    this.props.changeQuestionAfterNote(editor.getContent());
+  }
   renderRadio() {
     const { page } = this.props;
     const question = page.questions[0]; // シンプルエディタでは1ページ1質問に限定
@@ -34,7 +40,6 @@ class EasyEditor extends Component {
             <TinyMCE ref="titleEditor"
               config={
                 {
-                  plugins: 'link image',
                   menubar: '',
                   toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
                   plugins: 'table contextmenu textcolor paste fullscreen lists image link'
@@ -47,14 +52,37 @@ class EasyEditor extends Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">補足</label>
+          <label className="col-sm-2 control-label">補足1</label>
           <div className="col-sm-10">
-            <TinyMCE config={{
-              plugins: 'link image',
-              menubar: '',
-              toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
-              plugins: 'table contextmenu textcolor paste fullscreen lists image link'
-            }}/>
+            <TinyMCE ref="titleEditor"
+              config={
+                {
+                  menubar: '',
+                  toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
+                  plugins: 'table contextmenu textcolor paste fullscreen lists image link'
+                }
+              }
+              onKeyup={this.handleChangeQuestionBeforeNote.bind(this)}
+              onChange={this.handleChangeQuestionBeforeNote.bind(this)}
+              content={question.beforeNote}
+            />
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="col-sm-2 control-label">補足2</label>
+          <div className="col-sm-10">
+            <TinyMCE ref="titleEditor"
+              config={
+                {
+                  menubar: '',
+                  toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
+                  plugins: 'table contextmenu textcolor paste fullscreen lists image link'
+                }
+              }
+              onKeyup={this.handleChangeQuestionAfterNote.bind(this)}
+              onChange={this.handleChangeQuestionAfterNote.bind(this)}
+              content={question.beforeNote}
+            />
           </div>
         </div>
         <div className="form-group">
@@ -143,7 +171,9 @@ const stateToProps = state => ({
   state: state
 });
 const actionsToProps = dispatch => ({
-  changeQuestionTitle: value => dispatch(EditorActions.changeQuestionTitle(value))
+  changeQuestionTitle: value => dispatch(EditorActions.changeQuestionTitle(value)),
+  changeQuestionBeforeNote: value => dispatch(EditorActions.changeQuestionBeforeNote(value)),
+  changeQuestionAfterNote: value => dispatch(EditorActions.changeQuestionAfterNote(value))
 });
 
 export default connect(

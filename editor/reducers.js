@@ -54,7 +54,6 @@ function removeEdge(state, sourceFlowId, targetFlowId) {
     branchDef.conditions.splice(targetIndex, 1);
     // draftも更新
     const draft = Utils.findDraft(state, branchDef.branchId);
-    console.log(draft);
   } else {
     throw "unkown flow type: " + sourceFlow.type;
   }
@@ -94,15 +93,30 @@ function changeCodemirror(state, str) {
   return state;
 }
 // 1ページに対して1クエスションしかない前提(Easyモード)
-function changeQuestionTitle(state, html) {
+function changeQuestion(state, action, html) {
   const flow = Utils.findFlow(state, state.values.currentFlowId);
   const page = Utils.findPage(state, flow.refId);
   const draft = Utils.findDraft(state, flow.refId);
-  page.questions[0].title = html; // シンプルエディタでは1ページ1問
+  const question = page.questions[0];
+  switch (action) {
+    case C.CHANGE_QUESTION_TITLE:
+      question.title = html;
+      break;
+    case C.CHANGE_QUESTION_BEFORE_NOTE:
+      question.beforeNote = html;
+      break;
+    case C.CHANGE_QUESTION_AFTER_NOTE:
+      question.afterNote = html;
+      break;
+    default:
+      throw 'unkown action';
+  }
   removeDraft(state, page.id);
   state.defs.draftDefs.push({ id: page.id, valid: true, yaml: yaml.safeDump(page) });
+  console.log(question);
   return state;
 }
+
 function changePosition(state, flowId, x, y) {
   const pos = state.defs.positionDefs.find((def) => {
     return def.flowId === flowId;
@@ -233,7 +247,9 @@ function editorReducer(state, action) {
   case C.CHANGE_CODEMIRROR:
     return changeCodemirror(newState, action.yaml);
   case C.CHANGE_QUESTION_TITLE:
-    return changeQuestionTitle(newState, action.html);
+  case C.CHANGE_QUESTION_BEFORE_NOTE:
+  case C.CHANGE_QUESTION_AFTER_NOTE:
+    return changeQuestion(newState, action.type, action.html);
   default:
     return newState;
   }

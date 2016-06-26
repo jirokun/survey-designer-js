@@ -61,3 +61,9 @@ export function changeCodemirror(yaml) {
 export function changeQuestionTitle(html) {
   return { type: C.CHANGE_QUESTION_TITLE, html};
 }
+export function changeQuestionBeforeNote(html) {
+  return { type: C.CHANGE_QUESTION_BEFORE_NOTE, html};
+}
+export function changeQuestionAfterNote(html) {
+  return { type: C.CHANGE_QUESTION_AFTER_NOTE, html};
+}
