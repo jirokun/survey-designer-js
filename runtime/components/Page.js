@@ -9,7 +9,7 @@ import RadioQuestion from '../components/questions/RadioQuestion'
 import SelectQuestion from '../components/questions/SelectQuestion'
 import MatrixQuestion from '../components/questions/MatrixQuestion'
 import { valueChange } from '../actions'
-import { findQuestions, findCustomPage } from '../../utils'
+import { findQuestions, findCustomPage, r } from '../../utils'
 
 class Page extends Component {
   componentDidMount() {
@@ -125,10 +125,10 @@ class Page extends Component {
     });
   }
   render() {
-    const { page } = this.props;
+    const { page, inputValues } = this.props;
     return (
       <div ref="page" className="page">
-        <h2 className="page-title">{page.title}</h2>
+        <h2 className="page-title" dangerouslySetInnerHTML={{__html: r(page.title, inputValues)}} />
         { this.makeQuestions() }
         <Footer />
       </div>

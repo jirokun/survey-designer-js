@@ -47,7 +47,7 @@ class Editor extends Component {
     const mode = this.state.mode;
     const editor = (mode == 'advanced' ?
       <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} /> :
-      <EasyEditor/>);
+      <EasyEditor page={page}/>);
 
     const buttonClassBase = 'btn btn-default btn-sm ';
     return (

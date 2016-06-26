@@ -149,6 +149,9 @@ export function r(str, values) {
     , variableStartIndex
     , variableEndIndex
     , ret = '';
+  if (!str) {
+    return ret;
+  }
   while (true) {
     oldIndex = index;
     if (!isInVariable) {

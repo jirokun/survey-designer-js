@@ -1,15 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Codemirror from 'react-codemirror'
-import CodemirrorYaml from 'codemirror/mode/yaml/yaml'
-import javascript from 'codemirror/mode/javascript/javascript'
-import yaml from 'js-yaml'
-import * as EasyEditorActions from '../actions'
+import TinyMCE from 'react-tinymce';
+import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
 import * as Utils from '../../utils'
-import '../../node_modules/codemirror/lib/codemirror.css'
-import '../../node_modules/codemirror/theme/erlang-dark.css'
 
 class EasyEditor extends Component {
   constructor(props) {
@@ -22,24 +17,49 @@ class EasyEditor extends Component {
     const type = this.refs.typeSelect.value;
     this.setState({type});
   }
+  handleChangeQuestionTitle(e, editor) {
+    this.props.changeQuestionTitle(editor.getContent());
+  }
   renderRadio() {
+    const { page } = this.props;
+    const question = page.questions[0]; // シンプルエディタでは1ページ1質問に限定
+    if (!question) {
+      return;
+    }
     return (
       <div>
         <div className="form-group">
           <label className="col-sm-2 control-label">質問</label>
-          <div className="col-sm-8">
-            <textarea className="form-control"/>
+          <div className="col-sm-10">
+            <TinyMCE ref="titleEditor"
+              config={
+                {
+                  plugins: 'link image',
+                  menubar: '',
+                  toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
+                  plugins: 'table contextmenu textcolor paste fullscreen lists image link'
+                }
+              }
+              onKeyup={this.handleChangeQuestionTitle.bind(this)}
+              onChange={this.handleChangeQuestionTitle.bind(this)}
+              content={question.title}
+            />
           </div>
         </div>
         <div className="form-group">
           <label className="col-sm-2 control-label">補足</label>
-          <div className="col-sm-8">
-            <textarea className="form-control"/>
+          <div className="col-sm-10">
+            <TinyMCE config={{
+              plugins: 'link image',
+              menubar: '',
+              toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
+              plugins: 'table contextmenu textcolor paste fullscreen lists image link'
+            }}/>
           </div>
         </div>
         <div className="form-group">
           <label className="col-sm-2 control-label">選択肢</label>
-          <div className="col-sm-8">
+          <div className="col-sm-10">
             <textarea className="form-control"/>
           </div>
         </div>
@@ -99,19 +119,7 @@ class EasyEditor extends Component {
   renderTextarea() {
   }
   render() {
-    let code = '';
-    let isYamlValid = false;
-    const { state } = this.props;
-    const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
-    if (page) {
-      const draft = Utils.findDraft(state, page.id);
-      if (draft) {
-        code = draft.yaml;
-        isYamlValid = draft.valid;
-      }
-    }
-    let editor;
-    
+
     return (
       <div className="form-horizontal">
         <div className="form-group">
@@ -135,7 +143,7 @@ const stateToProps = state => ({
   state: state
 });
 const actionsToProps = dispatch => ({
-  changeCodemirror: value => dispatch(EasyEditorActions.changeCodemirror(value))
+  changeQuestionTitle: value => dispatch(EditorActions.changeQuestionTitle(value))
 });
 
 export default connect(

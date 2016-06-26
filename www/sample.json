@@ -1,6 +1,6 @@
 {
   "values": {
-    "currentFlowId": "F006",
+    "currentFlowId": "F001",
     "flowStack": [],
     "inputValues": {
       "P001_1": {
@@ -53,28 +53,28 @@
     "draftDefs": [
       {
         "id": "P001",
-        "yaml": "title: Checkbox\nquestions:\n- type: checkbox\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: checkbox\n  vertical: false                                    # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n",
+        "yaml": "title: PageTitle Checkbox\nquestions:\n- title: Checkbox vertical\n  type: checkbox\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: checkbox\n  vertical: false                                    # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n",
         "valid": true
       },
       {
         "id": "P002",
-        "yaml": "title: Matrix\nquestions:\n- type: matrix\n  direction: horizontal                                                 # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n- type: matrix\n  direction: vertical                                                   # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n",
+        "yaml": "title: PageTitle Matrix\nquestions:\n- type: matrix\n  direction: horizontal                                                 # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n- type: matrix\n  direction: vertical                                                   # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n",
         "valid": true
       },
       {
         "id": "P003",
         "valid": true,
-        "yaml": "title: Radio\nquestions:\n- type: radio\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: radio\n  vertical: false                                    # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n"
+        "yaml": "title: PageTitle Radio\nquestions:\n- type: radio\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: radio\n  vertical: false                                    # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n"
       },
       {
         "id": "P004",
         "valid": true,
-        "yaml": "title: Select\nquestions:\n- type: select\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: select\n  multiple: true                                     # 複数選択するときはmultiple: trueと指定する\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目"
+        "yaml": "title: PageTitle Select\nquestions:\n- type: select\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: select\n  multiple: true                                     # 複数選択するときはmultiple: trueと指定する\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目"
       },
       {
         "id": "P005",
         "valid": true,
-        "yaml": "title: JavaScript実行\njavascript: |\n  var element = document.querySelector('label');\n  element.style.position = 'relative';\n  element.style.left = '50px';\n  document.querySelector('input').addEventListener('change', function(e) {\n    document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n  }, false);\nquestions:\n  - type: checkbox\n    choices:\n      - 選択肢1\n      - 選択肢2\n  - type: radio\n    choices:\n      - 選択肢1\n      - 選択肢2\n"
+        "yaml": "title: PageTitle JavaScript実行\njavascript: |\n  var element = document.querySelector('label');\n  element.style.position = 'relative';\n  element.style.left = '50px';\n  document.querySelector('input').addEventListener('change', function(e) {\n    document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n  }, false);\nquestions:\n  - type: checkbox\n    choices:\n      - 選択肢1\n      - 選択肢2\n  - type: radio\n    choices:\n      - 選択肢1\n      - 選択肢2\n"
       },
       {
         "id": "P006",
@@ -134,7 +134,7 @@
     ],
     "pageDefs": [
       {
-        "title": "Select",
+        "title": "PageTitle Select",
         "questions": [
           {
             "type": "select",
@@ -165,7 +165,7 @@
         "id": "P004"
       },
       {
-        "title": "Matrix",
+        "title": "PageTitle Matrix",
         "questions": [
           {
             "type": "matrix",
@@ -205,7 +205,7 @@
         "id": "P002"
       },
       {
-        "title": "JavaScript実行",
+        "title": "PageTitle JavaScript実行",
         "javascript": "var element = document.querySelector('label');\nelement.style.position = 'relative';\nelement.style.left = '50px';\ndocument.querySelector('input').addEventListener('change', function(e) {\n  document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n}, false);\n",
         "questions": [
           {
@@ -226,9 +226,10 @@
         "id": "P005"
       },
       {
-        "title": "Checkbox",
+        "title": "PageTitle Checkbox",
         "questions": [
           {
+            "title": "Checkbox vertical",
             "type": "checkbox",
             "choices": [
               "通常の選択肢",
@@ -241,6 +242,7 @@
             ]
           },
           {
+            "title": "Checkbox horizontal",
             "type": "checkbox",
             "vertical": false,
             "choices": [
@@ -257,7 +259,7 @@
         "id": "P001"
       },
       {
-        "title": "Radio",
+        "title": "PageTitle Radio",
         "questions": [
           {
             "type": "radio",

@@ -37,6 +37,10 @@ html, body {
         box-sizing: border-box;
         height: 100%;
         width: 100%;
+        .form-horizontal .form-group {
+          margin-left: 0;
+          margin-right: 0;
+        }
         .editor-controller {
           position: absolute;
           z-index: 100;

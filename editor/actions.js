@@ -58,3 +58,6 @@ export function resizeEditorPane(hotHeight) {
 export function changeCodemirror(yaml) {
   return { type: C.CHANGE_CODEMIRROR, yaml};
 }
+export function changeQuestionTitle(html) {
+  return { type: C.CHANGE_QUESTION_TITLE, html};
+}

@@ -26,9 +26,13 @@ export default class CheckboxQuestion extends Component {
     });
   }
   render() {
+    const { title, inputValues } = this.props;
     return (
       <div className={this.constructor.name}>
-        {this.makeItems()}
+        <h3 className="question-title" dangerouslySetInnerHTML={{__html: r(title, inputValues)}} />
+        <div className="choices">
+          {this.makeItems()}
+        </div>
       </div>
     );
   }

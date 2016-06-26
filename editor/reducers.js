@@ -93,6 +93,16 @@ function changeCodemirror(state, str) {
   draft.valid = true;
   return state;
 }
+// 1ページに対して1クエスションしかない前提(Easyモード)
+function changeQuestionTitle(state, html) {
+  const flow = Utils.findFlow(state, state.values.currentFlowId);
+  const page = Utils.findPage(state, flow.refId);
+  const draft = Utils.findDraft(state, flow.refId);
+  page.questions[0].title = html; // シンプルエディタでは1ページ1問
+  removeDraft(state, page.id);
+  state.defs.draftDefs.push({ id: page.id, valid: true, yaml: yaml.safeDump(page) });
+  return state;
+}
 function changePosition(state, flowId, x, y) {
   const pos = state.defs.positionDefs.find((def) => {
     return def.flowId === flowId;
@@ -222,6 +232,8 @@ function editorReducer(state, action) {
     return changeCustomPage(newState, action.customPageId, action.html);
   case C.CHANGE_CODEMIRROR:
     return changeCodemirror(newState, action.yaml);
+  case C.CHANGE_QUESTION_TITLE:
+    return changeQuestionTitle(newState, action.html);
   default:
     return newState;
   }
