@@ -26,7 +26,19 @@ class EasyEditor extends Component {
     return (
       <div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">選択項目</label>
+          <label className="col-sm-2 control-label">質問</label>
+          <div className="col-sm-8">
+            <textarea className="form-control"/>
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="col-sm-2 control-label">補足</label>
+          <div className="col-sm-8">
+            <textarea className="form-control"/>
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="col-sm-2 control-label">選択肢</label>
           <div className="col-sm-8">
             <textarea className="form-control"/>
           </div>
@@ -35,7 +47,7 @@ class EasyEditor extends Component {
           <div className="col-sm-offset-2 col-sm-10">
             <div className="checkbox">
               <label>
-                <input type="checkbox"/> 表示順をランダム
+                <input type="checkbox"/> 選択肢の表示順をランダム表示
               </label>
             </div>
           </div>
