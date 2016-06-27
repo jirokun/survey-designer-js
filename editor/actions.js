@@ -67,3 +67,6 @@ export function changeQuestionBeforeNote(html) {
 export function changeQuestionAfterNote(html) {
   return { type: C.CHANGE_QUESTION_AFTER_NOTE, html};
 }
+export function changeQuestionChoices(choices) {
+  return { type: C.CHANGE_QUESTION_CHOICES, choices};
+}

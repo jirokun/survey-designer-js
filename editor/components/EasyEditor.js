@@ -26,12 +26,17 @@ class EasyEditor extends Component {
   handleChangeQuestionAfterNote(e, editor) {
     this.props.changeQuestionAfterNote(editor.getContent());
   }
+  handleChangeQuestionChoices(e) {
+    this.props.changeQuestionChoices(e.target.value.split(/\n/));
+  }
   renderRadio() {
     const { page } = this.props;
     const question = page.questions[0]; // シンプルエディタでは1ページ1質問に限定
+    console.log(question);
     if (!question) {
       return;
     }
+    const choices = question.choices.map(obj => obj.label ? obj.label : obj).join("\n");
     return (
       <div>
         <div className="form-group">
@@ -88,7 +93,7 @@ class EasyEditor extends Component {
         <div className="form-group">
           <label className="col-sm-2 control-label">選択肢</label>
           <div className="col-sm-10">
-            <textarea className="form-control"/>
+            <textarea className="form-control" onChange={this.handleChangeQuestionChoices.bind(this)} value={choices}/>
           </div>
         </div>
         <div className="form-group">
@@ -173,7 +178,8 @@ const stateToProps = state => ({
 const actionsToProps = dispatch => ({
   changeQuestionTitle: value => dispatch(EditorActions.changeQuestionTitle(value)),
   changeQuestionBeforeNote: value => dispatch(EditorActions.changeQuestionBeforeNote(value)),
-  changeQuestionAfterNote: value => dispatch(EditorActions.changeQuestionAfterNote(value))
+  changeQuestionAfterNote: value => dispatch(EditorActions.changeQuestionAfterNote(value)),
+  changeQuestionChoices: value => dispatch(EditorActions.changeQuestionChoices(value))
 });
 
 export default connect(

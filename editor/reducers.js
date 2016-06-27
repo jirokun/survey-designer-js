@@ -93,27 +93,29 @@ function changeCodemirror(state, str) {
   return state;
 }
 // 1ページに対して1クエスションしかない前提(Easyモード)
-function changeQuestion(state, action, html) {
+function changeQuestion(state, action, value) {
   const flow = Utils.findFlow(state, state.values.currentFlowId);
   const page = Utils.findPage(state, flow.refId);
   const draft = Utils.findDraft(state, flow.refId);
   const question = page.questions[0];
   switch (action) {
     case C.CHANGE_QUESTION_TITLE:
-      question.title = html;
+      question.title = value;
       break;
     case C.CHANGE_QUESTION_BEFORE_NOTE:
-      question.beforeNote = html;
+      question.beforeNote = value;
       break;
     case C.CHANGE_QUESTION_AFTER_NOTE:
-      question.afterNote = html;
+      question.afterNote = value;
+      break;
+    case C.CHANGE_QUESTION_CHOICES:
+      question.choices = value;
       break;
     default:
       throw 'unkown action';
   }
   removeDraft(state, page.id);
   state.defs.draftDefs.push({ id: page.id, valid: true, yaml: yaml.safeDump(page) });
-  console.log(question);
   return state;
 }
 
@@ -250,6 +252,10 @@ function editorReducer(state, action) {
   case C.CHANGE_QUESTION_BEFORE_NOTE:
   case C.CHANGE_QUESTION_AFTER_NOTE:
     return changeQuestion(newState, action.type, action.html);
+    break;
+  case C.CHANGE_QUESTION_CHOICES:
+    return changeQuestion(newState, action.type, action.choices);
+    break;
   default:
     return newState;
   }
