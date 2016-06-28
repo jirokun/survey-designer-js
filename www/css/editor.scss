@@ -54,6 +54,9 @@ html, body {
             height: 100%;
           }
         }
+        .mce-content-body {
+          border: 1px solid #ccc;
+        }
       }
       .preview-pane {
         position: absolute;

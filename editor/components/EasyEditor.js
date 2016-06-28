@@ -27,7 +27,8 @@ class EasyEditor extends Component {
     this.props.changeQuestionAfterNote(editor.getContent());
   }
   handleChangeQuestionChoices(e) {
-    this.props.changeQuestionChoices(e.target.value.split(/\n/));
+    console.log(e);
+    //this.props.changeQuestionChoices(e.target.value.split(/\n/));
   }
   renderRadio() {
     const { page } = this.props;
@@ -47,7 +48,9 @@ class EasyEditor extends Component {
                 {
                   menubar: '',
                   toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
-                  plugins: 'table contextmenu textcolor paste fullscreen lists image link'
+                  plugins: 'table contextmenu textcolor paste fullscreen lists image link',
+                  inline: true,
+                  statusbar: false
                 }
               }
               onKeyup={this.handleChangeQuestionTitle.bind(this)}
@@ -64,7 +67,9 @@ class EasyEditor extends Component {
                 {
                   menubar: '',
                   toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
-                  plugins: 'table contextmenu textcolor paste fullscreen lists image link'
+                  plugins: 'table contextmenu textcolor paste fullscreen lists image link',
+                  inline: true,
+                  statusbar: false
                 }
               }
               onKeyup={this.handleChangeQuestionBeforeNote.bind(this)}
@@ -81,7 +86,9 @@ class EasyEditor extends Component {
                 {
                   menubar: '',
                   toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
-                  plugins: 'table contextmenu textcolor paste fullscreen lists image link'
+                  plugins: 'table contextmenu textcolor paste fullscreen lists image link',
+                  inline: true,
+                  statusbar: false
                 }
               }
               onKeyup={this.handleChangeQuestionAfterNote.bind(this)}
@@ -93,7 +100,20 @@ class EasyEditor extends Component {
         <div className="form-group">
           <label className="col-sm-2 control-label">選択肢</label>
           <div className="col-sm-10">
-            <textarea className="form-control" onChange={this.handleChangeQuestionChoices.bind(this)} value={choices}/>
+            <TinyMCE ref="titleEditor"
+              config={
+                {
+                  menubar: '',
+                  toolbar: 'undo redo | styleselect forecolor backcolor removeformat | fullscreen',
+                  plugins: 'image link',
+                  inline: true,
+                  statusbar: false
+                }
+              }
+              onKeyup={this.handleChangeQuestionChoices.bind(this)}
+              onChange={this.handleChangeQuestionChoices.bind(this)}
+              content={question.beforeNote}
+            />
           </div>
         </div>
         <div className="form-group">
