@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import TinyMCE from 'react-tinymce';
+import ChoiceEditor from './ChoiceEditor';
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
 import * as Utils from '../../utils'
@@ -26,18 +27,12 @@ class EasyEditor extends Component {
   handleChangeQuestionAfterNote(e, editor) {
     this.props.changeQuestionAfterNote(editor.getContent());
   }
-  handleChangeQuestionChoices(e) {
-    console.log(e);
-    //this.props.changeQuestionChoices(e.target.value.split(/\n/));
-  }
   renderRadio() {
     const { page } = this.props;
     const question = page.questions[0]; // シンプルエディタでは1ページ1質問に限定
-    console.log(question);
     if (!question) {
       return;
     }
-    const choices = question.choices.map(obj => obj.label ? obj.label : obj).join("\n");
     return (
       <div>
         <div className="form-group">
@@ -100,20 +95,7 @@ class EasyEditor extends Component {
         <div className="form-group">
           <label className="col-sm-2 control-label">選択肢</label>
           <div className="col-sm-10">
-            <TinyMCE ref="titleEditor"
-              config={
-                {
-                  menubar: '',
-                  toolbar: 'undo redo | styleselect forecolor backcolor removeformat | fullscreen',
-                  plugins: 'image link',
-                  inline: true,
-                  statusbar: false
-                }
-              }
-              onKeyup={this.handleChangeQuestionChoices.bind(this)}
-              onChange={this.handleChangeQuestionChoices.bind(this)}
-              content={question.beforeNote}
-            />
+            <ChoiceEditor choices={question.choices}/>
           </div>
         </div>
         <div className="form-group">

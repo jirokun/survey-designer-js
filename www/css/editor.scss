@@ -123,3 +123,18 @@ html, body {
     }
   }
 }
+.choice-editor {
+  .choice-editor-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    .choice-editor-tinymce {
+      flex-grow: 1;
+    }
+    .choice-editor-controller {
+      button {
+        margin-left: 10px;
+      }
+    }
+  }
+}
