@@ -74,25 +74,6 @@ class EasyEditor extends Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="col-sm-2 control-label">補足2</label>
-          <div className="col-sm-10">
-            <TinyMCE ref="titleEditor"
-              config={
-                {
-                  menubar: '',
-                  toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
-                  plugins: 'table contextmenu textcolor paste fullscreen lists image link',
-                  inline: true,
-                  statusbar: false
-                }
-              }
-              onKeyup={this.handleChangeQuestionAfterNote.bind(this)}
-              onChange={this.handleChangeQuestionAfterNote.bind(this)}
-              content={question.beforeNote}
-            />
-          </div>
-        </div>
-        <div className="form-group">
           <label className="col-sm-2 control-label">選択肢</label>
           <div className="col-sm-10">
             <ChoiceEditor choices={question.choices}/>
@@ -116,7 +97,28 @@ class EasyEditor extends Component {
             </div>
           </div>
         </div>
+        <div className="form-group">
+          <label className="col-sm-2 control-label">補足2</label>
+          <div className="col-sm-10">
+            <TinyMCE ref="titleEditor"
+              config={
+                {
+                  menubar: '',
+                  //toolbar: 'undo redo | styleselect forecolor backcolor removeformat | bullist numlist | alignleft aligncenter alignright | outdent indent fullscreen',
+                  toolbar: 'bold italic underline strikethrough alignleft aligncenter alignright alignjustify styleselect formatselect fontselect fontsizeselect cut copy paste bullist numlist outdent indent blockquote undo redo removeformat subscript superscript hr link unlink image charmap pastetext print preview anchor pagebreak spellchecker searchreplace visualblocks visualchars code fullscreen insertdatetime media nonbreaking save cancel table ltr rtl emoticons template forecolor backcolor restoredraft insertfile a11ycheck quickimage quicktable quicklink',
+                  plugins: 'table contextmenu textcolor paste fullscreen lists image link',
+                  inline: false,
+                  statusbar: false
+                }
+              }
+              onKeyup={this.handleChangeQuestionAfterNote.bind(this)}
+              onChange={this.handleChangeQuestionAfterNote.bind(this)}
+              content={question.beforeNote}
+            />
+          </div>
+        </div>
       </div>
+
     );
   }
   renderCheckbox() {

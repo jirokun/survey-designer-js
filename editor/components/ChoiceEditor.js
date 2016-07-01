@@ -11,27 +11,40 @@ class ChoiceEditor extends Component {
     super(props);
     this.state = {};
   }
-  handleChangeQuestionChoices(e) {
-    console.log(e);
-    //this.props.changeQuestionChoices(e.target.value.split(/\n/));
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // choicesが増減した時だけupdateする
+    return nextProps.choices.length !== this.props.choices.length;
   }
-  renderChoiceEditorRow(choice) {
+  getTinyMCEEditorFromEl(el) {
+    return tinymce.editors.find(editor => document.getElementById(editor.id) === el);
+  }
+  handleChangeQuestionChoices(choiceIndex, e) {
+    const _this = this;
+    const editorEls = this.refs.root.querySelectorAll('.choice-editor-tinymce');
+    const values = Array.prototype.map.call(this.refs.root.querySelectorAll('.choice-editor-tinymce'), el => {
+      return _this.getTinyMCEEditorFromEl(el).getContent();
+    });
+    this.props.changeQuestionChoices(values);
+  }
+  renderChoiceEditorRow(choice, index) {
     const content = choice.label ? choice.label : choice;
     return (
       <div className="choice-editor-row">
-        <div className="choice-editor-tinymce">
-          <TinyMCE
+        <div className="choice-editor-tinymce-container">
+          <TinyMCE className="choice-editor-tinymce"
             config={
               {
                 menubar: '',
-                toolbar: 'undo redo | styleselect forecolor backcolor removeformat | fullscreen',
-                plugins: 'image link',
+                toolbar: 'fontselect fontsizeselect bold italic underline strikethrough backcolor forecolor subscript superscript anchor code  media removeformat | fullscreen',
+                plugins: 'table contextmenu textcolor paste fullscreen lists image link',
+                forced_root_block : false,
                 inline: true,
                 statusbar: false
               }
             }
-            onKeyup={this.handleChangeQuestionChoices.bind(this)}
-            onChange={this.handleChangeQuestionChoices.bind(this)}
+            onKeyup={this.handleChangeQuestionChoices.bind(this, index)}
+            onChange={this.handleChangeQuestionChoices.bind(this, index)}
             content={content}
           />
         </div>
@@ -46,7 +59,7 @@ class ChoiceEditor extends Component {
     const { choices } = this.props;
 
     return (
-      <div className="choice-editor">
+      <div ref="root" className="choice-editor">
         {choices.map(this.renderChoiceEditorRow.bind(this))}
       </div>
     );
