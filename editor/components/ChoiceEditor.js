@@ -9,28 +9,50 @@ import * as Utils from '../../utils'
 class ChoiceEditor extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     // choicesが増減した時だけupdateする
     return nextProps.choices.length !== this.props.choices.length;
   }
+  componentDidUpdate(prevProps, prevState) {
+  }
   getTinyMCEEditorFromEl(el) {
     return tinymce.editors.find(editor => document.getElementById(editor.id) === el);
   }
-  handleChangeQuestionChoices(choiceIndex, e) {
+  getChoiceValue() {
     const _this = this;
     const editorEls = this.refs.root.querySelectorAll('.choice-editor-tinymce');
-    const values = Array.prototype.map.call(this.refs.root.querySelectorAll('.choice-editor-tinymce'), el => {
+    return Array.prototype.map.call(editorEls, el => {
       return _this.getTinyMCEEditorFromEl(el).getContent();
     });
-    this.props.changeQuestionChoices(values);
   }
-  renderChoiceEditorRow(choice, index) {
+  handleChangeQuestionChoices(choiceIndex, e) {
+    const choiceValue = this.getChoiceValue();
+    if (this.props.choices.length != choiceValue.length) {
+      // TinyMCEのバグ？行削除時に勝手にchangeイベントが発動することがある
+      return;
+    }
+    this.props.changeQuestionChoices(choiceValue);
+  }
+  handleClickAddButton(index, e) {
+    const choiceValue = this.getChoiceValue();
+    choiceValue.splice(index + 1, 0, '');
+    this.props.changeQuestionChoices(choiceValue);
+  }
+  handleClickMinusButton(index, e) {
+    const choiceValue = this.getChoiceValue();
+    choiceValue.splice(index, 1);
+    this.props.changeQuestionChoices(choiceValue);
+  }
+  renderChoiceEditorRow(choice, index, choices) {
     const content = choice.label ? choice.label : choice;
+    const controllerMinusStyle = {
+      visibility: choices.length == 1 ? 'hidden' : ''
+    }
     return (
-      <div className="choice-editor-row">
+      <div className="choice-editor-row" key={"choice-editor-row-" + index}>
         <div className="choice-editor-tinymce-container">
           <TinyMCE className="choice-editor-tinymce"
             config={
@@ -49,8 +71,8 @@ class ChoiceEditor extends Component {
           />
         </div>
         <div className="choice-editor-controller">
-          <button><i className="glyphicon glyphicon-plus"></i></button>
-          <button><i className="glyphicon glyphicon-minus"></i></button>
+          <span className="btn btn-default btn-sm" onClick={this.handleClickAddButton.bind(this, index)}><i className="glyphicon glyphicon-plus"></i></span>
+          <span className="btn btn-default btn-sm" onClick={this.handleClickMinusButton.bind(this, index)} style={controllerMinusStyle}><i className="glyphicon glyphicon-minus"></i></span>
         </div>
       </div>
     );

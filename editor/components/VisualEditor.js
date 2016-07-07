@@ -7,7 +7,7 @@ import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
 import * as Utils from '../../utils'
 
-class EasyEditor extends Component {
+class VisualEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -189,4 +189,4 @@ const actionsToProps = dispatch => ({
 export default connect(
   stateToProps,
   actionsToProps
-)(EasyEditor);
+)(VisualEditor);

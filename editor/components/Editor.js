@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Codemirror from 'react-codemirror'
 import CodemirrorYaml from 'codemirror/mode/yaml/yaml'
-import EasyEditor from './EasyEditor'
+import VisualEditor from './VisualEditor'
 import javascript from 'codemirror/mode/javascript/javascript'
 import yaml from 'js-yaml'
 import * as EditorActions from '../actions'
@@ -16,7 +16,7 @@ class Editor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'advanced'
+      mode: 'visual'
     };
   }
   setMode(mode) {
@@ -47,14 +47,14 @@ class Editor extends Component {
     const mode = this.state.mode;
     const editor = (mode == 'advanced' ?
       <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} /> :
-      <EasyEditor page={page}/>);
+      <VisualEditor page={page}/>);
 
     const buttonClassBase = 'btn btn-default btn-sm ';
     return (
       <div ref="top" className="hot-pane">
         <div className="editor-controller btn-group">
-          <button className={buttonClassBase + (mode == 'easy' ? 'active' : '')} onClick={this.setMode.bind(this, 'easy')}>簡易モード</button>
-          <button className={buttonClassBase + (mode == 'advanced' ? 'active' : '')} onClick={this.setMode.bind(this, 'advanced')}>アドバンスドモード</button>
+          <button className={buttonClassBase + (mode == 'visual' ? 'active' : '')} onClick={this.setMode.bind(this, 'visual')}>Visual Mode</button>
+          <button className={buttonClassBase + (mode == 'advanced' ? 'active' : '')} onClick={this.setMode.bind(this, 'advanced')}>Advanced Mode</button>
         </div>
         {editor}
       </div>
