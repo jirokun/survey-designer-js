@@ -123,6 +123,14 @@ html, body {
     }
   }
 }
+.question-editor {
+  border-top: 1px dashed black;
+  padding-top: 15px;
+  &:first-child {
+    border-top: 0;
+    padding-top: 5px;
+  }
+}
 .choice-editor {
   .choice-editor-row {
     display: flex;
