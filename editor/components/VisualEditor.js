@@ -13,7 +13,7 @@ class VisualEditor extends Component {
   }
   render() {
     const { state, page } = this.props;
-    const questionEditors = page.questions.map(question => <div className="question-editor"><QuestionEditor question={question} /></div>);
+    const questionEditors = page.questions.map((question, i)  => <div className="question-editor" key={`question_key_${i}`}><QuestionEditor question={question} /></div>);
     return <div>{questionEditors}</div>;
   }
 }

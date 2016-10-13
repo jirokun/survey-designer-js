@@ -13,8 +13,14 @@ class ChoiceEditor extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    // choicesが増減した時だけupdateする
-    return nextProps.choices.length !== this.props.choices.length;
+    if (nextProps.plainText === true || nextProps.plainText !== this.props.plainText) {
+      return true;
+    }
+    // choicesが増減した時updateする
+    if (nextProps.choices.length !== this.props.choices.length) {
+      return true;
+    }
+    return false;
   }
   componentDidUpdate(prevProps, prevState) {
   }
@@ -23,10 +29,17 @@ class ChoiceEditor extends Component {
   }
   getChoiceValue() {
     const _this = this;
-    const editorEls = this.refs.root.querySelectorAll('.choice-editor-tinymce');
-    return Array.prototype.map.call(editorEls, el => {
-      return _this.getTinyMCEEditorFromEl(el).getContent();
-    });
+    if (this.props.plainText) {
+      const editorEls = this.refs.root.querySelectorAll('.plain-text-choice');
+      return Array.prototype.map.call(editorEls, el => {
+        return el.value;
+      });
+    } else {
+      const editorEls = this.refs.root.querySelectorAll('.choice-editor-tinymce');
+      return Array.prototype.map.call(editorEls, el => {
+        return _this.getTinyMCEEditorFromEl(el).getContent();
+      });
+    }
   }
   handleChangeQuestionChoices(choiceIndex, e) {
     const choiceValue = this.getChoiceValue();
@@ -51,10 +64,12 @@ class ChoiceEditor extends Component {
     const controllerMinusStyle = {
       visibility: choices.length == 1 ? 'hidden' : ''
     }
-    return (
-      <div className="choice-editor-row" key={"choice-editor-row-" + index}>
-        <div className="choice-editor-tinymce-container">
-          <TinyMCE className="choice-editor-tinymce"
+    const { plainText } = this.props;
+    const editor = plainText ? <input type="text" className="form-control plain-text-choice"
+      onKeyup={this.handleChangeQuestionChoices.bind(this, index)}
+      onChange={this.handleChangeQuestionChoices.bind(this, index)}
+      value={content}/>
+        : <TinyMCE className="choice-editor-tinymce"
             config={
               {
                 menubar: '',
@@ -68,7 +83,12 @@ class ChoiceEditor extends Component {
             onKeyup={this.handleChangeQuestionChoices.bind(this, index)}
             onChange={this.handleChangeQuestionChoices.bind(this, index)}
             content={content}
-          />
+          />;
+
+    return (
+      <div className="choice-editor-row" key={"choice-editor-row-" + index}>
+        <div className="choice-editor-tinymce-container">
+          {editor}
         </div>
         <div className="choice-editor-controller">
           <span className="btn btn-default btn-sm" onClick={this.handleClickAddButton.bind(this, index)}><i className="glyphicon glyphicon-plus"></i></span>

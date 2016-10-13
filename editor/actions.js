@@ -58,6 +58,9 @@ export function resizeEditorPane(hotHeight) {
 export function changeCodemirror(yaml) {
   return { type: C.CHANGE_CODEMIRROR, yaml};
 }
+export function changeQuestionType(questionType) {
+  return { type: C.CHANGE_QUESTION_TYPE, questionType};
+}
 export function changeQuestionTitle(html) {
   return { type: C.CHANGE_QUESTION_TITLE, html};
 }
@@ -68,6 +71,5 @@ export function changeQuestionAfterNote(html) {
   return { type: C.CHANGE_QUESTION_AFTER_NOTE, html};
 }
 export function changeQuestionChoices(choices) {
-  console.log(choices);
   return { type: C.CHANGE_QUESTION_CHOICES, choices};
 }

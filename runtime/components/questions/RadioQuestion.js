@@ -26,9 +26,13 @@ export default class RadioQuestion extends Component {
     });
   }
   render() {
+    const { title, beforeNote, afterNote, inputValues } = this.props;
     return (
       <div className={this.constructor.name}>
+        <h3 className="question-title" dangerouslySetInnerHTML={{__html: r(title, inputValues)}} />
+        <div className="beforeNote" dangerouslySetInnerHTML={{__html: r(beforeNote, inputValues)}} />
         {this.makeItems()}
+        <div className="beforeNote" dangerouslySetInnerHTML={{__html: r(afterNote, inputValues)}} />
       </div>
     );
   }

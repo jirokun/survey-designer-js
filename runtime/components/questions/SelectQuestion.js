@@ -18,7 +18,7 @@ export default class SelectQuestion extends Component {
       } else {
         Object.assign(obj, label);
       }
-      return <option value={obj.value}>{obj.label}</option>;
+      return <option key={obj.value} value={obj.value}>{obj.label}</option>;
     });
   }
   render() {
@@ -40,5 +40,4 @@ SelectQuestion.defaultProps = {
 SelectQuestion.propTypes = {
   type: PropTypes.string.isRequired,
   choices: PropTypes.array.isRequired,
-  vertical: PropTypes.bool.isRequired,
 };

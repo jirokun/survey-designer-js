@@ -23,7 +23,7 @@ class CheckboxEditor extends Component {
   }
 
   render() {
-    const { question } = this.props;
+    const { question, plainText } = this.props;
 
     return (
       <div>
@@ -68,7 +68,7 @@ class CheckboxEditor extends Component {
         <div className="form-group">
           <label className="col-sm-2 control-label">選択肢</label>
           <div className="col-sm-10">
-            <ChoiceEditor choices={question.choices}/>
+            <ChoiceEditor choices={question.choices} plainText={plainText}/>
           </div>
         </div>
         <div className="form-group">
