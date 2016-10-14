@@ -12,22 +12,28 @@ html, body {
     div.left {
       box-sizing: border-box;
       height: 100%;
-      .graph {
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-        .graph-controller {
-          position: absolute;
-          z-index: 100;
-          right: 5px;
-          top: 5px;
-          input[type="file"] {
-            display: none;
+      .tab-content {
+        height: calc(100% - 42px);
+        #graph {
+          height: 100%;
+          .graph {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            .graph-controller {
+              position: absolute;
+              z-index: 100;
+              right: 5px;
+              top: 5px;
+              input[type="file"] {
+                display: none;
+              }
+            }
+            &.connect-mode {
+              background-color: #eef;
+            }
           }
-        }
-        &.connect-mode {
-          background-color: #eef;
         }
       }
     }

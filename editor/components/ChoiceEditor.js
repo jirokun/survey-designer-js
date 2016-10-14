@@ -13,6 +13,11 @@ class ChoiceEditor extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log(this.props.state.values.currentFlowId);
+    console.log(nextProps.state.values.currentFlowId);
+    if (this.props.state.values.currentFlowId !== nextProps.state.values.currentFlowId) {
+      return true;
+    }
     if (nextProps.plainText === true || nextProps.plainText !== this.props.plainText) {
       return true;
     }

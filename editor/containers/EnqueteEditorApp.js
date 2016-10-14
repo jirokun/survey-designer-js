@@ -14,6 +14,9 @@ import * as Utils from '../../utils'
 export default class EnqueteEditorApp extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      active: 'graph'
+    };
   }
   componentDidMount() {
     this.resizeGraphPane();
@@ -39,6 +42,13 @@ export default class EnqueteEditorApp extends Component {
       delete this.overlay;
     }
   }
+  onTabChange(e, tab) {
+    e.preventDefault();
+    const url = e.target.href;
+    const hashIndex = url.indexOf('#');
+    const targetName = url.substring(hashIndex + 1);
+    this.setState({active: targetName});
+  }
   render() {
     const _this = this;
     const { state, actions } = this.props;
@@ -59,7 +69,14 @@ export default class EnqueteEditorApp extends Component {
     return (
       <SplitPane ref="root" split="vertical" {...splitPaneSize} onDragFinished={this.resizeGraphPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
         <div className="left" ref="left">
-          <Graph actions={actions} />
+          <ul className="nav nav-tabs">
+            <li className={this.state.active === 'graph' ? 'active' : ''} onClick={this.onTabChange.bind(this)}><a href="#graph">Graph</a></li>
+            <li className={this.state.active === 'component-list' ? 'active' : ''}><a href="#component-list" onClick={this.onTabChange.bind(this)}>ComponentList</a></li>
+          </ul>
+          <div className="tab-content">
+            <div id="graph" className={this.state.active === 'graph' ? 'tab-pane active' : 'tab-pane'}><Graph actions={actions}/></div>
+            <div id="component-list" className={this.state.active === 'component-list' ? 'tab-pane active' : 'tab-pane'}>a,b,c</div>
+          </div>
         </div>
         <div className="right" ref="right">
           <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.onDragEnd.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
@@ -68,7 +85,7 @@ export default class EnqueteEditorApp extends Component {
               <Frame className={isYamlValid ? "" : "hidden"} head={
                 <link rel="stylesheet" href="/css/runtime.css"/>
               }>
-                <EnqueteRuntimeApp />
+                <EnqueteRuntimeApp/>
               </Frame>
               <div className={isYamlValid ? "hidden" : "alert alert-danger error"}>
                 <span className="glyphicon glyphicon-exclamation-sign"></span>
