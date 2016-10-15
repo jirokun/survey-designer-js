@@ -32,18 +32,6 @@ class QuestionEditor extends Component {
     const { question } = this.props;
     return (
       <div className="form-horizontal">
-        <div className="form-group">
-          <label className="col-sm-2 control-label">タイプ</label>
-          <div className="col-sm-3">
-            <select ref="typeSelect" className="form-control" value={question.type} onChange={this.setType.bind(this)}>
-              <option value="radio">単一選択</option>
-              <option value="checkbox">複数選択</option>
-              <option value="select">Select</option>
-              <option value="text">1行テキスト</option>
-              <option value="textarea">複数行テキスト</option>
-            </select>
-          </div>
-        </div>
         {this.findEditorComponent(question.type)}
       </div>
     );

@@ -5,6 +5,7 @@ import SplitPane from 'react-split-pane'
 import Frame from 'react-frame-component'
 import EnqueteRuntimeApp from '../../runtime/containers/EnqueteRuntimeApp'
 import Graph from '../components/Graph'
+import ComponentList from '../components/ComponentList'
 import Editor from '../components/Editor'
 import yaml from 'js-yaml'
 import * as EditorActions from '../actions'
@@ -75,7 +76,7 @@ export default class EnqueteEditorApp extends Component {
           </ul>
           <div className="tab-content">
             <div id="graph" className={this.state.active === 'graph' ? 'tab-pane active' : 'tab-pane'}><Graph actions={actions}/></div>
-            <div id="component-list" className={this.state.active === 'component-list' ? 'tab-pane active' : 'tab-pane'}>a,b,c</div>
+            <div id="component-list" className={this.state.active === 'component-list' ? 'tab-pane active' : 'tab-pane'}><ComponentList/></div>
           </div>
         </div>
         <div className="right" ref="right">
