@@ -12,30 +12,13 @@ html, body {
     div.left {
       box-sizing: border-box;
       height: 100%;
+      > #left-tab {
+        height: 100%;
+      }
       .tab-content {
         height: calc(100% - 42px);
         > .tab-pane {
           height: 100%;
-        }
-        #graph {
-          .graph {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            .graph-controller {
-              position: absolute;
-              z-index: 100;
-              right: 5px;
-              top: 5px;
-              input[type="file"] {
-                display: none;
-              }
-            }
-            &.connect-mode {
-              background-color: #eef;
-            }
-          }
         }
       }
     }
@@ -154,9 +137,30 @@ html, body {
     }
   }
 }
-.component-list {
+/* フォームコンテナ */
+.form-container {
   padding: 5px;
 }
+/* コンポーネントボタン */
 .component-button {
   margin-bottom: 5px;
+}
+/* グラフ */
+.graph {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  .graph-controller {
+    position: absolute;
+    z-index: 100;
+    right: 5px;
+    top: 5px;
+    input[type="file"] {
+      display: none;
+    }
+  }
+  &.connect-mode {
+    background-color: #eef;
+  }
 }

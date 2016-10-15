@@ -121,6 +121,13 @@ function changeQuestion(state, action, value) {
   state.defs.draftDefs.push({ id: page.id, valid: true, yaml: yaml.safeDump(page) });
   return state;
 }
+// コンポーネントを追加する
+function addComponent(state, component) {
+  const flow = Utils.findFlow(state, state.values.currentFlowId);
+  const page = Utils.findPage(state, flow.refId);
+  page.questions.push(component.getDefaultDefinition());
+  return state;
+}
 
 function changePosition(state, flowId, x, y) {
   const pos = state.defs.positionDefs.find((def) => {
@@ -261,6 +268,9 @@ function editorReducer(state, action) {
     break;
   case C.CHANGE_QUESTION_CHOICES:
     return changeQuestion(newState, action.type, action.choices);
+    break;
+  case C.ADD_COMPONENT:
+    return addComponent(newState, action.component);
     break;
   default:
     return newState;

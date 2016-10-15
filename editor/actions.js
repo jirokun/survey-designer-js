@@ -12,6 +12,7 @@ export function changeDefs(defsName, defs) {
     defs: defs
   };
 }
+/********************** Graph関連 **********************/
 export function selectFlow(flowId) {
   return {
     type: C.SELECT_FLOW,
@@ -46,6 +47,8 @@ export function connectFlow(sourceFlowId, dstFlowId) {
 export function setElementsPosition(positions) {
   return { type: C.SET_ELEMENTS_POSITION, positions };
 }
+
+/********************** page, question関連 **********************/
 export function loadState(state) {
   return { type: C.LOAD_STATE, state };
 }
@@ -56,20 +59,23 @@ export function resizeEditorPane(hotHeight) {
   return { type: C.RESIZE_EDITOR_PANE, hotHeight };
 }
 export function changeCodemirror(yaml) {
-  return { type: C.CHANGE_CODEMIRROR, yaml};
+  return { type: C.CHANGE_CODEMIRROR, yaml };
 }
 export function changeQuestionType(questionType) {
-  return { type: C.CHANGE_QUESTION_TYPE, questionType};
+  return { type: C.CHANGE_QUESTION_TYPE, questionType };
 }
 export function changeQuestionTitle(html) {
-  return { type: C.CHANGE_QUESTION_TITLE, html};
+  return { type: C.CHANGE_QUESTION_TITLE, html };
 }
 export function changeQuestionBeforeNote(html) {
-  return { type: C.CHANGE_QUESTION_BEFORE_NOTE, html};
+  return { type: C.CHANGE_QUESTION_BEFORE_NOTE, html };
 }
 export function changeQuestionAfterNote(html) {
-  return { type: C.CHANGE_QUESTION_AFTER_NOTE, html};
+  return { type: C.CHANGE_QUESTION_AFTER_NOTE, html };
 }
 export function changeQuestionChoices(choices) {
-  return { type: C.CHANGE_QUESTION_CHOICES, choices};
+  return { type: C.CHANGE_QUESTION_CHOICES, choices };
+}
+export function addComponent(component) {
+  return { type: C.ADD_COMPONENT, component};
 }

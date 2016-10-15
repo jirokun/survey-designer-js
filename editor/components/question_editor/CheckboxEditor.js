@@ -12,6 +12,17 @@ class CheckboxEditor extends Component {
     super(props);
   }
 
+  static getDefaultDefinition() {
+    return {
+      title: '複数選択肢',
+      type: 'checkbox',
+      choices: [
+        '選択肢1',
+        '選択肢2'
+      ]
+    };
+  }
+
   handleChangeQuestionTitle(e, editor) {
     this.props.changeQuestionTitle(editor.getContent());
   }

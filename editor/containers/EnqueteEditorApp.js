@@ -7,6 +7,8 @@ import EnqueteRuntimeApp from '../../runtime/containers/EnqueteRuntimeApp'
 import Graph from '../components/Graph'
 import ComponentList from '../components/ComponentList'
 import Editor from '../components/Editor'
+import PageSetting from '../components/PageSetting'
+import { Tabs, Tab} from 'react-bootstrap';
 import yaml from 'js-yaml'
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
@@ -70,14 +72,11 @@ export default class EnqueteEditorApp extends Component {
     return (
       <SplitPane ref="root" split="vertical" {...splitPaneSize} onDragFinished={this.resizeGraphPane.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
         <div className="left" ref="left">
-          <ul className="nav nav-tabs">
-            <li className={this.state.active === 'graph' ? 'active' : ''} onClick={this.onTabChange.bind(this)}><a href="#graph">Graph</a></li>
-            <li className={this.state.active === 'component-list' ? 'active' : ''}><a href="#component-list" onClick={this.onTabChange.bind(this)}>ComponentList</a></li>
-          </ul>
-          <div className="tab-content">
-            <div id="graph" className={this.state.active === 'graph' ? 'tab-pane active' : 'tab-pane'}><Graph actions={actions}/></div>
-            <div id="component-list" className={this.state.active === 'component-list' ? 'tab-pane active' : 'tab-pane'}><ComponentList/></div>
-          </div>
+          <Tabs id="left-tab">
+            <Tab eventKey={1} title="Graph"><Graph actions={actions}/></Tab>
+            <Tab eventKey={2} title="ComponentList"><ComponentList/></Tab>
+            <Tab eventKey={3} title="PageSetting"><PageSetting/></Tab>
+          </Tabs>
         </div>
         <div className="right" ref="right">
           <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.onDragEnd.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
