@@ -59,6 +59,7 @@ export default class EnqueteEditorApp extends Component {
       minSize: 100,
       defaultSize: 400
     };
+    console.log(state);
     const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
     let isYamlValid = false;
     if (page) {

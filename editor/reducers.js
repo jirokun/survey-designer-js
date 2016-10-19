@@ -92,6 +92,28 @@ function changeCodemirror(state, str) {
   draft.valid = true;
   return state;
 }
+
+// ページの設定をを変更する
+function changePageSetting(state, action, pageSetting) {
+  const flow = Utils.findFlow(state, state.values.currentFlowId);
+  const page = Utils.findPage(state, flow.refId);
+  if (pageSetting.pageId !== undefined) {
+    // 参照しているflowのidは全て変更する
+    const flowList = Utils.findFlowByPage(state, page.id);
+    flowList.forEach(f => f.refId = pageSetting.pageId);
+
+    // draftのrefIdも更新
+    const draft = Utils.findDraft(state, page.id);
+    draft.id = pageSetting.pageId;
+
+    // page.idを更新
+    page.id = pageSetting.pageId;
+  }
+  if (pageSetting.pageTitle !== undefined) page.title = pageSetting.pageTitle;
+  if (pageSetting.pageSubTitle !== undefined) page.subTitle = pageSetting.pageSubTitle;
+  return state;
+}
+
 // 1ページに対して1クエスションしかない前提(Easyモード)
 function changeQuestion(state, action, value) {
   const flow = Utils.findFlow(state, state.values.currentFlowId);
@@ -260,6 +282,9 @@ function editorReducer(state, action) {
     return changeCodemirror(newState, action.yaml);
   case C.CHANGE_QUESTION_TYPE:
     return changeQuestion(newState, action.type, action.questionType);
+    break;
+  case C.CHANGE_PAGE_SETTING:
+    return changePageSetting(newState, action.type, action.pageSetting);
     break;
   case C.CHANGE_QUESTION_TITLE:
   case C.CHANGE_QUESTION_BEFORE_NOTE:

@@ -61,6 +61,12 @@ export function resizeEditorPane(hotHeight) {
 export function changeCodemirror(yaml) {
   return { type: C.CHANGE_CODEMIRROR, yaml };
 }
+export function changePageSetting(pageSetting) {
+  return { type: C.CHANGE_PAGE_SETTING, pageSetting };
+}
+export function changeQuestionId(questionId) {
+  return { type: C.CHANGE_QUESTION_ID, questionId };
+}
 export function changeQuestionType(questionType) {
   return { type: C.CHANGE_QUESTION_TYPE, questionType };
 }

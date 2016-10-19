@@ -21,6 +21,10 @@ export function findPageFromFlow(state, flowId) {
   }
   return findPage(state, flow.refId);
 }
+/** pageIdを参照しているflowを返す */
+export function findFlowByPage(state, pageId) {
+  return state.defs.flowDefs.filter((def) => def.refId === pageId);
+}
 /** stateからpageを探す */
 export function findPage(state, pageId) {
   return state.defs.pageDefs.find((def) => def.id === pageId);
