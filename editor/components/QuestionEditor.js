@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import TinyMCE from 'react-tinymce';
@@ -11,10 +12,32 @@ import * as Utils from '../../utils'
 class QuestionEditor extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
+    this.state = {
+      questionId: props.question.id
+    };
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      questionId: nextProps.question.id
+    });
   }
 
   onQuestionIdChanged(e) {
-    console.log(e);
+    const { page, changeQuestionId, question } = this.props;
+    const questionId = ReactDOM.findDOMNode(this.refs.questionId).value;
+    const hasError = questionId === '';
+    const validationState = hasError ? 'error' : '';
+
+    this.setState({
+      validationState,
+      questionId
+    });
+
+    // 成功時のみ更新する
+    if (!hasError) {
+      changeQuestionId(page.id, question.id, questionId);
+    }
   }
 
   findEditorComponent(name) {
@@ -31,6 +54,7 @@ class QuestionEditor extends Component {
   }
   render() {
     const { page, question } = this.props;
+    console.log(this.state);
     return (
       <Form horizontal>
         <FormGroup>
@@ -38,7 +62,7 @@ class QuestionEditor extends Component {
           <Col sm={4}>
             <InputGroup>
               <InputGroup.Addon>{page.id}-</InputGroup.Addon>
-              <FormControl ref="questionId" type="text" value={question.id} onChange={this.onQuestionIdChanged.bind(this)}/>
+              <FormControl ref="questionId" type="text" value={this.state.questionId} onChange={this.onQuestionIdChanged.bind(this)}/>
             </InputGroup>
           </Col>
         </FormGroup>
@@ -53,6 +77,7 @@ const stateToProps = state => ({
   state: state
 });
 const actionsToProps = dispatch => ({
+  changeQuestionId: (pageId, oldQuestionId, newQuestionId) => dispatch(EditorActions.changeQuestionId(pageId, oldQuestionId, newQuestionId))
 });
 
 export default connect(

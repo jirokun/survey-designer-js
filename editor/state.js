@@ -63,6 +63,7 @@ export default {
         "title": "matrix",
         "questions": [
           {
+            "id": "P002-1",
             "type": "matrix",
             "direction": "horizontal",
             "cellType": "text",
@@ -86,6 +87,7 @@ export default {
         "title": "Checkbox",
         "questions": [
           {
+            "id": "P001-1",
             "type": "checkbox",
             "choices": [
               "通常の選択肢",
@@ -98,6 +100,7 @@ export default {
             ]
           },
           {
+            "id": "P001-2",
             "type": "checkbox",
             "vertical": false,
             "choices": [
@@ -117,6 +120,7 @@ export default {
         "title": "Radio",
         "questions": [
           {
+            "id": "P003-1",
             "type": "radio",
             "choices": [
               "通常の選択肢",
@@ -129,6 +133,7 @@ export default {
             ]
           },
           {
+            "id": "P003-2",
             "type": "radio",
             "vertical": false,
             "choices": [

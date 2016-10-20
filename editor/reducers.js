@@ -111,9 +111,15 @@ function changePageSetting(state, action, pageSetting) {
   }
   if (pageSetting.pageTitle !== undefined) page.title = pageSetting.pageTitle;
   if (pageSetting.pageSubTitle !== undefined) page.subTitle = pageSetting.pageSubTitle;
+  if (pageSetting.pageLayout !== undefined) page.layout = pageSetting.pageLayout;
   return state;
 }
 
+function changeQuestionId(state, action, pageId, oldQuestionId, newQuestionId) {
+  const question = Utils.findQuestion(state, pageId, oldQuestionId);
+  question.id = newQuestionId;
+  return state;
+}
 // 1ページに対して1クエスションしかない前提(Easyモード)
 function changeQuestion(state, action, value) {
   const flow = Utils.findFlow(state, state.values.currentFlowId);
@@ -280,11 +286,13 @@ function editorReducer(state, action) {
     return changeCustomPage(newState, action.customPageId, action.html);
   case C.CHANGE_CODEMIRROR:
     return changeCodemirror(newState, action.yaml);
-  case C.CHANGE_QUESTION_TYPE:
-    return changeQuestion(newState, action.type, action.questionType);
-    break;
   case C.CHANGE_PAGE_SETTING:
     return changePageSetting(newState, action.type, action.pageSetting);
+    break;
+  case C.CHANGE_QUESTION_ID:
+    return changeQuestionId(newState, action.type, action.pageId, action.oldQuestionId, action.newQuestionId);
+  case C.CHANGE_QUESTION_TYPE:
+    return changeQuestion(newState, action.type, action.questionType);
     break;
   case C.CHANGE_QUESTION_TITLE:
   case C.CHANGE_QUESTION_BEFORE_NOTE:

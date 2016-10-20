@@ -34,12 +34,9 @@ export function findCustomPage(state, customPageId) {
   return state.defs.customPageDefs.find((def) => def.id === customPageId);
 }
 /** stateからquestionを探す */
-export function findQuestion(state, questionId) {
-  return state.defs.questionDefs.find((def) => def.id === questionId);
-}
-/** stateからpageIdに紐つくquestionを探す */
-export function findQuestions(state, pageId) {
-  return state.defs.questionDefs.filter((def) => def.pageId === pageId);
+export function findQuestion(state, pageId, questionId) {
+  const page = state.defs.pageDefs.find((def) => def.id === pageId);
+  return page.questions.find(q => q.id === questionId);
 }
 /** stateからquestionIdに紐つくitemを探す */
 export function findItems(state, questionId) {

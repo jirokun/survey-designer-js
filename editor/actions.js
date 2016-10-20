@@ -64,8 +64,8 @@ export function changeCodemirror(yaml) {
 export function changePageSetting(pageSetting) {
   return { type: C.CHANGE_PAGE_SETTING, pageSetting };
 }
-export function changeQuestionId(questionId) {
-  return { type: C.CHANGE_QUESTION_ID, questionId };
+export function changeQuestionId(pageId, oldQuestionId, newQuestionId) {
+  return { type: C.CHANGE_QUESTION_ID, pageId, oldQuestionId, newQuestionId };
 }
 export function changeQuestionType(questionType) {
   return { type: C.CHANGE_QUESTION_TYPE, questionType };

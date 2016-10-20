@@ -17,7 +17,8 @@ class PageSetting extends Component {
     const page = {
       pageId: ReactDOM.findDOMNode(this.refs.pageId).value,
       pageTitle: ReactDOM.findDOMNode(this.refs.pageTitle).value,
-      pageSubTitle: ReactDOM.findDOMNode(this.refs.pageSubTitle).value
+      pageSubTitle: ReactDOM.findDOMNode(this.refs.pageSubTitle).value,
+      pageLayout: ReactDOM.findDOMNode(this.refs.pageLayout).value
     };
     changePageSetting(page);
   }
@@ -44,7 +45,7 @@ class PageSetting extends Component {
 
         <FormGroup controlId="page_layout">
           <ControlLabel>レイアウト</ControlLabel>
-          <FormControl componentClass="select" placeholder="select">
+          <FormControl ref="pageLayout" componentClass="select" placeholder="select">
             <option value="flow_layout">フローレイアウト</option>
             <option value="grid_layout">グリッドレイアウト</option>
           </FormControl>
