@@ -121,11 +121,9 @@ function changeQuestionId(state, action, pageId, oldQuestionId, newQuestionId) {
   return state;
 }
 // 1ページに対して1クエスションしかない前提(Easyモード)
-function changeQuestion(state, action, value) {
-  const flow = Utils.findFlow(state, state.values.currentFlowId);
-  const page = Utils.findPage(state, flow.refId);
-  const draft = Utils.findDraft(state, flow.refId);
-  const question = page.questions[0];
+function changeQuestion(state, action, pageId, questionId, value) {
+  const page = Utils.findPage(state, pageId);
+  const question = Utils.findQuestion(state, pageId, questionId);
   switch (action) {
     case C.CHANGE_QUESTION_TYPE:
       question.type = value;
@@ -297,10 +295,10 @@ function editorReducer(state, action) {
   case C.CHANGE_QUESTION_TITLE:
   case C.CHANGE_QUESTION_BEFORE_NOTE:
   case C.CHANGE_QUESTION_AFTER_NOTE:
-    return changeQuestion(newState, action.type, action.html);
+    return changeQuestion(newState, action.type, action.pageId, action.questionId, action.html);
     break;
   case C.CHANGE_QUESTION_CHOICES:
-    return changeQuestion(newState, action.type, action.choices);
+    return changeQuestion(newState, action.type, action.pageId, action.questionId, action.choices);
     break;
   case C.ADD_COMPONENT:
     return addComponent(newState, action.component);

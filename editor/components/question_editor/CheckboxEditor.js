@@ -24,17 +24,20 @@ class CheckboxEditor extends Component {
   }
 
   handleChangeQuestionTitle(e, editor) {
-    this.props.changeQuestionTitle(editor.getContent());
+    const { page, question } = this.props;
+    this.props.changeQuestionTitle(page.id, question.id, editor.getContent());
   }
   handleChangeQuestionBeforeNote(e, editor) {
-    this.props.changeQuestionBeforeNote(editor.getContent());
+    const { page, question } = this.props;
+    this.props.changeQuestionBeforeNote(page.id, question.id, editor.getContent());
   }
   handleChangeQuestionAfterNote(e, editor) {
-    this.props.changeQuestionAfterNote(editor.getContent());
+    const { page, question } = this.props;
+    this.props.changeQuestionAfterNote(page.id, question.id, editor.getContent());
   }
 
   render() {
-    const { question, plainText } = this.props;
+    const { page, question, plainText } = this.props;
 
     return (
       <div>
@@ -79,7 +82,7 @@ class CheckboxEditor extends Component {
         <div className="form-group">
           <label className="col-sm-2 control-label">選択肢</label>
           <div className="col-sm-10">
-            <ChoiceEditor choices={question.choices} plainText={plainText}/>
+            <ChoiceEditor page={page} question={question} choices={question.choices} plainText={plainText}/>
           </div>
         </div>
         <div className="form-group">
@@ -127,10 +130,9 @@ class CheckboxEditor extends Component {
 const stateToProps = state => ({
 });
 const actionsToProps = dispatch => ({
-  changeQuestionTitle: value => dispatch(EditorActions.changeQuestionTitle(value)),
-  changeQuestionBeforeNote: value => dispatch(EditorActions.changeQuestionBeforeNote(value)),
-  changeQuestionAfterNote: value => dispatch(EditorActions.changeQuestionAfterNote(value)),
-  changeQuestionChoices: value => dispatch(EditorActions.changeQuestionChoices(value))
+  changeQuestionTitle: (pageId, questionId, value) => dispatch(EditorActions.changeQuestionTitle(pageId, questionId, value)),
+  changeQuestionBeforeNote: (pageId, questionId, value) => dispatch(EditorActions.changeQuestionBeforeNote(pageId, questionId, value)),
+  changeQuestionAfterNote: (pageId, questionId, value) => dispatch(EditorActions.changeQuestionAfterNote(pageId, questionId, value))
 });
 
 export default connect(

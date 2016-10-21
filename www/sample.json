@@ -137,7 +137,7 @@
         "title": "PageTitle Select",
         "questions": [
           {
-            "id": "P004-1",
+            "id": "1",
             "type": "select",
             "choices": [
               "通常の選択肢",
@@ -150,7 +150,7 @@
             ]
           },
           {
-            "id": "P004-2",
+            "id": "2",
             "type": "select",
             "multiple": true,
             "choices": [
@@ -170,7 +170,7 @@
         "title": "PageTitle Matrix",
         "questions": [
           {
-            "id": "P002-1",
+            "id": "1",
             "type": "matrix",
             "direction": "horizontal",
             "cellType": "text",
@@ -188,7 +188,7 @@
             ]
           },
           {
-            "id": "P002-2",
+            "id": "2",
             "type": "matrix",
             "direction": "vertical",
             "cellType": "text",
@@ -213,7 +213,7 @@
         "javascript": "var element = document.querySelector('label');\nelement.style.position = 'relative';\nelement.style.left = '50px';\ndocument.querySelector('input').addEventListener('change', function(e) {\n  document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n}, false);\n",
         "questions": [
           {
-            "id": "P005-1",
+            "id": "1",
             "type": "checkbox",
             "choices": [
               "選択肢1",
@@ -221,7 +221,7 @@
             ]
           },
           {
-            "id": "P005-2",
+            "id": "2",
             "type": "radio",
             "choices": [
               "選択肢1",
@@ -235,7 +235,7 @@
         "title": "PageTitle Checkbox",
         "questions": [
           {
-            "id": "P001-1",
+            "id": "1",
             "title": "Checkbox vertical",
             "type": "checkbox",
             "choices": [
@@ -249,7 +249,7 @@
             ]
           },
           {
-            "id": "P001-2",
+            "id": "2",
             "title": "Checkbox horizontal",
             "type": "checkbox",
             "vertical": false,
@@ -270,7 +270,7 @@
         "title": "PageTitle Radio",
         "questions": [
           {
-            "id": "P003-1",
+            "id": "1",
             "type": "radio",
             "choices": [
               "通常の選択肢",
@@ -283,7 +283,7 @@
             ]
           },
           {
-            "id": "P003-2",
+            "id": "2",
             "type": "radio",
             "vertical": false,
             "choices": [

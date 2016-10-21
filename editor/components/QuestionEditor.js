@@ -4,10 +4,11 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import TinyMCE from 'react-tinymce';
 import CheckboxEditor from './question_editor/CheckboxEditor';
-import { InputGroup, Col, Form, FormGroup, ControlLabel, FormControl, Radio, Checkbox } from 'react-bootstrap';
+import { HelpBlock, InputGroup, Col, Form, FormGroup, ControlLabel, FormControl, Radio, Checkbox } from 'react-bootstrap';
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
 import * as Utils from '../../utils'
+import * as Validator from '../validator'
 
 class QuestionEditor extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class QuestionEditor extends Component {
   onQuestionIdChanged(e) {
     const { page, changeQuestionId, question } = this.props;
     const questionId = ReactDOM.findDOMNode(this.refs.questionId).value;
-    const hasError = questionId === '';
+    const hasError = !Validator.validateQuestionId(page, question.id, questionId);
     const validationState = hasError ? 'error' : '';
 
     this.setState({
@@ -41,23 +42,22 @@ class QuestionEditor extends Component {
   }
 
   findEditorComponent(name) {
-    const { question } = this.props;
+    const { page, question } = this.props;
     switch (name) {
       case 'radio':
       case 'checkbox':
-        return <CheckboxEditor question={question} plainText={false}/>;
+        return <CheckboxEditor page={page} question={question} plainText={false}/>;
       case 'select':
-        return <CheckboxEditor question={question} plainText={true}/>;
+        return <CheckboxEditor page={page} question={question} plainText={true}/>;
       default:
         throw 'undefined editor: ' + name;
     }
   }
   render() {
     const { page, question } = this.props;
-    console.log(this.state);
     return (
       <Form horizontal>
-        <FormGroup>
+        <FormGroup validationState={this.state.validationState ? 'error' : null}>
           <Col componentClass={ControlLabel} md={2}>質問ID</Col>
           <Col sm={4}>
             <InputGroup>

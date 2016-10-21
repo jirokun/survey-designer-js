@@ -4,6 +4,9 @@ export function flatten(ary) {
     return Array.isArray(c) ? p.concat(flatten(c)) : p.concat(c);
   }, []);
 }
+export function isEmpty(str) {
+  return str === null || str === undefined || str === '';
+}
 
 /** stateからdraftを探す */
 export function findDraft(state, id) {

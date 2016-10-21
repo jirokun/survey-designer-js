@@ -67,20 +67,20 @@ export function changePageSetting(pageSetting) {
 export function changeQuestionId(pageId, oldQuestionId, newQuestionId) {
   return { type: C.CHANGE_QUESTION_ID, pageId, oldQuestionId, newQuestionId };
 }
-export function changeQuestionType(questionType) {
-  return { type: C.CHANGE_QUESTION_TYPE, questionType };
+export function changeQuestionType(pageId, questionId, questionType) {
+  return { type: C.CHANGE_QUESTION_TYPE, pageId, questionId, questionType };
 }
-export function changeQuestionTitle(html) {
-  return { type: C.CHANGE_QUESTION_TITLE, html };
+export function changeQuestionTitle(pageId, questionId, html) {
+  return { type: C.CHANGE_QUESTION_TITLE, pageId, questionId, html };
 }
-export function changeQuestionBeforeNote(html) {
-  return { type: C.CHANGE_QUESTION_BEFORE_NOTE, html };
+export function changeQuestionBeforeNote(pageId, questionId, html) {
+  return { type: C.CHANGE_QUESTION_BEFORE_NOTE, pageId, questionId, html };
 }
-export function changeQuestionAfterNote(html) {
-  return { type: C.CHANGE_QUESTION_AFTER_NOTE, html };
+export function changeQuestionAfterNote(pageId, questionId, html) {
+  return { type: C.CHANGE_QUESTION_AFTER_NOTE, pageId, questionId, html };
 }
-export function changeQuestionChoices(choices) {
-  return { type: C.CHANGE_QUESTION_CHOICES, choices };
+export function changeQuestionChoices(pageId, questionId, choices) {
+  return { type: C.CHANGE_QUESTION_CHOICES, pageId, questionId, choices };
 }
 export function addComponent(component) {
   return { type: C.ADD_COMPONENT, component};

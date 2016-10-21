@@ -45,22 +45,25 @@ class ChoiceEditor extends Component {
     }
   }
   handleChangeQuestionChoices(choiceIndex, e) {
+    const { page, question } = this.props;
     const choiceValue = this.getChoiceValue();
     if (this.props.choices.length != choiceValue.length) {
       // TinyMCEのバグ？行削除時に勝手にchangeイベントが発動することがある
       return;
     }
-    this.props.changeQuestionChoices(choiceValue);
+    this.props.changeQuestionChoices(page.id, question.id, choiceValue);
   }
   handleClickAddButton(index, e) {
+    const { page, question } = this.props;
     const choiceValue = this.getChoiceValue();
     choiceValue.splice(index + 1, 0, '');
-    this.props.changeQuestionChoices(choiceValue);
+    this.props.changeQuestionChoices(page.id, question.id, choiceValue);
   }
   handleClickMinusButton(index, e) {
+    const { page, question } = this.props;
     const choiceValue = this.getChoiceValue();
     choiceValue.splice(index, 1);
-    this.props.changeQuestionChoices(choiceValue);
+    this.props.changeQuestionChoices(page.id, question.id, choiceValue);
   }
   renderChoiceEditorRow(choice, index, choices) {
     const content = choice.label ? choice.label : choice;
@@ -115,7 +118,7 @@ const stateToProps = state => ({
   state: state
 });
 const actionsToProps = dispatch => ({
-  changeQuestionChoices: value => dispatch(EditorActions.changeQuestionChoices(value))
+  changeQuestionChoices: (pageId, questionId, value) => dispatch(EditorActions.changeQuestionChoices(pageId, questionId, value))
 });
 
 export default connect(
