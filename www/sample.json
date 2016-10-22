@@ -134,11 +134,55 @@
     ],
     "pageDefs": [
       {
+        "title": "PageTitle Checkbox",
+        "questions": [
+          {
+            "id": "1",
+            "title": "Checkbox vertical",
+            "type": "checkbox",
+            "beforeNote": "",
+            "vertical": true,
+            "choices": [
+              "通常の選択肢",
+              {
+                "label": "選択肢2",
+                "value": "ABC"
+              },
+              "<span style=\"color: red;\">HTML</span> hogehoge",
+              "1行目\n2行目\n"
+            ],
+            "random": false,
+            "randomFixLast": false
+          },
+          {
+            "id": "2",
+            "title": "Checkbox horizontal",
+            "type": "checkbox",
+            "beforeNote": "",
+            "vertical": false,
+            "choices": [
+              "通常の選択肢",
+              {
+                "label": "選択肢2",
+                "value": "ABC"
+              },
+              "<span style=\"color: red;\">HTML</span> hogehoge",
+              "1行目\n2行目\n"
+            ],
+            "random": false,
+            "randomFixLast": false
+          }
+        ],
+        "id": "P001"
+      },
+      {
         "title": "PageTitle Select",
         "questions": [
           {
             "id": "1",
             "type": "select",
+            "beforeNote": "",
+            "title": "Checkbox vertical",
             "choices": [
               "通常の選択肢",
               {
@@ -152,6 +196,8 @@
           {
             "id": "2",
             "type": "select",
+            "beforeNote": "",
+            "title": "Checkbox vertical",
             "multiple": true,
             "choices": [
               "通常の選択肢",
@@ -172,6 +218,8 @@
           {
             "id": "1",
             "type": "matrix",
+            "beforeNote": "",
+            "title": "Checkbox vertical",
             "direction": "horizontal",
             "cellType": "text",
             "questions": [
@@ -190,6 +238,8 @@
           {
             "id": "2",
             "type": "matrix",
+            "beforeNote": "",
+            "title": "Checkbox vertical",
             "direction": "vertical",
             "cellType": "text",
             "questions": [
@@ -215,6 +265,8 @@
           {
             "id": "1",
             "type": "checkbox",
+            "beforeNote": "",
+            "title": "Checkbox vertical",
             "choices": [
               "選択肢1",
               "選択肢2"
@@ -223,6 +275,8 @@
           {
             "id": "2",
             "type": "radio",
+            "beforeNote": "",
+            "title": "Checkbox vertical",
             "choices": [
               "選択肢1",
               "選択肢2"
@@ -231,47 +285,15 @@
         ],
         "id": "P005"
       },
-      {
-        "title": "PageTitle Checkbox",
-        "questions": [
-          {
-            "id": "1",
-            "title": "Checkbox vertical",
-            "type": "checkbox",
-            "choices": [
-              "通常の選択肢",
-              {
-                "label": "選択肢2",
-                "value": "ABC"
-              },
-              "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目\n2行目\n"
-            ]
-          },
-          {
-            "id": "2",
-            "title": "Checkbox horizontal",
-            "type": "checkbox",
-            "vertical": false,
-            "choices": [
-              "通常の選択肢",
-              {
-                "label": "選択肢2",
-                "value": "ABC"
-              },
-              "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目\n2行目\n"
-            ]
-          }
-        ],
-        "id": "P001"
-      },
+
       {
         "title": "PageTitle Radio",
         "questions": [
           {
             "id": "1",
             "type": "radio",
+            "beforeNote": "",
+            "title": "Checkbox vertical",
             "choices": [
               "通常の選択肢",
               {
@@ -285,6 +307,8 @@
           {
             "id": "2",
             "type": "radio",
+            "beforeNote": "",
+            "title": "Checkbox vertical",
             "vertical": false,
             "choices": [
               "通常の選択肢",

@@ -121,28 +121,15 @@ function changeQuestionId(state, action, pageId, oldQuestionId, newQuestionId) {
   return state;
 }
 // 1ページに対して1クエスションしかない前提(Easyモード)
-function changeQuestion(state, action, pageId, questionId, value) {
+function changeQuestion(state, pageId, questionId, newQuestion) {
   const page = Utils.findPage(state, pageId);
   const question = Utils.findQuestion(state, pageId, questionId);
-  switch (action) {
-    case C.CHANGE_QUESTION_TYPE:
-      question.type = value;
-      break;
-    case C.CHANGE_QUESTION_TITLE:
-      question.title = value;
-      break;
-    case C.CHANGE_QUESTION_BEFORE_NOTE:
-      question.beforeNote = value;
-      break;
-    case C.CHANGE_QUESTION_AFTER_NOTE:
-      question.afterNote = value;
-      break;
-    case C.CHANGE_QUESTION_CHOICES:
-      question.choices = value;
-      break;
-    default:
-      throw 'unkown action';
+  for (const prop in question) {
+    if (prop === 'id' || prop === 'type') continue;
+    delete question[prop];
   }
+  Object.assign(question, newQuestion);
+  console.log(question);
   removeDraft(state, page.id);
   state.defs.draftDefs.push({ id: page.id, valid: true, yaml: yaml.safeDump(page) });
   return state;
@@ -289,16 +276,8 @@ function editorReducer(state, action) {
     break;
   case C.CHANGE_QUESTION_ID:
     return changeQuestionId(newState, action.type, action.pageId, action.oldQuestionId, action.newQuestionId);
-  case C.CHANGE_QUESTION_TYPE:
-    return changeQuestion(newState, action.type, action.questionType);
-    break;
-  case C.CHANGE_QUESTION_TITLE:
-  case C.CHANGE_QUESTION_BEFORE_NOTE:
-  case C.CHANGE_QUESTION_AFTER_NOTE:
-    return changeQuestion(newState, action.type, action.pageId, action.questionId, action.html);
-    break;
-  case C.CHANGE_QUESTION_CHOICES:
-    return changeQuestion(newState, action.type, action.pageId, action.questionId, action.choices);
+  case C.CHANGE_QUESTION:
+    return changeQuestion(newState, action.pageId, action.questionId, action.question);
     break;
   case C.ADD_COMPONENT:
     return addComponent(newState, action.component);

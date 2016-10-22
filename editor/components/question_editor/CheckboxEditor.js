@@ -1,39 +1,76 @@
 import React, { Component, PropTypes } from 'react'
+import LinkedStateMixin from 'react-addons-linked-state-mixin'
+import ReactMixin from 'react-mixin'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import TinyMCE from 'react-tinymce';
 import ChoiceEditor from '../ChoiceEditor';
+import { HelpBlock, InputGroup, Row, Col, Form, FormGroup, ControlLabel, FormControl, Radio, Checkbox } from 'react-bootstrap';
 import * as EditorActions from '../../actions'
 import * as RuntimeActions from '../../../runtime/actions'
 import * as Utils from '../../../utils'
+import uuid from 'node-uuid'
 
 class CheckboxEditor extends Component {
   constructor(props) {
     super(props);
+    const { question } = props;
+    this.uuid = uuid.v4();
+    this.state = {
+      title: question.title,
+      beforeNote: question.beroreNote === undefined ? '' : question.beforeNote,
+      choices: question.choices
+    };
   }
 
   static getDefaultDefinition() {
     return {
       title: '複数選択肢',
+      beforeNote: '',
       type: 'checkbox',
+      vertical: true,
       choices: [
         '選択肢1',
         '選択肢2'
-      ]
+      ],
+      random: false,
+      randomFixLast: false
     };
   }
 
-  handleChangeQuestionTitle(e, editor) {
-    const { page, question } = this.props;
-    this.props.changeQuestionTitle(page.id, question.id, editor.getContent());
+  componentDidUpdate(prevProps, prevState) {
+    const oldPage = prevProps.page;
+    const page = this.props.page;
+    if (oldPage.id === page.id) {
+      return;
+    }
+    const { question } = this.props;
+    const questionTitleEditor = tinymce.EditorManager.get(`${this.uuid}-questionTitleEditor`);
+    const questionBeforeNoteEditor = tinymce.EditorManager.get(`${this.uuid}-questionBeforeNoteEditor`);
+    questionTitleEditor.setContent(question.title);
+    questionBeforeNoteEditor.setContent(question.beforeNote);
   }
-  handleChangeQuestionBeforeNote(e, editor) {
-    const { page, question } = this.props;
-    this.props.changeQuestionBeforeNote(page.id, question.id, editor.getContent());
+
+  handleCheckboxEditorChange(e) {
+    const { page, question, changeQuestion } = this.props;
+    const title = this.state.title;
+    const beforeNote = this.state.beforeNote;
+    const vertical = this.directionVertical.checked;
+    const choices = this.state.choices;
+    const questionDef = {
+      title, beforeNote, vertical, choices
+    };
+    changeQuestion(page.id, question.id, questionDef);
   }
-  handleChangeQuestionAfterNote(e, editor) {
-    const { page, question } = this.props;
-    this.props.changeQuestionAfterNote(page.id, question.id, editor.getContent());
+
+  handleChoiceChange(choices) {
+    this.setState({choices}, this.handleCheckboxEditorChange.bind(this));
+  }
+
+  handleTinyMCEChange(prop, event, editor) {
+    const state = {};
+    state[prop] = editor.getContent();
+    this.setState(state, this.handleCheckboxEditorChange.bind(this, event));
   }
 
   render() {
@@ -41,98 +78,78 @@ class CheckboxEditor extends Component {
 
     return (
       <div>
-        <div className="form-group">
-          <label className="col-sm-2 control-label">質問</label>
-          <div className="col-sm-10">
-            <TinyMCE ref="titleEditor"
+        <FormGroup>
+          <Col componentClass={ControlLabel} md={2}>並び方向</Col>
+          <Col md={10}>
+            <Radio inputRef={ref => { this.directionVertical = ref }} name="direction" onChange={this.handleCheckboxEditorChange.bind(this)} checked={question.vertical} inline>Vertical</Radio>
+            <Radio inputRef={ref => { this.directionHorizontal = ref }} name="direction" onChange={this.handleCheckboxEditorChange.bind(this)} checked={!question.vertical} inline>Horizontal</Radio>
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col componentClass={ControlLabel} md={2}>質問タイトル</Col>
+          <Col md={10}>
+            <TinyMCE id={`${this.uuid}-questionTitleEditor`}
               config={
                 {
                   menubar: '',
                   toolbar: 'styleselect fontselect fontsizeselect bullist numlist outdent indent blockquote removeformat link unlink image visualchars fullscreen table forecolor backcolor',
                   plugins: 'table contextmenu textcolor paste fullscreen lists image link',
                   inline: false,
+                  height: 40,
                   statusbar: false
                 }
               }
-              onKeyup={this.handleChangeQuestionTitle.bind(this)}
-              onChange={this.handleChangeQuestionTitle.bind(this)}
+              onKeyup={this.handleTinyMCEChange.bind(this, 'title')}
+              onChange={this.handleTinyMCEChange.bind(this, 'title')}
               content={question.title}
             />
-          </div>
-        </div>
-        <div className="form-group">
-          <label className="col-sm-2 control-label">補足1</label>
-          <div className="col-sm-10">
-            <TinyMCE ref="titleEditor"
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col componentClass={ControlLabel} md={2}>補足</Col>
+          <Col md={10}>
+            <TinyMCE id={`${this.uuid}-questionBeforeNoteEditor`}
               config={
                 {
                   menubar: '',
                   toolbar: 'styleselect fontselect fontsizeselect bullist numlist outdent indent blockquote removeformat link unlink image visualchars fullscreen table forecolor backcolor',
                   plugins: 'table contextmenu textcolor paste fullscreen lists image link',
                   inline: false,
+                  height: 40,
                   statusbar: false
                 }
               }
-              onKeyup={this.handleChangeQuestionBeforeNote.bind(this)}
-              onChange={this.handleChangeQuestionBeforeNote.bind(this)}
+              onKeyup={this.handleTinyMCEChange.bind(this, 'beforeNote')}
+              onChange={this.handleTinyMCEChange.bind(this, 'beforeNote')}
               content={question.beforeNote}
             />
-          </div>
-        </div>
-        <div className="form-group">
-          <label className="col-sm-2 control-label">選択肢</label>
-          <div className="col-sm-10">
-            <ChoiceEditor page={page} question={question} choices={question.choices} plainText={plainText}/>
-          </div>
-        </div>
-        <div className="form-group">
-          <div className="col-sm-offset-2 col-sm-10">
-            <div className="checkbox">
-              <label>
-                <input type="checkbox"/> 選択肢の表示順をランダム表示
-              </label>
-            </div>
-          </div>
-        </div>
-        <div className="form-group">
-          <div className="col-sm-offset-2 col-sm-10">
-            <div className="checkbox">
-              <label>
-                <input type="checkbox"/> 最後の選択肢は固定
-              </label>
-            </div>
-          </div>
-        </div>
-        <div className="form-group">
-          <label className="col-sm-2 control-label">補足2</label>
-          <div className="col-sm-10">
-            <TinyMCE ref="titleEditor"
-              config={
-                {
-                  menubar: '',
-                  toolbar: 'styleselect fontselect fontsizeselect bullist numlist outdent indent blockquote removeformat link unlink image visualchars fullscreen table forecolor backcolor',
-                  plugins: 'table contextmenu textcolor paste fullscreen lists image link',
-                  inline: false,
-                  statusbar: false
-                }
-              }
-              onKeyup={this.handleChangeQuestionAfterNote.bind(this)}
-              onChange={this.handleChangeQuestionAfterNote.bind(this)}
-              content={question.beforeNote}
-            />
-          </div>
-        </div>
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col componentClass={ControlLabel} md={2}>選択肢</Col>
+          <Col md={10}>
+            <ChoiceEditor page={page} question={question} choices={question.choices} plainText={plainText} handleChoiceChange={this.handleChoiceChange.bind(this)}/>
+          </Col>
+        </FormGroup>
+
+        <FormGroup>
+          <Col componentClass={ControlLabel} md={2}>ランダム制御</Col>
+          <Col md={10}>
+            <Checkbox>選択肢の表示順をランダム表示</Checkbox>
+            <Checkbox>最後の選択肢は固定</Checkbox>
+          </Col>
+        </FormGroup>
       </div>
     );
   }
 }
 
+ReactMixin(CheckboxEditor.prototype, LinkedStateMixin);
+
 const stateToProps = state => ({
 });
 const actionsToProps = dispatch => ({
-  changeQuestionTitle: (pageId, questionId, value) => dispatch(EditorActions.changeQuestionTitle(pageId, questionId, value)),
-  changeQuestionBeforeNote: (pageId, questionId, value) => dispatch(EditorActions.changeQuestionBeforeNote(pageId, questionId, value)),
-  changeQuestionAfterNote: (pageId, questionId, value) => dispatch(EditorActions.changeQuestionAfterNote(pageId, questionId, value))
+  changeQuestion: (pageId, questionId, value) => dispatch(EditorActions.changeQuestion(pageId, questionId, value))
 });
 
 export default connect(

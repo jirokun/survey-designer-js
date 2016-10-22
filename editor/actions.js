@@ -70,17 +70,8 @@ export function changeQuestionId(pageId, oldQuestionId, newQuestionId) {
 export function changeQuestionType(pageId, questionId, questionType) {
   return { type: C.CHANGE_QUESTION_TYPE, pageId, questionId, questionType };
 }
-export function changeQuestionTitle(pageId, questionId, html) {
-  return { type: C.CHANGE_QUESTION_TITLE, pageId, questionId, html };
-}
-export function changeQuestionBeforeNote(pageId, questionId, html) {
-  return { type: C.CHANGE_QUESTION_BEFORE_NOTE, pageId, questionId, html };
-}
-export function changeQuestionAfterNote(pageId, questionId, html) {
-  return { type: C.CHANGE_QUESTION_AFTER_NOTE, pageId, questionId, html };
-}
-export function changeQuestionChoices(pageId, questionId, choices) {
-  return { type: C.CHANGE_QUESTION_CHOICES, pageId, questionId, choices };
+export function changeQuestion(pageId, questionId, question) {
+  return { type: C.CHANGE_QUESTION, pageId, questionId, question };
 }
 export function addComponent(component) {
   return { type: C.ADD_COMPONENT, component};

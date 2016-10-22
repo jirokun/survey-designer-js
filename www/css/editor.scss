@@ -131,11 +131,19 @@ html, body {
       flex-grow: 1;
     }
     .choice-editor-controller {
-      button {
-        margin-left: 10px;
+      .option {
+        padding-top: 0;
+        margin: 0 10px;
       }
     }
   }
+}
+.clickable {
+  cursor: pointer;
+}
+.icon-button {
+  vertical-align: text-top;
+  margin-left: 8px;
 }
 /* フォームコンテナ */
 .form-container {

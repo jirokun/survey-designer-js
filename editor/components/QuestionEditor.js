@@ -13,7 +13,6 @@ import * as Validator from '../validator'
 class QuestionEditor extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       questionId: props.question.id
     };

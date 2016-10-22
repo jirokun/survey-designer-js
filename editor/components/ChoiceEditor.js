@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Checkbox, Glyphicon } from 'react-bootstrap';
 import TinyMCE from 'react-tinymce';
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
@@ -51,19 +52,19 @@ class ChoiceEditor extends Component {
       // TinyMCEのバグ？行削除時に勝手にchangeイベントが発動することがある
       return;
     }
-    this.props.changeQuestionChoices(page.id, question.id, choiceValue);
+    this.props.handleChoiceChange(choiceValue);
   }
   handleClickAddButton(index, e) {
     const { page, question } = this.props;
     const choiceValue = this.getChoiceValue();
     choiceValue.splice(index + 1, 0, '');
-    this.props.changeQuestionChoices(page.id, question.id, choiceValue);
+    this.props.handleChoiceChange(choiceValue);
   }
   handleClickMinusButton(index, e) {
     const { page, question } = this.props;
     const choiceValue = this.getChoiceValue();
     choiceValue.splice(index, 1);
-    this.props.changeQuestionChoices(page.id, question.id, choiceValue);
+    this.props.handleChoiceChange(choiceValue);
   }
   renderChoiceEditorRow(choice, index, choices) {
     const content = choice.label ? choice.label : choice;
@@ -97,8 +98,11 @@ class ChoiceEditor extends Component {
           {editor}
         </div>
         <div className="choice-editor-controller">
-          <span className="btn btn-default btn-sm" onClick={this.handleClickAddButton.bind(this, index)}><i className="glyphicon glyphicon-plus"></i></span>
-          <span className="btn btn-default btn-sm" onClick={this.handleClickMinusButton.bind(this, index)} style={controllerMinusStyle}><i className="glyphicon glyphicon-minus"></i></span>
+          <Checkbox className="option" inline>自由記入</Checkbox>
+          <Checkbox className="option" inline>自由記入必須</Checkbox>
+          <Checkbox className="option" inline>排他</Checkbox>
+          <Glyphicon className="clickable icon-button text-info" glyph="plus-sign" onClick={this.handleClickAddButton.bind(this, index)}/>
+          <Glyphicon className="clickable icon-button text-danger" glyph="minus-sign" onClick={this.handleClickMinusButton.bind(this, index)}/>
         </div>
       </div>
     );
@@ -118,7 +122,6 @@ const stateToProps = state => ({
   state: state
 });
 const actionsToProps = dispatch => ({
-  changeQuestionChoices: (pageId, questionId, value) => dispatch(EditorActions.changeQuestionChoices(pageId, questionId, value))
 });
 
 export default connect(
