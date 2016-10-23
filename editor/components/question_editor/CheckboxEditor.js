@@ -75,6 +75,7 @@ class CheckboxEditor extends Component {
 
   render() {
     const { page, question, plainText } = this.props;
+    const choices = question.choices;
 
     return (
       <div>
@@ -128,7 +129,7 @@ class CheckboxEditor extends Component {
         <FormGroup>
           <Col componentClass={ControlLabel} md={2}>選択肢</Col>
           <Col md={10}>
-            <ChoiceEditor page={page} question={question} choices={question.choices} plainText={plainText} handleChoiceChange={this.handleChoiceChange.bind(this)}/>
+            <ChoiceEditor page={page} question={question} choices={choices} plainText={plainText} handleChoiceChange={this.handleChoiceChange.bind(this)}/>
           </Col>
         </FormGroup>
 

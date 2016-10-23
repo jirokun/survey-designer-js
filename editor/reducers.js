@@ -129,7 +129,6 @@ function changeQuestion(state, pageId, questionId, newQuestion) {
     delete question[prop];
   }
   Object.assign(question, newQuestion);
-  console.log(question);
   removeDraft(state, page.id);
   state.defs.draftDefs.push({ id: page.id, valid: true, yaml: yaml.safeDump(page) });
   return state;

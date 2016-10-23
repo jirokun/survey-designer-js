@@ -25,8 +25,7 @@ class Editor extends Component {
   render() {
     let code = '';
     let isYamlValid = false;
-    const { state } = this.props;
-    const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
+    const { state, page } = this.props;
     if (page) {
       const draft = Utils.findDraft(state, page.id);
       if (draft) {

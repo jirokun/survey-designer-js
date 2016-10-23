@@ -80,7 +80,7 @@ export default class EnqueteEditorApp extends Component {
         </div>
         <div className="right" ref="right">
           <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.onDragEnd.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
-            <Editor/>
+            <Editor page={page}/>
             <div ref="preview" className="preview-pane">
               <Frame className={isYamlValid ? "" : "hidden"} head={
                 <link rel="stylesheet" href="/css/runtime.css"/>

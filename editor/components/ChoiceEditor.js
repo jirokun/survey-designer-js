@@ -14,17 +14,9 @@ class ChoiceEditor extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.state.values.currentFlowId !== nextProps.state.values.currentFlowId) {
-      return true;
-    }
-    if (nextProps.plainText === true || nextProps.plainText !== this.props.plainText) {
-      return true;
-    }
-    // choicesが増減した時updateする
-    if (nextProps.choices.length !== this.props.choices.length) {
-      return true;
-    }
-    return false;
+    const el = document.activeElement;
+    // tinymceからのイベントの場合は更新しない
+    return !el.classList.contains('choice-editor-tinymce');
   }
   componentDidUpdate(prevProps, prevState) {
   }

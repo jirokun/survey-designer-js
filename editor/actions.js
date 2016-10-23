@@ -14,11 +14,7 @@ export function changeDefs(defsName, defs) {
 }
 /********************** Graph関連 **********************/
 export function selectFlow(flowId) {
-  return {
-    type: C.SELECT_FLOW,
-    from: C.GRAPH,
-    flowId
-  }
+  return { type: C.SELECT_FLOW, from: C.GRAPH, flowId }
 }
 export function addPageFlow(x, y) {
   return { type: C.ADD_PAGE_FLOW, x, y };
