@@ -47,7 +47,7 @@ function removeEdge(state, sourceFlowId, targetFlowId) {
   if (sourceFlow.type === 'page') {
     sourceFlow.nextFlowId = null;
   } else if (sourceFlow.type === 'branch') {
-    const branchDef = Utils.findBranchDef(state, sourceFlowId);
+    const branchDef = Utils.findBranch(state, sourceFlowId);
     const targetIndex = branchDef.conditions.findIndex((def) => {
       return def.nextFlowId === targetFlowId;
     });

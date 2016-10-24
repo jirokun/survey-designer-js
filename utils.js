@@ -50,8 +50,16 @@ export function findChoices(state, itemId) {
   return state.defs.choiceDefs.filter((def) => def.itemId === itemId);
 }
 /** stateからbranchを探す */
-export function findBranchDef(state, branchId) {
+export function findBranch(state, branchId) {
   return state.defs.branchDefs.find((def) => def.id === branchId);
+}
+/** stateからbranchを探す */
+export function findBranchFromFlow(state, flowId) {
+  const flow = findFlow(state, flowId);
+  if (!flow) {
+    return null;
+  }
+  return findBranch(state, flow.refId);
 }
 /** ユニークとなるflowIdを返す */
 export function nextFlowId(state) {
@@ -105,7 +113,7 @@ export function makeCytoscapeElements(state) {
         }
       };
     } else if (def.type === 'branch') {
-      return findBranchDef(state, def.refId).conditions.map(c => {
+      return findBranch(state, def.refId).conditions.map(c => {
         return {
           data: {
             label: c.key ? `if ${c.key}==${c.value}` : 'else',

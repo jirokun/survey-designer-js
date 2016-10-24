@@ -26,6 +26,15 @@ class PageSetting extends Component {
   render() {
     const { state } = this.props;
     const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
+    // ページが見つからない場合は描画しない(branchの場合)
+    if (!page) {
+      const branch = Utils.findBranchFromFlow(state, state.values.currentFlowId);
+      if (branch) {
+        return null;
+      } else {
+        throw 'invalid currentFlowId: ' + state.values.currentFlowId;
+      }
+    }
     return (
       <div className="form-container">
         <FormGroup controlId="page_id">

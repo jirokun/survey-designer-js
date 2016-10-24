@@ -19,7 +19,7 @@ export default class CheckboxQuestion extends Component {
       } else {
         Object.assign(obj, label);
       }
-      return <label className={labelClassName}>
+      return <label key={id + i} className={labelClassName}>
         <input type="checkbox" name={id} value={obj.value}/>
         <span dangerouslySetInnerHTML={{__html: r(obj.label, inputValues)}}/>
       </label>;

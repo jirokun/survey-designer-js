@@ -172,3 +172,30 @@ html, body {
     background-color: #eef;
   }
 }
+/* ブランチエディタ */
+.branch-editor-header {
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  align-items: center;
+
+  > span {
+    padding: 5px;
+  }
+  > input {
+    width: 100px;
+  }
+  > select {
+    width: 120px;
+  }
+}
+
+/* コンディションエディタ */
+.condition-editor {
+  @extend .branch-editor-header;
+  margin: 1em 2em 0 2em;
+  &:before {
+    content: "●";
+    margin: 0 1em;
+  }
+}

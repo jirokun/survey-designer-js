@@ -121,7 +121,7 @@ class Page extends Component {
           break;
       }
       const key = `${page.id}_${index + 1}`;
-      return <div className="question">{ React.createElement(component, { key, id: key, inputValues, ...q }) }</div>
+      return <div className="question" key={key}>{ React.createElement(component, { id: key, inputValues, ...q }) }</div>
     });
   }
   render() {
