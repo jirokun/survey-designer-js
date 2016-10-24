@@ -1,14 +1,26 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import ComponentButton from './ComponentButton'
 import CheckboxEditor from './question_editor/CheckboxEditor'
 import * as Utils from '../../utils'
 
-export default class ComponentList extends Component {
+class ComponentList extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const { } = this.props;
+    const { state } = this.props;
+    const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
+    // ページが見つからない場合は描画しない(branchの場合)
+    if (!page) {
+      const branch = Utils.findBranchFromFlow(state, state.values.currentFlowId);
+      if (branch) {
+        return <span>Disabled ComponentList Tab when branch is selected</span>;
+      } else {
+        throw 'invalid currentFlowId: ' + state.values.currentFlowId;
+      }
+    }
+
     return (
       <div className="form-container">
         <ComponentButton component={CheckboxEditor}   componentGroup="question"     label="複数選択肢"/>
@@ -24,8 +36,13 @@ export default class ComponentList extends Component {
   }
 }
 
-ComponentList.defaultProps = {
-};
+const stateToProps = state => ({
+  state: state
+});
+const actionsToProps = dispatch => ({
+});
 
-ComponentList.propTypes = {
-};
+export default connect(
+  stateToProps,
+  actionsToProps
+)(ComponentList);

@@ -30,7 +30,7 @@ class PageSetting extends Component {
     if (!page) {
       const branch = Utils.findBranchFromFlow(state, state.values.currentFlowId);
       if (branch) {
-        return null;
+        return <span>Disabled PageSetting Tab when branch is selected</span>;
       } else {
         throw 'invalid currentFlowId: ' + state.values.currentFlowId;
       }
