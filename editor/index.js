@@ -8,6 +8,7 @@ import state from './state'
 import '../www/css/editor.scss'
 
 $.getJSON('sample.json').done(json => {
+  console.log(json);
   const store = configureStore(json);
 
   const rootElement = document.getElementById('root');

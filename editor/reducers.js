@@ -133,6 +133,17 @@ function changeQuestion(state, pageId, questionId, newQuestion) {
   state.defs.draftDefs.push({ id: page.id, valid: true, yaml: yaml.safeDump(page) });
   return state;
 }
+// 分岐定義を変更
+function changeBranch(state, branchId, branch) {
+  const oldBranch = Utils.findBranch(state, branchId);
+  for (const prop in branch) {
+    if (prop === 'id' || prop === 'type') continue;
+    delete branch[prop];
+  }
+  Object.assign(question, newQuestion);
+  return state;
+}
+
 // コンポーネントを追加する
 function addComponent(state, component) {
   const flow = Utils.findFlow(state, state.values.currentFlowId);
@@ -277,7 +288,8 @@ function editorReducer(state, action) {
     return changeQuestionId(newState, action.type, action.pageId, action.oldQuestionId, action.newQuestionId);
   case C.CHANGE_QUESTION:
     return changeQuestion(newState, action.pageId, action.questionId, action.question);
-    break;
+  case C.CHANGE_BRANCH:
+    return changeBranch(newState, action.branchId, action.branch);
   case C.ADD_COMPONENT:
     return addComponent(newState, action.component);
     break;

@@ -331,10 +331,20 @@
         "flowId": "F006",
         "conditions": [
           {
-            "key": "P001_1.c1",
-            "operator": "==",
-            "value": true,
-            "nextFlowId": "F003"
+            "type": "any",
+            "nextFlowId": "F003",
+            "childConditions": [
+              {
+                "key": "P001_1",
+                "operator": "==",
+                "value": "abc"
+              },
+              {
+                "key": "P001_2",
+                "operator": "!=",
+                "value": "def"
+              }
+            ]
           },
           {
             "nextFlowId": "F004"

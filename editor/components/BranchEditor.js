@@ -22,9 +22,13 @@ class BranchEditor extends Component {
   handleClickMinusButton() {
   }
 
+  handleChangeBranch(index, condition) {
+    console.log(condition);
+  }
+
   renderConditions() {
     const { branch } = this.props;
-    return branch.conditions.map((condition, i) => <ConditionEditor condition={condition} isLast={branch.conditions.length === i + 1}/>);
+    return branch.conditions.map((condition, i) => <ConditionEditor key={`${branch.id}_${i}`} condition={condition} isLast={branch.conditions.length === i + 1} handleChangeBranch={this.handleChangeBranch.bind(this)}/>);
   }
 
   render() {
