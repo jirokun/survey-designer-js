@@ -23,12 +23,14 @@ class BranchEditor extends Component {
   }
 
   handleChangeBranch(index, condition) {
-    console.log(condition);
+    const { changeBranch, branch } = this.props;
+    branch.conditions[index] = condition;
+    changeBranch(branch.id, branch);
   }
 
   renderConditions() {
     const { branch } = this.props;
-    return branch.conditions.map((condition, i) => <ConditionEditor key={`${branch.id}_${i}`} condition={condition} isLast={branch.conditions.length === i + 1} handleChangeBranch={this.handleChangeBranch.bind(this)}/>);
+    return branch.conditions.map((condition, i) => <ConditionEditor key={`${branch.id}_${i}`} condition={condition} index={i} isLast={branch.conditions.length === i + 1} handleChangeBranch={this.handleChangeBranch.bind(this)}/>);
   }
 
   render() {
@@ -53,6 +55,7 @@ const stateToProps = state => ({
   state: state
 });
 const actionsToProps = dispatch => ({
+  changeBranch: (branchId, value) => dispatch(EditorActions.changeBranch(branchId, value))
 });
 
 export default connect(

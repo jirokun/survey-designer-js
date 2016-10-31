@@ -328,7 +328,6 @@
       {
         "id": "B001",
         "type": "simple",
-        "flowId": "F006",
         "conditions": [
           {
             "type": "any",

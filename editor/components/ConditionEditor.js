@@ -15,30 +15,68 @@ class ConditionEditor extends Component {
     super(props);
   }
 
-  handleClickAddButton() {
+  handleClickAddButton(ccIndex, e) {
+    const { handleChangeBranch, index } = this.props;
+    const condition = this.getCondition();
+    condition.childConditions.splice(ccIndex, 0, {
+      key: '',
+      operator : '==',
+      value: ''
+    });
+
+    handleChangeBranch(index, condition);
   }
 
-  handleClickMinusButton() {
+  handleClickMinusButton(ccIndex, e) {
+    const { handleChangeBranch, index } = this.props;
+    console.log(arguments);
+    const condition = this.getCondition();
+    condition.childConditions.splice(ccIndex, 1);
+    handleChangeBranch(index, condition);
   }
 
   handleChange() {
+    const { handleChangeBranch, index } = this.props;
+    const type = this.refs.conditionType.value;
+    const nextFlowId = this.refs.conditionNextFlowId.value;
+
+    handleChangeBranch(index, this.getCondition());
   }
 
-  renderChildCondition(childCondition) {
+  getCondition() {
+    const root = ReactDOM.findDOMNode(this);
+    const type = this.refs.conditionType.value;
+    const nextFlowId = this.refs.conditionNextFlowId.value;
+    const refIdElements= root.querySelectorAll('.condition-ref-id');
+    const refValueElements = root.querySelectorAll('.condition-ref-value');
+    const refOperatorElements = root.querySelectorAll('.condition-ref-operator');
+    const childConditions = Array.prototype.slice.apply(refIdElements).map((el, i) => {
+      return {
+        key: refIdElements[i].value,
+        operator: refOperatorElements[i].value,
+        value: refValueElements[i].value
+      };
+    });
+    return { type, nextFlowId, childConditions };
+  }
+
+  renderChildCondition(childCondition, index, childConditions) {
     return (
       <div className="condition-editor">
-        <input type="text" className="form-control" placeholder="質問ID" value={childCondition.key}/>
+        <input type="text" className="form-control condition-ref-id" placeholder="質問ID" value={childCondition.key} onChange={this.handleChange.bind(this)}/>
         <span>の値が</span>
-        <input type="text" className="form-control" placeholder="値" value={childCondition.value}/>
-        <select className="form-control" value={childCondition.operator}>
+        <input type="text" className="form-control condition-ref-value" placeholder="値" value={childCondition.value} onChange={this.handleChange.bind(this)}/>
+        <select className="form-control condition-ref-operator" value={childCondition.operator} onChange={this.handleChange.bind(this)}>
           <option value=">=">以上</option>
           <option value="==">と等しい</option>
           <option value="<=">以下</option>
           <option value=">">より大きい</option>
           <option value="<">より小さい</option>
+          <option value="includes">の選択肢を選択している</option>
+          <option value="notIncludes">の選択肢を選択していない</option>
         </select>
-        <Glyphicon className="clickable icon-button text-info" glyph="plus-sign" onClick={this.handleClickAddButton.bind(this)}/>
-        <Glyphicon className="clickable icon-button text-danger" glyph="minus-sign" onClick={this.handleClickMinusButton.bind(this)}/>
+        <Glyphicon className="clickable icon-button text-info" glyph="plus-sign" onClick={this.handleClickAddButton.bind(this, index)}/>
+        { childConditions.length === 1 ? null : <Glyphicon className="clickable icon-button text-danger" glyph="minus-sign" onClick={this.handleClickMinusButton.bind(this, index)}/> }
       </div>
     );
   }
@@ -49,16 +87,16 @@ class ConditionEditor extends Component {
       <Well className="branch-editor">
         <div className="branch-editor-header">
           <span>以下の</span>
-          <select className="form-control" value={condition.type}>
+          <select ref="conditionType" className="form-control condition-type" value={condition.type} onChange={this.handleChange.bind(this)}>
             <option value="all">全て</option>
             <option value="any">いずれか</option>
           </select>
           <span>を満たす場合</span>
-          <input type="text" className="form-control" placeholder="フローID" value={condition.nextFlowId}/>
+          <input ref="conditionNextFlowId" type="text" className="form-control condition-next-flow-id" placeholder="フローID" value={condition.nextFlowId} onChange={this.handleChange.bind(this)}/>
           <span>に遷移する</span>
         </div>
         <div className="branch-editor-body">
-          {condition.childConditions.map(this.renderChildCondition.bind(this))}
+          {condition.childConditions.map((cc, i, childConditions) => this.renderChildCondition(cc, i, childConditions))}
         </div>
       </Well>
     );
@@ -70,7 +108,7 @@ class ConditionEditor extends Component {
       <Well className="branch-editor">
         <div className="branch-editor-header">
           <span>上記以外の場合</span>
-          <input type="text" className="form-control" placeholder="フローID" value={condition.nextFlowId}/>
+          <input ref="conditionNextFlowId" type="text" className="form-control condition-next-flow-id" placeholder="フローID" value={condition.nextFlowId} onChange={this.handleChange.bind(this)}/>
           <span>に遷移する</span>
         </div>
       </Well>
@@ -91,7 +129,6 @@ const stateToProps = state => ({
   state: state
 });
 const actionsToProps = dispatch => ({
-  changeBranch: value => dispatch(EditorActions.changeBranch(value))
 });
 
 export default connect(

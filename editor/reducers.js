@@ -134,13 +134,13 @@ function changeQuestion(state, pageId, questionId, newQuestion) {
   return state;
 }
 // 分岐定義を変更
-function changeBranch(state, branchId, branch) {
-  const oldBranch = Utils.findBranch(state, branchId);
+function changeBranch(state, branchId, newBranch) {
+  const branch = Utils.findBranch(state, branchId);
   for (const prop in branch) {
     if (prop === 'id' || prop === 'type') continue;
     delete branch[prop];
   }
-  Object.assign(question, newQuestion);
+  Object.assign(branch, newBranch);
   return state;
 }
 
