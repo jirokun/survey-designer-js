@@ -41,6 +41,14 @@ export function findQuestion(state, pageId, questionId) {
   const page = state.defs.pageDefs.find((def) => def.id === pageId);
   return page.questions.find(q => q.id === questionId);
 }
+/** ページ番号とquestionの文字列から設問を取得する。例: P001_1_2 => ページP001, 設問番号1_2 */
+export function findQuestionByStr(state, str) {
+  const underbarIndex = str.indexOf('_');
+  const pageId = str.substr(0, underbarIndex);
+  const questionId = str.substr(underbarIndex + 1);
+  return findQuestion(state, pageId, questionId);
+}
+
 /** stateからquestionIdに紐つくitemを探す */
 export function findItems(state, questionId) {
   return state.defs.itemDefs.filter((def) => def.questionId === questionId);
@@ -76,6 +84,7 @@ export function findPosition(state, flowId) {
   const { positionDefs } = state.defs;
   return positionDefs.find((pos) => pos.flowId === flowId);
 }
+
 /** flowDefs,condionDefsからcytoscape用のelementsを作成する */
 export function makeCytoscapeElements(state) {
   const { flowDefs } = state.defs;

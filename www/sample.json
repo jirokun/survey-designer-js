@@ -1,6 +1,6 @@
 {
   "values": {
-    "currentFlowId": "F001",
+    "currentFlowId": "F006",
     "flowStack": [],
     "inputValues": {
       "P001_1": {
@@ -52,11 +52,6 @@
     "version": 1,
     "draftDefs": [
       {
-        "id": "P001",
-        "yaml": "title: PageTitle Checkbox\nquestions:\n- title: Checkbox vertical\n  type: checkbox\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n- type: checkbox\n  vertical: false                                    # 横並びにするときはvertical: falseをつける\n  choices:\n  - 通常の選択肢\n  - label: 選択肢2                                    # label以外の値を指定する老婆はobject型で指定する必要がある\n    value: ABC                                       # valueを指定するとチェックボックスの値を変更することができる。通常はindexの順序が値となる\n  - '<span style=\"color: red;\">HTML</span> hogehoge' # コロンを含む文字列を指定する場合\n  - |                                                # 複数行記載する場合\n    1行目\n    2行目\n",
-        "valid": true
-      },
-      {
         "id": "P002",
         "yaml": "title: PageTitle Matrix\nquestions:\n- type: matrix\n  direction: horizontal                                                 # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n- type: matrix\n  direction: vertical                                                   # 入力のグループを縦でグループ化するか横でグループ化するか。default: horizontal, 指定可能な値: horizontal, vertical\n  cellType: text                                                        # セルのタイプ。デフォルト: radio 指定可能な値： checkbox, radio, text, textarea\n  questions:                                                            # 縦の選択肢\n  - '<span style=\"color: red;\">選択</span>肢1'\n  - 選択肢2\n  values:                                                               # 横の選択肢\n  - '<span style=\"color: red;\">値</span>1'\n  - label: 値2\n    prefix: '<span style=\"font-weight: bold; color: green\">前</span>'\n    postfix: 後\n",
         "valid": true
@@ -80,6 +75,11 @@
         "id": "P006",
         "valid": true,
         "yaml": "type: simple\nconditions:\n- key: P001_1.c1       # 配列の一つ一つがif文になる\n  operator: ==\n  value: true\n  nextFlowId: F003\n- nextFlowId: F004     # 最後の項目はelseになる"
+      },
+      {
+        "id": "P001",
+        "valid": true,
+        "yaml": "title: PageTitle Checkbox\nquestions:\n  - id: '1'\n    type: checkbox\n    title: Checkbox vertical\n    beforeNote: ''\n    vertical: true\n    choices:\n      - 通常の選択肢\n      - 選択肢2\n      - '<span style=\"color: red;\">HTML</span> hogehoge'\n      - 1行目 2行目\n  - id: '2'\n    title: Checkbox horizontal\n    type: checkbox\n    beforeNote: ''\n    vertical: false\n    choices:\n      - 通常の選択肢\n      - label: 選択肢2\n        value: ABC\n      - '<span style=\"color: red;\">HTML</span> hogehoge'\n      - |\n        1行目\n        2行目\n    random: false\n    randomFixLast: false\nid: P001\n"
       }
     ],
     "positionDefs": [
@@ -138,21 +138,16 @@
         "questions": [
           {
             "id": "1",
-            "title": "Checkbox vertical",
             "type": "checkbox",
+            "title": "Checkbox vertical",
             "beforeNote": "",
             "vertical": true,
             "choices": [
               "通常の選択肢",
-              {
-                "label": "選択肢2",
-                "value": "ABC"
-              },
+              "選択肢2",
               "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目\n2行目\n"
-            ],
-            "random": false,
-            "randomFixLast": false
+              "1行目 2行目"
+            ]
           },
           {
             "id": "2",
@@ -285,7 +280,6 @@
         ],
         "id": "P005"
       },
-
       {
         "title": "PageTitle Radio",
         "questions": [
@@ -335,13 +329,8 @@
             "childConditions": [
               {
                 "key": "P001_1",
-                "operator": "==",
-                "value": "abc"
-              },
-              {
-                "key": "P001_2",
-                "operator": "!=",
-                "value": "def"
+                "operator": "includes",
+                "value": "1"
               }
             ]
           },
@@ -389,7 +378,7 @@
     ]
   },
   "viewSettings": {
-    "graphWidth": 825,
+    "graphWidth": 814,
     "hotHeight": 400
   }
 }

@@ -29,7 +29,6 @@ class ConditionEditor extends Component {
 
   handleClickMinusButton(ccIndex, e) {
     const { handleChangeBranch, index } = this.props;
-    console.log(arguments);
     const condition = this.getCondition();
     condition.childConditions.splice(ccIndex, 1);
     handleChangeBranch(index, condition);
@@ -57,7 +56,21 @@ class ConditionEditor extends Component {
         value: refValueElements[i].value
       };
     });
-    return { type, nextFlowId, childConditions };
+    const condition = { type, nextFlowId, childConditions };
+    this.validateCondition(condition);
+    return condition;
+  }
+
+  validateCondition(nextCondition) {
+    const { state, condition } = this.props;
+    const validationState = {
+      isNextFlowIdValid: !!Utils.findFlow(state, nextCondition.nextFlowId),
+      isChildConditionsValid: nextCondition.childConditions.map(cc => !!Utils.findQuestionByStr(state, cc.key))
+    };
+    if (!validationState.isNextFlowIdValid || !validationState.isChildConditionsValid.some(s => !s)) {
+      this.setState(validationState);
+      return false;
+    }
   }
 
   renderChildCondition(childCondition, index, childConditions) {

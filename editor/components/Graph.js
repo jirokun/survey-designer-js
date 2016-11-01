@@ -28,7 +28,13 @@ class Graph extends Component {
     const elements = makeCytoscapeElements(state);
     const zoom = this.cy.zoom();
     const pan = this.cy.pan();
-    this.cy.load(elements);
+    try {
+      // 値が正しくない場合ここで落ちる
+      this.cy.load(elements);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
     // zoomとpanが更新されないように上書きする
     this.cy.zoom(zoom);
     this.cy.pan(pan);

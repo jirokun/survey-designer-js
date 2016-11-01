@@ -5,18 +5,24 @@ import { cloneObj, findFlow, findBranch } from '../utils'
  * branchを評価する
  */
 function evaluateBranch(state, branchFlow) {
-  const conditions = findBranch(state, branchFlow.id).conditions;
+  const conditions = findBranch(state, branchFlow.refId).conditions;
   for (let i = 0, len = conditions.length; i < len; i++) {
     const c = conditions[i];
-    if (c.type === 'if') {
-      const func = new Function('state', 'cond',
-          `return state.values.inputValues[cond.question] ${c.operator} cond.value`);
-      const bool = func(state, c);
-      if (bool) {
-        return c.nextFlowId;
+    const isLast = (i === len - 1);
+    if (isLast) {
+      return c.nextFlowId;
+    } else if (c.type === 'any') {
+      const match = c.childConditions.some(cc => {
+        const inputValue = state.values.inputValues[cc.key];
+        if (cc.operator === 'includes') {
+          return inputValue[cc.value];
+        }
+        return false;
+      });
+      if (!match) {
+        continue;
       }
-    } else if (c.type === 'else') {
-      return c.nextFlowid;
+      return c.nextFlowId;
     } else {
       throw `unkown condition type: "${c.type}" at FlowID=${c.flowId}`;
     }
@@ -115,6 +121,7 @@ export default function reducer(state, action) {
       viewSettings: newState.viewSettings
     }
   } catch(e) {
+    console.error(e);
     alert(e);
     return newState;
   }
