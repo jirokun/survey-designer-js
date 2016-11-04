@@ -69,9 +69,14 @@ export function changeQuestionType(pageId, questionId, questionType) {
 export function changeQuestion(pageId, questionId, question) {
   return { type: C.CHANGE_QUESTION, pageId, questionId, question };
 }
+export function addComponent(component) {
+  return { type: C.ADD_COMPONENT, component};
+}
+
+/********************** branch関連 **********************/
 export function changeBranch(branchId, branch) {
   return { type: C.CHANGE_BRANCH, branchId, branch };
 }
-export function addComponent(component) {
-  return { type: C.ADD_COMPONENT, component};
+export function moveCondition(branchId, sourceIndex, toIndex) {
+  return { type: C.MOVE_CONDITION, branchId, sourceIndex, toIndex };
 }

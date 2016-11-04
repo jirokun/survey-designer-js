@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import TinyMCE from 'react-tinymce'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import CheckboxEditor from './question_editor/CheckboxEditor'
 import ConditionEditor from './ConditionEditor'
 import { Well, Panel, Glyphicon, Form, FormGroup, ControlLabel, Grid, Col, Row } from 'react-bootstrap';
@@ -27,10 +29,14 @@ class BranchEditor extends Component {
     branch.conditions[index] = condition;
     changeBranch(branch.id, branch);
   }
+  handleMoveCondition(sourceIndex, toIndex) {
+    const { moveCondition, branch } = this.props;
+    moveCondition(branch.id, sourceIndex, toIndex);
+  }
 
   renderConditions() {
     const { branch } = this.props;
-    return branch.conditions.map((condition, i) => <ConditionEditor key={`${branch.id}_${i}`} condition={condition} index={i} isLast={branch.conditions.length === i + 1} handleChangeBranch={this.handleChangeBranch.bind(this)}/>);
+    return branch.conditions.map((condition, i) => <ConditionEditor nextFlowId={condition.nextFlowId} key={condition.nextFlowId} condition={condition} index={i} isLast={branch.conditions.length === i + 1} handleChangeBranch={this.handleChangeBranch.bind(this)} handleMoveCondition={this.handleMoveCondition.bind(this)}/>);
   }
 
   render() {
@@ -55,10 +61,14 @@ const stateToProps = state => ({
   state: state
 });
 const actionsToProps = dispatch => ({
-  changeBranch: (branchId, value) => dispatch(EditorActions.changeBranch(branchId, value))
+  changeBranch: (branchId, value) => dispatch(EditorActions.changeBranch(branchId, value)),
+  moveCondition: (branchId, sourceIndex, toIndex) => dispatch(EditorActions.moveCondition(branchId, sourceIndex, toIndex))
+
 });
 
-export default connect(
-  stateToProps,
-  actionsToProps
-)(BranchEditor);
+export default DragDropContext(HTML5Backend)(
+  connect(
+    stateToProps,
+    actionsToProps
+  )(BranchEditor)
+);

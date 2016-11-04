@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
+import update from 'react/lib/update';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import TinyMCE from 'react-tinymce';
+import { DragSource, DropTarget } from 'react-dnd';
 import CheckboxEditor from './question_editor/CheckboxEditor';
 import { Well, Panel, Glyphicon, Form, FormGroup, ControlLabel, Grid, Col, Row } from 'react-bootstrap';
 import * as EditorActions from '../actions'
@@ -19,7 +21,7 @@ class ConditionEditor extends Component {
     const { handleChangeBranch, index } = this.props;
     const condition = this.getCondition();
     condition.childConditions.splice(ccIndex, 0, {
-      key: '',
+      refQuestionId: '',
       operator : '==',
       value: ''
     });
@@ -51,7 +53,7 @@ class ConditionEditor extends Component {
     const refOperatorElements = root.querySelectorAll('.condition-ref-operator');
     const childConditions = Array.prototype.slice.apply(refIdElements).map((el, i) => {
       return {
-        key: refIdElements[i].value,
+        refQuestionId: refIdElements[i].value,
         operator: refOperatorElements[i].value,
         value: refValueElements[i].value
       };
@@ -65,7 +67,7 @@ class ConditionEditor extends Component {
     const { state, condition } = this.props;
     const validationState = {
       isNextFlowIdValid: !!Utils.findFlow(state, nextCondition.nextFlowId),
-      isChildConditionsValid: nextCondition.childConditions.map(cc => !!Utils.findQuestionByStr(state, cc.key))
+      isChildConditionsValid: nextCondition.childConditions.map(cc => !!Utils.findQuestionByStr(state, cc.refQuestionId))
     };
     if (!validationState.isNextFlowIdValid || !validationState.isChildConditionsValid.some(s => !s)) {
       this.setState(validationState);
@@ -75,8 +77,8 @@ class ConditionEditor extends Component {
 
   renderChildCondition(childCondition, index, childConditions) {
     return (
-      <div className="condition-editor">
-        <input type="text" className="form-control condition-ref-id" placeholder="質問ID" value={childCondition.key} onChange={this.handleChange.bind(this)}/>
+      <div key={`child-conditions-${index}`} className="condition-editor">
+        <input type="text" className="form-control condition-ref-id" placeholder="質問ID" value={childCondition.refQuestionId} onChange={this.handleChange.bind(this)}/>
         <span>の値が</span>
         <input type="text" className="form-control condition-ref-value" placeholder="値" value={childCondition.value} onChange={this.handleChange.bind(this)}/>
         <select className="form-control condition-ref-operator" value={childCondition.operator} onChange={this.handleChange.bind(this)}>
@@ -95,9 +97,10 @@ class ConditionEditor extends Component {
   }
 
   renderNotLast() {
-    const { condition } = this.props;
+    const { condition, isDragging, index } = this.props;
+    const opacity = isDragging ? 0 : 1;
     return (
-      <Well className="branch-editor">
+      <Well className="branch-editor" style={{opacity}}>
         <div className="branch-editor-header">
           <span>以下の</span>
           <select ref="conditionType" className="form-control condition-type" value={condition.type} onChange={this.handleChange.bind(this)}>
@@ -105,7 +108,7 @@ class ConditionEditor extends Component {
             <option value="any">いずれか</option>
           </select>
           <span>を満たす場合</span>
-          <input ref="conditionNextFlowId" type="text" className="form-control condition-next-flow-id" placeholder="フローID" value={condition.nextFlowId} onChange={this.handleChange.bind(this)}/>
+          <input ref="conditionNextFlowId" type="text" className="form-control condition-next-flow-id" value={condition.nextFlowId} readOnly={true}/>
           <span>に遷移する</span>
         </div>
         <div className="branch-editor-body">
@@ -116,12 +119,13 @@ class ConditionEditor extends Component {
   }
 
   renderLast() {
-    const { condition } = this.props;
+    const { condition, isDragging, index } = this.props;
+    const opacity = isDragging ? 0 : 1;
     return (
-      <Well className="branch-editor">
+      <Well className="branch-editor" style={{opacity}}>
         <div className="branch-editor-header">
           <span>上記以外の場合</span>
-          <input ref="conditionNextFlowId" type="text" className="form-control condition-next-flow-id" placeholder="フローID" value={condition.nextFlowId} onChange={this.handleChange.bind(this)}/>
+          <input ref="conditionNextFlowId" type="text" className="form-control condition-next-flow-id" value={condition.nextFlowId} readOnly={true}/>
           <span>に遷移する</span>
         </div>
       </Well>
@@ -129,14 +133,67 @@ class ConditionEditor extends Component {
   }
 
   render() {
-    const { condition, isLast } = this.props;
-    if (isLast) {
-      return this.renderLast();
-    } else{
-      return this.renderNotLast();
-    }
+    const { condition, isLast, isDragging, connectDragSource, connectDropTarget } = this.props;
+    return connectDragSource(connectDropTarget(<div>{isLast ? this.renderLast() : this.renderNotLast()}</div>))
   }
 }
+
+const conditionSource = {
+  beginDrag(props) {
+    return {
+      id: props.nextFlowId,
+      index: props.index
+    };
+  }
+};
+
+const conditionTarget = {
+  hover(props, monitor, component) {
+    const dragIndex = monitor.getItem().index;
+    const hoverIndex = props.index;
+
+    // Don't replace items with themselves
+    if (dragIndex === hoverIndex) {
+      return;
+    }
+
+    // Determine rectangle on screen
+    const hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
+
+    // Get vertical middle
+    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+    // Determine mouse position
+    const clientOffset = monitor.getClientOffset();
+
+    // Get pixels to the top
+    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+    // Only perform the move when the mouse has crossed half of the items height
+    // When dragging downwards, only move when the cursor is below 50%
+    // When dragging upwards, only move when the cursor is above 50%
+
+    // Dragging downwards
+    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      return;
+    }
+
+    // Dragging upwards
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      return;
+    }
+
+    // Time to actually perform the action
+    //console.log(dragIndex, hoverIndex);
+    props.handleMoveCondition(dragIndex, hoverIndex);
+
+    // Note: we're mutating the monitor item here!
+    // Generally it's better to avoid mutations,
+    // but it's good here for the sake of performance
+    // to avoid expensive index searches.
+    monitor.getItem().index = hoverIndex;
+  }
+};
 
 const stateToProps = state => ({
   state: state
@@ -144,7 +201,7 @@ const stateToProps = state => ({
 const actionsToProps = dispatch => ({
 });
 
-export default connect(
-  stateToProps,
-  actionsToProps
-)(ConditionEditor);
+ConditionEditor = DropTarget('CONDITION', conditionTarget, (connect) => ({ connectDropTarget: connect.dropTarget() }))(ConditionEditor);
+ConditionEditor = DragSource('CONDITION', conditionSource, (connect, monitor) => ({ connectDragSource: connect.dragSource(), isDragging: monitor.isDragging() }))(ConditionEditor);
+ConditionEditor = connect(stateToProps, actionsToProps)(ConditionEditor);
+export default ConditionEditor;

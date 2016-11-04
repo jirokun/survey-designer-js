@@ -173,20 +173,22 @@ html, body {
   }
 }
 /* ブランチエディタ */
-.branch-editor-header {
-  display: flex;
-  flex-direction: row;
-  width: 700px;
-  align-items: center;
+.branch-editor {
+  .branch-editor-header {
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    align-items: center;
 
-  > span {
-    padding: 5px;
-  }
-  > input {
-    width: 100px;
-  }
-  > select {
-    width: 120px;
+    > span {
+      padding: 5px;
+    }
+    > input {
+      width: 100px;
+    }
+    > select {
+      width: 120px;
+    }
   }
 }
 

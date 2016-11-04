@@ -144,6 +144,15 @@ function changeBranch(state, branchId, newBranch) {
   return state;
 }
 
+// 分岐条件の順番を入れ替える
+function moveCondition(state, branchId, sourceIndex, toIndex) {
+  const branch = Utils.findBranch(state, branchId);
+  const targetCondition = branch.conditions[sourceIndex];
+  branch.conditions[sourceIndex] = branch.conditions[toIndex];
+  branch.conditions[toIndex] = targetCondition;
+  return state;
+}
+
 // コンポーネントを追加する
 function addComponent(state, component) {
   const flow = Utils.findFlow(state, state.values.currentFlowId);
@@ -290,6 +299,8 @@ function editorReducer(state, action) {
     return changeQuestion(newState, action.pageId, action.questionId, action.question);
   case C.CHANGE_BRANCH:
     return changeBranch(newState, action.branchId, action.branch);
+  case C.MOVE_CONDITION:
+    return moveCondition(newState, action.branchId, action.sourceIndex, action.toIndex);
   case C.ADD_COMPONENT:
     return addComponent(newState, action.component);
     break;

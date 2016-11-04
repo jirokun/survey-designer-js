@@ -328,14 +328,33 @@
             "nextFlowId": "F003",
             "childConditions": [
               {
-                "key": "P001_1",
+                "refQuestionId": "P001_1",
                 "operator": "includes",
                 "value": "1"
               }
             ]
           },
           {
-            "nextFlowId": "F004"
+            "type": "all",
+            "nextFlowId": "F005",
+            "childConditions": [
+              {
+                "refQuestionId": "P001_1",
+                "operator": "includes",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "type": "else",
+            "nextFlowId": "F004",
+            "childConditions": [
+              {
+                "refQuestionId": "",
+                "operator": "",
+                "value": ""
+              }
+            ]
           }
         ]
       }
