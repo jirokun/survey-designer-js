@@ -16,7 +16,7 @@ class VisualEditor extends Component {
     const { state } = this.props;
     const page = Utils.findPageFromFlow(state, state.values.currentFlowId);
     if (page) {
-      const questionEditors = page.questions.map((question, i)  => <div className="question-editor" key={`question_key_${i}`}><QuestionEditor question={question} page={page}/></div>);
+      const questionEditors = page.questions.map((question, i)  => <div className="question-editor" key={`${page.id}_${question.id}`}><QuestionEditor question={question} page={page}/></div>);
       return <div>{questionEditors}</div>;
     } else {
       const branch = Utils.findBranchFromFlow(state, state.values.currentFlowId);
