@@ -2,49 +2,7 @@
   "values": {
     "currentFlowId": "F006",
     "flowStack": [],
-    "inputValues": {
-      "P001_1": {
-        "1": true,
-        "3": false,
-        "4": false,
-        "ABC": false
-      },
-      "P001_2": {
-        "1": false,
-        "3": false,
-        "4": false,
-        "ABC": false
-      },
-      "P004_1": "",
-      "P004_2": {
-        "1": true,
-        "3": true,
-        "4": false,
-        "": false,
-        "ABC": true
-      },
-      "P002_1_1": [
-        "",
-        ""
-      ],
-      "P002_1_2": [
-        "",
-        ""
-      ],
-      "P002_2_1": [
-        "",
-        ""
-      ],
-      "P002_2_2": [
-        "",
-        ""
-      ],
-      "P005_1": {
-        "1": false,
-        "2": false
-      },
-      "P005_2": null
-    }
+    "inputValues": { }
   },
   "defs": {
     "title": "sample enquete",

@@ -6,7 +6,7 @@ export default class CheckboxQuestion extends Component {
     super(props);
   }
   makeItems() {
-    const { id, choices, vertical, inputValues } = this.props;
+    const { id, page, choices, vertical, inputValues } = this.props;
     if (!choices) {
       return errorMessage('choices attribute is not defined');
     }
@@ -20,7 +20,7 @@ export default class CheckboxQuestion extends Component {
         Object.assign(obj, label);
       }
       return <label key={id + i} className={labelClassName}>
-        <input type="checkbox" name={id} value={obj.value}/>
+        <input type="checkbox" name={`${page.id}_${id}`} value={obj.value}/>
         <span dangerouslySetInnerHTML={{__html: r(obj.label, inputValues)}}/>
       </label>;
     });

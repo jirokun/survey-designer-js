@@ -20,6 +20,13 @@ class ChoiceEditor extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
   }
+  componentWillUnmount() {
+    // unmountする時はtinymceのインスタンスをdetroyする
+    const editorEls = this.refs.root.querySelectorAll('.choice-editor-tinymce');
+    return Array.prototype.map.call(editorEls, el => {
+      return this.getTinyMCEEditorFromEl(el).destroy();
+    });
+  }
   getTinyMCEEditorFromEl(el) {
     return tinymce.editors.find(editor => document.getElementById(editor.id) === el);
   }

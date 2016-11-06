@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import Footer from '../components/Footer'
 import InvalidTypeQuestion from '../components/questions/InvalidTypeQuestion'
 import TextQuestion from '../components/questions/TextQuestion'
 import TextareaQuestion from '../components/questions/TextareaQuestion'
@@ -8,14 +8,11 @@ import CheckboxQuestion from '../components/questions/CheckboxQuestion'
 import RadioQuestion from '../components/questions/RadioQuestion'
 import SelectQuestion from '../components/questions/SelectQuestion'
 import MatrixQuestion from '../components/questions/MatrixQuestion'
-import { valueChange } from '../actions'
+import { nextPage, prevPage, valueChange } from '../actions'
 import { findQuestions, findCustomPage, r } from '../../utils'
 
 class Page extends Component {
   componentDidMount() {
-    this.refs.page.addEventListener('change', this.onChangeValue.bind(this), false);
-    this.refs.page.addEventListener('keyup', this.onChangeValue.bind(this), false);
-    this.refs.page.addEventListener('click', this.onChangeValue.bind(this), false);
     this.executeJavaScript();
   }
   componentDidUpdate(prevProps, prevState) {
@@ -38,25 +35,26 @@ class Page extends Component {
       console.error(e);
     }
   }
-  onChangeValue(e) {
-    const target = e.target;
-    const tagName = target.tagName.toLowerCase();
-    switch (tagName) {
-      case 'input':
-      case 'textarea':
-      case 'select':
-        // これらだけが対象
-        break;
-      default:
-        return;
-    }
-
-    const { valueChange } = this.props;
-    const allElements = Array.prototype.slice.call(this.refs.page.querySelectorAll('[name]'));
-    const names = allElements.map(el => el.name).filter((x, i, self) => self.indexOf(x) === i);
+  handleClickNext() {
+    const { valueChange, nextPage } = this.props;
+    const root = ReactDOM.findDOMNode(this);
+    const formElements = root.querySelectorAll('input,textarea,select');
     const values = {};
-    names.forEach(name => values[name] = this.getElementsValue(name));
+    for (var i = 0, len = formElements.length; i < len; i++) {
+      const el = formElements[i];
+      const name = el.name;
+      if ((el.tagName === 'INPUT' && el.type === 'checkbox') ||
+          (el.tagName === 'SELECT' && el.multiple)) {
+        if (values[name] === undefined) {
+          values[name] = [];
+        }
+        values[name].push({value: el.value, checked: el.checked});
+      } else {
+        values[name] = el.value;
+      }
+    }
     valueChange(values);
+    nextPage();
   }
   getElementsValue(name) {
     const elements = Array.prototype.slice.call(this.refs.page.querySelectorAll(`[name="${name}"`));
@@ -121,16 +119,23 @@ class Page extends Component {
           break;
       }
       const key = `${page.id}_${index + 1}`;
-      return <div className="question" key={key}>{ React.createElement(component, { id: key, inputValues, ...q }) }</div>
+      return <div className="question" key={key}>{ React.createElement(component, { id: key, page, inputValues, ...q }) }</div>
     });
   }
   render() {
-    const { page, inputValues } = this.props;
+    const { page, inputValues, flowStack, prevPage, nextPage } = this.props;
+    const backButtonStyle = { };
+    if (flowStack.length == 0) {
+      backButtonStyle.visibility = 'hidden';
+    }
     return (
       <div ref="page" className="page">
         <h2 className="page-title" dangerouslySetInnerHTML={{__html: r(page.title, inputValues)}} />
         { this.makeQuestions() }
-        <Footer />
+        <div>
+          <button style={backButtonStyle} onClick={prevPage}>戻る</button>
+          <button onClick={this.handleClickNext.bind(this)}>進む</button>
+        </div>
       </div>
     );
   }
@@ -141,10 +146,13 @@ Page.propTypes = {
 };
 
 const stateToProps = state => ({
+  flowStack: state.values.flowStack,
   inputValues: state.values.inputValues
 });
 const actionsToProps = dispatch => ({
   valueChange: (itemName, value) => dispatch(valueChange(itemName, value)),
+  prevPage: () => dispatch(prevPage()),
+  nextPage: () => dispatch(nextPage()),
 });
 
 export default connect(
