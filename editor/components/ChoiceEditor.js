@@ -10,7 +10,7 @@ import * as Utils from '../../utils'
 class ChoiceEditor extends Component {
   constructor(props) {
     super(props);
-    this.state = { };
+    this.destroyed = false;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -23,6 +23,7 @@ class ChoiceEditor extends Component {
   componentWillUnmount() {
     // unmountする時はtinymceのインスタンスをdetroyする
     const editorEls = this.refs.root.querySelectorAll('.choice-editor-tinymce');
+    this.destroyed = true;
     return Array.prototype.map.call(editorEls, el => {
       return this.getTinyMCEEditorFromEl(el).destroy();
     });
@@ -46,6 +47,10 @@ class ChoiceEditor extends Component {
   }
   handleChangeQuestionChoices(choiceIndex, e) {
     const { page, question } = this.props;
+    if (this.destroyed) {
+      // destroy後にtinymceにフォーカスが当たっているとchangeイベントが発火することがあるためthis.destroyedで判定
+      return;
+    }
     const choiceValue = this.getChoiceValue();
     if (this.props.choices.length != choiceValue.length) {
       // TinyMCEのバグ？行削除時に勝手にchangeイベントが発動することがある
