@@ -3,9 +3,9 @@ h4 {
   margin-top: 1em;
   margin-bottom: 0; }
 
-label.vertical {
+.checkbox label.vertical {
   display: block; }
-label input {
+.checkbox label input {
   vertical-align: text-top; }
 
 table {

@@ -32,7 +32,6 @@ class ChoiceEditor extends Component {
     return tinymce.editors.find(editor => document.getElementById(editor.id) === el);
   }
   getChoiceValue() {
-    const _this = this;
     if (this.props.plainText) {
       const editorEls = this.refs.root.querySelectorAll('.plain-text-choice');
       return Array.prototype.map.call(editorEls, el => {
@@ -40,8 +39,31 @@ class ChoiceEditor extends Component {
       });
     } else {
       const editorEls = this.refs.root.querySelectorAll('.choice-editor-tinymce');
-      return Array.prototype.map.call(editorEls, el => {
-        return _this.getTinyMCEEditorFromEl(el).getContent();
+      const freeInputEls = this.refs.root.querySelectorAll('.free-input input');
+      const freeInputRequiredEls = this.refs.root.querySelectorAll('.free-input-required input');
+      const exclusionEls = this.refs.root.querySelectorAll('.exclusion input');
+      return Array.prototype.map.call(editorEls, (el, i) => {
+        const label = this.getTinyMCEEditorFromEl(el).getContent();
+        const obj = {};
+        let optionSpecified = false;
+        if (freeInputEls[i].checked) {
+          obj.freeInput = true;
+          optionSpecified = true;
+        }
+        if (freeInputRequiredEls[i].checked) {
+          obj.freeInputRequired = true;
+          optionSpecified = true;
+        }
+        if (exclusionEls[i].checked) {
+          obj.exclustion = true;
+          optionSpecified = true;
+        }
+        if (!optionSpecified) {
+          // optionが指定されていない時は単純にlabelを返す
+          return label;
+        }
+        obj.label = label;
+        return obj;
       });
     }
   }
@@ -68,6 +90,12 @@ class ChoiceEditor extends Component {
     const { page, question } = this.props;
     const choiceValue = this.getChoiceValue();
     choiceValue.splice(index, 1);
+    this.props.handleChoiceChange(choiceValue);
+  }
+  handleChangeOption(index, e) {
+    const { page, question } = this.props;
+    const choiceValue = this.getChoiceValue();
+    console.log(choiceValue);
     this.props.handleChoiceChange(choiceValue);
   }
   renderChoiceEditorRow(choice, index, choices) {
@@ -102,9 +130,9 @@ class ChoiceEditor extends Component {
           {editor}
         </div>
         <div className="choice-editor-controller">
-          <Checkbox className="option" inline>自由記入</Checkbox>
-          <Checkbox className="option" inline>自由記入必須</Checkbox>
-          <Checkbox className="option" inline>排他</Checkbox>
+          <Checkbox className="option free-input" onChange={this.handleChangeOption.bind(this, index)} inline>自由記入</Checkbox>
+          <Checkbox className="option free-input-required" onChange={this.handleChangeOption.bind(this, index)} inline>自由記入必須</Checkbox>
+          <Checkbox className="option exclusion" onChange={this.handleChangeOption.bind(this, index)} inline>排他</Checkbox>
           <Glyphicon className="clickable icon-button text-info" glyph="plus-sign" onClick={this.handleClickAddButton.bind(this, index)}/>
           <Glyphicon className="clickable icon-button text-danger" glyph="minus-sign" onClick={this.handleClickMinusButton.bind(this, index)}/>
         </div>

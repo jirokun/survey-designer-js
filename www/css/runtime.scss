@@ -8,12 +8,14 @@ h4 {
   margin-top: 1em;
   margin-bottom: 0;
 }
-label {
-  &.vertical {
-    display: block;
-  }
-  input {
-    vertical-align: text-top;
+.checkbox {
+  label {
+    &.vertical {
+      display: block;
+    }
+    input {
+      vertical-align: text-top;
+    }
   }
 }
 table {

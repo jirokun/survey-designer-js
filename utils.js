@@ -7,6 +7,15 @@ export function flatten(ary) {
 export function isEmpty(str) {
   return str === null || str === undefined || str === '';
 }
+export function findParentByClassName(parentNode, className) {
+  while(true) {
+    parentNode = parentNode.parentNode;
+    if (!parentNode) return null;
+    if (parentNode.classList.contains(className)) {
+      return parentNode;
+    }
+  }
+}
 
 /** stateからdraftを探す */
 export function findDraft(state, id) {
