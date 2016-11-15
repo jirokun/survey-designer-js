@@ -5,21 +5,23 @@ export default class CheckboxQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: []
+      checkedList: []
     };
   }
-  handleChange(e) {
+  handleChange(i, e) {
     const checkboxDiv = Utils.findParentByClassName(e.target, 'checkbox');
     const freeInputEl = checkboxDiv.querySelector('.free-input');
     if (!freeInputEl) {
       return;
     }
-    freeInputEl.disabled = e.target.checked;
-    // TODO stateを使った変更監視にするべき
+    const newState = Utils.cloneObj(this.state);
+    newState.checkedList[i] = e.target.checked;
+    this.setState(newState);
   }
-  freeInput(opts) {
+  freeInput(opts, checked) {
     if (!opts.freeInput) return null;
-    return <input className="free-input" type="text"/>
+    const { id, page, choices, vertical, inputValues } = this.props;
+    return <input className="free-input" type="text" name={`${page.id}_${id}_${opts.value}_free`} disabled={!checked}/>
   }
   makeItems() {
     const { id, page, choices, vertical, inputValues } = this.props;
@@ -28,6 +30,7 @@ export default class CheckboxQuestion extends Component {
     }
     const labelClassName = `checkbox ${vertical ? 'vertical' : 'horizontal'}`;
     const style = { marginBottom: 16 };
+    const checkedList = this.state.checkedList;
     return choices.map((label, i) => {
       const opts = { label: '', value: i + 1 };
       if (Utils.isString(label)) {
@@ -37,10 +40,10 @@ export default class CheckboxQuestion extends Component {
       }
       return <div className={labelClassName}>
         <label key={id + i}>
-          <input type="checkbox" name={`${page.id}_${id}`} value={opts.value} onChange={this.handleChange.bind(this)}/>
+          <input type="checkbox" name={`${page.id}_${id}`} value={opts.value} onChange={this.handleChange.bind(this, i)}/>
           <span dangerouslySetInnerHTML={{__html: Utils.r(opts.label, inputValues)}}/>
         </label>
-        {this.freeInput(opts)}
+        {this.freeInput(opts, checkedList[i])}
       </div>;
     });
   }
