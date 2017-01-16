@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import * as EditorActions from '../actions'
-import * as Utils from '../../utils'
+import * as EditorActions from '../actions';
+import * as Utils from '../../utils';
 
 class ComponentButton extends Component {
   constructor(props) {
@@ -21,8 +21,8 @@ class ComponentButton extends Component {
 }
 // typeとBootstrapのclassの紐つけ
 ComponentButton.TYPE_MAPPING = {
-  'question': 'info',
-  'non-question': 'success'
+  question: 'info',
+  'non-question': 'success',
 };
 
 ComponentButton.defaultProps = {
@@ -32,13 +32,13 @@ ComponentButton.propTypes = {
 };
 
 const stateToProps = state => ({
-  state: state
+  state,
 });
 const actionsToProps = dispatch => ({
-  addComponent: comopnentType => dispatch(EditorActions.addComponent(comopnentType))
+  addComponent: comopnentType => dispatch(EditorActions.addComponent(comopnentType)),
 });
 
 export default connect(
   stateToProps,
-  actionsToProps
+  actionsToProps,
 )(ComponentButton);

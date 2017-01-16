@@ -1,35 +1,35 @@
-import * as Utils from '../utils'
-import * as C from '../constants'
-import runtimeReducer from '../runtime/reducers'
-import yaml from 'js-yaml'
+import * as Utils from '../utils';
+import * as C from '../constants';
+import runtimeReducer from '../runtime/reducers';
+import yaml from 'js-yaml';
 
 function addFlow(state, x, y, type) {
   const flowId = Utils.generateNextId(state, 'flow');
   const id = Utils.generateNextId(state, type);
-  state.defs.flowDefs.push({ id: flowId, type: type, refId: id });
+  state.defs.flowDefs.push({ id: flowId, type, refId: id });
   state.defs.positionDefs.push({ flowId, x, y });
   if (type === 'page') {
     const defaultPage = {
       title: 'ここに設問を書いてください',
       questions: [
-        { type: 'checkbox', choices: ['選択肢1', '選択肢2']},
-        { type: 'radio', choices: ['選択肢1', '選択肢2']},
-      ]
+        { type: 'checkbox', choices: ['選択肢1', '選択肢2'] },
+        { type: 'radio', choices: ['選択肢1', '選択肢2'] },
+      ],
     };
-    state.defs.pageDefs.push(Object.assign({}, defaultPage, { id: id }));
-    state.defs.draftDefs.push({ id: id, valid: true, yaml: yaml.safeDump(defaultPage) });
+    state.defs.pageDefs.push(Object.assign({}, defaultPage, { id }));
+    state.defs.draftDefs.push({ id, valid: true, yaml: yaml.safeDump(defaultPage) });
   } else if (type === 'branch') {
     const defaultBranch = {
       type: 'simple',
       conditions: [
         { key: null, operator: '==', value: null, nextFlowId: null },
-        { nextFlowId: null }
-      ]
+        { nextFlowId: null },
+      ],
     };
-    state.defs.branchDefs.push(Object.assign({}, defaultBranch, { id: id }));
-    state.defs.draftDefs.push({ id: id, valid: true, yaml: yaml.safeDump(defaultBranch) });
+    state.defs.branchDefs.push(Object.assign({}, defaultBranch, { id }));
+    state.defs.draftDefs.push({ id, valid: true, yaml: yaml.safeDump(defaultBranch) });
   } else {
-    throw 'Unexpected argument type: ' + type;
+    throw `Unexpected argument type: ${type}`;
   }
   return state;
 }
@@ -48,23 +48,19 @@ function removeEdge(state, sourceFlowId, targetFlowId) {
     sourceFlow.nextFlowId = null;
   } else if (sourceFlow.type === 'branch') {
     const branchDef = Utils.findBranch(state, sourceFlowId);
-    const targetIndex = branchDef.conditions.findIndex((def) => {
-      return def.nextFlowId === targetFlowId;
-    });
+    const targetIndex = branchDef.conditions.findIndex(def => def.nextFlowId === targetFlowId);
     branchDef.conditions.splice(targetIndex, 1);
     // draftも更新
     const draft = Utils.findDraft(state, branchDef.branchId);
   } else {
-    throw "unkown flow type: " + sourceFlow.type;
+    throw `unkown flow type: ${sourceFlow.type}`;
   }
   return state;
 }
 function changeCustomPage(state, customPageId, html) {
-  let customPage = state.defs.customPageDefs.find((def) => {
-    return def.id === customPageId;
-  });
+  let customPage = state.defs.customPageDefs.find(def => def.id === customPageId);
   if (!customPage) {
-    customPage = { id: customPageId, html }
+    customPage = { id: customPageId, html };
     state.defs.customPageDefs.push(customPage);
   } else {
     customPage.html = html;
@@ -80,7 +76,7 @@ function changeCodemirror(state, str) {
   draft.valid = false;
   try {
     const page = yaml.load(str);
-    if (typeof(page) === 'string' || typeof(page) === 'undefined' || Array.isArray(page)) {
+    if (typeof (page) === 'string' || typeof (page) === 'undefined' || Array.isArray(page)) {
       return state;
     }
     page.id = flow.refId;
@@ -162,9 +158,7 @@ function addComponent(state, component) {
 }
 
 function changePosition(state, flowId, x, y) {
-  const pos = state.defs.positionDefs.find((def) => {
-    return def.flowId === flowId;
-  });
+  const pos = state.defs.positionDefs.find(def => def.flowId === flowId);
   if (pos) {
     pos.x = x;
     pos.y = y;
@@ -176,7 +170,7 @@ function changePosition(state, flowId, x, y) {
 /** flowを削除する */
 function removeFlow(state, flowId) {
   const flowDefs = state.defs.flowDefs;
-  const index = flowDefs.findIndex((def) => def.id === flowId);
+  const index = flowDefs.findIndex(def => def.id === flowId);
   const refId = flowDefs[index].refId;
   flowDefs.splice(index, 1);
   if (flowDefs[index].type === 'page') {
@@ -201,7 +195,7 @@ function removeDraft(state, id) {
   const draftDefs = state.defs.draftDefs;
   const draftIndex = draftDefs.findIndex(def => def.id === id);
   if (draftIndex === -1) {
-    throw 'draftdef is not found: ' + pageId;
+    throw `draftdef is not found: ${pageId}`;
   }
   draftDefs.splice(draftIndex, 1);
 }
@@ -209,9 +203,9 @@ function removeDraft(state, id) {
 function removePage(state, pageId, doNotRemoveDraft = false) {
   // pageDefsから削除
   const pageDefs = state.defs.pageDefs;
-  const pageIndex= pageDefs.findIndex(def => def.id === pageId);
+  const pageIndex = pageDefs.findIndex(def => def.id === pageId);
   if (pageIndex === -1) {
-    throw 'pagedef is not found: ' + pageId;
+    throw `pagedef is not found: ${pageId}`;
   }
   pageDefs.splice(pageIndex, 1);
 
@@ -224,18 +218,18 @@ function removePage(state, pageId, doNotRemoveDraft = false) {
 }
 /** Flowを接続する */
 function connectFlow(state, sourceFlowId, dstFlowId) {
-  let sourceFlow = Utils.findFlow(state, sourceFlowId);
+  const sourceFlow = Utils.findFlow(state, sourceFlowId);
   if (sourceFlow.type === 'page') {
     sourceFlow.nextFlowId = dstFlowId;
   } else if (sourceFlow.type === 'branch') {
     state.defs.branchDefs.push({
       flowId: sourceFlow.id,
       type: 'if',
-      nextFlowId: dstFlowId
+      nextFlowId: dstFlowId,
     });
   } else {
     // デフォルトはpage
-    throw 'unknown flow type: ' + sourceFlow.type;
+    throw `unknown flow type: ${sourceFlow.type}`;
   }
   return state;
 }
@@ -256,56 +250,56 @@ function resizeHotPane(state, height) {
 }
 
 function editorReducer(state, action) {
-  let newState = Utils.cloneObj(state);
+  const newState = Utils.cloneObj(state);
   switch (action.type) {
-  case C.CHANGE_DEFS:
-    newState.defs[action.defsName] = Utils.cloneObj(action.defs);
-    return newState;
-  case C.SELECT_FLOW:
-    newState.values.currentFlowId = action.flowId;
-    return newState;
-  case C.ADD_PAGE_FLOW:
-    return addFlow(newState, action.x, action.y, 'page');
-  case C.ADD_BRANCH_FLOW:
-    return addFlow(newState, action.x, action.y, 'branch');
-  case C.CLONE_PAGE:
-    return clonePage(newState, action.flowId, action.x, action.y);
-  case C.REMOVE_EDGE:
-    return removeEdge(newState, action.sourceFlowId, action.targetFlowId);
-  case C.REMOVE_FLOW:
-    return removeFlow(newState, action.flowId);
-  case C.CHANGE_POSITION:
-    return changePosition(newState, action.flowId, action.x, action.y);
-  case C.CONNECT_FLOW:
-    return connectFlow(newState, action.sourceFlowId, action.dstFlowId);
-  case C.SET_ELEMENTS_POSITION:
-    return setElementsPosition(newState, action.positions);
-  case C.LOAD_STATE:
-    return action.state;
-  case C.RESIZE_GRAPH_PANE:
-    return resizeGraphPane(newState, action.graphWidth);
-  case C.RESIZE_HOT_PANE:
-    return resizeHotPane(newState, action.hotHeight);
-  case C.CHANGE_CUSTOM_PAGE:
-    return changeCustomPage(newState, action.customPageId, action.html);
-  case C.CHANGE_CODEMIRROR:
-    return changeCodemirror(newState, action.yaml);
-  case C.CHANGE_PAGE_SETTING:
-    return changePageSetting(newState, action.type, action.pageSetting);
-    break;
-  case C.CHANGE_QUESTION_ID:
-    return changeQuestionId(newState, action.type, action.pageId, action.oldQuestionId, action.newQuestionId);
-  case C.CHANGE_QUESTION:
-    return changeQuestion(newState, action.pageId, action.questionId, action.question);
-  case C.CHANGE_BRANCH:
-    return changeBranch(newState, action.branchId, action.branch);
-  case C.MOVE_CONDITION:
-    return moveCondition(newState, action.branchId, action.sourceIndex, action.toIndex);
-  case C.ADD_COMPONENT:
-    return addComponent(newState, action.component);
-    break;
-  default:
-    return newState;
+    case C.CHANGE_DEFS:
+      newState.defs[action.defsName] = Utils.cloneObj(action.defs);
+      return newState;
+    case C.SELECT_FLOW:
+      newState.values.currentFlowId = action.flowId;
+      return newState;
+    case C.ADD_PAGE_FLOW:
+      return addFlow(newState, action.x, action.y, 'page');
+    case C.ADD_BRANCH_FLOW:
+      return addFlow(newState, action.x, action.y, 'branch');
+    case C.CLONE_PAGE:
+      return clonePage(newState, action.flowId, action.x, action.y);
+    case C.REMOVE_EDGE:
+      return removeEdge(newState, action.sourceFlowId, action.targetFlowId);
+    case C.REMOVE_FLOW:
+      return removeFlow(newState, action.flowId);
+    case C.CHANGE_POSITION:
+      return changePosition(newState, action.flowId, action.x, action.y);
+    case C.CONNECT_FLOW:
+      return connectFlow(newState, action.sourceFlowId, action.dstFlowId);
+    case C.SET_ELEMENTS_POSITION:
+      return setElementsPosition(newState, action.positions);
+    case C.LOAD_STATE:
+      return action.state;
+    case C.RESIZE_GRAPH_PANE:
+      return resizeGraphPane(newState, action.graphWidth);
+    case C.RESIZE_HOT_PANE:
+      return resizeHotPane(newState, action.hotHeight);
+    case C.CHANGE_CUSTOM_PAGE:
+      return changeCustomPage(newState, action.customPageId, action.html);
+    case C.CHANGE_CODEMIRROR:
+      return changeCodemirror(newState, action.yaml);
+    case C.CHANGE_PAGE_SETTING:
+      return changePageSetting(newState, action.type, action.pageSetting);
+      break;
+    case C.CHANGE_QUESTION_ID:
+      return changeQuestionId(newState, action.type, action.pageId, action.oldQuestionId, action.newQuestionId);
+    case C.CHANGE_QUESTION:
+      return changeQuestion(newState, action.pageId, action.questionId, action.question);
+    case C.CHANGE_BRANCH:
+      return changeBranch(newState, action.branchId, action.branch);
+    case C.MOVE_CONDITION:
+      return moveCondition(newState, action.branchId, action.sourceIndex, action.toIndex);
+    case C.ADD_COMPONENT:
+      return addComponent(newState, action.component);
+      break;
+    default:
+      return newState;
   }
 }
 export default function reducer(state, action) {

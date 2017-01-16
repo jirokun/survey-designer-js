@@ -1,15 +1,15 @@
-import React, { Component, PropTypes } from 'react'
-import LinkedStateMixin from 'react-addons-linked-state-mixin'
-import ReactMixin from 'react-mixin'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React, { Component, PropTypes } from 'react';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import ReactMixin from 'react-mixin';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import TinyMCE from 'react-tinymce';
 import ChoiceEditor from '../ChoiceEditor';
 import { HelpBlock, InputGroup, Row, Col, Form, FormGroup, ControlLabel, FormControl, Radio, Checkbox } from 'react-bootstrap';
-import * as EditorActions from '../../actions'
-import * as RuntimeActions from '../../../runtime/actions'
-import * as Utils from '../../../utils'
-import uuid from 'node-uuid'
+import * as EditorActions from '../../actions';
+import * as RuntimeActions from '../../../runtime/actions';
+import * as Utils from '../../../utils';
+import uuid from 'node-uuid';
 
 class CheckboxEditor extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class CheckboxEditor extends Component {
     this.state = {
       title: question.title,
       beforeNote: question.beroreNote === undefined ? '' : question.beforeNote,
-      choices: question.choices
+      choices: question.choices,
     };
   }
 
@@ -31,10 +31,10 @@ class CheckboxEditor extends Component {
       vertical: true,
       choices: [
         '選択肢1',
-        '選択肢2'
+        '選択肢2',
       ],
       random: false,
-      randomFixLast: false
+      randomFixLast: false,
     };
   }
 
@@ -58,13 +58,13 @@ class CheckboxEditor extends Component {
     const vertical = this.directionVertical.checked;
     const choices = this.state.choices;
     const questionDef = {
-      title, beforeNote, vertical, choices
+      title, beforeNote, vertical, choices,
     };
     changeQuestion(page.id, question.id, questionDef);
   }
 
   handleChoiceChange(choices) {
-    this.setState({choices}, this.handleCheckboxEditorChange.bind(this));
+    this.setState({ choices }, this.handleCheckboxEditorChange.bind(this));
   }
 
   handleTinyMCEChange(prop, event, editor) {
@@ -82,24 +82,23 @@ class CheckboxEditor extends Component {
         <FormGroup>
           <Col componentClass={ControlLabel} md={2}>並び方向</Col>
           <Col md={10}>
-            <Radio inputRef={ref => { this.directionVertical = ref }} name="direction" onChange={this.handleCheckboxEditorChange.bind(this)} checked={question.vertical} inline>Vertical</Radio>
-            <Radio inputRef={ref => { this.directionHorizontal = ref }} name="direction" onChange={this.handleCheckboxEditorChange.bind(this)} checked={!question.vertical} inline>Horizontal</Radio>
+            <Radio inputRef={(ref) => { this.directionVertical = ref; }} name="direction" onChange={this.handleCheckboxEditorChange.bind(this)} checked={question.vertical} inline>Vertical</Radio>
+            <Radio inputRef={(ref) => { this.directionHorizontal = ref; }} name="direction" onChange={this.handleCheckboxEditorChange.bind(this)} checked={!question.vertical} inline>Horizontal</Radio>
           </Col>
         </FormGroup>
         <FormGroup>
           <Col componentClass={ControlLabel} md={2}>質問タイトル</Col>
           <Col md={10}>
-            <TinyMCE id={`${this.uuid}-questionTitleEditor`}
-              config={
-                {
-                  menubar: '',
-                  toolbar: 'styleselect fontselect fontsizeselect bullist numlist outdent indent blockquote removeformat link unlink image visualchars fullscreen table forecolor backcolor',
-                  plugins: 'table contextmenu textcolor paste fullscreen lists image link',
-                  inline: false,
-                  height: 40,
-                  statusbar: false
-                }
-              }
+            <TinyMCE
+              id={`${this.uuid}-questionTitleEditor`}
+              config={{
+                menubar: '',
+                toolbar: 'styleselect fontselect fontsizeselect bullist numlist outdent indent blockquote removeformat link unlink image visualchars fullscreen table forecolor backcolor',
+                plugins: 'table contextmenu textcolor paste fullscreen lists image link',
+                inline: false,
+                height: 40,
+                statusbar: false,
+              }}
               onKeyup={this.handleTinyMCEChange.bind(this, 'title')}
               onChange={this.handleTinyMCEChange.bind(this, 'title')}
               content={question.title}
@@ -109,17 +108,16 @@ class CheckboxEditor extends Component {
         <FormGroup>
           <Col componentClass={ControlLabel} md={2}>補足</Col>
           <Col md={10}>
-            <TinyMCE id={`${this.uuid}-questionBeforeNoteEditor`}
-              config={
-                {
-                  menubar: '',
-                  toolbar: 'styleselect fontselect fontsizeselect bullist numlist outdent indent blockquote removeformat link unlink image visualchars fullscreen table forecolor backcolor',
-                  plugins: 'table contextmenu textcolor paste fullscreen lists image link',
-                  inline: false,
-                  height: 40,
-                  statusbar: false
-                }
-              }
+            <TinyMCE
+              id={`${this.uuid}-questionBeforeNoteEditor`}
+              config={{
+                menubar: '',
+                toolbar: 'styleselect fontselect fontsizeselect bullist numlist outdent indent blockquote removeformat link unlink image visualchars fullscreen table forecolor backcolor',
+                plugins: 'table contextmenu textcolor paste fullscreen lists image link',
+                inline: false,
+                height: 40,
+                statusbar: false,
+              }}
               onKeyup={this.handleTinyMCEChange.bind(this, 'beforeNote')}
               onChange={this.handleTinyMCEChange.bind(this, 'beforeNote')}
               content={question.beforeNote}
@@ -129,7 +127,7 @@ class CheckboxEditor extends Component {
         <FormGroup>
           <Col componentClass={ControlLabel} md={2}>選択肢</Col>
           <Col md={10}>
-            <ChoiceEditor page={page} question={question} choices={choices} plainText={plainText} handleChoiceChange={this.handleChoiceChange.bind(this)}/>
+            <ChoiceEditor page={page} question={question} choices={choices} plainText={plainText} handleChoiceChange={this.handleChoiceChange.bind(this)} />
           </Col>
         </FormGroup>
 
@@ -150,10 +148,10 @@ ReactMixin(CheckboxEditor.prototype, LinkedStateMixin);
 const stateToProps = state => ({
 });
 const actionsToProps = dispatch => ({
-  changeQuestion: (pageId, questionId, value) => dispatch(EditorActions.changeQuestion(pageId, questionId, value))
+  changeQuestion: (pageId, questionId, value) => dispatch(EditorActions.changeQuestion(pageId, questionId, value)),
 });
 
 export default connect(
   stateToProps,
-  actionsToProps
+  actionsToProps,
 )(CheckboxEditor);

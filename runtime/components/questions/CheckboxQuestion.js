@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react'
-import * as Utils from '../../../utils'
+import React, { Component, PropTypes } from 'react';
+import * as Utils from '../../../utils';
 
 export default class CheckboxQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checkedList: []
+      checkedList: [],
     };
   }
   handleChange(i, e) {
@@ -21,7 +21,7 @@ export default class CheckboxQuestion extends Component {
   freeInput(opts, checked) {
     if (!opts.freeInput) return null;
     const { id, page, choices, vertical, inputValues } = this.props;
-    return <input className="free-input" type="text" name={`${page.id}_${id}_${opts.value}_free`} disabled={!checked}/>
+    return <input className="free-input" type="text" name={`${page.id}_${id}_${opts.value}_free`} disabled={!checked} />;
   }
   makeItems() {
     const { id, page, choices, vertical, inputValues } = this.props;
@@ -38,25 +38,25 @@ export default class CheckboxQuestion extends Component {
       } else {
         Object.assign(opts, label);
       }
-      return <div className={labelClassName}>
+      return (<div className={labelClassName}>
         <label key={id + i}>
-          <input type="checkbox" name={`${page.id}_${id}`} value={opts.value} onChange={this.handleChange.bind(this, i)}/>
-          <span dangerouslySetInnerHTML={{__html: Utils.r(opts.label, inputValues)}}/>
+          <input type="checkbox" name={`${page.id}_${id}`} value={opts.value} onChange={this.handleChange.bind(this, i)} />
+          <span dangerouslySetInnerHTML={{ __html: Utils.r(opts.label, inputValues) }} />
         </label>
         {this.freeInput(opts, checkedList[i])}
-      </div>;
+      </div>);
     });
   }
   render() {
     const { title, beforeNote, afterNote, inputValues } = this.props;
     return (
       <div className={this.constructor.name}>
-        <h3 className="question-title" dangerouslySetInnerHTML={{__html: Utils.r(title, inputValues)}} />
-        <div className="beforeNote" dangerouslySetInnerHTML={{__html: Utils.r(beforeNote, inputValues)}} />
+        <h3 className="question-title" dangerouslySetInnerHTML={{ __html: Utils.r(title, inputValues) }} />
+        <div className="beforeNote" dangerouslySetInnerHTML={{ __html: Utils.r(beforeNote, inputValues) }} />
         <div className="choices">
           {this.makeItems()}
         </div>
-        <div className="beforeNote" dangerouslySetInnerHTML={{__html: Utils.r(afterNote, inputValues)}} />
+        <div className="beforeNote" dangerouslySetInnerHTML={{ __html: Utils.r(afterNote, inputValues) }} />
       </div>
     );
   }
@@ -64,7 +64,7 @@ export default class CheckboxQuestion extends Component {
 
 CheckboxQuestion.defaultProps = {
   inputValues: [],
-  vertical: true
+  vertical: true,
 };
 
 CheckboxQuestion.propTypes = {

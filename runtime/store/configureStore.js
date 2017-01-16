@@ -1,19 +1,19 @@
-import { createStore } from 'redux'
-import rootReducer from '../reducers'
+import { createStore } from 'redux';
+import rootReducer from '../reducers';
 
-var defaultState = {
+const defaultState = {
   defs: {
     choiceDefs: [],
     itemDefs: [],
     questionDefs: [],
     pageDefs: [],
     conditionDefs: [],
-    flowDefs: []
+    flowDefs: [],
   },
   values: {
     flowStack: [],
-    inputValues: {}
-  }
+    inputValues: {},
+  },
 };
 export default function configureStore(initialState = defaultState) {
   const store = createStore(rootReducer, initialState);

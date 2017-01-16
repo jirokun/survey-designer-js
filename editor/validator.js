@@ -1,4 +1,4 @@
-import * as Utils from '../utils'
+import * as Utils from '../utils';
 
 export function validateQuestionId(page, currentQuestionId, newQuestionId) {
   console.log(currentQuestionId, newQuestionId);

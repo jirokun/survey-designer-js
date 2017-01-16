@@ -1,25 +1,25 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import TinyMCE from 'react-tinymce';
 import CheckboxEditor from './question_editor/CheckboxEditor';
 import { HelpBlock, InputGroup, Col, Form, FormGroup, ControlLabel, FormControl, Radio, Checkbox } from 'react-bootstrap';
-import * as EditorActions from '../actions'
-import * as RuntimeActions from '../../runtime/actions'
-import * as Utils from '../../utils'
-import * as Validator from '../validator'
+import * as EditorActions from '../actions';
+import * as RuntimeActions from '../../runtime/actions';
+import * as Utils from '../../utils';
+import * as Validator from '../validator';
 
 class QuestionEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionId: props.question.id
+      questionId: props.question.id,
     };
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      questionId: nextProps.question.id
+      questionId: nextProps.question.id,
     });
   }
 
@@ -31,7 +31,7 @@ class QuestionEditor extends Component {
 
     this.setState({
       validationState,
-      questionId
+      questionId,
     });
 
     // 成功時のみ更新する
@@ -45,11 +45,11 @@ class QuestionEditor extends Component {
     switch (name) {
       case 'radio':
       case 'checkbox':
-        return <CheckboxEditor page={page} question={question} plainText={false}/>;
+        return <CheckboxEditor page={page} question={question} plainText={false} />;
       case 'select':
-        return <CheckboxEditor page={page} question={question} plainText={true}/>;
+        return <CheckboxEditor page={page} question={question} plainText />;
       default:
-        throw 'undefined editor: ' + name;
+        throw `undefined editor: ${name}`;
     }
   }
   render() {
@@ -61,7 +61,7 @@ class QuestionEditor extends Component {
           <Col sm={4}>
             <InputGroup>
               <InputGroup.Addon>{page.id}-</InputGroup.Addon>
-              <FormControl ref="questionId" type="text" value={this.state.questionId} onChange={this.onQuestionIdChanged.bind(this)}/>
+              <FormControl ref="questionId" type="text" value={this.state.questionId} onChange={this.onQuestionIdChanged.bind(this)} />
             </InputGroup>
           </Col>
         </FormGroup>
@@ -73,13 +73,13 @@ class QuestionEditor extends Component {
 }
 
 const stateToProps = state => ({
-  state: state
+  state,
 });
 const actionsToProps = dispatch => ({
-  changeQuestionId: (pageId, oldQuestionId, newQuestionId) => dispatch(EditorActions.changeQuestionId(pageId, oldQuestionId, newQuestionId))
+  changeQuestionId: (pageId, oldQuestionId, newQuestionId) => dispatch(EditorActions.changeQuestionId(pageId, oldQuestionId, newQuestionId)),
 });
 
 export default connect(
   stateToProps,
-  actionsToProps
+  actionsToProps,
 )(QuestionEditor);

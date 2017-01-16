@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { errorMessage, isString, r } from '../../../utils'
+import React, { Component, PropTypes } from 'react';
+import { errorMessage, isString, r } from '../../../utils';
 
 export default class RadioQuestion extends Component {
   constructor(props) {
@@ -19,20 +19,20 @@ export default class RadioQuestion extends Component {
       } else {
         Object.assign(obj, label);
       }
-      return <label key={id + i} className={labelClassName}>
-        <input type="radio" name={id} value={obj.value}/>
-        <span dangerouslySetInnerHTML={{__html: r(obj.label, inputValues)}}/>
-      </label>;
+      return (<label key={id + i} className={labelClassName}>
+        <input type="radio" name={id} value={obj.value} />
+        <span dangerouslySetInnerHTML={{ __html: r(obj.label, inputValues) }} />
+      </label>);
     });
   }
   render() {
     const { title, beforeNote, afterNote, inputValues } = this.props;
     return (
       <div className={this.constructor.name}>
-        <h3 className="question-title" dangerouslySetInnerHTML={{__html: r(title, inputValues)}} />
-        <div className="beforeNote" dangerouslySetInnerHTML={{__html: r(beforeNote, inputValues)}} />
+        <h3 className="question-title" dangerouslySetInnerHTML={{ __html: r(title, inputValues) }} />
+        <div className="beforeNote" dangerouslySetInnerHTML={{ __html: r(beforeNote, inputValues) }} />
         {this.makeItems()}
-        <div className="beforeNote" dangerouslySetInnerHTML={{__html: r(afterNote, inputValues)}} />
+        <div className="beforeNote" dangerouslySetInnerHTML={{ __html: r(afterNote, inputValues) }} />
       </div>
     );
   }
@@ -40,7 +40,7 @@ export default class RadioQuestion extends Component {
 
 RadioQuestion.defaultProps = {
   inputValues: [],
-  vertical: true
+  vertical: true,
 };
 
 RadioQuestion.propTypes = {

@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { errorMessage, isString, r } from '../../../utils'
+import React, { Component, PropTypes } from 'react';
+import { errorMessage, isString, r } from '../../../utils';
 
 export default class SelectQuestion extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ export default class SelectQuestion extends Component {
 }
 
 SelectQuestion.defaultProps = {
-  multiple: false
+  multiple: false,
 };
 SelectQuestion.propTypes = {
   type: PropTypes.string.isRequired,

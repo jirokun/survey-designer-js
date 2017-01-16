@@ -1,15 +1,15 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
-import { connect } from 'react-redux'
-import InvalidTypeQuestion from '../components/questions/InvalidTypeQuestion'
-import TextQuestion from '../components/questions/TextQuestion'
-import TextareaQuestion from '../components/questions/TextareaQuestion'
-import CheckboxQuestion from '../components/questions/CheckboxQuestion'
-import RadioQuestion from '../components/questions/RadioQuestion'
-import SelectQuestion from '../components/questions/SelectQuestion'
-import MatrixQuestion from '../components/questions/MatrixQuestion'
-import { nextPage, prevPage, valueChange } from '../actions'
-import { findQuestions, findCustomPage, r } from '../../utils'
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import InvalidTypeQuestion from '../components/questions/InvalidTypeQuestion';
+import TextQuestion from '../components/questions/TextQuestion';
+import TextareaQuestion from '../components/questions/TextareaQuestion';
+import CheckboxQuestion from '../components/questions/CheckboxQuestion';
+import RadioQuestion from '../components/questions/RadioQuestion';
+import SelectQuestion from '../components/questions/SelectQuestion';
+import MatrixQuestion from '../components/questions/MatrixQuestion';
+import { nextPage, prevPage, valueChange } from '../actions';
+import { findQuestions, findCustomPage, r } from '../../utils';
 
 class Page extends Component {
   componentDidMount() {
@@ -31,7 +31,7 @@ class Page extends Component {
       const func = new Function('document', 'pageEl', 'pageId', 'values', js);
       const ownerDoc = this.refs.page.ownerDocument;
       func(ownerDoc, this.refs.page, page.id, inputValues);
-    } catch(e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -40,7 +40,7 @@ class Page extends Component {
     const root = ReactDOM.findDOMNode(this);
     const formElements = root.querySelectorAll('input,textarea,select');
     const values = {};
-    for (var i = 0, len = formElements.length; i < len; i++) {
+    for (let i = 0, len = formElements.length; i < len; i++) {
       const el = formElements[i];
       const name = el.name;
       if ((el.tagName === 'INPUT' && el.type === 'checkbox') ||
@@ -48,7 +48,7 @@ class Page extends Component {
         if (values[name] === undefined) {
           values[name] = [];
         }
-        values[name].push({value: el.value, checked: el.checked});
+        values[name].push({ value: el.value, checked: el.checked });
       } else {
         values[name] = el.value;
       }
@@ -76,7 +76,7 @@ class Page extends Component {
       // selectのnameは一つとする
       if (elements[0].multiple) {
         const ret = {};
-        Array.prototype.slice.call(elements[0].querySelectorAll('option')).forEach(option => {
+        Array.prototype.slice.call(elements[0].querySelectorAll('option')).forEach((option) => {
           ret[option.value] = option.selected;
         });
         return ret;
@@ -95,7 +95,7 @@ class Page extends Component {
     }
     return page.questions.map((q, index) => {
       let component;
-      switch(q.type) {
+      switch (q.type) {
         case 'text':
           component = TextQuestion;
           break;
@@ -119,7 +119,8 @@ class Page extends Component {
           break;
       }
       const key = `${page.id}_${index + 1}`;
-      return <div className="question" key={key}>{ React.createElement(component, { id: key, page, inputValues, ...q }) }</div>
+      const props = Object.assign({ id: key, page, inputValues }, q);
+      return <div className="question" key={key}>{ React.createElement(component, props) }</div>;
     });
   }
   render() {
@@ -130,7 +131,7 @@ class Page extends Component {
     }
     return (
       <div ref="page" className="page">
-        <h2 className="page-title" dangerouslySetInnerHTML={{__html: r(page.title, inputValues)}} />
+        <h2 className="page-title" dangerouslySetInnerHTML={{ __html: r(page.title, inputValues) }} />
         { this.makeQuestions() }
         <div>
           <button style={backButtonStyle} onClick={prevPage}>戻る</button>
@@ -141,13 +142,9 @@ class Page extends Component {
   }
 }
 
-Page.propTypes = {
-  page: PropTypes.object.isRequired
-};
-
 const stateToProps = state => ({
   flowStack: state.values.flowStack,
-  inputValues: state.values.inputValues
+  inputValues: state.values.inputValues,
 });
 const actionsToProps = dispatch => ({
   valueChange: (itemName, value) => dispatch(valueChange(itemName, value)),
@@ -157,5 +154,5 @@ const actionsToProps = dispatch => ({
 
 export default connect(
   stateToProps,
-  actionsToProps
+  actionsToProps,
 )(Page);

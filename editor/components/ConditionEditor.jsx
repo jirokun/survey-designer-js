@@ -1,35 +1,41 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
-import update from 'react/lib/update';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import TinyMCE from 'react-tinymce';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
-import CheckboxEditor from './question_editor/CheckboxEditor';
-import { Well, Panel, Glyphicon, Form, FormGroup, ControlLabel, Grid, Col, Row } from 'react-bootstrap';
-import * as EditorActions from '../actions'
-import * as RuntimeActions from '../../runtime/actions'
-import * as Utils from '../../utils'
-import * as Validator from '../validator'
+import { Well, Glyphicon } from 'react-bootstrap';
+import * as Utils from '../../utils';
 
-class ConditionEditor extends Component {
-  constructor(props) {
-    super(props);
+class ConditionEditorOrig extends Component {
+  getCondition() {
+    const root = this.root;
+    const type = this.conditionTypeEl.value;
+    const nextFlowId = this.conditionNextFlowIdEl.value;
+    const refIdElements = root.querySelectorAll('.condition-ref-id');
+    const refValueElements = root.querySelectorAll('.condition-ref-value');
+    const refOperatorElements = root.querySelectorAll('.condition-ref-operator');
+    const childConditions = Array.prototype.slice.apply(refIdElements).map((el, i) => ({
+      refQuestionId: refIdElements[i].value,
+      operator: refOperatorElements[i].value,
+      value: refValueElements[i].value,
+    }));
+    const condition = { type, nextFlowId, childConditions };
+    this.validateCondition(condition);
+    return condition;
   }
 
-  handleClickAddButton(ccIndex, e) {
-    const { handleChangeBranch, index } = this.props;
+  handleClickAddButton(ccIndex) {
+    const { handleChangeBranch } = this.props;
     const condition = this.getCondition();
     condition.childConditions.splice(ccIndex, 0, {
       refQuestionId: '',
-      operator : '==',
-      value: ''
+      operator: '==',
+      value: '',
     });
 
     handleChangeBranch(index, condition);
   }
 
-  handleClickMinusButton(ccIndex, e) {
+  handleClickMinusButton(ccIndex) {
     const { handleChangeBranch, index } = this.props;
     const condition = this.getCondition();
     condition.childConditions.splice(ccIndex, 1);
@@ -38,36 +44,14 @@ class ConditionEditor extends Component {
 
   handleChange() {
     const { handleChangeBranch, index } = this.props;
-    const type = this.refs.conditionType.value;
-    const nextFlowId = this.refs.conditionNextFlowId.value;
-
     handleChangeBranch(index, this.getCondition());
-  }
-
-  getCondition() {
-    const root = ReactDOM.findDOMNode(this);
-    const type = this.refs.conditionType.value;
-    const nextFlowId = this.refs.conditionNextFlowId.value;
-    const refIdElements= root.querySelectorAll('.condition-ref-id');
-    const refValueElements = root.querySelectorAll('.condition-ref-value');
-    const refOperatorElements = root.querySelectorAll('.condition-ref-operator');
-    const childConditions = Array.prototype.slice.apply(refIdElements).map((el, i) => {
-      return {
-        refQuestionId: refIdElements[i].value,
-        operator: refOperatorElements[i].value,
-        value: refValueElements[i].value
-      };
-    });
-    const condition = { type, nextFlowId, childConditions };
-    this.validateCondition(condition);
-    return condition;
   }
 
   validateCondition(nextCondition) {
     const { state, condition } = this.props;
     const validationState = {
       isNextFlowIdValid: !!Utils.findFlow(state, nextCondition.nextFlowId),
-      isChildConditionsValid: nextCondition.childConditions.map(cc => !!Utils.findQuestionByStr(state, cc.refQuestionId))
+      isChildConditionsValid: nextCondition.childConditions.map(cc => !!Utils.findQuestionByStr(state, cc.refQuestionId)),
     };
     if (!validationState.isNextFlowIdValid || !validationState.isChildConditionsValid.some(s => !s)) {
       this.setState(validationState);
@@ -77,10 +61,10 @@ class ConditionEditor extends Component {
 
   renderChildCondition(childCondition, index, childConditions) {
     return (
-      <div key={`child-conditions-${index}`} className="condition-editor">
-        <input type="text" className="form-control condition-ref-id" placeholder="質問ID" value={childCondition.refQuestionId} onChange={this.handleChange.bind(this)}/>
+      <div ref={node => this.root = node} key={`child-conditions-${index}`} className="condition-editor">
+        <input type="text" className="form-control condition-ref-id" placeholder="質問ID" value={childCondition.refQuestionId} onChange={this.handleChange.bind(this)} />
         <span>の値が</span>
-        <input type="text" className="form-control condition-ref-value" placeholder="値" value={childCondition.value} onChange={this.handleChange.bind(this)}/>
+        <input type="text" className="form-control condition-ref-value" placeholder="値" value={childCondition.value} onChange={this.handleChange.bind(this)} />
         <select className="form-control condition-ref-operator" value={childCondition.operator} onChange={this.handleChange.bind(this)}>
           <option value=">=">以上</option>
           <option value="==">と等しい</option>
@@ -90,8 +74,8 @@ class ConditionEditor extends Component {
           <option value="includes">の選択肢を選択している</option>
           <option value="notIncludes">の選択肢を選択していない</option>
         </select>
-        <Glyphicon className="clickable icon-button text-info" glyph="plus-sign" onClick={this.handleClickAddButton.bind(this, index)}/>
-        { childConditions.length === 1 ? null : <Glyphicon className="clickable icon-button text-danger" glyph="minus-sign" onClick={this.handleClickMinusButton.bind(this, index)}/> }
+        <Glyphicon className="clickable icon-button text-info" glyph="plus-sign" onClick={this.handleClickAddButton.bind(this, index)} />
+        { childConditions.length === 1 ? null : <Glyphicon className="clickable icon-button text-danger" glyph="minus-sign" onClick={this.handleClickMinusButton.bind(this, index)} /> }
       </div>
     );
   }
@@ -100,15 +84,15 @@ class ConditionEditor extends Component {
     const { condition, isDragging, index } = this.props;
     const opacity = isDragging ? 0 : 1;
     return (
-      <Well className="branch-editor" style={{opacity}}>
+      <Well className="branch-editor" style={{ opacity }}>
         <div className="branch-editor-header">
           <span>以下の</span>
-          <select ref="conditionType" className="form-control condition-type" value={condition.type} onChange={this.handleChange.bind(this)}>
+          <select ref={node => this.conditionTypeEl = node} className="form-control condition-type" value={condition.type} onChange={this.handleChange.bind(this)}>
             <option value="all">全て</option>
             <option value="any">いずれか</option>
           </select>
           <span>を満たす場合</span>
-          <input ref="conditionNextFlowId" type="text" className="form-control condition-next-flow-id" value={condition.nextFlowId} readOnly={true}/>
+          <input ref={node => this.conditionNextFlowIdEl = node} type="text" className="form-control condition-next-flow-id" value={condition.nextFlowId} readOnly />
           <span>に遷移する</span>
         </div>
         <div className="branch-editor-body">
@@ -122,10 +106,13 @@ class ConditionEditor extends Component {
     const { condition, isDragging, index } = this.props;
     const opacity = isDragging ? 0 : 1;
     return (
-      <Well className="branch-editor" style={{opacity}}>
+      <Well className="branch-editor" style={{ opacity }}>
         <div className="branch-editor-header">
           <span>上記以外の場合</span>
-          <input ref="conditionNextFlowId" type="text" className="form-control condition-next-flow-id" value={condition.nextFlowId} readOnly={true}/>
+          <input
+            ref={node => this.conditionNextFlowIdEl = node} type="text"
+            className="form-control condition-next-flow-id" value={condition.nextFlowId} readOnly
+          />
           <span>に遷移する</span>
         </div>
       </Well>
@@ -133,8 +120,8 @@ class ConditionEditor extends Component {
   }
 
   render() {
-    const { condition, isLast, isDragging, connectDragSource, connectDropTarget } = this.props;
-    return connectDragSource(connectDropTarget(<div>{isLast ? this.renderLast() : this.renderNotLast()}</div>))
+    const { isLast, connectDragSource, connectDropTarget } = this.props;
+    return connectDragSource(connectDropTarget(<div>{isLast ? this.renderLast() : this.renderNotLast()}</div>));
   }
 }
 
@@ -142,9 +129,9 @@ const conditionSource = {
   beginDrag(props) {
     return {
       id: props.nextFlowId,
-      index: props.index
+      index: props.index,
     };
-  }
+  },
 };
 
 const conditionTarget = {
@@ -184,24 +171,25 @@ const conditionTarget = {
     }
 
     // Time to actually perform the action
-    //console.log(dragIndex, hoverIndex);
+    // console.log(dragIndex, hoverIndex);
     props.handleMoveCondition(dragIndex, hoverIndex);
 
     // Note: we're mutating the monitor item here!
     // Generally it's better to avoid mutations,
     // but it's good here for the sake of performance
     // to avoid expensive index searches.
-    monitor.getItem().index = hoverIndex;
-  }
+    const item = monitor.getItem();
+    item.index = hoverIndex;
+  },
 };
 
 const stateToProps = state => ({
-  state: state
+  state,
 });
-const actionsToProps = dispatch => ({
+const actionsToProps = () => ({
 });
 
-ConditionEditor = DropTarget('CONDITION', conditionTarget, (connect) => ({ connectDropTarget: connect.dropTarget() }))(ConditionEditor);
-ConditionEditor = DragSource('CONDITION', conditionSource, (connect, monitor) => ({ connectDragSource: connect.dragSource(), isDragging: monitor.isDragging() }))(ConditionEditor);
-ConditionEditor = connect(stateToProps, actionsToProps)(ConditionEditor);
+const DropTargetConditionEditor = DropTarget('CONDITION', conditionTarget, dndConnect => ({ connectDropTarget: dndConnect.dropTarget() }))(ConditionEditorOrig);
+const DragSourceConditionEditor = DragSource('CONDITION', conditionSource, (dndConnect, monitor) => ({ connectDragSource: dndConnect.dragSource(), isDragging: monitor.isDragging() }))(DropTargetConditionEditor);
+const ConditionEditor = connect(stateToProps, actionsToProps)(DragSourceConditionEditor);
 export default ConditionEditor;

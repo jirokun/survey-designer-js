@@ -1,26 +1,26 @@
-import React, { Component, PropTypes } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import Codemirror from 'react-codemirror'
-import CodemirrorYaml from 'codemirror/mode/yaml/yaml'
-import VisualEditor from './VisualEditor'
-import javascript from 'codemirror/mode/javascript/javascript'
-import yaml from 'js-yaml'
-import * as EditorActions from '../actions'
-import * as RuntimeActions from '../../runtime/actions'
-import * as Utils from '../../utils'
-import '../../node_modules/codemirror/lib/codemirror.css'
-import '../../node_modules/codemirror/theme/erlang-dark.css'
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Codemirror from 'react-codemirror';
+import CodemirrorYaml from 'codemirror/mode/yaml/yaml';
+import VisualEditor from './VisualEditor';
+import javascript from 'codemirror/mode/javascript/javascript';
+import yaml from 'js-yaml';
+import * as EditorActions from '../actions';
+import * as RuntimeActions from '../../runtime/actions';
+import * as Utils from '../../utils';
+import '../../node_modules/codemirror/lib/codemirror.css';
+import '../../node_modules/codemirror/theme/erlang-dark.css';
 
 class Editor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'visual'
+      mode: 'visual',
     };
   }
   setMode(mode) {
-    this.setState({mode});
+    this.setState({ mode });
   }
   render() {
     let code = '';
@@ -35,18 +35,18 @@ class Editor extends Component {
     }
     const codemirrorOptions = {
       lineNumbers: true,
-      mode: 'yaml'
+      mode: 'yaml',
     };
 
     const codeMirrorStyle = {
       height: '100%',
-      display: mode == 'advanced' ? '' : 'none'
-    }
+      display: mode == 'advanced' ? '' : 'none',
+    };
 
     const mode = this.state.mode;
     const editor = (mode == 'advanced' ?
       <Codemirror ref="codemirror" style={codeMirrorStyle} value={code} onChange={this.props.changeCodemirror} options={codemirrorOptions} /> :
-      <VisualEditor/>);
+      <VisualEditor />);
 
     const buttonClassBase = 'btn btn-default btn-sm ';
     return (
@@ -62,13 +62,13 @@ class Editor extends Component {
 }
 
 const stateToProps = state => ({
-  state: state
+  state,
 });
 const actionsToProps = dispatch => ({
-  changeCodemirror: value => dispatch(EditorActions.changeCodemirror(value))
+  changeCodemirror: value => dispatch(EditorActions.changeCodemirror(value)),
 });
 
 export default connect(
   stateToProps,
-  actionsToProps
+  actionsToProps,
 )(Editor);

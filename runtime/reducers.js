@@ -1,12 +1,12 @@
-import { INIT_ALL_DEFS, SELECT_FLOW, CHANGE_DEFS, VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from '../constants'
-import { cloneObj, findFlow, findBranch } from '../utils'
+import { INIT_ALL_DEFS, SELECT_FLOW, CHANGE_DEFS, VALUE_CHANGE, NEXT_PAGE, PREV_PAGE } from '../constants';
+import { cloneObj, findFlow, findBranch } from '../utils';
 
 /**
  * branchを評価する
  */
 function evaluateBranch(state, branchFlow) {
   function evaluateConditions(func, childConditions) {
-    return func.call(childConditions, cc => {
+    return func.call(childConditions, (cc) => {
       const inputValue = state.values.inputValues[cc.refQuestionId];
       if (cc.operator === 'includes') {
         const checkboxValue = inputValue.find(v => v.value === cc.value);
@@ -60,7 +60,7 @@ function nextFlowPage(state, flowId) {
         }
       }
     default:
-      throw 'unkwon flow type: ' + nextFlow.type;
+      throw `unkwon flow type: ${nextFlow.type}`;
   }
 }
 function showPage(state, action) {
@@ -71,20 +71,20 @@ function showPage(state, action) {
     }
     case NEXT_PAGE: {
       const nextFlow = nextFlowPage(state, currentFlowId);
-      return { currentFlowId: nextFlow.id, flowStack: [...flowStack, currentFlowId]};
+      return { currentFlowId: nextFlow.id, flowStack: [...flowStack, currentFlowId] };
     }
     case PREV_PAGE: {
-      let newFlowStack = [...flowStack];
+      const newFlowStack = [...flowStack];
       const prevFlowId = newFlowStack.pop();
       return { currentFlowId: prevFlowId, flowStack: newFlowStack };
     }
     default: {
-      return { currentFlowId: currentFlowId, flowStack: [...flowStack]};
+      return { currentFlowId, flowStack: [...flowStack] };
     }
   }
 }
 function changeValue(state, action) {
-  let inputValues = Object.assign({}, state.values.inputValues);
+  const inputValues = Object.assign({}, state.values.inputValues);
   switch (action.type) {
     case VALUE_CHANGE:
       return Object.assign(inputValues, action.values);
@@ -93,7 +93,7 @@ function changeValue(state, action) {
   }
 }
 function changeDefs(state, action) {
-  let newState = cloneObj(state.defs);
+  const newState = cloneObj(state.defs);
   switch (action.type) {
     case INIT_ALL_DEFS:
       return cloneObj(action.allDefs);
@@ -114,10 +114,10 @@ export default function reducer(state, action) {
         values: {
           currentFlowId: action.allDefs.flowDefs[0].id,
           flowStack: [],
-          inputValues: []
+          inputValues: [],
         },
         defs: cloneObj(action.allDefs),
-        viewSettings: newState.viewSettings
+        viewSettings: newState.viewSettings,
       };
     }
     const { currentFlowId, flowStack } = showPage(state, action);
@@ -125,12 +125,12 @@ export default function reducer(state, action) {
       values: {
         currentFlowId,
         flowStack,
-        inputValues: changeValue(state, action)
+        inputValues: changeValue(state, action),
       },
       defs: changeDefs(state, action),
-      viewSettings: newState.viewSettings
-    }
-  } catch(e) {
+      viewSettings: newState.viewSettings,
+    };
+  } catch (e) {
     console.error(e);
     alert(e);
     return newState;

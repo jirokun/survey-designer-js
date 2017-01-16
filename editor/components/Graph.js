@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react'
-import { cloneObj, nextFlowId, findPage, findFlow, makeCytoscapeElements } from '../../utils'
-import { connect } from 'react-redux'
-import { loadState, setElementsPosition, changePosition, selectFlow, removeEdge, removeFlow, addBranch, addPageFlow, addBranchFlow, connectFlow, clonePage } from '../actions'
+import React, { Component, PropTypes } from 'react';
+import { cloneObj, nextFlowId, findPage, findFlow, makeCytoscapeElements } from '../../utils';
+import { connect } from 'react-redux';
+import { loadState, setElementsPosition, changePosition, selectFlow, removeEdge, removeFlow, addBranch, addPageFlow, addBranchFlow, connectFlow, clonePage } from '../actions';
 const cytoscape = require('cytoscape');
 const cycola = require('cytoscape-cola');
 const jquery = require('jquery');
@@ -16,7 +16,7 @@ class Graph extends Component {
     this.state = {
       rightClickPosition: null,
       sourceFlowId: null,
-      connectMode: false
+      connectMode: false,
     };
   }
   componentDidMount() {
@@ -53,7 +53,7 @@ class Graph extends Component {
     reader.onload = (e) => {
       const state = JSON.parse(e.target.result);
       loadState(state);
-    }
+    };
     reader.readAsText(file, 'UTF-8');
   }
   onSelectFlow(e) {
@@ -123,55 +123,55 @@ class Graph extends Component {
     const data = this.props.state.defs[this.defsName];
     const { state, onFlowSelected,
       onDeleteFlow, onAddFlow,
-      onDeleteEdge, onAddEdge
+      onDeleteEdge, onAddEdge,
     } = this.props;
     const elements = makeCytoscapeElements(state);
     const _this = this;
     return cytoscape({
       container: this.refs.graph, // container to render in
-      elements: elements,
+      elements,
       style: [ // the stylesheet for the graph
         {
           selector: 'node',
           style: {
             'background-color': '#666',
-            'label': 'data(label)'
-          }
+            label: 'data(label)',
+          },
         },
         {
           selector: '.selected',
           style: {
             'background-color': '#0ff',
-          }
+          },
         },
         {
           selector: '.branch',
           style: {
-            'shape': 'diamond',
-            'label': 'data(id)'
-          }
+            shape: 'diamond',
+            label: 'data(id)',
+          },
         },
         {
           selector: 'edge',
           style: {
-            'width': 3,
-            'label': 'data(label)',
+            width: 3,
+            label: 'data(label)',
             'line-color': '#ccc',
             'edge-text-rotation': 'autorotate',
             'target-arrow-color': '#ccc',
-            'target-arrow-shape': 'triangle'
-          }
-        }
+            'target-arrow-shape': 'triangle',
+          },
+        },
       ],
       layout: {
-        name: 'preset'
-      }
+        name: 'preset',
+      },
     });
   }
   addEventListenerToCytoscape() {
     const _this = this;
     // TODO 全部メソッドに移動すべき
-    this.cy.on("click", 'node', this.onSelectFlow.bind(this));
+    this.cy.on('click', 'node', this.onSelectFlow.bind(this));
     this.cy.on('click', this.finishConnectFlow.bind(this));
     this.cy.on('cxttapstart', this.onCxtTapstart.bind(this));
     this.cy.on('tapstart', this.onCxtTapstart.bind(this));
@@ -179,30 +179,30 @@ class Graph extends Component {
     this.cy.cxtmenu({
       selector: 'edge',
       commands: [
-        { content: 'remove edge', select: this.removeEdge.bind(this) }
-      ]
+        { content: 'remove edge', select: this.removeEdge.bind(this) },
+      ],
     });
     this.cy.cxtmenu({
       selector: 'core',
       commands: [
         { content: 'add page', select: this.addPage.bind(this) },
-        { content: 'add branch', select: this.addBranch.bind(this) }
-      ]
+        { content: 'add branch', select: this.addBranch.bind(this) },
+      ],
     });
     this.cy.cxtmenu({
       selector: 'node.page',
       commands: [
         { content: 'connect flow', select: this.startConnectFlow.bind(this) },
         { content: 'clone page', select: this.clonePage.bind(this) },
-        { content: 'remove page flow', select: this.removeFlow.bind(this) }
-      ]
+        { content: 'remove page flow', select: this.removeFlow.bind(this) },
+      ],
     });
     this.cy.cxtmenu({
       selector: 'node.branch',
       commands: [
         { content: 'connect flow', select: this.startConnectFlow.bind(this) },
-        { content: 'remove branch flow', select: this.removeFlow.bind(this) }
-      ]
+        { content: 'remove branch flow', select: this.removeFlow.bind(this) },
+      ],
     });
   }
   fit() {
@@ -212,40 +212,38 @@ class Graph extends Component {
     const { setElementsPosition } = this.props;
     this.cy.layout({ name: 'breadthfirst', directed: true });
     const positions = this.cy.elements().map((e) => {
-      const position = e.position()
-      return { flowId: e.data('id'), x: position.x, y:position.y };
+      const position = e.position();
+      return { flowId: e.data('id'), x: position.x, y: position.y };
     });
     setElementsPosition(positions);
   }
   load() {
-    var defs = this.cy.json().elements.nodes.map((el) => {
-      return { x: el.position.x, y: el.position.y, flowId: el.data.id };
-    });
+    const defs = this.cy.json().elements.nodes.map(el => ({ x: el.position.x, y: el.position.y, flowId: el.data.id }));
   }
   render() {
     const { state } = this.props;
-    const href = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(state, null, 2));
+    const href = `data:application/octet-stream,${encodeURIComponent(JSON.stringify(state, null, 2))}`;
     return (
-      <div ref="graph" className={ this.state.connectMode ? "graph connect-mode" : "graph" }>
+      <div ref="graph" className={this.state.connectMode ? 'graph connect-mode' : 'graph'}>
         <div className="graph-controller btn-group">
-          <button className="btn btn-default btn-sm" onClick={this.fit.bind(this)}><span className="glyphicon glyphicon-screenshot"></span></button>
-          <button className="btn btn-default btn-sm" onClick={this.autoLayout.bind(this)}><span className="glyphicon glyphicon-th"></span></button>
-          <a className="btn btn-default btn-sm" href={href} download="enquete.json"><span className="glyphicon glyphicon-floppy-save"></span></a>
-          <input id="fileInput" type="file" onChange={this.onFileSelected.bind(this)} accept=".json"/>
-          <label htmlFor="fileInput" className="btn btn-default btn-sm" onClick={this.load.bind(this)}><span className="glyphicon glyphicon-floppy-open"></span></label>
+          <button className="btn btn-default btn-sm" onClick={this.fit.bind(this)}><span className="glyphicon glyphicon-screenshot" /></button>
+          <button className="btn btn-default btn-sm" onClick={this.autoLayout.bind(this)}><span className="glyphicon glyphicon-th" /></button>
+          <a className="btn btn-default btn-sm" href={href} download="enquete.json"><span className="glyphicon glyphicon-floppy-save" /></a>
+          <input id="fileInput" type="file" onChange={this.onFileSelected.bind(this)} accept=".json" />
+          <label htmlFor="fileInput" className="btn btn-default btn-sm" onClick={this.load.bind(this)}><span className="glyphicon glyphicon-floppy-open" /></label>
         </div>
       </div>
-    )
+    );
   }
 }
 
 Graph.propTypes = {
-  state: PropTypes.object.isRequired
-}
+  state: PropTypes.object.isRequired,
+};
 
 const stateToProps = state => ({
-  state: state,
-  defs: state.defs
+  state,
+  defs: state.defs,
 });
 
 const actionsToProps = dispatch => ({
@@ -263,6 +261,6 @@ const actionsToProps = dispatch => ({
 
 export default connect(
   stateToProps,
-  actionsToProps
+  actionsToProps,
 )(Graph);
 

@@ -1,20 +1,20 @@
-import * as C from '../constants'
+import * as C from '../constants';
 export function initializeDefs(allDefs) {
-  const str = JSON.stringify({type: C.INIT_ALL_DEFS, allDefs});
+  const str = JSON.stringify({ type: C.INIT_ALL_DEFS, allDefs });
   return {
-    type: C.INIT_ALL_DEFS
+    type: C.INIT_ALL_DEFS,
   };
 }
 export function changeDefs(defsName, defs) {
   return {
     type: C.CHANGE_DEFS,
-    defsName: defsName,
-    defs: defs
+    defsName,
+    defs,
   };
 }
-/********************** Graph関連 **********************/
+/** ******************** Graph関連 **********************/
 export function selectFlow(flowId) {
-  return { type: C.SELECT_FLOW, from: C.GRAPH, flowId }
+  return { type: C.SELECT_FLOW, from: C.GRAPH, flowId };
 }
 export function addPageFlow(x, y) {
   return { type: C.ADD_PAGE_FLOW, x, y };
@@ -44,7 +44,7 @@ export function setElementsPosition(positions) {
   return { type: C.SET_ELEMENTS_POSITION, positions };
 }
 
-/********************** page, question関連 **********************/
+/** ******************** page, question関連 **********************/
 export function loadState(state) {
   return { type: C.LOAD_STATE, state };
 }
@@ -70,10 +70,10 @@ export function changeQuestion(pageId, questionId, question) {
   return { type: C.CHANGE_QUESTION, pageId, questionId, question };
 }
 export function addComponent(component) {
-  return { type: C.ADD_COMPONENT, component};
+  return { type: C.ADD_COMPONENT, component };
 }
 
-/********************** branch関連 **********************/
+/** ******************** branch関連 **********************/
 export function changeBranch(branchId, branch) {
   return { type: C.CHANGE_BRANCH, branchId, branch };
 }

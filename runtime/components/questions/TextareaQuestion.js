@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
 export default class TextareaQuestion extends Component {
   render() {
     return (
       <div className={this.constructor.name}>
-        <textarea/>
+        <textarea />
       </div>
     );
   }

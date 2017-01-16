@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { errorMessage } from '../../../utils'
+import React, { Component, PropTypes } from 'react';
+import { errorMessage } from '../../../utils';
 
 export default class InvalidTypeQuestion extends Component {
   render() {

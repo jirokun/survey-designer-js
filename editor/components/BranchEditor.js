@@ -1,29 +1,12 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import TinyMCE from 'react-tinymce'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import CheckboxEditor from './question_editor/CheckboxEditor'
-import ConditionEditor from './ConditionEditor'
-import { Well, Panel, Glyphicon, Form, FormGroup, ControlLabel, Grid, Col, Row } from 'react-bootstrap';
-import * as EditorActions from '../actions'
-import * as RuntimeActions from '../../runtime/actions'
-import * as Utils from '../../utils'
-import * as Validator from '../validator'
+import { FormGroup, ControlLabel, Grid, Col, Row } from 'react-bootstrap';
+import ConditionEditor from './ConditionEditor';
+import * as EditorActions from '../actions';
 
 class BranchEditor extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleClickAddButton() {
-  }
-
-  handleClickMinusButton() {
-  }
-
   handleChangeBranch(index, condition) {
     const { changeBranch, branch } = this.props;
     branch.conditions[index] = condition;
@@ -36,7 +19,10 @@ class BranchEditor extends Component {
 
   renderConditions() {
     const { branch } = this.props;
-    return branch.conditions.map((condition, i) => <ConditionEditor nextFlowId={condition.nextFlowId} key={condition.nextFlowId} condition={condition} index={i} isLast={branch.conditions.length === i + 1} handleChangeBranch={this.handleChangeBranch.bind(this)} handleMoveCondition={this.handleMoveCondition.bind(this)}/>);
+    return branch.conditions.map((condition, i) =>
+      <ConditionEditor nextFlowId={condition.nextFlowId} key={condition.nextFlowId}
+      condition={condition} index={i} isLast={branch.conditions.length === i + 1}
+      handleChangeBranch={this.handleChangeBranch.bind(this)} handleMoveCondition={this.handleMoveCondition.bind(this)} />);
   }
 
   render() {
@@ -58,17 +44,17 @@ class BranchEditor extends Component {
 }
 
 const stateToProps = state => ({
-  state: state
+  state,
 });
 const actionsToProps = dispatch => ({
   changeBranch: (branchId, value) => dispatch(EditorActions.changeBranch(branchId, value)),
-  moveCondition: (branchId, sourceIndex, toIndex) => dispatch(EditorActions.moveCondition(branchId, sourceIndex, toIndex))
+  moveCondition: (branchId, sourceIndex, toIndex) => dispatch(EditorActions.moveCondition(branchId, sourceIndex, toIndex)),
 
 });
 
 export default DragDropContext(HTML5Backend)(
   connect(
     stateToProps,
-    actionsToProps
-  )(BranchEditor)
+    actionsToProps,
+  )(BranchEditor),
 );

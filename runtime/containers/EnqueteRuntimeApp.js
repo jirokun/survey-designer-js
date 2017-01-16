@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions'
-import Page from '../components/Page'
-import { findPage, findFlow } from '../../utils'
-import * as EnqueteActions from '../actions'
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions';
+import Page from '../components/Page';
+import { findPage, findFlow } from '../../utils';
+import * as EnqueteActions from '../actions';
 
 class EnqueteRuntimeApp extends Component {
   render() {
@@ -19,23 +19,23 @@ class EnqueteRuntimeApp extends Component {
     }
     return (
       <div>
-        <Page page={currentPage}/>
+        <Page page={currentPage} />
       </div>
-    )
+    );
   }
 }
 
 EnqueteRuntimeApp.propTypes = {
-}
+};
 
 const stateToProps = state => ({
-  state: state,
-  currentFlowId: state.values.currentFlowId
+  state,
+  currentFlowId: state.values.currentFlowId,
 });
 const actionsToProps = dispatch => ({
 });
 
 export default connect(
   stateToProps,
-  actionsToProps
-)(EnqueteRuntimeApp)
+  actionsToProps,
+)(EnqueteRuntimeApp);
