@@ -19,6 +19,16 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          fix: true,
+        },
+      },
+    ],
     loaders: [
       {
         test: /\.js$/,
@@ -35,6 +45,9 @@ module.exports = {
         loader: 'style!css!sass'
       }
     ]
+  },
+  eslint: {
+    configFile: '.eslintrc.json'
   }
 }
 
