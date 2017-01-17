@@ -3,7 +3,8 @@ const webpack = require('webpack');
 
 module.exports = {
   // devtool: 'cheap-module-eval-source-map',
-  devtool: 'inline-source-map',
+  //devtool: 'inline-source-map',
+  devtool: 'source-map',
   entry: {
     runtime: ['webpack-hot-middleware/client', './runtime/index'],
     editor: ['webpack-hot-middleware/client', './editor/index'],
@@ -14,6 +15,7 @@ module.exports = {
     publicPath: '/static/',
   },
   plugins: [
+    new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

@@ -14,7 +14,7 @@ import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
 import * as Utils from '../../utils'
 
-export default class EnqueteEditorApp extends Component {
+export class EnqueteEditorApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
