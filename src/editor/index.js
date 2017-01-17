@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import EnqueteEditorApp from './containers/EnqueteEditorApp.js';
 import configureStore from './store';
 import state from './state';
-import '../www/css/editor.scss';
+import './css/editor.scss';
 
 $.getJSON('sample.json').done((json) => {
   console.log(json);

@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import EnqueteRuntimeApp from './containers/EnqueteRuntimeApp';
 import configureStore from './store/configureStore';
+import './css/runtime.scss';
 
 const store = configureStore();
 

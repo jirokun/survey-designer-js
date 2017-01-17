@@ -3,14 +3,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Codemirror from 'react-codemirror';
 import CodemirrorYaml from 'codemirror/mode/yaml/yaml';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/erlang-dark.css';
 import VisualEditor from './VisualEditor';
 import javascript from 'codemirror/mode/javascript/javascript';
 import yaml from 'js-yaml';
 import * as EditorActions from '../actions';
 import * as RuntimeActions from '../../runtime/actions';
 import * as Utils from '../../utils';
-import '../../node_modules/codemirror/lib/codemirror.css';
-import '../../node_modules/codemirror/theme/erlang-dark.css';
 
 class Editor extends Component {
   constructor(props) {

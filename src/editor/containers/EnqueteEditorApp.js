@@ -13,6 +13,9 @@ import yaml from 'js-yaml'
 import * as EditorActions from '../actions'
 import * as RuntimeActions from '../../runtime/actions'
 import * as Utils from '../../utils'
+import runtimeCss from '!css!sass!../../runtime/css/runtime.scss';
+
+console.log(runtimeCss);
 
 export class EnqueteEditorApp extends Component {
   constructor(props) {
@@ -53,7 +56,6 @@ export class EnqueteEditorApp extends Component {
     this.setState({active: targetName});
   }
   render() {
-    const _this = this;
     const { state, actions } = this.props;
     const splitPaneSize = {
       minSize: 100,
@@ -67,6 +69,8 @@ export class EnqueteEditorApp extends Component {
         isYamlValid = draft.valid;
       }
     }
+    // iframeの中にstyleを入れるためhead属性に下記のstyleを設定する
+    const style = <style type="text/css" dangerouslySetInnerHTML={{__html: runtimeCss[0][1]}}/>;
 
     // TODO SplitPaneをiframeに対応する
     return (
@@ -82,9 +86,7 @@ export class EnqueteEditorApp extends Component {
           <SplitPane split="horizontal" {...splitPaneSize} onDragFinished={this.onDragEnd.bind(this)} onDragStarted={this.onDragStarted.bind(this)}>
             <Editor page={page}/>
             <div ref="preview" className="preview-pane">
-              <Frame className={isYamlValid ? "" : "hidden"} head={
-                <link rel="stylesheet" href="/css/runtime.css"/>
-              }>
+              <Frame className={isYamlValid ? "" : "hidden"} head={style}>
                 <EnqueteRuntimeApp/>
               </Frame>
               <div className={isYamlValid ? "hidden" : "alert alert-danger error"}>

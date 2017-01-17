@@ -6,8 +6,8 @@ module.exports = {
   //devtool: 'inline-source-map',
   devtool: 'source-map',
   entry: {
-    runtime: ['webpack-hot-middleware/client', './runtime/index'],
-    editor: ['webpack-hot-middleware/client', './editor/index'],
+    runtime: ['webpack-hot-middleware/client', './src/runtime/index'],
+    editor: ['webpack-hot-middleware/client', './src/editor/index'],
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -15,7 +15,7 @@ module.exports = {
     publicPath: '/static/',
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
+    //new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
