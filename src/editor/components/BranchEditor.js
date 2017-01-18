@@ -20,9 +20,11 @@ class BranchEditor extends Component {
   renderConditions() {
     const { branch } = this.props;
     return branch.conditions.map((condition, i) =>
-      <ConditionEditor nextFlowId={condition.nextFlowId} key={condition.nextFlowId}
-      condition={condition} index={i} isLast={branch.conditions.length === i + 1}
-      handleChangeBranch={this.handleChangeBranch.bind(this)} handleMoveCondition={this.handleMoveCondition.bind(this)} />);
+      <ConditionEditor
+        nextFlowId={condition.nextFlowId} key={condition.nextFlowId}
+        condition={condition} index={i} isLast={branch.conditions.length === i + 1}
+        handleChangeBranch={this.handleChangeBranch.bind(this)} handleMoveCondition={this.handleMoveCondition.bind(this)}
+      />);
   }
 
   render() {
