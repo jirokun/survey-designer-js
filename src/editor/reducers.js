@@ -157,16 +157,6 @@ function addComponent(state, component) {
   return state;
 }
 
-function changePosition(state, flowId, x, y) {
-  const pos = state.defs.positionDefs.find(def => def.flowId === flowId);
-  if (pos) {
-    pos.x = x;
-    pos.y = y;
-  } else {
-    state.defs.positionDefs.push({ flowId, x, y });
-  }
-  return state;
-}
 /** flowを削除する */
 function removeFlow(state, flowId) {
   const flowDefs = state.defs.flowDefs;
@@ -233,11 +223,6 @@ function connectFlow(state, sourceFlowId, dstFlowId) {
   }
   return state;
 }
-/** elementのpositionを全て設定する */
-function setElementsPosition(state, positions) {
-  state.defs.positionDefs = positions;
-  return state;
-}
 /** graphPaneをリサイズする */
 function resizeGraphPane(state, width) {
   state.viewSettings.graphWidth = width;
@@ -268,12 +253,8 @@ function editorReducer(state, action) {
       return removeEdge(newState, action.sourceFlowId, action.targetFlowId);
     case C.REMOVE_FLOW:
       return removeFlow(newState, action.flowId);
-    case C.CHANGE_POSITION:
-      return changePosition(newState, action.flowId, action.x, action.y);
     case C.CONNECT_FLOW:
       return connectFlow(newState, action.sourceFlowId, action.dstFlowId);
-    case C.SET_ELEMENTS_POSITION:
-      return setElementsPosition(newState, action.positions);
     case C.LOAD_STATE:
       return action.state;
     case C.RESIZE_GRAPH_PANE:

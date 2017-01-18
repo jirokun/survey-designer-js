@@ -31,23 +31,14 @@ export function removeFlow(flowId) {
 export function removeEdge(sourceFlowId, targetFlowId) {
   return { type: C.REMOVE_EDGE, sourceFlowId, targetFlowId };
 }
-export function changePosition(flowId, x, y) {
-  return { type: C.CHANGE_POSITION, flowId, x, y };
-}
 export function changeCustomPage(customPageId, html) {
   return { type: C.CHANGE_CUSTOM_PAGE, customPageId, html };
 }
 export function connectFlow(sourceFlowId, dstFlowId) {
   return { type: C.CONNECT_FLOW, sourceFlowId, dstFlowId };
 }
-export function setElementsPosition(positions) {
-  return { type: C.SET_ELEMENTS_POSITION, positions };
-}
 
 /** ******************** page, question関連 **********************/
-export function loadState(state) {
-  return { type: C.LOAD_STATE, state };
-}
 export function resizeGraphPane(graphWidth) {
   return { type: C.RESIZE_GRAPH_PANE, graphWidth };
 }
