@@ -1,5 +1,5 @@
 {
-  "values": {
+  "runtimeValues": {
     "currentFlowId": "F006",
     "flowStack": [],
     "inputValues": { }
@@ -93,7 +93,7 @@
             "title": "Checkbox vertical",
             "direction": "horizontal",
             "cellType": "text",
-            "questions": [
+            "choices": [
               "<span style=\"color: red;\">選択</span>肢1",
               "選択肢2"
             ],
@@ -113,7 +113,7 @@
             "title": "Checkbox vertical",
             "direction": "vertical",
             "cellType": "text",
-            "questions": [
+            "choices": [
               "<span style=\"color: red;\">選択</span>肢1",
               "選択肢2"
             ],

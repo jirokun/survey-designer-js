@@ -12,8 +12,10 @@
   "main": "react-enquete.js",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "immutable": "^3.8.1",
     "jquery": "^3.1.1",
     "js-yaml": "^3.6.1",
+    "json-loader": "^0.5.4",
     "node-uuid": "^1.4.7",
     "react": "^15.3.2",
     "react-addons-linked-state-mixin": "^15.3.2",
