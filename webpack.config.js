@@ -6,8 +6,8 @@ module.exports = {
   //devtool: 'inline-source-map',
   devtool: 'source-map',
   entry: {
-    runtime: ['webpack-hot-middleware/client', './src/runtime/index'],
-    editor: ['webpack-hot-middleware/client', './src/editor/index'],
+    runtime: ['webpack-hot-middleware/client', './lib/runtime/index'],
+    editor: ['webpack-hot-middleware/client', './lib/editor/index'],
   },
   output: {
     path: path.join(__dirname, 'dist'),

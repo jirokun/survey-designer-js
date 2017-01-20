@@ -8,6 +8,7 @@
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true
     }],
+    "no-plusplus": 0,
     "react/prop-types": 0
   }
 }

@@ -19,6 +19,7 @@ html, body {
         height: calc(100% - 42px);
         > .tab-pane {
           height: 100%;
+          overflow: auto;
         }
       }
     }
@@ -152,6 +153,67 @@ html, body {
 /* コンポーネントボタン */
 .component-button {
   margin-bottom: 5px;
+}
+.page-list {
+  padding: 10px;
+  .page, .branch {
+    .title {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    cursor: pointer;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    .questions {
+      list-style: none;
+      .question {
+        cursor: move;
+      }
+      .insert-item-box {
+        height: 10px;
+        div {
+          position: relative;
+          height: 100%;
+          i {
+            display: none;
+            color: #3c763d;
+            position: absolute;
+            top: -6px;
+            left: -20px;
+            font-size: 25px;
+          }
+        }
+        div:hover {
+          background-color: #3c763d;
+          i {
+            display: inline;
+          }
+        }
+      }
+    }
+  }
+  .branch {
+    background-color: #eef;
+  }
+  .arrow-down {
+    position: relative;
+    text-align: center;
+    font-size: large;
+    margin-top: -2px;
+    .btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+    &:hover {
+      .btn {
+        display: block;
+      }
+    }
+  }
 }
 /* グラフ */
 .graph {
