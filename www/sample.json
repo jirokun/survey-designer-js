@@ -19,10 +19,10 @@
             "beforeNote": "",
             "vertical": true,
             "choices": [
-              "通常の選択肢",
-              "選択肢2",
-              "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目 2行目"
+              { "label": "通常の選択肢" },
+              { "label": "選択肢2" },
+              { "label": "<span style=\"color: red;\">HTML</span> hogehoge" },
+              { "label": "1行目 2行目" }
             ]
           },
           {
@@ -32,13 +32,10 @@
             "beforeNote": "",
             "vertical": false,
             "choices": [
-              "通常の選択肢",
-              {
-                "label": "選択肢2",
-                "value": "ABC"
-              },
-              "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目\n2行目\n"
+              { "label": "通常の選択肢" },
+              { "label": "選択肢2" },
+              { "label": "<span style=\"color: red;\">HTML</span> hogehoge"},
+              { "label": "1行目\n2行目\n" }
             ],
             "random": false,
             "randomFixLast": false
@@ -55,13 +52,10 @@
             "beforeNote": "",
             "title": "Checkbox vertical",
             "choices": [
-              "通常の選択肢",
-              {
-                "label": "選択肢2",
-                "value": "ABC"
-              },
-              "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目\n2行目\n"
+              { "label": "通常の選択肢" },
+              { "label": "選択肢2" },
+              { "label": "<span style=\"color: red;\">HTML</span> hogehoge"},
+              { "label": "1行目\n2行目\n" }
             ]
           },
           {
@@ -71,13 +65,10 @@
             "title": "Checkbox vertical",
             "multiple": true,
             "choices": [
-              "通常の選択肢",
-              {
-                "label": "選択肢2",
-                "value": "ABC"
-              },
-              "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目\n2行目\n"
+              { "label": "通常の選択肢" },
+              { "label": "選択肢2" },
+              { "label": "<span style=\"color: red;\">HTML</span> hogehoge"},
+              { "label": "1行目\n2行目\n" }
             ]
           }
         ],
@@ -94,8 +85,8 @@
             "direction": "horizontal",
             "cellType": "text",
             "choices": [
-              "<span style=\"color: red;\">選択</span>肢1",
-              "選択肢2"
+              { "label": "通常の選択肢" },
+              { "label": "選択肢2" }
             ],
             "values": [
               "<span style=\"color: red;\">値</span>1",
@@ -114,8 +105,8 @@
             "direction": "vertical",
             "cellType": "text",
             "choices": [
-              "<span style=\"color: red;\">選択</span>肢1",
-              "選択肢2"
+              { "label": "通常の選択肢" },
+              { "label": "選択肢2" }
             ],
             "values": [
               "<span style=\"color: red;\">値</span>1",
@@ -139,8 +130,8 @@
             "beforeNote": "",
             "title": "Checkbox vertical",
             "choices": [
-              "選択肢1",
-              "選択肢2"
+              { "label": "選択肢1" },
+              { "label": "選択肢2" }
             ]
           },
           {
@@ -149,8 +140,8 @@
             "beforeNote": "",
             "title": "Checkbox vertical",
             "choices": [
-              "選択肢1",
-              "選択肢2"
+              { "label": "選択肢1" },
+              { "label": "選択肢2" }
             ]
           }
         ],
@@ -165,13 +156,10 @@
             "beforeNote": "",
             "title": "Checkbox vertical",
             "choices": [
-              "選択肢1,2,3",
-              {
-                "label": "選択肢2",
-                "value": "ABC"
-              },
-              "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目\n2行目\n"
+              { "label": "選択肢1,2,3" },
+              { "label": "選択肢2" },
+              { "label": "<span style=\"color: red;\">HTML</span> hogehoge" },
+              { "label": "1行目\n2行目\n" }
             ]
           },
           {
@@ -181,13 +169,10 @@
             "title": "Checkbox vertical",
             "vertical": false,
             "choices": [
-              "通常の選択肢",
-              {
-                "label": "選択肢2",
-                "value": "ABC"
-              },
-              "<span style=\"color: red;\">HTML</span> hogehoge",
-              "1行目\n2行目\n"
+              { "label": "選択肢1,2,3" },
+              { "label": "選択肢2" },
+              { "label": "<span style=\"color: red;\">HTML</span> hogehoge" },
+              { "label": "1行目\n2行目\n" }
             ]
           }
         ],
