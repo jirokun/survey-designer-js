@@ -157,15 +157,21 @@ html, body {
 .page-list {
   padding: 10px;
   .page, .branch {
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    .delete-button {
+      position: absolute;
+      top: 0;
+      right: 5px;
+    }
     .title {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
     }
-    cursor: pointer;
-    margin-bottom: 5px;
-    border: 1px solid #ccc;
-    width: 100%;
     .questions {
       list-style: none;
       .question {
