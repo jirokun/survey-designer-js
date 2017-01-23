@@ -99,10 +99,43 @@ describe('SurveyDesignerState', () => {
   });
 
   describe('findCurrentPage', () => {
-    it('現在のページを返す', () => {
+    it('現在のpageを返す', () => {
       const page = state.findCurrentPage();
       expect(page).not.toBeNull();
       expect(page.getId()).toBe('P001');
     });
   });
+
+  describe('findCurrentFlow', () => {
+    it('現在のflowを返す', () => {
+      const flow = state.findCurrentFlow();
+      expect(flow).not.toBeNull();
+      expect(flow.getId()).toBe('F001');
+    });
+  });
+
+  describe('findCurrentBranch', () => {
+    it('現在のbranchを返す', () => {
+      const newState = state.setCurrentFlowId('F002');
+      const branch = newState.findCurrentBranch();
+      expect(branch).not.toBeNull();
+      expect(branch.getId()).toBe('B001');
+    });
+  });
+
+  describe('setEditorHeight', () => {
+    it('editorの高さを設定できる', () => {
+      const newState = state.setEditorHeight(123);
+      expect(newState.getEditorHeight()).toBe(123);
+    });
+  });
+
+  describe('setGraphWidth', () => {
+    it('graphの幅を設定できる', () => {
+      const newState = state.setGraphWidth(321);
+      expect(newState.getGraphWidth()).toBe(321);
+    });
+  });
+
+
 });

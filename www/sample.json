@@ -1,6 +1,6 @@
 {
   "runtimeValues": {
-    "currentFlowId": "F006",
+    "currentFlowId": "F001",
     "flowStack": [],
     "inputValues": { }
   },
@@ -225,13 +225,13 @@
         "id": "F001",
         "type": "page",
         "refId": "P001",
-        "nextFlowId": "F006"
+        "nextFlowId": "F002"
       },
       {
         "id": "F002",
         "type": "page",
         "refId": "P002",
-        "nextFlowId": "F005"
+        "nextFlowId": "F003"
       },
       {
         "id": "F003",
@@ -243,15 +243,10 @@
         "id": "F004",
         "type": "page",
         "refId": "P004",
-        "nextFlowId": "F002"
+        "nextFlowId": "F005"
       },
       {
         "id": "F005",
-        "type": "page",
-        "refId": "P005"
-      },
-      {
-        "id": "F006",
         "type": "branch",
         "refId": "B001"
       }
