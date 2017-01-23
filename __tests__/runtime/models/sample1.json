@@ -1,0 +1,96 @@
+{
+  "runtimeValues": {
+    "currentFlowId": "F001",
+    "flowStack": [],
+    "inputValues": { }
+  },
+  "defs": {
+    "title": "sample enquete",
+    "creator": "Jiro Corporation",
+    "version": 1,
+    "pageDefs": [
+      {
+        "title": "PageTitle Checkbox",
+        "questions": [
+          {
+            "id": "1",
+            "type": "checkbox",
+            "title": "Checkbox vertical",
+            "beforeNote": "",
+            "vertical": true,
+            "choices": [
+              { "label": "通常の選択肢" },
+              { "label": "1行目 2行目" }
+            ]
+          },
+          {
+            "id": "2",
+            "title": "Checkbox horizontal",
+            "type": "checkbox",
+            "beforeNote": "",
+            "vertical": false,
+            "choices": [
+              { "label": "選択肢2" },
+              { "label": "<span style=\"color: red;\">HTML</span> hogehoge"}
+            ],
+            "random": false,
+            "randomFixLast": false
+          }
+        ],
+        "id": "P001"
+      },
+      {
+        "title": "PageTitle Checkbox",
+        "questions": [],
+        "id": "P002"
+      }
+    ],
+    "branchDefs": [
+      {
+        "id": "B001",
+        "type": "simple",
+        "conditions": [
+          {
+            "type": "any",
+            "nextFlowId": "F003",
+            "childConditions": [
+              {
+                "refQuestionId": "P001_1",
+                "operator": "includes",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "any",
+            "nextFlowId": "F004",
+            "childConditions": [
+              {
+                "refQuestionId": "",
+                "operator": "",
+                "value": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "flowDefs": [
+      {
+        "id": "F001",
+        "type": "page",
+        "refId": "P001",
+        "nextFlowId": "F006"
+      },
+      {
+        "id": "F002",
+        "type": "branch",
+        "refId": "B001"
+      }
+    ]
+  },
+  "viewSettings": {
+    "graphWidth": 814,
+    "hotHeight": 400
+  }
+}
