@@ -37,7 +37,7 @@ describe('SurveyDesignerState', () => {
   describe('getFlowDefs', () => {
     it('flowDefsが取得できる', () => {
       const flowDefs = state.getFlowDefs();
-      expect(flowDefs.size).toBe(2);
+      expect(flowDefs.size).toBe(3);
       expect(flowDefs.get(0).constructor.name).toBe('FlowDefinition');
     });
 
@@ -137,5 +137,17 @@ describe('SurveyDesignerState', () => {
     });
   });
 
+  describe('deleteFlow', () => {
+    it('flowを削除すると対応するpageも削除される', () => {
+      const newState = state.deleteFlow('F001');
+      expect(newState.getFlowDefs().size).toBe(2);
+      expect(newState.getPageDefs().size).toBe(1);
+    });
 
+    it('flowを削除すると対応するbranchも削除される', () => {
+      const newState = state.deleteFlow('F002');
+      expect(newState.getFlowDefs().size).toBe(2);
+      expect(newState.getBranchDefs().size).toBe(0);
+    });
+  });
 });
