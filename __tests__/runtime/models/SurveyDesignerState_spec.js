@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import { json2ImmutableState } from '../../../lib/editor/store';
+import QuestionDefinition from '../../../lib/runtime/models/QuestionDefinition';
 import sample1 from './sample1.json';
 
 describe('SurveyDesignerState', () => {
@@ -137,6 +138,14 @@ describe('SurveyDesignerState', () => {
     });
   });
 
+  describe('updateQuestion', () => {
+    it('questionを更新できる', () => {
+      const newQuestion = QuestionDefinition.create();
+      const newState = state.updateQuestion('P001', '1', newQuestion);
+      expect(newState.findPage('P001').getIn(['questions', 0]).getId()).toBe(newQuestion.getId());
+    });
+  });
+
   describe('deleteFlow', () => {
     it('flowを削除すると対応するpageも削除される', () => {
       const newState = state.deleteFlow('F001');
@@ -148,6 +157,30 @@ describe('SurveyDesignerState', () => {
       const newState = state.deleteFlow('F002');
       expect(newState.getFlowDefs().size).toBe(2);
       expect(newState.getBranchDefs().size).toBe(0);
+    });
+  });
+
+  describe('addFlow', () => {
+    it('先頭にpageを挿入できる', () => {
+      const newState = state.addFlow(0, 'page');
+      expect(newState.getFlowDefs().size).toBe(4);
+      expect(newState.getPageDefs().size).toBe(3);
+      expect(newState.getFlowDefs().get(0).getNextFlowId()).toBe(newState.getFlowDefs().get(1).getId());
+    });
+
+    it('先頭にbranchを挿入できる', () => {
+      const newState = state.addFlow(0, 'branch');
+      expect(newState.getFlowDefs().size).toBe(4);
+      expect(newState.getBranchDefs().size).toBe(2);
+      expect(newState.getFlowDefs().get(0).getNextFlowId()).toBe(newState.getFlowDefs().get(1).getId());
+    });
+
+    it('途中にpageを挿入すると一つ前のnextFlowIdも同時に書き換わる', () => {
+      const newState = state.addFlow(1, 'page');
+      expect(newState.getFlowDefs().size).toBe(4);
+      expect(newState.getPageDefs().size).toBe(3);
+      expect(newState.getFlowDefs().get(0).getNextFlowId()).toBe(newState.getFlowDefs().get(1).getId());
+      expect(newState.getFlowDefs().get(1).getNextFlowId()).toBe(newState.getFlowDefs().get(2).getId());
     });
   });
 });

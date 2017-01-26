@@ -80,17 +80,19 @@
         "id": "F001",
         "type": "page",
         "refId": "P001",
-        "nextFlowId": "F006"
+        "nextFlowId": "F002"
       },
       {
         "id": "F002",
         "type": "branch",
-        "refId": "B001"
+        "refId": "B001",
+        "nextFlowId": "F003"
       },
       {
         "id": "F003",
         "type": "page",
-        "refId": "P002"
+        "refId": "P002",
+        "nextFlowId": null
       }
     ]
   },
