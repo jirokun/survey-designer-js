@@ -20,6 +20,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
   ],
+  externals: [
+    { tinymce: true },
+  ],
   module: {
     /*
     preLoaders: [

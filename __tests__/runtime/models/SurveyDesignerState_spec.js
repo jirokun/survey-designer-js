@@ -124,20 +124,6 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-  describe('setEditorHeight', () => {
-    it('editorの高さを設定できる', () => {
-      const newState = state.setEditorHeight(123);
-      expect(newState.getEditorHeight()).toBe(123);
-    });
-  });
-
-  describe('setGraphWidth', () => {
-    it('graphの幅を設定できる', () => {
-      const newState = state.setGraphWidth(321);
-      expect(newState.getGraphWidth()).toBe(321);
-    });
-  });
-
   describe('updateQuestion', () => {
     it('questionを更新できる', () => {
       const newQuestion = QuestionDefinition.create();

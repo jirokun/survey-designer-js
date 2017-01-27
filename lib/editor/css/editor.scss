@@ -71,6 +71,9 @@ html, body {
     height: 100%;
   }
 }
+.Pane {
+  overflow: auto;
+}
 .Pane.horizontal {
   height: 100%;
   overflow: auto;
