@@ -6,7 +6,7 @@ html, body {
 }
 #root {
   width: 100%;
-  height: 100%;
+  position: relative;
   > div {
     height: 100%;
     div.left {
@@ -23,46 +23,47 @@ html, body {
         }
       }
     }
-    div.right {
+    .editor {
+      box-sizing: border-box;
       height: 100%;
-      .hot-pane {
-        box-sizing: border-box;
+      width: 100%;
+      overflow: auto;
+      .form-horizontal .form-group {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .editor-controller {
+        position: absolute;
+        z-index: 100;
+        right: 20px;
+        top: 5px;
+      }
+      .ReactCodeMirror {
         height: 100%;
-        width: 100%;
-        .form-horizontal .form-group {
-          margin-left: 0;
-          margin-right: 0;
-        }
-        .editor-controller {
-          position: absolute;
-          z-index: 100;
-          right: 20px;
-          top: 5px;
-        }
-        .ReactCodeMirror {
+        .CodeMirror {
+          font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
           height: 100%;
-          .CodeMirror {
-            font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
-            height: 100%;
-          }
-        }
-        .mce-content-body {
-          border: 1px solid #ccc;
         }
       }
-      .preview-pane {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        iframe {
-          box-sizing: border-box;
-          border: none;
-          width: 100%;
-          height: 100%;
-        }
+      .mce-content-body {
+        border: 1px solid #ccc;
       }
     }
+    .preview-pane {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      iframe {
+        box-sizing: border-box;
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .navbar {
+    margin-bottom: 0;
   }
 }
 .SplitPane.vertical {

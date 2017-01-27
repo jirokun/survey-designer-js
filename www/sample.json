@@ -253,6 +253,9 @@
     ]
   },
   "viewSettings": {
+    "pageListPane": true,
+    "editorPane": true,
+    "previewPane": true,
     "graphWidth": 814,
     "hotHeight": 400
   }
