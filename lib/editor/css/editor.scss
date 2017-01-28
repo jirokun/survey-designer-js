@@ -128,17 +128,22 @@ html, body {
   }
 }
 .choice-editor {
-  .choice-editor-row {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    .choice-editor-tinymce-container {
-      flex-grow: 1;
+  .choice-editor-table {
+    width: 100%;
+    th {
+      padding: 0 3px;
+      white-space: nowrap;
+      vertical-align: top;
     }
-    .choice-editor-controller {
+    .choice-editor-row {
       .option {
-        padding-top: 0;
-        margin: 0 10px;
+        text-align: center;
+      }
+      .choice-editor-tinymce-container {
+        width: 100%;
+      }
+      .buttons {
+        white-space: nowrap;
       }
     }
   }
