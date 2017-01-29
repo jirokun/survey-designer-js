@@ -18,7 +18,7 @@
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "beforeNote": "",
-            "vertical": true,
+            "direction": "vertical",
             "random": true,
             "choices": [
               { "label": "通常の選択肢" },
@@ -33,7 +33,7 @@
             "plainTitle": "Checkbox horizontal",
             "type": "checkbox",
             "beforeNote": "",
-            "vertical": false,
+            "direction": "vertical",
             "choices": [
               { "label": "通常の選択肢" },
               { "label": "選択肢2" },
@@ -178,7 +178,7 @@
             "beforeNote": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
-            "vertical": false,
+            "direction": "horizontal",
             "choices": [
               { "label": "選択肢1,2,3" },
               { "label": "選択肢2" },
