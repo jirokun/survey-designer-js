@@ -175,6 +175,9 @@ html, body {
       list-style: none;
       .question {
         cursor: move;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       .insert-item-box {
         height: 10px;
