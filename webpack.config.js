@@ -8,6 +8,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     runtime: ['webpack-hot-middleware/client', './lib/runtime/index'],
+    preview: ['webpack-hot-middleware/client', './lib/runtime/preview'],
     editor: ['webpack-hot-middleware/client', './lib/editor/index'],
     validator: ['./lib/runtime/validator'],
   },
