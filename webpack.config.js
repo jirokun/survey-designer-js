@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     runtime: ['webpack-hot-middleware/client', './lib/runtime/index'],
     editor: ['webpack-hot-middleware/client', './lib/editor/index'],
+    validator: ['./lib/runtime/validator'],
   },
   output: {
     path: path.join(__dirname, 'dist'),
