@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+const loadenv = require('node-env-file');
 
 module.exports = {
   // devtool: 'cheap-module-eval-source-map',
-  //devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
   devtool: 'source-map',
   entry: {
     runtime: ['webpack-hot-middleware/client', './lib/runtime/index'],
@@ -15,7 +16,9 @@ module.exports = {
     publicPath: '/static/',
   },
   plugins: [
-    //new webpack.optimize.UglifyJsPlugin(),
+    // 環境変数の読み込み
+    new webpack.DefinePlugin({ ENV: (() => JSON.stringify(loadenv('./.env')))() }),
+    // new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

@@ -20,6 +20,7 @@
             "vertical": true,
             "choices": [
               { "label": "通常の選択肢" },
+              { "label": "通常の選択肢", "randomFixed": true },
               { "label": "1行目 2行目" }
             ]
           },
