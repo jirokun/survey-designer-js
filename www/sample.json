@@ -20,6 +20,8 @@
             "beforeNote": "",
             "direction": "vertical",
             "random": true,
+            "minCheckCount": 1,
+            "maxCheckCount": 0,
             "choices": [
               { "label": "通常の選択肢" },
               { "label": "選択肢2" },
@@ -34,6 +36,8 @@
             "type": "checkbox",
             "beforeNote": "",
             "direction": "vertical",
+            "minCheckCount": 1,
+            "maxCheckCount": 0,
             "choices": [
               { "label": "通常の選択肢" },
               { "label": "選択肢2" },

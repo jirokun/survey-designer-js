@@ -3,9 +3,9 @@
   "plugins": [
     "jest"
   ],
-  "global": [
+  "global": {
     "ENV": false
-  ],
+  },
   "rules": {
     "max-len": ["error", 140, 2, {
       "ignoreUrls": true,
@@ -14,6 +14,8 @@
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true
     }],
+    "no-restricted-syntax": 0,
+    "no-continue": 0,
     "no-plusplus": 0,
     "react/jsx-filename-extension": 0,
     "react/prop-types": 0,

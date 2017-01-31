@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { json2ImmutableState } from '../../../lib/editor/store';
+import { json2ImmutableState } from '../../../lib/runtime/store';
 import QuestionDefinition from '../../../lib/runtime/models/QuestionDefinition';
 import sample1 from './sample1.json';
 
@@ -167,6 +167,13 @@ describe('SurveyDesignerState', () => {
       expect(newState.getPageDefs().size).toBe(3);
       expect(newState.getFlowDefs().get(0).getNextFlowId()).toBe(newState.getFlowDefs().get(1).getId());
       expect(newState.getFlowDefs().get(1).getNextFlowId()).toBe(newState.getFlowDefs().get(2).getId());
+    });
+  });
+
+  describe('findQuestion', () => {
+    it('questionIdからquestionを取得できる', () => {
+      const result = state.findQuestion('2');
+      expect(result.getId()).toBe('2');
     });
   });
 });
