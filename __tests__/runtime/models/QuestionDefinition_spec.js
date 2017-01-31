@@ -1,9 +1,7 @@
 /* eslint-env jest */
 import { List } from 'immutable';
-import { json2ImmutableState } from '../../../lib/editor/store';
 import QuestionDefinition from '../../../lib/runtime/models/QuestionDefinition';
 import ChoiceDefinition from '../../../lib/runtime/models/ChoiceDefinition';
-import sample1 from './sample1.json';
 
 describe('QuestionDefinition', () => {
   describe('randomize', () => {
