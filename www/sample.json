@@ -14,7 +14,7 @@
         "questions": [
           {
             "id": "1",
-            "type": "CheckboxQuestion",
+            "type": "RadioQuestion",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "beforeNote": "",
