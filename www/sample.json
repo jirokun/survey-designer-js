@@ -51,11 +51,11 @@
         "id": "P001"
       },
       {
-        "title": "PageTitle Select",
+        "title": "PageTitle Radio",
         "questions": [
           {
             "id": "1",
-            "type": "SelectQuestion",
+            "type": "RadioQuestion",
             "beforeNote": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
@@ -68,7 +68,7 @@
           },
           {
             "id": "2",
-            "type": "SelectQuestion",
+            "type": "RadioQuestion",
             "beforeNote": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
@@ -84,11 +84,11 @@
         "id": "P004"
       },
       {
-        "title": "PageTitle Matrix",
+        "title": "PageTitle Checkbox",
         "questions": [
           {
             "id": "1",
-            "type": "MatrixQuestion",
+            "type": "CheckboxQuestion",
             "beforeNote": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
@@ -109,7 +109,7 @@
           },
           {
             "id": "2",
-            "type": "MatrixQuestion",
+            "type": "CheckboxQuestion",
             "beforeNote": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
