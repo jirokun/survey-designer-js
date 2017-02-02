@@ -14,11 +14,10 @@
         "questions": [
           {
             "id": "1",
-            "type": "RadioQuestion",
-            "title": "Checkbox vertical",
-            "plainTitle": "Checkbox vertical",
+            "type": "MultiNumberQuestion",
+            "title": "MultiNumber",
+            "plainTitle": "MultiNumber",
             "beforeNote": "",
-            "direction": "vertical",
             "random": true,
             "minCheckCount": 1,
             "maxCheckCount": 0,
