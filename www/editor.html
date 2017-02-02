@@ -3,8 +3,21 @@
   <head>
     <title>Redux todos with undo example</title>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <style>
+      #global-navigation {
+        height: 36px;
+        background-color: black;
+        color: white;
+      }
+      #root {
+        height: calc(100% - 36px);
+      }
+    </style>
   </head>
   <body>
+    <div id="global-navigation">
+      Header
+    </div>
     <div id="root">
     </div>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
