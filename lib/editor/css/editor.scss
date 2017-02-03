@@ -17,6 +17,10 @@ html, body {
         height: 100%;
         width: 100%;
         overflow: auto;
+        h4 {
+          border-bottom: 1px solid #ccc;
+          margin: 0 1em 5px;
+        }
         .form-horizontal .form-group {
           margin-left: 0;
           margin-right: 0;

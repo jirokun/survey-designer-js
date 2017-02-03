@@ -13,8 +13,8 @@
         "title": "PageTitle Checkbox",
         "questions": [
           {
-            "id": "1",
-            "type": "MultiNumberQuestion",
+            "id": "ef49f6bb-4902-4a30-87e2-4f8591f8eedd",
+            "type": "CheckboxQuestion",
             "title": "MultiNumber",
             "plainTitle": "MultiNumber",
             "beforeNote": "",
@@ -29,7 +29,7 @@
             ]
           },
           {
-            "id": "2",
+            "id": "a9320f0a-b633-4909-baa9-1627e469e68c",
             "title": "Checkbox horizontal",
             "plainTitle": "Checkbox horizontal",
             "type": "CheckboxQuestion",
@@ -53,7 +53,7 @@
         "title": "PageTitle Radio",
         "questions": [
           {
-            "id": "1",
+            "id": "1f3dd198-d530-4bdd-bcfd-8fcb211b58ac",
             "type": "RadioQuestion",
             "beforeNote": "",
             "title": "Checkbox vertical",
@@ -66,7 +66,7 @@
             ]
           },
           {
-            "id": "2",
+            "id": "79ece17d-d26e-4e73-842c-57f1872a5cb6",
             "type": "RadioQuestion",
             "beforeNote": "",
             "title": "Checkbox vertical",
