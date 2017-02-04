@@ -1,6 +1,6 @@
 {
   "runtimeValues": {
-    "currentFlowId": "F001",
+    "currentFlowId": "ff6da4cf-e1ef-46da-bea4-20b248269a68",
     "flowStack": [],
     "inputValues": { }
   },
@@ -10,44 +10,38 @@
     "version": 1,
     "pageDefs": [
       {
-        "title": "PageTitle Checkbox",
+        "title": "TextQuestion",
         "questions": [
           {
             "id": "ef49f6bb-4902-4a30-87e2-4f8591f8eedd",
-            "type": "CheckboxQuestion",
-            "title": "MultiNumber",
-            "plainTitle": "MultiNumber",
+            "type": "TextQuestion",
+            "title": "TextQuestion",
+            "plainTitle": "TextQuestion",
             "beforeNote": "",
-            "random": true,
-            "minCheckCount": 1,
-            "maxCheckCount": 0,
-            "choices": [
-              { "index": 0, "label": "テキストINPUTあり{$TEXT_INPUT}" },
-              { "index": 1, "label": "選択肢2" },
-              { "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge" },
-              { "index": 3, "label": "1行目 2行目" }
-            ]
-          },
-          {
-            "id": "a9320f0a-b633-4909-baa9-1627e469e68c",
-            "title": "Checkbox horizontal",
-            "plainTitle": "Checkbox horizontal",
-            "type": "CheckboxQuestion",
-            "beforeNote": "",
-            "direction": "vertical",
-            "minCheckCount": 1,
-            "maxCheckCount": 0,
-            "choices": [
-              { "index": 0, "label": "通常の選択肢" },
-              { "index": 1, "label": "選択肢2" },
-              { "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge"},
-              { "index": 3, "label": "1行目\n2行目\n" }
-            ],
             "random": false,
-            "randomFixLast": false
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "choices": []
           }
         ],
-        "id": "P001"
+        "id": "dc853c98-39ae-4b72-8eb5-044ae6f389b5"
+      },
+      {
+        "title": "SingleTextQuestion",
+        "questions": [
+          {
+            "id": "e35c2c67-d76d-4e58-bb4d-e28dae790fc0",
+            "type": "SingleTextQuestion",
+            "title": "SingleTextQuestion",
+            "plainTitle": "SingleTextQuestion",
+            "beforeNote": "",
+            "random": false,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "choices": []
+          }
+        ],
+        "id": "e57ba4a3-d99f-4e08-8605-069dc7474fa2"
       },
       {
         "title": "PageTitle Radio",
@@ -80,7 +74,7 @@
             ]
           }
         ],
-        "id": "P004"
+        "id": "19be0247-75e1-4b02-8ef4-af4905b2fdb2"
       },
       {
         "title": "PageTitle Checkbox",
@@ -128,7 +122,7 @@
             ]
           }
         ],
-        "id": "P002"
+        "id": "03319671-1089-411d-b034-553d2171661a"
       },
       {
         "title": "PageTitle JavaScript実行",
@@ -190,17 +184,17 @@
             ]
           }
         ],
-        "id": "P003"
+        "id": "8c5f009a-0aab-44bd-a14e-c88c6bbba8e4"
       }
     ],
     "branchDefs": [
       {
-        "id": "B001",
+        "id": "ca5c78cd-8bc9-4320-9446-0b7b8ab0a91e",
         "type": "simple",
         "conditions": [
           {
             "type": "any",
-            "nextFlowId": "F003",
+            "nextFlowId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
             "childConditions": [
               {
                 "refQuestionId": "P001_1",
@@ -211,7 +205,7 @@
           },
           {
             "type": "all",
-            "nextFlowId": "F005",
+            "nextFlowId": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
             "childConditions": [
               {
                 "refQuestionId": "P001_1",
@@ -222,7 +216,7 @@
           },
           {
             "type": "any",
-            "nextFlowId": "F004",
+            "nextFlowId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e",
             "childConditions": [
               {
                 "refQuestionId": "",
@@ -236,33 +230,39 @@
     ],
     "flowDefs": [
       {
-        "id": "F001",
+        "id": "ff6da4cf-e1ef-46da-bea4-20b248269a68",
         "type": "page",
-        "refId": "P001",
-        "nextFlowId": "F002"
+        "refId": "dc853c98-39ae-4b72-8eb5-044ae6f389b5",
+        "nextFlowId": "50ce3c36-c13f-4c6f-8da3-06bbbe8c7b6a"
       },
       {
-        "id": "F002",
+        "id": "50ce3c36-c13f-4c6f-8da3-06bbbe8c7b6a",
         "type": "page",
-        "refId": "P002",
-        "nextFlowId": "F003"
+        "refId": "e57ba4a3-d99f-4e08-8605-069dc7474fa2",
+        "nextFlowId": "b81aa205-8335-436e-8c9b-87ebc9053533"
       },
       {
-        "id": "F003",
+        "id": "b81aa205-8335-436e-8c9b-87ebc9053533",
         "type": "page",
-        "refId": "P003",
-        "nextFlowId": "F004"
+        "refId": "03319671-1089-411d-b034-553d2171661a",
+        "nextFlowId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f"
       },
       {
-        "id": "F004",
+        "id": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
         "type": "page",
-        "refId": "P004",
-        "nextFlowId": "F005"
+        "refId": "8c5f009a-0aab-44bd-a14e-c88c6bbba8e4",
+        "nextFlowId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e"
       },
       {
-        "id": "F005",
+        "id": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e",
+        "type": "page",
+        "refId": "19be0247-75e1-4b02-8ef4-af4905b2fdb2",
+        "nextFlowId": "dc766d18-ec90-4e2e-9f35-eda75de65d27"
+      },
+      {
+        "id": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
         "type": "branch",
-        "refId": "B001"
+        "refId": "ca5c78cd-8bc9-4320-9446-0b7b8ab0a91e"
       }
     ]
   },
