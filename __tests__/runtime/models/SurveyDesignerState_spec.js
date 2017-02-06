@@ -176,4 +176,14 @@ describe('SurveyDesignerState', () => {
       expect(result.getId()).toBe('2');
     });
   });
+
+  describe('submitPage', () => {
+    it('入力値が追加される', () => {
+      const result1 = state.submitPage({ q1: 'abc' });
+      expect(result1.getInputValues().get('q1')).toBe('abc');
+      const result2 = result1.submitPage({ q2: 'def' });
+      expect(result2.getInputValues().get('q1')).toBe('abc');
+      expect(result2.getInputValues().get('q2')).toBe('def');
+    });
+  });
 });
