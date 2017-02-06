@@ -80,7 +80,7 @@
         "title": "PageTitle Checkbox",
         "questions": [
           {
-            "id": "1",
+            "id": "870f21b9-6e14-467b-8dff-5c31fcd4a9fa",
             "type": "CheckboxQuestion",
             "description": "",
             "title": "Checkbox vertical",
@@ -101,7 +101,7 @@
             ]
           },
           {
-            "id": "2",
+            "id": "859bf078-21b4-45a2-933e-6a9f0f3c7ced",
             "type": "CheckboxQuestion",
             "description": "",
             "title": "Checkbox vertical",
@@ -129,7 +129,7 @@
         "javascript": "var element = document.querySelector('label');\nelement.style.position = 'relative';\nelement.style.left = '50px';\ndocument.querySelector('input').addEventListener('change', function(e) {\n  document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n}, false);\n",
         "questions": [
           {
-            "id": "1",
+            "id": "45ee5295-9ead-46aa-a3c5-721a5d8e8f09",
             "type": "CheckboxQuestion",
             "description": "",
             "title": "Checkbox vertical",
@@ -140,7 +140,7 @@
             ]
           },
           {
-            "id": "2",
+            "id": "19332a17-1ac1-4383-a5a6-b27b49aa0354",
             "type": "RadioQuestion",
             "description": "",
             "title": "Checkbox vertical",
@@ -157,7 +157,7 @@
         "title": "PageTitle Radio",
         "questions": [
           {
-            "id": "1",
+            "id": "c6317810-008f-4813-abed-623ffb5b4dfe",
             "type": "RadioQuestion",
             "description": "",
             "title": "Checkbox vertical",
@@ -170,7 +170,7 @@
             ]
           },
           {
-            "id": "2",
+            "id": "888e1410-d1ab-4289-ade6-2ec91ab22564",
             "type": "RadioQuestion",
             "description": "",
             "title": "Checkbox vertical",
