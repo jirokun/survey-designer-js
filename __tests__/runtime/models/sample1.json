@@ -18,7 +18,7 @@
             "title": "Checkbox vertical",
             "description": "",
             "vertical": true,
-            "choices": [
+            "items": [
               { "label": "通常の選択肢" },
               { "label": "通常の選択肢", "randomFixed": true },
               { "label": "1行目 2行目" }
@@ -30,7 +30,7 @@
             "type": "CheckboxQuestion",
             "description": "",
             "vertical": false,
-            "choices": [
+            "items": [
               { "label": "選択肢2" },
               { "label": "<span style=\"color: red;\">HTML</span> hogehoge"}
             ],

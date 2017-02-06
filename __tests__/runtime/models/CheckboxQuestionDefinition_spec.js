@@ -1,15 +1,15 @@
 /* eslint-env jest */
 import { List } from 'immutable';
 import CheckboxQuestionDefinition from '../../../lib/runtime/models/definitions/questions/CheckboxQuestionDefinition';
-import ChoiceDefinition from '../../../lib/runtime/models/definitions/questions/ChoiceDefinition';
+import ItemDefinition from '../../../lib/runtime/models/definitions/questions/ItemDefinition';
 
 describe('CheckboxQuestionDefinition', () => {
   describe('randomize', () => {
-    it('choicesをランダムにできる', () => {
-      const question = CheckboxQuestionDefinition.create().set('choices', List.of(
-        new ChoiceDefinition({ label: '0' }),
-        new ChoiceDefinition({ label: '1' }),
-        new ChoiceDefinition({ label: '2' }),
+    it('itemsをランダムにできる', () => {
+      const question = CheckboxQuestionDefinition.create().set('items', List.of(
+        new ItemDefinition({ label: '0' }),
+        new ItemDefinition({ label: '1' }),
+        new ItemDefinition({ label: '2' }),
       ));
       const orderMap = [
         [false, false, false],
@@ -18,7 +18,7 @@ describe('CheckboxQuestionDefinition', () => {
       ];
       // 100回試してすべてランダムで表示されることを確認する
       for (let i = 0; i < 100; i++) {
-        const result = CheckboxQuestionDefinition.randomize(question.getChoices());
+        const result = CheckboxQuestionDefinition.randomize(question.getItems());
         if (result.get(0).getLabel() === '0') orderMap[0][0] = true;
         if (result.get(0).getLabel() === '1') orderMap[0][1] = true;
         if (result.get(0).getLabel() === '2') orderMap[0][2] = true;
@@ -36,11 +36,11 @@ describe('CheckboxQuestionDefinition', () => {
       }
     });
 
-    it('choicesを固定のものを除きランダムにできる', () => {
-      const question = CheckboxQuestionDefinition.create().set('choices', List.of(
-        new ChoiceDefinition({ label: '0' }),
-        new ChoiceDefinition({ label: '1', randomFixed: true }),
-        new ChoiceDefinition({ label: '2' }),
+    it('itemsを固定のものを除きランダムにできる', () => {
+      const question = CheckboxQuestionDefinition.create().set('items', List.of(
+        new ItemDefinition({ label: '0' }),
+        new ItemDefinition({ label: '1', randomFixed: true }),
+        new ItemDefinition({ label: '2' }),
       ));
       const orderMap = [
         [false, false, false],
@@ -49,7 +49,7 @@ describe('CheckboxQuestionDefinition', () => {
       ];
       // 100回試してindex == 1がlabel='1'に固定されていることを確認する
       for (let i = 0; i < 100; i++) {
-        const result = CheckboxQuestionDefinition.randomize(question.getChoices());
+        const result = CheckboxQuestionDefinition.randomize(question.getItems());
         if (result.get(0).getLabel() === '0') orderMap[0][0] = true;
         if (result.get(0).getLabel() === '1') orderMap[0][1] = true;
         if (result.get(0).getLabel() === '2') orderMap[0][2] = true;

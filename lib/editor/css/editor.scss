@@ -121,19 +121,19 @@ html, body {
     padding-top: 5px;
   }
 }
-.choice-editor {
-  .choice-editor-table {
+.item-editor {
+  .item-editor-table {
     width: 100%;
     th {
       padding: 0 3px;
       white-space: nowrap;
       vertical-align: top;
     }
-    .choice-editor-row {
+    .item-editor-row {
       .option {
         text-align: center;
       }
-      .choice-editor-tinymce-container {
+      .item-editor-tinymce-container {
         width: 100%;
       }
       .buttons {
