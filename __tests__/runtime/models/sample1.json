@@ -14,7 +14,7 @@
         "questions": [
           {
             "id": "1",
-            "type": "checkbox",
+            "type": "CheckboxQuestion",
             "title": "Checkbox vertical",
             "beforeNote": "",
             "vertical": true,
@@ -27,7 +27,7 @@
           {
             "id": "2",
             "title": "Checkbox horizontal",
-            "type": "checkbox",
+            "type": "CheckboxQuestion",
             "beforeNote": "",
             "vertical": false,
             "choices": [

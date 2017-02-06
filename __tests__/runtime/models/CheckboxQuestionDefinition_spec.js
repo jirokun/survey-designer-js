@@ -1,12 +1,12 @@
 /* eslint-env jest */
 import { List } from 'immutable';
-import QuestionDefinition from '../../../lib/runtime/models/QuestionDefinition';
-import ChoiceDefinition from '../../../lib/runtime/models/ChoiceDefinition';
+import CheckboxQuestionDefinition from '../../../lib/runtime/models/questions/CheckboxQuestionDefinition';
+import ChoiceDefinition from '../../../lib/runtime/models/questions/ChoiceDefinition';
 
-describe('QuestionDefinition', () => {
+describe('CheckboxQuestionDefinition', () => {
   describe('randomize', () => {
     it('choicesをランダムにできる', () => {
-      const question = QuestionDefinition.create().set('choices', List.of(
+      const question = CheckboxQuestionDefinition.create().set('choices', List.of(
         new ChoiceDefinition({ label: '0' }),
         new ChoiceDefinition({ label: '1' }),
         new ChoiceDefinition({ label: '2' }),
@@ -18,7 +18,7 @@ describe('QuestionDefinition', () => {
       ];
       // 100回試してすべてランダムで表示されることを確認する
       for (let i = 0; i < 100; i++) {
-        const result = QuestionDefinition.randomize(question.getChoices());
+        const result = CheckboxQuestionDefinition.randomize(question.getChoices());
         if (result.get(0).getLabel() === '0') orderMap[0][0] = true;
         if (result.get(0).getLabel() === '1') orderMap[0][1] = true;
         if (result.get(0).getLabel() === '2') orderMap[0][2] = true;
@@ -37,7 +37,7 @@ describe('QuestionDefinition', () => {
     });
 
     it('choicesを固定のものを除きランダムにできる', () => {
-      const question = QuestionDefinition.create().set('choices', List.of(
+      const question = CheckboxQuestionDefinition.create().set('choices', List.of(
         new ChoiceDefinition({ label: '0' }),
         new ChoiceDefinition({ label: '1', randomFixed: true }),
         new ChoiceDefinition({ label: '2' }),
@@ -49,7 +49,7 @@ describe('QuestionDefinition', () => {
       ];
       // 100回試してindex == 1がlabel='1'に固定されていることを確認する
       for (let i = 0; i < 100; i++) {
-        const result = QuestionDefinition.randomize(question.getChoices());
+        const result = CheckboxQuestionDefinition.randomize(question.getChoices());
         if (result.get(0).getLabel() === '0') orderMap[0][0] = true;
         if (result.get(0).getLabel() === '1') orderMap[0][1] = true;
         if (result.get(0).getLabel() === '2') orderMap[0][2] = true;

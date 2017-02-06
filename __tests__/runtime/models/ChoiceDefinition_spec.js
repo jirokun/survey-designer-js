@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import ChoiceDefinition from '../../../lib/runtime/models/ChoiceDefinition';
+import ChoiceDefinition from '../../../lib/runtime/models/questions/ChoiceDefinition';
 
 describe('ChoiceDefinition', () => {
   describe('transform', () => {

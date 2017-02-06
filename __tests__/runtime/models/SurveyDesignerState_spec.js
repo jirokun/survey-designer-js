@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import { json2ImmutableState } from '../../../lib/runtime/store';
-import QuestionDefinition from '../../../lib/runtime/models/QuestionDefinition';
+import CheckboxQuestionDefinition from '../../../lib/runtime/models/questions/CheckboxQuestionDefinition';
 import sample1 from './sample1.json';
 
 describe('SurveyDesignerState', () => {
@@ -126,7 +126,7 @@ describe('SurveyDesignerState', () => {
 
   describe('updateQuestion', () => {
     it('questionを更新できる', () => {
-      const newQuestion = QuestionDefinition.create();
+      const newQuestion = CheckboxQuestionDefinition.create();
       const newState = state.updateQuestion('P001', '1', newQuestion);
       expect(newState.findPage('P001').getIn(['questions', 0]).getId()).toBe(newQuestion.getId());
     });
