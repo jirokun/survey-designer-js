@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import { json2ImmutableState } from '../../../lib/runtime/store';
-import CheckboxQuestionDefinition from '../../../lib/runtime/models/questions/CheckboxQuestionDefinition';
+import CheckboxQuestionDefinition from '../../../lib/runtime/models/definitions/questions/CheckboxQuestionDefinition';
 import sample1 from './sample1.json';
 
 describe('SurveyDesignerState', () => {

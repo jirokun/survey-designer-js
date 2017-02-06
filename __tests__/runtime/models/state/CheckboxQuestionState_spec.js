@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import { List, Map } from 'immutable';
-import ChoiceDefinition from '../../../../lib/runtime/models/questions/ChoiceDefinition';
+import ChoiceDefinition from '../../../../lib/runtime/models/definitions/questions/ChoiceDefinition';
 import CheckboxQuestionState from '../../../../lib/runtime/models/state/CheckboxQuestionState';
 
 describe('CheckboxQuestionState', () => {

@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import { List } from 'immutable';
-import CheckboxQuestionDefinition from '../../../lib/runtime/models/questions/CheckboxQuestionDefinition';
-import ChoiceDefinition from '../../../lib/runtime/models/questions/ChoiceDefinition';
+import CheckboxQuestionDefinition from '../../../lib/runtime/models/definitions/questions/CheckboxQuestionDefinition';
+import ChoiceDefinition from '../../../lib/runtime/models/definitions/questions/ChoiceDefinition';
 
 describe('CheckboxQuestionDefinition', () => {
   describe('randomize', () => {
