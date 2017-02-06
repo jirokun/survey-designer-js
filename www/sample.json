@@ -17,7 +17,7 @@
             "type": "TextQuestion",
             "title": "TextQuestion",
             "plainTitle": "TextQuestion",
-            "beforeNote": "",
+            "description": "",
             "random": false,
             "minCheckCount": 0,
             "maxCheckCount": 0,
@@ -34,7 +34,7 @@
             "type": "SingleTextQuestion",
             "title": "SingleTextQuestion",
             "plainTitle": "SingleTextQuestion",
-            "beforeNote": "",
+            "description": "",
             "random": false,
             "minCheckCount": 0,
             "maxCheckCount": 0,
@@ -49,7 +49,7 @@
           {
             "id": "1f3dd198-d530-4bdd-bcfd-8fcb211b58ac",
             "type": "RadioQuestion",
-            "beforeNote": "",
+            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "choices": [
@@ -62,7 +62,7 @@
           {
             "id": "79ece17d-d26e-4e73-842c-57f1872a5cb6",
             "type": "RadioQuestion",
-            "beforeNote": "",
+            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "multiple": true,
@@ -82,7 +82,7 @@
           {
             "id": "1",
             "type": "CheckboxQuestion",
-            "beforeNote": "",
+            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "direction": "horizontal",
@@ -103,7 +103,7 @@
           {
             "id": "2",
             "type": "CheckboxQuestion",
-            "beforeNote": "",
+            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "direction": "vertical",
@@ -131,7 +131,7 @@
           {
             "id": "1",
             "type": "CheckboxQuestion",
-            "beforeNote": "",
+            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "choices": [
@@ -142,7 +142,7 @@
           {
             "id": "2",
             "type": "RadioQuestion",
-            "beforeNote": "",
+            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "choices": [
@@ -159,7 +159,7 @@
           {
             "id": "1",
             "type": "RadioQuestion",
-            "beforeNote": "",
+            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "choices": [
@@ -172,7 +172,7 @@
           {
             "id": "2",
             "type": "RadioQuestion",
-            "beforeNote": "",
+            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "direction": "horizontal",

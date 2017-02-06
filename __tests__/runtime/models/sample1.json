@@ -16,7 +16,7 @@
             "id": "1",
             "type": "CheckboxQuestion",
             "title": "Checkbox vertical",
-            "beforeNote": "",
+            "description": "",
             "vertical": true,
             "choices": [
               { "label": "通常の選択肢" },
@@ -28,7 +28,7 @@
             "id": "2",
             "title": "Checkbox horizontal",
             "type": "CheckboxQuestion",
-            "beforeNote": "",
+            "description": "",
             "vertical": false,
             "choices": [
               { "label": "選択肢2" },
