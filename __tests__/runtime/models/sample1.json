@@ -1,14 +1,14 @@
 {
-  "runtimeValues": {
-    "currentFlowId": "F001",
+  "runtime": {
+    "currentNodeId": "F001",
     "flowStack": [],
-    "inputValues": { }
+    "answers": { }
   },
-  "defs": {
+  "survey": {
     "title": "sample enquete",
     "creator": "Jiro Corporation",
     "version": 1,
-    "pageDefs": [
+    "pages": [
       {
         "title": "PageTitle Checkbox",
         "questions": [
@@ -46,14 +46,14 @@
         "id": "P002"
       }
     ],
-    "branchDefs": [
+    "branches": [
       {
         "id": "B001",
         "type": "simple",
         "conditions": [
           {
             "type": "any",
-            "nextFlowId": "F003",
+            "nextNodeId": "F003",
             "childConditions": [
               {
                 "refQuestionId": "P001_1",
@@ -64,7 +64,7 @@
           },
           {
             "type": "any",
-            "nextFlowId": "F004",
+            "nextNodeId": "F004",
             "childConditions": [
               {
                 "refQuestionId": "",
@@ -76,28 +76,28 @@
         ]
       }
     ],
-    "flowDefs": [
+    "nodes": [
       {
         "id": "F001",
         "type": "page",
         "refId": "P001",
-        "nextFlowId": "F002"
+        "nextNodeId": "F002"
       },
       {
         "id": "F002",
         "type": "branch",
         "refId": "B001",
-        "nextFlowId": "F003"
+        "nextNodeId": "F003"
       },
       {
         "id": "F003",
         "type": "page",
         "refId": "P002",
-        "nextFlowId": null
+        "nextNodeId": null
       }
     ]
   },
-  "viewSettings": {
+  "view": {
     "pageListPane": true,
     "editorPane": true,
     "previewPane": true

@@ -1,21 +1,20 @@
 {
-  "runtimeValues": {
-    "currentFlowId": "ff6da4cf-e1ef-46da-bea4-20b248269a68",
+  "runtime": {
+    "currentNodeId": "ff6da4cf-e1ef-46da-bea4-20b248269a68",
     "flowStack": [],
-    "inputValues": { }
+    "answers": { }
   },
-  "defs": {
+  "survey": {
     "title": "sample enquete",
-    "creator": "Jiro Corporation",
     "version": 1,
-    "pageDefs": [
+    "pages": [
       {
         "title": "TextQuestion",
         "questions": [
           {
             "id": "ef49f6bb-4902-4a30-87e2-4f8591f8eedd",
             "type": "TextQuestion",
-            "title": "TextQuestion",
+            "title": "<h3>TextQuestion</h3>",
             "plainTitle": "TextQuestion",
             "description": "",
             "random": false,
@@ -90,14 +89,6 @@
             "items": [
               { "index": 0, "label": "通常の選択肢" },
               { "index": 1, "label": "選択肢2" }
-            ],
-            "values": [
-              "<span style=\"color: red;\">値</span>1",
-              {
-                "label": "値2",
-                "prefix": "<span style=\"font-weight: bold; color: green\">前</span>",
-                "postfix": "後"
-              }
             ]
           },
           {
@@ -111,14 +102,6 @@
             "items": [
               { "index": 0, "label": "通常の選択肢" },
               { "index": 1, "label": "選択肢2" }
-            ],
-            "values": [
-              "<span style=\"color: red;\">値</span>1",
-              {
-                "label": "値2",
-                "prefix": "<span style=\"font-weight: bold; color: green\">前</span>",
-                "postfix": "後"
-              }
             ]
           }
         ],
@@ -187,14 +170,14 @@
         "id": "8c5f009a-0aab-44bd-a14e-c88c6bbba8e4"
       }
     ],
-    "branchDefs": [
+    "branches": [
       {
         "id": "ca5c78cd-8bc9-4320-9446-0b7b8ab0a91e",
         "type": "simple",
         "conditions": [
           {
             "type": "any",
-            "nextFlowId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
+            "nextNodeId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
             "childConditions": [
               {
                 "refQuestionId": "P001_1",
@@ -205,7 +188,7 @@
           },
           {
             "type": "all",
-            "nextFlowId": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
+            "nextNodeId": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
             "childConditions": [
               {
                 "refQuestionId": "P001_1",
@@ -216,7 +199,7 @@
           },
           {
             "type": "any",
-            "nextFlowId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e",
+            "nextNodeId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e",
             "childConditions": [
               {
                 "refQuestionId": "",
@@ -228,36 +211,36 @@
         ]
       }
     ],
-    "flowDefs": [
+    "nodes": [
       {
         "id": "ff6da4cf-e1ef-46da-bea4-20b248269a68",
         "type": "page",
         "refId": "dc853c98-39ae-4b72-8eb5-044ae6f389b5",
-        "nextFlowId": "50ce3c36-c13f-4c6f-8da3-06bbbe8c7b6a"
+        "nextNodeId": "50ce3c36-c13f-4c6f-8da3-06bbbe8c7b6a"
       },
       {
         "id": "50ce3c36-c13f-4c6f-8da3-06bbbe8c7b6a",
         "type": "page",
         "refId": "e57ba4a3-d99f-4e08-8605-069dc7474fa2",
-        "nextFlowId": "b81aa205-8335-436e-8c9b-87ebc9053533"
+        "nextNodeId": "b81aa205-8335-436e-8c9b-87ebc9053533"
       },
       {
         "id": "b81aa205-8335-436e-8c9b-87ebc9053533",
         "type": "page",
         "refId": "03319671-1089-411d-b034-553d2171661a",
-        "nextFlowId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f"
+        "nextNodeId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f"
       },
       {
         "id": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
         "type": "page",
         "refId": "8c5f009a-0aab-44bd-a14e-c88c6bbba8e4",
-        "nextFlowId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e"
+        "nextNodeId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e"
       },
       {
         "id": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e",
         "type": "page",
         "refId": "19be0247-75e1-4b02-8ef4-af4905b2fdb2",
-        "nextFlowId": "dc766d18-ec90-4e2e-9f35-eda75de65d27"
+        "nextNodeId": "dc766d18-ec90-4e2e-9f35-eda75de65d27"
       },
       {
         "id": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
@@ -266,7 +249,7 @@
       }
     ]
   },
-  "viewSettings": {
+  "view": {
     "pageListPane": true,
     "editorPane": true,
     "previewPane": true

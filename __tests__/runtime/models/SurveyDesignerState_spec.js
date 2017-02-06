@@ -9,25 +9,25 @@ describe('SurveyDesignerState', () => {
     state = json2ImmutableState(sample1);
   });
 
-  describe('getCurrentFlowId', () => {
-    it('currentFlowIdが取得できる', () => {
-      expect(state.getCurrentFlowId()).toBe('F001');
+  describe('getCurrentNodeId', () => {
+    it('currentNodeIdが取得できる', () => {
+      expect(state.getCurrentNodeId()).toBe('F001');
     });
   });
 
-  describe('getBranchDefs', () => {
-    it('branchDefsが取得できる', () => {
-      const branchDefs = state.getBranchDefs();
-      expect(branchDefs.size).toBe(1);
-      expect(branchDefs.get(0).constructor.name).toBe('BranchDefinition');
+  describe('getBranches', () => {
+    it('branchesが取得できる', () => {
+      const branches = state.getBranches();
+      expect(branches.size).toBe(1);
+      expect(branches.get(0).constructor.name).toBe('BranchDefinition');
     });
   });
 
-  describe('getPageDefs', () => {
-    it('pageDefsが取得できる', () => {
-      const pageDefs = state.getPageDefs();
-      expect(pageDefs.size).toBe(2);
-      expect(pageDefs.get(0).constructor.name).toBe('PageDefinition');
+  describe('getPages', () => {
+    it('pagesが取得できる', () => {
+      const pages = state.getPages();
+      expect(pages.size).toBe(2);
+      expect(pages.get(0).constructor.name).toBe('PageDefinition');
     });
 
     it('存在しないpageIdを指定すると例外が発生する', () => {
@@ -35,15 +35,15 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-  describe('getFlowDefs', () => {
-    it('flowDefsが取得できる', () => {
-      const flowDefs = state.getFlowDefs();
-      expect(flowDefs.size).toBe(3);
-      expect(flowDefs.get(0).constructor.name).toBe('FlowDefinition');
+  describe('getNodes', () => {
+    it('nodesが取得できる', () => {
+      const nodes = state.getNodes();
+      expect(nodes.size).toBe(3);
+      expect(nodes.get(0).constructor.name).toBe('NodeDefinition');
     });
 
     it('存在しないflowIdを指定すると例外が発生する', () => {
-      expect(() => state.findFlow('NONE')).toThrow();
+      expect(() => state.findNode('NONE')).toThrow();
     });
   });
 
@@ -67,35 +67,35 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-  describe('findFlow', () => {
+  describe('findNode', () => {
     it('flowIdからflowを取得できる', () => {
-      const flow = state.findFlow('F002');
+      const flow = state.findNode('F002');
       expect(flow).not.toBeNull();
       expect(flow.getId()).toBe('F002');
     });
   });
 
-  describe('findBranchFromFlow', () => {
+  describe('findBranchFromNode', () => {
     it('flowIdからbranchを取得できる', () => {
-      const branch = state.findBranchFromFlow('F002');
+      const branch = state.findBranchFromNode('F002');
       expect(branch).not.toBeNull();
       expect(branch.getId()).toBe('B001');
     });
 
     it('存在しないflowIdを指定しbranch取得を行うと例外が発生する', () => {
-      expect(() => state.findBranchFromFlow('NONE')).toThrow();
+      expect(() => state.findBranchFromNode('NONE')).toThrow();
     });
   });
 
-  describe('findPageFromFlow', () => {
+  describe('findPageFromNode', () => {
     it('flowIdからpageを取得できる', () => {
-      const page = state.findPageFromFlow('F001');
+      const page = state.findPageFromNode('F001');
       expect(page).not.toBeNull();
       expect(page.getId()).toBe('P001');
     });
 
     it('存在しないflowIdを指定しpage取得を行うと例外が発生する', () => {
-      expect(() => state.findPageFromFlow('NONE')).toThrow('');
+      expect(() => state.findPageFromNode('NONE')).toThrow('');
     });
   });
 
@@ -107,9 +107,9 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-  describe('findCurrentFlow', () => {
+  describe('findCurrentNode', () => {
     it('現在のflowを返す', () => {
-      const flow = state.findCurrentFlow();
+      const flow = state.findCurrentNode();
       expect(flow).not.toBeNull();
       expect(flow.getId()).toBe('F001');
     });
@@ -117,7 +117,7 @@ describe('SurveyDesignerState', () => {
 
   describe('findCurrentBranch', () => {
     it('現在のbranchを返す', () => {
-      const newState = state.setCurrentFlowId('F002');
+      const newState = state.setCurrentNodeId('F002');
       const branch = newState.findCurrentBranch();
       expect(branch).not.toBeNull();
       expect(branch.getId()).toBe('B001');
@@ -132,41 +132,41 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-  describe('deleteFlow', () => {
+  describe('deleteNode', () => {
     it('flowを削除すると対応するpageも削除される', () => {
-      const newState = state.deleteFlow('F001');
-      expect(newState.getFlowDefs().size).toBe(2);
-      expect(newState.getPageDefs().size).toBe(1);
+      const newState = state.deleteNode('F001');
+      expect(newState.getNodes().size).toBe(2);
+      expect(newState.getPages().size).toBe(1);
     });
 
     it('flowを削除すると対応するbranchも削除される', () => {
-      const newState = state.deleteFlow('F002');
-      expect(newState.getFlowDefs().size).toBe(2);
-      expect(newState.getBranchDefs().size).toBe(0);
+      const newState = state.deleteNode('F002');
+      expect(newState.getNodes().size).toBe(2);
+      expect(newState.getBranches().size).toBe(0);
     });
   });
 
-  describe('addFlow', () => {
+  describe('addNode', () => {
     it('先頭にpageを挿入できる', () => {
-      const newState = state.addFlow(0, 'page');
-      expect(newState.getFlowDefs().size).toBe(4);
-      expect(newState.getPageDefs().size).toBe(3);
-      expect(newState.getFlowDefs().get(0).getNextFlowId()).toBe(newState.getFlowDefs().get(1).getId());
+      const newState = state.addNode(0, 'page');
+      expect(newState.getNodes().size).toBe(4);
+      expect(newState.getPages().size).toBe(3);
+      expect(newState.getNodes().get(0).getNextNodeId()).toBe(newState.getNodes().get(1).getId());
     });
 
     it('先頭にbranchを挿入できる', () => {
-      const newState = state.addFlow(0, 'branch');
-      expect(newState.getFlowDefs().size).toBe(4);
-      expect(newState.getBranchDefs().size).toBe(2);
-      expect(newState.getFlowDefs().get(0).getNextFlowId()).toBe(newState.getFlowDefs().get(1).getId());
+      const newState = state.addNode(0, 'branch');
+      expect(newState.getNodes().size).toBe(4);
+      expect(newState.getBranches().size).toBe(2);
+      expect(newState.getNodes().get(0).getNextNodeId()).toBe(newState.getNodes().get(1).getId());
     });
 
-    it('途中にpageを挿入すると一つ前のnextFlowIdも同時に書き換わる', () => {
-      const newState = state.addFlow(1, 'page');
-      expect(newState.getFlowDefs().size).toBe(4);
-      expect(newState.getPageDefs().size).toBe(3);
-      expect(newState.getFlowDefs().get(0).getNextFlowId()).toBe(newState.getFlowDefs().get(1).getId());
-      expect(newState.getFlowDefs().get(1).getNextFlowId()).toBe(newState.getFlowDefs().get(2).getId());
+    it('途中にpageを挿入すると一つ前のnextNodeIdも同時に書き換わる', () => {
+      const newState = state.addNode(1, 'page');
+      expect(newState.getNodes().size).toBe(4);
+      expect(newState.getPages().size).toBe(3);
+      expect(newState.getNodes().get(0).getNextNodeId()).toBe(newState.getNodes().get(1).getId());
+      expect(newState.getNodes().get(1).getNextNodeId()).toBe(newState.getNodes().get(2).getId());
     });
   });
 

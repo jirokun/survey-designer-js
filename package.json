@@ -33,6 +33,7 @@
     "react-split-pane": "^0.1.52",
     "react-tinymce": "^0.5.1",
     "redux": "^3.6.0",
+    "redux-immutable": "^3.0.11",
     "redux-thunk": "^2.2.0",
     "redux-undo": "^0.6.0",
     "string": "^3.3.3",
