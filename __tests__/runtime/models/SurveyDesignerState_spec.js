@@ -210,4 +210,14 @@ describe('SurveyDesignerState', () => {
       expect(result).toBe('2');
     });
   });
+
+  describe('swapCondition', () => {
+    it('指定したconditionを入れ替えることができる', () => {
+      expect(state.getIn(['survey', 'branches', 0, 'conditions', 0, 'nextNodeId'])).toBe('F001');
+      expect(state.getIn(['survey', 'branches', 0, 'conditions', 2, 'nextNodeId'])).toBe('F003');
+      const result = state.swapCondition('B001', 0, 2);
+      expect(result.getIn(['survey', 'branches', 0, 'conditions', 0, 'nextNodeId'])).toBe('F003');
+      expect(result.getIn(['survey', 'branches', 0, 'conditions', 2, 'nextNodeId'])).toBe('F001');
+    });
+  });
 });

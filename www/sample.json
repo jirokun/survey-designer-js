@@ -168,6 +168,12 @@
           }
         ],
         "id": "8c5f009a-0aab-44bd-a14e-c88c6bbba8e4"
+      },
+      {
+        "title": "COMPLETE",
+        "id": "9e05bb99-1e5b-4a47-82fe-4953ebe5c673",
+        "questions": [
+        ]
       }
     ],
     "branches": [
@@ -194,17 +200,6 @@
                 "refQuestionId": "P001_1",
                 "operator": "includes",
                 "value": "2"
-              }
-            ]
-          },
-          {
-            "conditionType": "any",
-            "nextNodeId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e",
-            "childConditions": [
-              {
-                "refQuestionId": "",
-                "operator": "",
-                "value": ""
               }
             ]
           }
@@ -245,7 +240,13 @@
       {
         "id": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
         "type": "branch",
-        "refId": "ca5c78cd-8bc9-4320-9446-0b7b8ab0a91e"
+        "refId": "ca5c78cd-8bc9-4320-9446-0b7b8ab0a91e",
+        "nextNodeId": "e202f142-9f4c-463a-9f06-24ff3b905ece"
+      },
+      {
+        "id": "e202f142-9f4c-463a-9f06-24ff3b905ece",
+        "type": "page",
+        "refId": "9e05bb99-1e5b-4a47-82fe-4953ebe5c673"
       }
     ]
   },

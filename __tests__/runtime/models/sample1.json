@@ -53,7 +53,7 @@
         "conditions": [
           {
             "type": "any",
-            "nextNodeId": "F003",
+            "nextNodeId": "F001",
             "childConditions": [
               {
                 "refQuestionId": "P001_1",
@@ -64,7 +64,18 @@
           },
           {
             "type": "any",
-            "nextNodeId": "F004",
+            "nextNodeId": "F002",
+            "childConditions": [
+              {
+                "refQuestionId": "P001_1",
+                "operator": "includes",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "type": "any",
+            "nextNodeId": "F003",
             "childConditions": [
               {
                 "refQuestionId": "",

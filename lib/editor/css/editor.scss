@@ -2,7 +2,7 @@ $left_pane_size: 400px;
 $hot_pane_height: 442px;
 html, body {
   height: 100%;
-  overnode: hidden;
+  overflow: hidden;
 }
 #root {
   width: 100%;
@@ -16,7 +16,7 @@ html, body {
         box-sizing: border-box;
         height: 100%;
         width: 100%;
-        overnode: auto;
+        overflow: auto;
         h4 {
           border-bottom: 1px solid #ccc;
           margin: 0 1em 5px;
@@ -46,7 +46,7 @@ html, body {
         position: absolute;
         height: 100%;
         width: 100%;
-        overnode: hidden;
+        overflow: hidden;
         iframe {
           box-sizing: border-box;
           border: none;
@@ -66,11 +66,11 @@ html, body {
   }
 }
 .Pane {
-  overnode: auto;
+  overflow: auto;
 }
 .Pane.horizontal {
   height: 100%;
-  overnode: auto;
+  overflow: auto;
 }
 .Resizer {
   background: #000;
@@ -172,16 +172,16 @@ html, body {
     }
     .title {
       white-space: nowrap;
-      text-overnode: ellipsis;
-      overnode: hidden;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .questions {
       list-style: none;
       .question {
         cursor: move;
         white-space: nowrap;
-        text-overnode: ellipsis;
-        overnode: hidden;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       .insert-item-box {
         height: 10px;
@@ -231,7 +231,7 @@ html, body {
 .graph {
   height: 100%;
   width: 100%;
-  overnode: hidden;
+  overflow: hidden;
   position: relative;
   .graph-controller {
     position: absolute;
