@@ -220,4 +220,36 @@ describe('SurveyDesignerState', () => {
       expect(result.getIn(['survey', 'branches', 0, 'conditions', 2, 'nextNodeId'])).toBe('F001');
     });
   });
+
+  describe('findPrecedingPageNodeIds', () => {
+    it('branchのnodeIdを指定し先行するページを指し示すnodeIdを一覧することができる', () => {
+      const result = state.findPrecedingPageNodeIds('F002');
+      expect(result.length).toBe(1);
+      expect(result[0]).toBe('F001');
+    });
+
+    it('pageのnodeIdを指定し先行するページを指し示すnodeIdを一覧することができる', () => {
+      const result = state.findPrecedingPageNodeIds('F003');
+      expect(result.length).toBe(2);
+      expect(result[0]).toBe('F001');
+      expect(result[1]).toBe('F003');
+    });
+  });
+
+
+  describe('findFollowingPageNodeIds', () => {
+    it('branchのnodeIdを指定し以降のページを指し示すnodeIdを一覧することができる', () => {
+      const result = state.findFollowingPageNodeIds('F002');
+      expect(result.length).toBe(1);
+      expect(result[0]).toBe('F003');
+    });
+
+    it('pageのnodeIdを指定し以降のページを指し示すnodeIdを一覧することができる', () => {
+      const result = state.findFollowingPageNodeIds('F001');
+      expect(result.length).toBe(2);
+      expect(result[0]).toBe('F001');
+      expect(result[1]).toBe('F003');
+    });
+  });
+
 });
