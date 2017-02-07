@@ -1,7 +1,7 @@
 {
   "runtime": {
     "currentNodeId": "F001",
-    "flowStack": [],
+    "nodeStack": [],
     "answers": { }
   },
   "survey": {

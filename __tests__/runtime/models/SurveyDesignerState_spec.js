@@ -42,7 +42,7 @@ describe('SurveyDesignerState', () => {
       expect(nodes.get(0).constructor.name).toBe('NodeDefinition');
     });
 
-    it('存在しないflowIdを指定すると例外が発生する', () => {
+    it('存在しないnodeIdを指定すると例外が発生する', () => {
       expect(() => state.findNode('NONE')).toThrow();
     });
   });
@@ -68,33 +68,33 @@ describe('SurveyDesignerState', () => {
   });
 
   describe('findNode', () => {
-    it('flowIdからflowを取得できる', () => {
-      const flow = state.findNode('F002');
-      expect(flow).not.toBeNull();
-      expect(flow.getId()).toBe('F002');
+    it('nodeIdからnodeを取得できる', () => {
+      const node = state.findNode('F002');
+      expect(node).not.toBeNull();
+      expect(node.getId()).toBe('F002');
     });
   });
 
   describe('findBranchFromNode', () => {
-    it('flowIdからbranchを取得できる', () => {
+    it('nodeIdからbranchを取得できる', () => {
       const branch = state.findBranchFromNode('F002');
       expect(branch).not.toBeNull();
       expect(branch.getId()).toBe('B001');
     });
 
-    it('存在しないflowIdを指定しbranch取得を行うと例外が発生する', () => {
+    it('存在しないnodeIdを指定しbranch取得を行うと例外が発生する', () => {
       expect(() => state.findBranchFromNode('NONE')).toThrow();
     });
   });
 
   describe('findPageFromNode', () => {
-    it('flowIdからpageを取得できる', () => {
+    it('nodeIdからpageを取得できる', () => {
       const page = state.findPageFromNode('F001');
       expect(page).not.toBeNull();
       expect(page.getId()).toBe('P001');
     });
 
-    it('存在しないflowIdを指定しpage取得を行うと例外が発生する', () => {
+    it('存在しないnodeIdを指定しpage取得を行うと例外が発生する', () => {
       expect(() => state.findPageFromNode('NONE')).toThrow('');
     });
   });
@@ -108,10 +108,10 @@ describe('SurveyDesignerState', () => {
   });
 
   describe('findCurrentNode', () => {
-    it('現在のflowを返す', () => {
-      const flow = state.findCurrentNode();
-      expect(flow).not.toBeNull();
-      expect(flow.getId()).toBe('F001');
+    it('現在のnodeを返す', () => {
+      const node = state.findCurrentNode();
+      expect(node).not.toBeNull();
+      expect(node.getId()).toBe('F001');
     });
   });
 
@@ -133,13 +133,13 @@ describe('SurveyDesignerState', () => {
   });
 
   describe('deleteNode', () => {
-    it('flowを削除すると対応するpageも削除される', () => {
+    it('nodeを削除すると対応するpageも削除される', () => {
       const newState = state.deleteNode('F001');
       expect(newState.getNodes().size).toBe(2);
       expect(newState.getPages().size).toBe(1);
     });
 
-    it('flowを削除すると対応するbranchも削除される', () => {
+    it('nodeを削除すると対応するbranchも削除される', () => {
       const newState = state.deleteNode('F002');
       expect(newState.getNodes().size).toBe(2);
       expect(newState.getBranches().size).toBe(0);
