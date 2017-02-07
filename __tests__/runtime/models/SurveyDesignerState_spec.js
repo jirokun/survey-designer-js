@@ -186,4 +186,28 @@ describe('SurveyDesignerState', () => {
       expect(result2.getInputValues().get('q2')).toBe('def');
     });
   });
+
+  describe('getPageNo', () => {
+    it('ページ番号を取得できる', () => {
+      const result = state.calcPageNo('P001');
+      expect(result).toBe('1');
+    });
+
+    it('ブランチが間に入っていても正しくページ番号を取得できる', () => {
+      const result = state.calcPageNo('P002');
+      expect(result).toBe('2');
+    });
+  });
+
+  describe('getQuestionNo', () => {
+    it('page番号も含めたquestion番号を取得できる', () => {
+      const result = state.calcQuestionNo('P001', '2');
+      expect(result).toBe('1-2');
+    });
+
+    it('page番号を含めいないquestion番号を取得できる', () => {
+      const result = state.calcQuestionNo('P001', '2', true);
+      expect(result).toBe('2');
+    });
+  });
 });

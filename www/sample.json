@@ -176,7 +176,7 @@
         "type": "simple",
         "conditions": [
           {
-            "type": "any",
+            "conditionType": "any",
             "nextNodeId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
             "childConditions": [
               {
@@ -187,7 +187,7 @@
             ]
           },
           {
-            "type": "all",
+            "conditionType": "all",
             "nextNodeId": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
             "childConditions": [
               {
@@ -198,7 +198,7 @@
             ]
           },
           {
-            "type": "any",
+            "conditionType": "any",
             "nextNodeId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e",
             "childConditions": [
               {
