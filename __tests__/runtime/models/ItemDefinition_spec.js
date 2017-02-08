@@ -4,7 +4,7 @@ import ItemDefinition from '../../../lib/runtime/models/definitions/questions/It
 describe('ItemDefinition', () => {
   describe('transform', () => {
     it('先頭にある{$TEXT_INPUT}がある場合正しくparseされる', () => {
-      const input = new ItemDefinition({ label: '{$TEXT_INPUT}abc' });
+      const input = new ItemDefinition({ label: '{$TEXT_INPUT}abc', plainLabel: '{$TEXT_INPUT}abc' });
       const result = input.parseLabel('a', 0);
       expect(result.getLabel()).toBe('');
       expect(result.getUnit()).toBe('abc');
@@ -13,7 +13,7 @@ describe('ItemDefinition', () => {
     });
 
     it('中間にある{TEXT_INPUT}がある場合正しくparseされる', () => {
-      const input = new ItemDefinition({ label: 'xyz{$TEXT_INPUT}abc' });
+      const input = new ItemDefinition({ label: 'xyz{$TEXT_INPUT}abc', plainLabel: 'xyz{$TEXT_INPUT}abc' });
       const result = input.parseLabel('a', 0);
       expect(result.getLabel()).toBe('xyz');
       expect(result.getUnit()).toBe('abc');
@@ -22,7 +22,7 @@ describe('ItemDefinition', () => {
     });
 
     it('最後にある{TEXT_INPUT}がある場合正しくparseされる', () => {
-      const input = new ItemDefinition({ label: 'xyz{$TEXT_INPUT}' });
+      const input = new ItemDefinition({ label: 'xyz{$TEXT_INPUT}', plainLabel: 'xyz{$TEXT_INPUT}' });
       const result = input.parseLabel('a', 0);
       expect(result.getLabel()).toBe('xyz');
       expect(result.getUnit()).toBe('');
@@ -31,7 +31,7 @@ describe('ItemDefinition', () => {
     });
 
     it('先頭にある{$NUMBER_INPUT}がある場合正しくparseされる', () => {
-      const input = new ItemDefinition({ label: '{$NUMBER_INPUT}abc' });
+      const input = new ItemDefinition({ label: '{$NUMBER_INPUT}abc', plainLabel: '{$NUMBER_INPUT}abc' });
       const result = input.parseLabel('a', 0);
       expect(result.getLabel()).toBe('');
       expect(result.getUnit()).toBe('abc');
@@ -40,7 +40,7 @@ describe('ItemDefinition', () => {
     });
 
     it('中間にある{NUMBER_INPUT}がある場合正しくparseされる', () => {
-      const input = new ItemDefinition({ label: 'xyz{$NUMBER_INPUT}abc' });
+      const input = new ItemDefinition({ label: 'xyz{$NUMBER_INPUT}abc', plainLabel: 'xyz{$NUMBER_INPUT}abc' });
       const result = input.parseLabel('a', 0);
       expect(result.getLabel()).toBe('xyz');
       expect(result.getUnit()).toBe('abc');
@@ -49,7 +49,7 @@ describe('ItemDefinition', () => {
     });
 
     it('最後にある{NUMBER_INPUT}がある場合正しくparseされる', () => {
-      const input = new ItemDefinition({ label: 'xyz{$NUMBER_INPUT}' });
+      const input = new ItemDefinition({ label: 'xyz{$NUMBER_INPUT}', plainLabel: 'xyz{$NUMBER_INPUT}' });
       const result = input.parseLabel('a', 0);
       expect(result.getLabel()).toBe('xyz');
       expect(result.getUnit()).toBe('');

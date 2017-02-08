@@ -51,12 +51,7 @@
             "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
-            "items": [
-              { "index": 0, "label": "通常の選択肢" },
-              { "index": 1, "label": "選択肢2" },
-              { "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge"},
-              { "index": 3, "label": "1行目\n2行目\n" }
-            ]
+            "items": []
           },
           {
             "id": "79ece17d-d26e-4e73-842c-57f1872a5cb6",
@@ -65,12 +60,7 @@
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "multiple": true,
-            "items": [
-              { "index": 0, "label": "通常の選択肢" },
-              { "index": 1, "label": "選択肢2" },
-              { "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge"},
-              { "index": 3, "label": "1行目\n2行目\n" }
-            ]
+            "items": []
           }
         ],
         "id": "19be0247-75e1-4b02-8ef4-af4905b2fdb2"
@@ -87,8 +77,8 @@
             "direction": "horizontal",
             "cellType": "text",
             "items": [
-              { "index": 0, "label": "通常の選択肢", "plainLabel": "通常の選択肢" },
-              { "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
+              { "id": "22735fa7-805a-4045-bc1c-c1192f53be9b", "index": 0, "label": "通常の選択肢", "plainLabel": "通常の選択肢" },
+              { "id": "58de00ee-fd95-433b-801b-7a9663802c80", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
             ]
           },
           {
@@ -100,8 +90,8 @@
             "direction": "vertical",
             "cellType": "text",
             "items": [
-              { "index": 0, "label": "通常の選択肢", "plainLabel": "通常の選択肢" },
-              { "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
+              { "id": "59ccd8da-fccc-4768-9cd7-5ea7e6257c06", "index": 0, "label": "通常の選択肢", "plainLabel": "通常の選択肢" },
+              { "id": "f39ad7b1-1850-4669-a44e-af6261a55cb7", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
             ]
           }
         ],
@@ -182,10 +172,12 @@
         "type": "simple",
         "conditions": [
           {
+            "id": "1986dbb8-a413-4f33-a704-caf59c242c44",
             "conditionType": "any",
             "nextNodeId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
             "childConditions": [
               {
+                "id": "5517f7c8-c292-49ad-a2fd-032ac18f6f35",
                 "refQuestionId": "P001_1",
                 "operator": "includes",
                 "value": "1"
@@ -193,10 +185,12 @@
             ]
           },
           {
+            "id": "035da30f-95d2-421e-a402-dda2318119ca",
             "conditionType": "all",
             "nextNodeId": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
             "childConditions": [
               {
+                "id": "c6f5b6f2-4701-4f5a-8c63-2f547464df28",
                 "refQuestionId": "P001_1",
                 "operator": "includes",
                 "value": "2"

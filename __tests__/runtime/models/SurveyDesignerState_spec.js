@@ -236,7 +236,6 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-
   describe('findFollowingPageNodeIds', () => {
     it('branchのnodeIdを指定し以降のページを指し示すnodeIdを一覧することができる', () => {
       const result = state.findFollowingPageNodeIds('F002');
@@ -252,4 +251,11 @@ describe('SurveyDesignerState', () => {
     });
   });
 
+  describe('updateConditionAttribute', () => {
+    it('conditionの属性を更新できる', () => {
+      expect(state.getIn(['survey', 'branches', 0, 'conditions', 1, 'conditionType'])).toBe('any');
+      const result = state.updateConditionAttribute('B001', 'C002', 'conditionType', 'all');
+      expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'conditionType'])).toBe('all');
+    });
+  });
 });

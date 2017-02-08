@@ -19,8 +19,8 @@
             "description": "",
             "vertical": true,
             "items": [
-              { "label": "通常の選択肢" },
-              { "label": "通常の選択肢", "randomFixed": true },
+              { "label": "通常の選択肢", "plainLabel":  "通常の選択肢" },
+              { "label": "通常の選択肢", "plainLabel":  "通常の選択肢", "randomFixed": true },
               { "label": "1行目 2行目" }
             ]
           },
@@ -31,8 +31,8 @@
             "description": "",
             "vertical": false,
             "items": [
-              { "label": "選択肢2" },
-              { "label": "<span style=\"color: red;\">HTML</span> hogehoge"}
+              { "label": "選択肢2", "plainLabel": "選択肢2" },
+              { "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "選択肢2"}
             ],
             "random": false,
             "randomFixLast": false
@@ -52,7 +52,8 @@
         "type": "simple",
         "conditions": [
           {
-            "type": "any",
+            "id": "C001",
+            "conditionType": "any",
             "nextNodeId": "F001",
             "childConditions": [
               {
@@ -63,7 +64,8 @@
             ]
           },
           {
-            "type": "any",
+            "id": "C002",
+            "conditionType": "any",
             "nextNodeId": "F002",
             "childConditions": [
               {
@@ -74,6 +76,7 @@
             ]
           },
           {
+            "id": "C003",
             "type": "any",
             "nextNodeId": "F003",
             "childConditions": [
