@@ -87,8 +87,8 @@
             "direction": "horizontal",
             "cellType": "text",
             "items": [
-              { "index": 0, "label": "通常の選択肢" },
-              { "index": 1, "label": "選択肢2" }
+              { "index": 0, "label": "通常の選択肢", "plainLabel": "通常の選択肢" },
+              { "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
             ]
           },
           {
@@ -100,8 +100,8 @@
             "direction": "vertical",
             "cellType": "text",
             "items": [
-              { "index": 0, "label": "通常の選択肢" },
-              { "index": 1, "label": "選択肢2" }
+              { "index": 0, "label": "通常の選択肢", "plainLabel": "通常の選択肢" },
+              { "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
             ]
           }
         ],
