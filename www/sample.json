@@ -178,7 +178,7 @@
             "childConditions": [
               {
                 "id": "5517f7c8-c292-49ad-a2fd-032ac18f6f35",
-                "refQuestionId": "P001_1",
+                "outputId": null,
                 "operator": "includes",
                 "value": "1"
               }
@@ -191,7 +191,7 @@
             "childConditions": [
               {
                 "id": "c6f5b6f2-4701-4f5a-8c63-2f547464df28",
-                "refQuestionId": "P001_1",
+                "outputId": null,
                 "operator": "includes",
                 "value": "2"
               }

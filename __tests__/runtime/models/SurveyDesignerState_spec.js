@@ -258,4 +258,12 @@ describe('SurveyDesignerState', () => {
       expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'conditionType'])).toBe('all');
     });
   });
+
+  describe('updateChildConditionAttribute', () => {
+    it('childConditionの属性を更新できる', () => {
+      expect(state.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, 'operator'])).toBe('==');
+      const result = state.updateChildConditionAttribute('B001', 'C002', 'CC002', 'operator', '!=');
+      expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, 'operator'])).toBe('!=');
+    });
+  });
 });

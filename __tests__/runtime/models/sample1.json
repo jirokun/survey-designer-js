@@ -57,6 +57,7 @@
             "nextNodeId": "F001",
             "childConditions": [
               {
+                "id": "CC001",
                 "refQuestionId": "P001_1",
                 "operator": "includes",
                 "value": "1"
@@ -69,8 +70,9 @@
             "nextNodeId": "F002",
             "childConditions": [
               {
+                "id": "CC002",
                 "refQuestionId": "P001_1",
-                "operator": "includes",
+                "operator": "==",
                 "value": "1"
               }
             ]
@@ -81,6 +83,7 @@
             "nextNodeId": "F003",
             "childConditions": [
               {
+                "id": "CC003",
                 "refQuestionId": "",
                 "operator": "",
                 "value": ""
