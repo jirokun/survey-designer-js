@@ -261,7 +261,7 @@ html, body {
       width: 100px;
     }
     > select {
-      width: 120px;
+      width: 150px;
     }
   }
 }
@@ -269,9 +269,5 @@ html, body {
 /* コンディションエディタ */
 .condition-editor {
   @extend .branch-editor-header;
-  margin: 1em 2em 0 2em;
-  &:before {
-    content: "●";
-    margin: 0 1em;
-  }
+  margin: 0.5em 0 0 0;
 }

@@ -108,8 +108,8 @@
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "items": [
-              { "index": 0, "label": "選択肢1" },
-              { "index": 1, "label": "選択肢2" }
+              { "id": "0ff9b9dd-31dc-434a-9253-3fe2f6ab3be8", "index": 0, "label": "選択肢1", "plainLabel": "選択肢1" },
+              { "id": "ea21f24b-f126-4c32-ac7c-643a46d41116", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
             ]
           },
           {
@@ -119,8 +119,8 @@
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "items": [
-              { "index": 0, "label": "選択肢1" },
-              { "index": 1, "label": "選択肢2" }
+              { "id": "8918057c-4a1e-437b-8474-2a7ea02b077a", "index": 0, "label": "選択肢1", "plainLabel": "選択肢1" },
+              { "id": "ee174f34-07fa-4c8c-a74e-be432d903729", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
             ]
           }
         ],
@@ -136,10 +136,10 @@
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
             "items": [
-              { "index": 0, "label": "選択肢1,2,3" },
-              { "index": 1, "label": "選択肢2" },
-              { "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge" },
-              { "index": 3, "label": "1行目\n2行目\n" }
+              { "id": "b3d31114-cad0-437c-b28e-6634f07dd3a8", "index": 0, "label": "選択肢1,2,3", "plainLabel": "選択肢1,2,3" },
+              { "id": "fbc7075d-2a94-479d-a3cd-1d8434d0f212", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" },
+              { "id": "bb45e5d0-9755-4046-ade1-1b2805a6390b", "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "HTML hogehoge" },
+              { "id": "715b0274-75e2-4cc2-9e5a-7704516fe3fa", "index": 3, "label": "1行目\n2行目\n", "plainLabel": "1行目\n2行目\n" }
             ]
           },
           {
@@ -150,10 +150,10 @@
             "plainTitle": "Checkbox vertical",
             "direction": "horizontal",
             "items": [
-              { "index": 0, "label": "選択肢1,2,3" },
-              { "index": 1, "label": "選択肢2" },
-              { "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge" },
-              { "index": 3, "label": "1行目\n2行目\n" }
+              { "id": "7647d82d-a796-4f03-bb5f-ec737ef82c55", "index": 0, "label": "選択肢1,2,3", "plainLabel": "選択肢1,2,3" },
+              { "id": "b762f82f-3107-49dd-bd1f-9481f89870bd", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" },
+              { "id": "c1efa733-cf8c-4750-989c-0f6d5c7ae6f3", "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "HTML hogehoge" },
+              { "id": "be1a8cec-b627-4399-9226-0af2797bfd01", "index": 3, "label": "1行目\n2行目\n", "plainLabel": "1行目\n2行目\n" }
             ]
           }
         ],

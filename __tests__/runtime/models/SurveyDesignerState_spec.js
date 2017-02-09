@@ -205,9 +205,9 @@ describe('SurveyDesignerState', () => {
       expect(result).toBe('1-2');
     });
 
-    it('page番号を含めいないquestion番号を取得できる', () => {
-      const result = state.calcQuestionNo('P001', '2', true);
-      expect(result).toBe('2');
+    it('postfixを含めたquestion番号を取得できる', () => {
+      const result = state.calcQuestionNo('P001', '2', 'text');
+      expect(result).toBe('1-2-text');
     });
   });
 
@@ -264,6 +264,45 @@ describe('SurveyDesignerState', () => {
       expect(state.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, 'operator'])).toBe('==');
       const result = state.updateChildConditionAttribute('B001', 'C002', 'CC002', 'operator', '!=');
       expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, 'operator'])).toBe('!=');
+    });
+  });
+
+  describe('getAllQuestions', () => {
+    it('すべてのquestion定義を取得できる', () => {
+      const result = state.getAllQuestions();
+      expect(result.size).toBe(2);
+    });
+  });
+
+  describe('getAllOutputDefinitionMap', () => {
+    it('すべてのoutputDefinitionを取得できる', () => {
+      const result = state.getAllOutputDefinitionMap();
+      expect(result.size).toBe(6);
+      expect(result.get('1__value1')).not.toBe(undefined);
+      expect(result.get('1__value2')).not.toBe(undefined);
+      expect(result.get('1__value2_text')).not.toBe(undefined);
+      expect(result.get('1__value3')).not.toBe(undefined);
+      expect(result.get('2__value1')).not.toBe(undefined);
+      expect(result.get('2__value2')).not.toBe(undefined);
+    });
+  });
+
+  describe('addChildCondition', () => {
+    it('childConditionを追加できる', () => {
+      expect(state.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions']).size).toBe(1);
+      const result = state.addChildCondition('B001', 'C002', 1);
+      expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions']).size).toBe(2);
+      expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 1, 'outputId'])).toBe(null);
+    });
+  });
+
+  describe('deleteChildCondition', () => {
+    it('指定したchildConditionが削除できること', () => {
+      const result = state.addChildCondition('B001', 'C002', 1);
+      const childConditionId = result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 1, 'id']);
+      const result2 = result.deleteChildCondition('B001', 'C002', childConditionId);
+      expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions']).size).toBe(1);
+      expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, 'id'])).toBe('CC002');
     });
   });
 });
