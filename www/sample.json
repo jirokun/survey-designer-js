@@ -1,199 +1,235 @@
 {
   "runtime": {
-    "currentNodeId": "ff6da4cf-e1ef-46da-bea4-20b248269a68",
+    "currentNodeId": "4a980b34-4bd4-468e-87ce-ad40a8e6b1bc",
     "nodeStack": [],
-    "answers": { }
+    "answers": {}
   },
   "survey": {
     "title": "sample enquete",
+    "creator": null,
     "version": 1,
     "pages": [
       {
-        "title": "TextQuestion",
-        "questions": [
-          {
-            "id": "ef49f6bb-4902-4a30-87e2-4f8591f8eedd",
-            "type": "TextQuestion",
-            "title": "<h3>TextQuestion</h3>",
-            "plainTitle": "TextQuestion",
-            "description": "",
-            "random": false,
-            "minCheckCount": 0,
-            "maxCheckCount": 0,
-            "items": []
-          }
-        ],
-        "id": "dc853c98-39ae-4b72-8eb5-044ae6f389b5"
-      },
-      {
-        "title": "SingleTextQuestion",
-        "questions": [
-          {
-            "id": "e35c2c67-d76d-4e58-bb4d-e28dae790fc0",
-            "type": "SingleTextQuestion",
-            "title": "SingleTextQuestion",
-            "plainTitle": "SingleTextQuestion",
-            "description": "",
-            "random": false,
-            "minCheckCount": 0,
-            "maxCheckCount": 0,
-            "items": []
-          }
-        ],
-        "id": "e57ba4a3-d99f-4e08-8605-069dc7474fa2"
-      },
-      {
-        "title": "PageTitle Radio",
-        "questions": [
-          {
-            "id": "1f3dd198-d530-4bdd-bcfd-8fcb211b58ac",
-            "type": "RadioQuestion",
-            "description": "",
-            "title": "Checkbox vertical",
-            "plainTitle": "Checkbox vertical",
-            "items": []
-          },
-          {
-            "id": "79ece17d-d26e-4e73-842c-57f1872a5cb6",
-            "type": "RadioQuestion",
-            "description": "",
-            "title": "Checkbox vertical",
-            "plainTitle": "Checkbox vertical",
-            "multiple": true,
-            "items": []
-          }
-        ],
-        "id": "19be0247-75e1-4b02-8ef4-af4905b2fdb2"
-      },
-      {
-        "title": "PageTitle Checkbox",
-        "questions": [
-          {
-            "id": "870f21b9-6e14-467b-8dff-5c31fcd4a9fa",
-            "type": "CheckboxQuestion",
-            "description": "",
-            "title": "Checkbox vertical",
-            "plainTitle": "Checkbox vertical",
-            "direction": "horizontal",
-            "cellType": "text",
-            "items": [
-              { "id": "22735fa7-805a-4045-bc1c-c1192f53be9b", "index": 0, "label": "通常の選択肢", "plainLabel": "通常の選択肢" },
-              { "id": "58de00ee-fd95-433b-801b-7a9663802c80", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
-            ]
-          },
-          {
-            "id": "859bf078-21b4-45a2-933e-6a9f0f3c7ced",
-            "type": "CheckboxQuestion",
-            "description": "",
-            "title": "Checkbox vertical",
-            "plainTitle": "Checkbox vertical",
-            "direction": "vertical",
-            "cellType": "text",
-            "items": [
-              { "id": "59ccd8da-fccc-4768-9cd7-5ea7e6257c06", "index": 0, "label": "通常の選択肢", "plainLabel": "通常の選択肢" },
-              { "id": "f39ad7b1-1850-4669-a44e-af6261a55cb7", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
-            ]
-          }
-        ],
-        "id": "03319671-1089-411d-b034-553d2171661a"
-      },
-      {
-        "title": "PageTitle JavaScript実行",
-        "javascript": "var element = document.querySelector('label');\nelement.style.position = 'relative';\nelement.style.left = '50px';\ndocument.querySelector('input').addEventListener('change', function(e) {\n  document.querySelector('input[type=\"radio\"]').checked = e.target.checked;\n}, false);\n",
+        "id": "P005",
         "questions": [
           {
             "id": "45ee5295-9ead-46aa-a3c5-721a5d8e8f09",
             "type": "CheckboxQuestion",
-            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
+            "description": "",
+            "random": false,
+            "unit": "",
             "items": [
-              { "id": "0ff9b9dd-31dc-434a-9253-3fe2f6ab3be8", "index": 0, "label": "選択肢1", "plainLabel": "選択肢1" },
-              { "id": "ea21f24b-f126-4c32-ac7c-643a46d41116", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
-            ]
+              {
+                "id": "0ff9b9dd-31dc-434a-9253-3fe2f6ab3be8",
+                "index": 0,
+                "label": "選択肢1",
+                "plainLabel": "選択肢1",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              },
+              {
+                "id": "ea21f24b-f126-4c32-ac7c-643a46d41116",
+                "index": 1,
+                "label": "選択肢2",
+                "plainLabel": "選択肢2",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
           },
           {
             "id": "19332a17-1ac1-4383-a5a6-b27b49aa0354",
             "type": "RadioQuestion",
-            "description": "",
             "title": "Checkbox vertical",
             "plainTitle": "Checkbox vertical",
+            "description": "",
+            "random": false,
+            "unit": "",
             "items": [
-              { "id": "8918057c-4a1e-437b-8474-2a7ea02b077a", "index": 0, "label": "選択肢1", "plainLabel": "選択肢1" },
-              { "id": "ee174f34-07fa-4c8c-a74e-be432d903729", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" }
-            ]
+              {
+                "id": "8918057c-4a1e-437b-8474-2a7ea02b077a",
+                "index": 0,
+                "label": "選択肢1",
+                "plainLabel": "選択肢1",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              },
+              {
+                "id": "ee174f34-07fa-4c8c-a74e-be432d903729",
+                "index": 1,
+                "label": "選択肢2",
+                "plainLabel": "選択肢2",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
           }
         ],
-        "id": "P005"
+        "layout": "flow_layout"
       },
       {
-        "title": "PageTitle Radio",
+        "id": "0e72c999-d923-4eb5-8aa4-1267daaa20ff",
         "questions": [
           {
-            "id": "c6317810-008f-4813-abed-623ffb5b4dfe",
-            "type": "RadioQuestion",
+            "id": "a9656176-2135-4934-8a18-15f716f9b27f",
+            "type": "CheckboxQuestion",
+            "title": "<p>ページ1</p>",
+            "plainTitle": "ページ1\n",
             "description": "",
-            "title": "Checkbox vertical",
-            "plainTitle": "Checkbox vertical",
+            "random": false,
+            "unit": "",
             "items": [
-              { "id": "b3d31114-cad0-437c-b28e-6634f07dd3a8", "index": 0, "label": "選択肢1,2,3", "plainLabel": "選択肢1,2,3" },
-              { "id": "fbc7075d-2a94-479d-a3cd-1d8434d0f212", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" },
-              { "id": "bb45e5d0-9755-4046-ade1-1b2805a6390b", "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "HTML hogehoge" },
-              { "id": "715b0274-75e2-4cc2-9e5a-7704516fe3fa", "index": 3, "label": "1行目\n2行目\n", "plainLabel": "1行目\n2行目\n" }
-            ]
-          },
-          {
-            "id": "888e1410-d1ab-4289-ade6-2ec91ab22564",
-            "type": "RadioQuestion",
-            "description": "",
-            "title": "Checkbox vertical",
-            "plainTitle": "Checkbox vertical",
-            "direction": "horizontal",
-            "items": [
-              { "id": "7647d82d-a796-4f03-bb5f-ec737ef82c55", "index": 0, "label": "選択肢1,2,3", "plainLabel": "選択肢1,2,3" },
-              { "id": "b762f82f-3107-49dd-bd1f-9481f89870bd", "index": 1, "label": "選択肢2", "plainLabel": "選択肢2" },
-              { "id": "c1efa733-cf8c-4750-989c-0f6d5c7ae6f3", "index": 2, "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "HTML hogehoge" },
-              { "id": "be1a8cec-b627-4399-9226-0af2797bfd01", "index": 3, "label": "1行目\n2行目\n", "plainLabel": "1行目\n2行目\n" }
-            ]
+              {
+                "id": "",
+                "index": 0,
+                "label": "a",
+                "plainLabel": "a",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              },
+              {
+                "id": "ab2a35e9-72a7-419f-93ee-ebb490d5bb5d",
+                "index": 1,
+                "label": "b",
+                "plainLabel": "b",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
           }
         ],
-        "id": "8c5f009a-0aab-44bd-a14e-c88c6bbba8e4"
+        "layout": "flow_layout"
       },
       {
-        "title": "COMPLETE",
-        "id": "9e05bb99-1e5b-4a47-82fe-4953ebe5c673",
+        "id": "0a69f3f5-e784-4e15-81be-c1359ebca4c7",
         "questions": [
-        ]
+          {
+            "id": "641c5f77-bba8-4601-a194-ecfafce60b25",
+            "type": "CheckboxQuestion",
+            "title": "<p>ページ2</p>",
+            "plainTitle": "ページ2",
+            "description": "",
+            "random": false,
+            "unit": "",
+            "items": [
+              {
+                "id": "",
+                "index": 0,
+                "label": "a",
+                "plainLabel": "a",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
+          }
+        ],
+        "layout": "flow_layout"
+      },
+      {
+        "id": "0ebfc46f-ab8d-40c5-a3ec-e60878e76a74",
+        "questions": [
+          {
+            "id": "1d97d91f-3fd7-4ee6-9ad9-c0e55dfd459e",
+            "type": "CheckboxQuestion",
+            "title": "<p>ページ3</p>",
+            "plainTitle": "ページ3\n",
+            "description": "",
+            "random": false,
+            "unit": "",
+            "items": [
+              {
+                "id": "",
+                "index": 0,
+                "label": "b",
+                "plainLabel": "b",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
+          }
+        ],
+        "layout": "flow_layout"
       }
     ],
     "branches": [
       {
-        "id": "ca5c78cd-8bc9-4320-9446-0b7b8ab0a91e",
-        "type": "simple",
+        "id": "805905f0-ef30-4a7c-949b-4f1e6f48f212",
+        "type": null,
         "conditions": [
           {
-            "id": "1986dbb8-a413-4f33-a704-caf59c242c44",
-            "conditionType": "any",
-            "nextNodeId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
-            "childConditions": [
-              {
-                "id": "5517f7c8-c292-49ad-a2fd-032ac18f6f35",
-                "outputId": null,
-                "operator": "includes",
-                "value": "1"
-              }
-            ]
-          },
-          {
-            "id": "035da30f-95d2-421e-a402-dda2318119ca",
+            "id": "d5d9718d-ef9e-42fa-b871-855975575aa5",
             "conditionType": "all",
-            "nextNodeId": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
+            "nextNodeId": "2ef34558-b1c3-4f1c-8bd1-3ae7db2d8d30",
             "childConditions": [
               {
-                "id": "c6f5b6f2-4701-4f5a-8c63-2f547464df28",
-                "outputId": null,
-                "operator": "includes",
-                "value": "2"
+                "id": "5e610905-c741-4742-b6a5-bdf1964e5d07",
+                "outputId": "a9656176-2135-4934-8a18-15f716f9b27f__value1",
+                "operator": "==",
+                "value": "on"
               }
             ]
           }
@@ -202,45 +238,28 @@
     ],
     "nodes": [
       {
-        "id": "ff6da4cf-e1ef-46da-bea4-20b248269a68",
+        "id": "4a980b34-4bd4-468e-87ce-ad40a8e6b1bc",
         "type": "page",
-        "refId": "dc853c98-39ae-4b72-8eb5-044ae6f389b5",
-        "nextNodeId": "50ce3c36-c13f-4c6f-8da3-06bbbe8c7b6a"
+        "refId": "0e72c999-d923-4eb5-8aa4-1267daaa20ff",
+        "nextNodeId": "5f9bb1f7-dcea-4dad-9a0f-68f6e72d32d8"
       },
       {
-        "id": "50ce3c36-c13f-4c6f-8da3-06bbbe8c7b6a",
-        "type": "page",
-        "refId": "e57ba4a3-d99f-4e08-8605-069dc7474fa2",
-        "nextNodeId": "b81aa205-8335-436e-8c9b-87ebc9053533"
-      },
-      {
-        "id": "b81aa205-8335-436e-8c9b-87ebc9053533",
-        "type": "page",
-        "refId": "03319671-1089-411d-b034-553d2171661a",
-        "nextNodeId": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f"
-      },
-      {
-        "id": "8d3943a5-3bb1-4d7a-b7bb-74f37fd0eb4f",
-        "type": "page",
-        "refId": "8c5f009a-0aab-44bd-a14e-c88c6bbba8e4",
-        "nextNodeId": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e"
-      },
-      {
-        "id": "c3f22a0e-1545-4f5e-a8e2-17ec97f9eb5e",
-        "type": "page",
-        "refId": "19be0247-75e1-4b02-8ef4-af4905b2fdb2",
-        "nextNodeId": "dc766d18-ec90-4e2e-9f35-eda75de65d27"
-      },
-      {
-        "id": "dc766d18-ec90-4e2e-9f35-eda75de65d27",
+        "id": "5f9bb1f7-dcea-4dad-9a0f-68f6e72d32d8",
         "type": "branch",
-        "refId": "ca5c78cd-8bc9-4320-9446-0b7b8ab0a91e",
-        "nextNodeId": "e202f142-9f4c-463a-9f06-24ff3b905ece"
+        "refId": "805905f0-ef30-4a7c-949b-4f1e6f48f212",
+        "nextNodeId": "1c2f7fae-e33f-4119-8698-d661f3b98b8e"
       },
       {
-        "id": "e202f142-9f4c-463a-9f06-24ff3b905ece",
+        "id": "1c2f7fae-e33f-4119-8698-d661f3b98b8e",
         "type": "page",
-        "refId": "9e05bb99-1e5b-4a47-82fe-4953ebe5c673"
+        "refId": "0a69f3f5-e784-4e15-81be-c1359ebca4c7",
+        "nextNodeId": "2ef34558-b1c3-4f1c-8bd1-3ae7db2d8d30"
+      },
+      {
+        "id": "2ef34558-b1c3-4f1c-8bd1-3ae7db2d8d30",
+        "type": "page",
+        "refId": "0ebfc46f-ab8d-40c5-a3ec-e60878e76a74",
+        "nextNodeId": null
       }
     ]
   },

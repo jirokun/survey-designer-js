@@ -180,10 +180,10 @@ describe('SurveyDesignerState', () => {
   describe('submitPage', () => {
     it('入力値が追加される', () => {
       const result1 = state.submitPage({ q1: 'abc' });
-      expect(result1.getInputValues().get('q1')).toBe('abc');
+      expect(result1.getAnswers().get('q1')).toBe('abc');
       const result2 = result1.submitPage({ q2: 'def' });
-      expect(result2.getInputValues().get('q1')).toBe('abc');
-      expect(result2.getInputValues().get('q2')).toBe('def');
+      expect(result2.getAnswers().get('q1')).toBe('abc');
+      expect(result2.getAnswers().get('q2')).toBe('def');
     });
   });
 
@@ -253,7 +253,7 @@ describe('SurveyDesignerState', () => {
 
   describe('updateConditionAttribute', () => {
     it('conditionの属性を更新できる', () => {
-      expect(state.getIn(['survey', 'branches', 0, 'conditions', 1, 'conditionType'])).toBe('any');
+      expect(state.getIn(['survey', 'branches', 0, 'conditions', 1, 'conditionType'])).toBe('some');
       const result = state.updateConditionAttribute('B001', 'C002', 'conditionType', 'all');
       expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'conditionType'])).toBe('all');
     });

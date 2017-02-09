@@ -53,20 +53,20 @@
         "conditions": [
           {
             "id": "C001",
-            "conditionType": "any",
+            "conditionType": "some",
             "nextNodeId": "F001",
             "childConditions": [
               {
                 "id": "CC001",
                 "outputId": "P001_1",
-                "operator": "includes",
+                "operator": "==",
                 "value": "1"
               }
             ]
           },
           {
             "id": "C002",
-            "conditionType": "any",
+            "conditionType": "some",
             "nextNodeId": "F002",
             "childConditions": [
               {
@@ -79,13 +79,13 @@
           },
           {
             "id": "C003",
-            "type": "any",
+            "conditionType": "some",
             "nextNodeId": "F003",
             "childConditions": [
               {
                 "id": "CC003",
                 "outputId": "",
-                "operator": "",
+                "operator": "==",
                 "value": ""
               }
             ]
