@@ -166,11 +166,9 @@ html, body {
     border: 1px solid #ccc;
     width: 100%;
     .delete-button {
-      position: absolute;
-      top: 0;
-      right: 5px;
+      margin-right: 0.5em;
     }
-    .title {
+    .header {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
