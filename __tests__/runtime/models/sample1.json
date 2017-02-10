@@ -93,6 +93,14 @@
         ]
       }
     ],
+    "finishers": [
+      {
+        "id": "F001",
+        "finishType": "COMPLETE",
+        "point": 30,
+        "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+      }
+    ],
     "nodes": [
       {
         "id": "F001",
@@ -110,6 +118,12 @@
         "id": "F003",
         "type": "page",
         "refId": "P002",
+        "nextNodeId": "F004"
+      },
+      {
+        "id": "F004",
+        "type": "finisher",
+        "refId": "F001",
         "nextNodeId": null
       }
     ]

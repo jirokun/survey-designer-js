@@ -38,7 +38,7 @@ describe('SurveyDesignerState', () => {
   describe('getNodes', () => {
     it('nodesが取得できる', () => {
       const nodes = state.getNodes();
-      expect(nodes.size).toBe(3);
+      expect(nodes.size).toBe(4);
       expect(nodes.get(0).constructor.name).toBe('NodeDefinition');
     });
 
@@ -135,35 +135,57 @@ describe('SurveyDesignerState', () => {
   describe('deleteNode', () => {
     it('nodeを削除すると対応するpageも削除される', () => {
       const newState = state.deleteNode('F001');
-      expect(newState.getNodes().size).toBe(2);
+      expect(newState.getNodes().size).toBe(3);
       expect(newState.getPages().size).toBe(1);
     });
 
     it('nodeを削除すると対応するbranchも削除される', () => {
       const newState = state.deleteNode('F002');
-      expect(newState.getNodes().size).toBe(2);
+      expect(newState.getNodes().size).toBe(3);
       expect(newState.getBranches().size).toBe(0);
+    });
+
+    it('nodeを削除すると対応するfinisherも削除される', () => {
+      expect(state.getFinishers().size).toBe(1);
+      const newState = state.deleteNode('F004');
+      expect(newState.getNodes().size).toBe(3);
+      expect(newState.getFinishers().size).toBe(0);
+    });
+
+    it('先頭のnodeを削除することができる', () => {
+      const newState = state.deleteNode('F001');
+      expect(newState.getNodes().size).toBe(3);
+    });
+
+    it('途中のnodeを削除するとそこを参照しているnodeのnextNodeIdが削除したnodeのnextNodeIdに変更される', () => {
+      const newState = state.deleteNode('F003');
+      expect(newState.findNode('F002').getNextNodeId()).toBe('F004');
+    });
+
+    it('最後のnodeを削除するとそこを参照しているnodeのnextNodeIdが削除したnodeのnextNodeIdに変更される', () => {
+      const newState = state.deleteNode('F004');
+      expect(newState.findNode('F003').getNextNodeId()).toBe(null);
     });
   });
 
   describe('addNode', () => {
     it('先頭にpageを挿入できる', () => {
       const newState = state.addNode(0, 'page');
-      expect(newState.getNodes().size).toBe(4);
+      expect(newState.getNodes().size).toBe(5);
       expect(newState.getPages().size).toBe(3);
       expect(newState.getNodes().get(0).getNextNodeId()).toBe(newState.getNodes().get(1).getId());
     });
 
     it('先頭にbranchを挿入できる', () => {
       const newState = state.addNode(0, 'branch');
-      expect(newState.getNodes().size).toBe(4);
+      expect(newState.getNodes().size).toBe(5);
       expect(newState.getBranches().size).toBe(2);
       expect(newState.getNodes().get(0).getNextNodeId()).toBe(newState.getNodes().get(1).getId());
     });
 
     it('途中にpageを挿入すると一つ前のnextNodeIdも同時に書き換わる', () => {
       const newState = state.addNode(1, 'page');
-      expect(newState.getNodes().size).toBe(4);
+      expect(newState.getNodes().size).toBe(5);
       expect(newState.getPages().size).toBe(3);
       expect(newState.getNodes().get(0).getNextNodeId()).toBe(newState.getNodes().get(1).getId());
       expect(newState.getNodes().get(1).getNextNodeId()).toBe(newState.getNodes().get(2).getId());
