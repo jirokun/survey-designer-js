@@ -292,7 +292,7 @@ describe('SurveyDesignerState', () => {
       expect(state.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions']).size).toBe(1);
       const result = state.addChildCondition('B001', 'C002', 1);
       expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions']).size).toBe(2);
-      expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 1, 'outputId'])).toBe(null);
+      expect(result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 1, 'outputId'])).toBe('');
     });
   });
 

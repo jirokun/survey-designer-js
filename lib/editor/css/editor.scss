@@ -159,7 +159,7 @@ html, body {
 }
 .page-list {
   padding: 10px;
-  .page, .branch {
+  .page, .branch, .finisher {
     position: relative;
     cursor: pointer;
     margin-bottom: 5px;
@@ -174,7 +174,7 @@ html, body {
       text-overflow: ellipsis;
       overflow: hidden;
     }
-    .questions {
+    .questions, .conditions {
       list-style: none;
       padding-left: 1.5em;
       .question {
