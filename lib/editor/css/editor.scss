@@ -1,5 +1,4 @@
-$left_pane_size: 400px;
-$hot_pane_height: 442px;
+$page-list-item-controller-width: 21px;
 html, body {
   height: 100%;
   overflow: hidden;
@@ -161,24 +160,22 @@ html, body {
   padding: 10px;
   .page, .branch, .finisher {
     position: relative;
-    cursor: pointer;
     margin-bottom: 5px;
     border: 1px solid #ccc;
     width: 100%;
-    .delete-button {
-      margin-right: 0.5em;
-      cursor: pointer;
-    }
     .header {
+      position: relative;
       white-space: nowrap;
       text-overflow: ellipsis;
+      padding-right: $page-list-item-controller-width;
       overflow: hidden;
     }
     .questions, .conditions {
       list-style: none;
       padding-left: 1.5em;
       .question {
-        cursor: move;
+        position: relative;
+        padding-right: $page-list-item-controller-width;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -270,4 +267,23 @@ html, body {
 .condition-editor {
   @extend .branch-editor-header;
   margin: 0.5em 0 0 0;
+}
+
+/* 追加、削除のボタンコンテナ */
+.item-controller {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: #fff;
+}
+
+/* ドラッグのハンドラ */
+.drag-handler {
+  cursor: move;
+}
+/* 削除ボタン */
+.delete-button {
+  cursor: pointer;
 }
