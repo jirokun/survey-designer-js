@@ -1,11 +1,13 @@
 {
-  "name": "react-enquete",
+  "name": "survey-designer-js",
   "version": "0.0.0",
   "description": "Enquete system using react.js",
   "scripts": {
     "start": "node server.js",
     "test": "jest",
-    "test:watch": "yarn test -- --watch"
+    "test:watch": "yarn test -- --watch",
+    "build": "webpack",
+    "build:watch": "webpack --watch"
   },
   "license": "MIT",
   "files": [

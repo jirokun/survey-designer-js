@@ -1,10 +1,6 @@
 {
-  "runtime": {
-    "currentNodeId": "4a980b34-4bd4-468e-87ce-ad40a8e6b1bc",
-    "nodeStack": [],
-    "answers": {}
-  },
   "survey": {
+    "id": "ef6005c2-0024-413e-9fb4-488a75bbba1a",
     "title": "sample enquete",
     "creator": null,
     "version": 1,
@@ -276,10 +272,5 @@
         "nextNodeId": null
       }
     ]
-  },
-  "view": {
-    "pageListPane": true,
-    "editorPane": true,
-    "previewPane": true
   }
 }
