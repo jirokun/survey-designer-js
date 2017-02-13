@@ -12,24 +12,26 @@
     "lib"
   ],
   "main": "react-enquete.js",
+  "peerDependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "json-loader": "^0.5.4",
+    "react-redux": "^5.0.2"
+  },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.1",
     "jquery": "^3.1.1",
     "js-yaml": "^3.6.1",
-    "json-loader": "^0.5.4",
     "node-uuid": "^1.4.7",
     "parsleyjs": "^2.6.2",
-    "react": "^15.3.2",
     "react-addons-linked-state-mixin": "^15.3.2",
     "react-bootstrap": "^0.30.6",
     "react-codemirror": "^0.3.0",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
-    "react-dom": "^15.3.2",
     "react-frame-component": "^1.0.0",
     "react-mixin": "^3.0.5",
-    "react-redux": "^5.0.2",
     "react-split-pane": "^0.1.52",
     "react-tinymce": "^0.5.1",
     "redux": "^3.6.0",
@@ -38,8 +40,7 @@
     "redux-undo": "^0.6.0",
     "string": "^3.3.3",
     "tinymce": "^4.4.3",
-    "tooltipster": "^4.1.7",
-    "validate.js": "^0.11.1"
+    "tooltipster": "^4.1.7"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
@@ -66,6 +67,10 @@
     "node-libs-browser": "^2.0.0",
     "node-sass": "^4.4.0",
     "react-transform-hmr": "^1.0.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "json-loader": "^0.5.4",
+    "react-redux": "^5.0.2",
     "redux-devtools": "^3.2.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.0",
