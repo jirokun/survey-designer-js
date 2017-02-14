@@ -321,51 +321,51 @@ describe('SurveyDesignerState', () => {
   describe('deleteChildCondition', () => {
     it('指定したchildConditionが削除できること', () => {
       const result = state.addChildCondition('B001', 'C002', 1);
-      const childConditionId = result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 1, 'id']);
+      const childConditionId = result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 1, '_id']);
       const result2 = result.deleteChildCondition('B001', 'C002', childConditionId);
       expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions']).size).toBe(1);
-      expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, 'id'])).toBe('CC002');
+      expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, '_id'])).toBe('CC002');
     });
   });
 
   describe('swapNode', () => {
     it('0番目と1番目のnodeの入れ替えができること', () => {
       const result = state.swapNode('F001', 'F002');
-      expect(result.getIn(['survey', 'nodes', 0, 'id'])).toBe('F002');
+      expect(result.getIn(['survey', 'nodes', 0, '_id'])).toBe('F002');
       expect(result.getIn(['survey', 'nodes', 0, 'nextNodeId'])).toBe('F001');
-      expect(result.getIn(['survey', 'nodes', 1, 'id'])).toBe('F001');
+      expect(result.getIn(['survey', 'nodes', 1, '_id'])).toBe('F001');
       expect(result.getIn(['survey', 'nodes', 1, 'nextNodeId'])).toBe('F003');
     });
 
     it('1番目と2番目のnodeの入れ替えができること', () => {
       const result = state.swapNode('F002', 'F003');
-      expect(result.getIn(['survey', 'nodes', 0, 'id'])).toBe('F001');
+      expect(result.getIn(['survey', 'nodes', 0, '_id'])).toBe('F001');
       expect(result.getIn(['survey', 'nodes', 0, 'nextNodeId'])).toBe('F003');
-      expect(result.getIn(['survey', 'nodes', 1, 'id'])).toBe('F003');
+      expect(result.getIn(['survey', 'nodes', 1, '_id'])).toBe('F003');
       expect(result.getIn(['survey', 'nodes', 1, 'nextNodeId'])).toBe('F002');
-      expect(result.getIn(['survey', 'nodes', 2, 'id'])).toBe('F002');
+      expect(result.getIn(['survey', 'nodes', 2, '_id'])).toBe('F002');
       expect(result.getIn(['survey', 'nodes', 2, 'nextNodeId'])).toBe('F004');
     });
 
     it('2番目と3番目(最後)のnodeの入れ替えができること', () => {
       const result = state.swapNode('F003', 'F004');
-      expect(result.getIn(['survey', 'nodes', 1, 'id'])).toBe('F002');
+      expect(result.getIn(['survey', 'nodes', 1, '_id'])).toBe('F002');
       expect(result.getIn(['survey', 'nodes', 1, 'nextNodeId'])).toBe('F004');
-      expect(result.getIn(['survey', 'nodes', 2, 'id'])).toBe('F004');
+      expect(result.getIn(['survey', 'nodes', 2, '_id'])).toBe('F004');
       expect(result.getIn(['survey', 'nodes', 2, 'nextNodeId'])).toBe('F003');
-      expect(result.getIn(['survey', 'nodes', 3, 'id'])).toBe('F003');
+      expect(result.getIn(['survey', 'nodes', 3, '_id'])).toBe('F003');
       expect(result.getIn(['survey', 'nodes', 3, 'nextNodeId'])).toBe(null);
     });
 
     it('連続しないnodeの入れ替え(1番目と3番目)ができること', () => {
       const result = state.swapNode('F002', 'F004');
-      expect(result.getIn(['survey', 'nodes', 0, 'id'])).toBe('F001');
+      expect(result.getIn(['survey', 'nodes', 0, '_id'])).toBe('F001');
       expect(result.getIn(['survey', 'nodes', 0, 'nextNodeId'])).toBe('F004');
-      expect(result.getIn(['survey', 'nodes', 1, 'id'])).toBe('F004');
+      expect(result.getIn(['survey', 'nodes', 1, '_id'])).toBe('F004');
       expect(result.getIn(['survey', 'nodes', 1, 'nextNodeId'])).toBe('F003');
-      expect(result.getIn(['survey', 'nodes', 2, 'id'])).toBe('F003');
+      expect(result.getIn(['survey', 'nodes', 2, '_id'])).toBe('F003');
       expect(result.getIn(['survey', 'nodes', 2, 'nextNodeId'])).toBe('F002');
-      expect(result.getIn(['survey', 'nodes', 3, 'id'])).toBe('F002');
+      expect(result.getIn(['survey', 'nodes', 3, '_id'])).toBe('F002');
       expect(result.getIn(['survey', 'nodes', 3, 'nextNodeId'])).toBe(null);
     });
   });

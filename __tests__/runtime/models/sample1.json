@@ -13,51 +13,51 @@
         "title": "PageTitle Checkbox",
         "questions": [
           {
-            "id": "1",
-            "type": "CheckboxQuestion",
+            "_id": "1",
+            "dataType": "Checkbox",
             "title": "Checkbox vertical",
             "description": "",
             "vertical": true,
             "items": [
-              { "id": "cfae151e-6c47-4007-9fdc-93de1a47ecd8", "label": "通常の選択肢", "plainLabel":  "通常の選択肢", "index": 0 },
-              { "id": "dceb1271-c6c2-418d-aed5-4096b40d3185", "label": "通常の選択肢{$TEXT_INPUT}", "plainLabel":  "通常の選択肢{$TEXT_INPUT}", "randomFixed": true, "index": 1 },
-              { "id": "4699e69e-5944-4362-978d-78f31d4a8e3f", "label": "1行目 2行目", "index": 2 }
+              { "_id": "cfae151e-6c47-4007-9fdc-93de1a47ecd8", "label": "通常の選択肢", "plainLabel":  "通常の選択肢", "index": 0 },
+              { "_id": "dceb1271-c6c2-418d-aed5-4096b40d3185", "label": "通常の選択肢{$TEXT_INPUT}", "plainLabel":  "通常の選択肢{$TEXT_INPUT}", "randomFixed": true, "index": 1 },
+              { "_id": "4699e69e-5944-4362-978d-78f31d4a8e3f", "label": "1行目 2行目", "index": 2 }
             ]
           },
           {
-            "id": "2",
+            "_id": "2",
             "title": "Checkbox horizontal",
-            "type": "CheckboxQuestion",
+            "dataType": "Checkbox",
             "description": "",
             "vertical": false,
             "items": [
-              { "id": "fc943661-46af-443a-980f-2896d1215cb7", "label": "選択肢2", "plainLabel": "選択肢2", "index": 0 },
-              { "id": "af623af3-718a-466c-8a5d-ed23483648f3", "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "選択肢2", "index": 1 }
+              { "_id": "fc943661-46af-443a-980f-2896d1215cb7", "label": "選択肢2", "plainLabel": "選択肢2", "index": 0 },
+              { "_id": "af623af3-718a-466c-8a5d-ed23483648f3", "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "選択肢2", "index": 1 }
             ],
             "random": false,
             "randomFixLast": false
           }
         ],
-        "id": "P001"
+        "_id": "P001"
       },
       {
         "title": "PageTitle Checkbox",
         "questions": [],
-        "id": "P002"
+        "_id": "P002"
       }
     ],
     "branches": [
       {
-        "id": "B001",
+        "_id": "B001",
         "type": "simple",
         "conditions": [
           {
-            "id": "C001",
+            "_id": "C001",
             "conditionType": "some",
             "nextNodeId": "F001",
             "childConditions": [
               {
-                "id": "CC001",
+                "_id": "CC001",
                 "outputId": "P001_1",
                 "operator": "==",
                 "value": "1"
@@ -65,12 +65,12 @@
             ]
           },
           {
-            "id": "C002",
+            "_id": "C002",
             "conditionType": "some",
             "nextNodeId": "F002",
             "childConditions": [
               {
-                "id": "CC002",
+                "_id": "CC002",
                 "outputId": "P001_1",
                 "operator": "==",
                 "value": "1"
@@ -78,12 +78,12 @@
             ]
           },
           {
-            "id": "C003",
+            "_id": "C003",
             "conditionType": "some",
             "nextNodeId": "F003",
             "childConditions": [
               {
-                "id": "CC003",
+                "_id": "CC003",
                 "outputId": "",
                 "operator": "==",
                 "value": ""
@@ -95,7 +95,7 @@
     ],
     "finishers": [
       {
-        "id": "F001",
+        "_id": "F001",
         "finishType": "COMPLETE",
         "point": 30,
         "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
@@ -103,25 +103,25 @@
     ],
     "nodes": [
       {
-        "id": "F001",
+        "_id": "F001",
         "type": "page",
         "refId": "P001",
         "nextNodeId": "F002"
       },
       {
-        "id": "F002",
+        "_id": "F002",
         "type": "branch",
         "refId": "B001",
         "nextNodeId": "F003"
       },
       {
-        "id": "F003",
+        "_id": "F003",
         "type": "page",
         "refId": "P002",
         "nextNodeId": "F004"
       },
       {
-        "id": "F004",
+        "_id": "F004",
         "type": "finisher",
         "refId": "F001",
         "nextNodeId": null
