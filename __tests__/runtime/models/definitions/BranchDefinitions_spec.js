@@ -13,18 +13,18 @@ describe('BranchDefinition', () => {
         const parsedObj = json2ImmutableState({
           conditions: [
             {
-              id: 'C001',
+              _id: 'C001',
               conditionType: 'all',
               nextNodeId: 'N001',
               childConditions: [
-                { id: 'CC001', outputId: 'O001', operator: '==', value: '123', },
-                { id: 'CC002', outputId: 'O002', operator: '==', value: '234', },
+                { _id: 'CC001', outputId: 'O001', operator: '==', value: '123', },
+                { _id: 'CC002', outputId: 'O002', operator: '==', value: '234', },
               ],
             },
           ],
         }, true);
         const conditions = parsedObj.get('conditions');
-        const branch = new BranchDefinition({ id: 'B001', conditions });
+        const branch = new BranchDefinition({ _id: 'B001', conditions });
         const result = branch.evaluateConditions(answers);
         expect(result).toBe('N001');
       });
@@ -36,18 +36,18 @@ describe('BranchDefinition', () => {
         const parsedObj = json2ImmutableState({
           conditions: [
             {
-              id: 'C001',
+              _id: 'C001',
               conditionType: 'all',
               nextNodeId: 'N001',
               childConditions: [
-                { id: 'CC001', outputId: 'O001', operator: '==', value: '123', },
-                { id: 'CC002', outputId: 'O002', operator: '==', value: '235', },
+                { _id: 'CC001', outputId: 'O001', operator: '==', value: '123', },
+                { _id: 'CC002', outputId: 'O002', operator: '==', value: '235', },
               ],
             },
           ],
         }, true);
         const conditions = parsedObj.get('conditions');
-        const branch = new BranchDefinition({ id: 'B001', conditions });
+        const branch = new BranchDefinition({ _id: 'B001', conditions });
         const result = branch.evaluateConditions(answers);
         expect(result).toBe(null);
       });
@@ -61,18 +61,18 @@ describe('BranchDefinition', () => {
         const parsedObj = json2ImmutableState({
           conditions: [
             {
-              id: 'C001',
+              _id: 'C001',
               conditionType: 'some',
               nextNodeId: 'N001',
               childConditions: [
-                { id: 'CC001', outputId: 'O001', operator: '==', value: '124' },
-                { id: 'CC002', outputId: 'O002', operator: '==', value: '234' },
+                { _id: 'CC001', outputId: 'O001', operator: '==', value: '124' },
+                { _id: 'CC002', outputId: 'O002', operator: '==', value: '234' },
               ],
             },
           ],
         }, true);
         const conditions = parsedObj.get('conditions');
-        const branch = new BranchDefinition({ id: 'B001', conditions });
+        const branch = new BranchDefinition({ _id: 'B001', conditions });
         const result = branch.evaluateConditions(answers);
         expect(result).toBe('N001');
       });
@@ -84,18 +84,18 @@ describe('BranchDefinition', () => {
         const parsedObj = json2ImmutableState({
           conditions: [
             {
-              id: 'C001',
+              _id: 'C001',
               conditionType: 'some',
               nextNodeId: 'N001',
               childConditions: [
-                { id: 'CC001', outputId: 'O001', operator: '==', value: '' },
-                { id: 'CC002', outputId: 'O002', operator: '==', value: '' },
+                { _id: 'CC001', outputId: 'O001', operator: '==', value: '' },
+                { _id: 'CC002', outputId: 'O002', operator: '==', value: '' },
               ],
             },
           ],
         }, true);
         const conditions = parsedObj.get('conditions');
-        const branch = new BranchDefinition({ id: 'B001', conditions });
+        const branch = new BranchDefinition({ _id: 'B001', conditions });
         const result = branch.evaluateConditions(answers);
         expect(result).toBe(null);
       });
