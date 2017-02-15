@@ -41,6 +41,7 @@
     "redux-undo": "^0.6.0",
     "string": "^3.3.3",
     "tinymce": "^4.4.3",
+    "riek": "^1.0.7",
     "tooltipster": "^4.1.7"
   },
   "devDependencies": {
@@ -73,7 +74,6 @@
     "react-dom": "^15.3.2",
     "react-transform-hmr": "^1.0.0",
     "redux-devtools": "^3.2.0",
-    "riek": "^1.0.7",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.0",
     "webpack": "^1.13.3",
