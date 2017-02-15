@@ -7,16 +7,12 @@ module.exports = {
   // devtool: 'inline-source-map',
   devtool: 'source-map',
   entry: {
-    runtime: ['webpack-hot-middleware/client', './lib/runtime/index'],
-    preview: ['webpack-hot-middleware/client', './lib/runtime/preview'],
-    editor: ['webpack-hot-middleware/client', './lib/editor/index'],
+    runtime: ['webpack-hot-middleware/client', './src/index'],
   },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].bundle.js',
     publicPath: '/static/',
-    library: 'SurveyDesigner',
-    libraryTarget: 'umd',
   },
   plugins: [
     // 環境変数の読み込み

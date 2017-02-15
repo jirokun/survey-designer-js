@@ -1,0 +1,276 @@
+{
+  "survey": {
+    "_id": "ef6005c2-0024-413e-9fb4-488a75bbba1a",
+    "title": "sample enquete",
+    "creator": null,
+    "version": 1,
+    "pages": [
+      {
+        "_id": "P005",
+        "questions": [
+          {
+            "_id": "45ee5295-9ead-46aa-a3c5-721a5d8e8f09",
+            "dataType": "Checkbox",
+            "title": "Checkbox vertical",
+            "plainTitle": "Checkbox vertical",
+            "description": "",
+            "random": false,
+            "unit": "",
+            "items": [
+              {
+                "_id": "0ff9b9dd-31dc-434a-9253-3fe2f6ab3be8",
+                "index": 0,
+                "label": "選択肢1",
+                "plainLabel": "選択肢1",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              },
+              {
+                "_id": "ea21f24b-f126-4c32-ac7c-643a46d41116",
+                "index": 1,
+                "label": "選択肢2",
+                "plainLabel": "選択肢2",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
+          },
+          {
+            "_id": "19332a17-1ac1-4383-a5a6-b27b49aa0354",
+            "dataType": "Radio",
+            "title": "Checkbox vertical",
+            "plainTitle": "Checkbox vertical",
+            "description": "",
+            "random": false,
+            "unit": "",
+            "items": [
+              {
+                "_id": "8918057c-4a1e-437b-8474-2a7ea02b077a",
+                "index": 0,
+                "label": "選択肢1",
+                "plainLabel": "選択肢1",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              },
+              {
+                "_id": "ee174f34-07fa-4c8c-a74e-be432d903729",
+                "index": 1,
+                "label": "選択肢2",
+                "plainLabel": "選択肢2",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
+          }
+        ],
+        "layout": "flow_layout"
+      },
+      {
+        "_id": "0e72c999-d923-4eb5-8aa4-1267daaa20ff",
+        "questions": [
+          {
+            "_id": "a9656176-2135-4934-8a18-15f716f9b27f",
+            "dataType": "Checkbox",
+            "title": "<p>ページ1</p>",
+            "plainTitle": "ページ1\n",
+            "description": "",
+            "random": false,
+            "unit": "",
+            "items": [
+              {
+                "_id": "",
+                "index": 0,
+                "label": "a",
+                "plainLabel": "a",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              },
+              {
+                "_id": "ab2a35e9-72a7-419f-93ee-ebb490d5bb5d",
+                "index": 1,
+                "label": "b",
+                "plainLabel": "b",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
+          }
+        ],
+        "layout": "flow_layout"
+      },
+      {
+        "_id": "0a69f3f5-e784-4e15-81be-c1359ebca4c7",
+        "questions": [
+          {
+            "_id": "641c5f77-bba8-4601-a194-ecfafce60b25",
+            "dataType": "Checkbox",
+            "title": "<p>ページ2</p>",
+            "plainTitle": "ページ2",
+            "description": "",
+            "random": false,
+            "unit": "",
+            "items": [
+              {
+                "_id": "",
+                "index": 0,
+                "label": "a",
+                "plainLabel": "a",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
+          }
+        ],
+        "layout": "flow_layout"
+      },
+      {
+        "_id": "0ebfc46f-ab8d-40c5-a3ec-e60878e76a74",
+        "questions": [
+          {
+            "_id": "1d97d91f-3fd7-4ee6-9ad9-c0e55dfd459e",
+            "dataType": "Checkbox",
+            "title": "<p>ページ3</p>",
+            "plainTitle": "ページ3\n",
+            "description": "",
+            "random": false,
+            "unit": "",
+            "items": [
+              {
+                "_id": "",
+                "index": 0,
+                "label": "b",
+                "plainLabel": "b",
+                "value": null,
+                "randomFixed": false,
+                "exclusive": false,
+                "textInput": false,
+                "numberInput": false,
+                "unit": ""
+              }
+            ],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 0,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
+          }
+        ],
+        "layout": "flow_layout"
+      }
+    ],
+    "branches": [
+      {
+        "_id": "805905f0-ef30-4a7c-949b-4f1e6f48f212",
+        "type": null,
+        "conditions": [
+          {
+            "_id": "d5d9718d-ef9e-42fa-b871-855975575aa5",
+            "conditionType": "all",
+            "nextNodeId": "2ef34558-b1c3-4f1c-8bd1-3ae7db2d8d30",
+            "childConditions": [
+              {
+                "_id": "5e610905-c741-4742-b6a5-bdf1964e5d07",
+                "outputId": "a9656176-2135-4934-8a18-15f716f9b27f__value1",
+                "operator": "==",
+                "value": "on"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "finishers": [
+      {
+        "_id": "ae453c35-183b-41c4-a3cd-f76abbaab288",
+        "finishType": "COMPLETE",
+        "point": 30,
+        "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+      }
+    ],
+    "nodes": [
+      {
+        "_id": "4a980b34-4bd4-468e-87ce-ad40a8e6b1bc",
+        "type": "page",
+        "refId": "0e72c999-d923-4eb5-8aa4-1267daaa20ff",
+        "nextNodeId": "5f9bb1f7-dcea-4dad-9a0f-68f6e72d32d8"
+      },
+      {
+        "_id": "5f9bb1f7-dcea-4dad-9a0f-68f6e72d32d8",
+        "type": "branch",
+        "refId": "805905f0-ef30-4a7c-949b-4f1e6f48f212",
+        "nextNodeId": "1c2f7fae-e33f-4119-8698-d661f3b98b8e"
+      },
+      {
+        "_id": "1c2f7fae-e33f-4119-8698-d661f3b98b8e",
+        "type": "page",
+        "refId": "0a69f3f5-e784-4e15-81be-c1359ebca4c7",
+        "nextNodeId": "2ef34558-b1c3-4f1c-8bd1-3ae7db2d8d30"
+      },
+      {
+        "_id": "2ef34558-b1c3-4f1c-8bd1-3ae7db2d8d30",
+        "type": "page",
+        "refId": "0ebfc46f-ab8d-40c5-a3ec-e60878e76a74",
+        "nextNodeId": "e0735e53-a56d-4f1a-a9c6-38201b32ec61"
+      },
+      {
+        "_id": "e0735e53-a56d-4f1a-a9c6-38201b32ec61",
+        "type": "finisher",
+        "refId": "ae453c35-183b-41c4-a3cd-f76abbaab288",
+        "nextNodeId": null
+      }
+    ]
+  }
+}

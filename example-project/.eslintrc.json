@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "jest"
+  ],
+  "global": {
+    "ENV": false
+  },
+  "rules": {
+    "max-len": ["error", 140, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false,
+      "ignoreRegExpLiterals": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true
+    }],
+    "no-restricted-syntax": 0,
+    "no-continue": 0,
+    "no-plusplus": 0,
+    "react/jsx-filename-extension": 0,
+    "react/prop-types": 0,
+    "react/no-danger": 0,
+    "jest/no-exclusive-tests": 2,
+    "jest/no-identical-title": 2
+  }
+}

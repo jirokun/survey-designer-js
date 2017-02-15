@@ -1,47 +1,16 @@
 {
-  "name": "survey-designer-js",
-  "version": "0.0.0",
-  "description": "Enquete system using react.js",
+  "name": "survey-user",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "license": "MIT",
   "scripts": {
     "start": "node server.js",
     "test": "jest",
     "test:watch": "yarn test -- --watch",
     "build": "webpack",
-    "build:watch": "webpack --watch"
-  },
-  "license": "MIT",
-  "files": [
-    "dist/editor.bundle.js"
-  ],
-  "main": "react-enquete.js",
-  "peerDependencies": {
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2"
-  },
-  "dependencies": {
-    "bootstrap": "^3.3.7",
-    "immutable": "^3.8.1",
-    "jquery": "^3.1.1",
-    "js-yaml": "^3.6.1",
-    "node-uuid": "^1.4.7",
-    "parsleyjs": "^2.6.2",
-    "react-addons-linked-state-mixin": "^15.3.2",
-    "react-bootstrap": "^0.30.6",
-    "react-codemirror": "^0.3.0",
-    "react-dnd": "^2.1.4",
-    "react-dnd-html5-backend": "^2.1.2",
-    "react-frame-component": "^1.0.0",
-    "react-mixin": "^3.0.5",
-    "react-split-pane": "^0.1.52",
-    "react-tinymce": "^0.5.1",
-    "react-redux": "^5.0.2",
-    "redux": "^3.6.0",
-    "redux-immutable": "^3.0.11",
-    "redux-thunk": "^2.2.0",
-    "redux-undo": "^0.6.0",
-    "string": "^3.3.3",
-    "tinymce": "^4.4.3",
-    "tooltipster": "^4.1.7"
+    "build:watch": "webpack --watch",
+    "babel": "babel src -d lib"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
@@ -54,7 +23,6 @@
     "babel-preset-es2017": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "css-loader": "^0.26.1",
-    "json-loader": "^0.5.4",
     "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-loader": "^1.6.1",
@@ -69,8 +37,9 @@
     "node-env-file": "^0.1.8",
     "node-libs-browser": "^2.0.0",
     "node-sass": "^4.4.0",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
     "react-transform-hmr": "^1.0.0",
     "redux-devtools": "^3.2.0",
     "riek": "^1.0.7",
@@ -79,5 +48,9 @@
     "webpack": "^1.13.3",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.16.0"
+  },
+  "dependencies": {
+    "survey-designer-js": "file:../survey-designer-js",
+    "redux": "^3.6.0"
   }
 }
