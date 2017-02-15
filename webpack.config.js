@@ -10,6 +10,7 @@ module.exports = {
     runtime: ['webpack-hot-middleware/client', './lib/runtime/index'],
     preview: ['webpack-hot-middleware/client', './lib/runtime/preview'],
     editor: ['webpack-hot-middleware/client', './lib/editor/index'],
+    designer: ['./lib/designer'],
   },
   output: {
     path: path.join(__dirname, 'dist'),
