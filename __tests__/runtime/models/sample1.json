@@ -19,9 +19,9 @@
             "description": "",
             "vertical": true,
             "items": [
-              { "_id": "cfae151e-6c47-4007-9fdc-93de1a47ecd8", "label": "通常の選択肢", "plainLabel":  "通常の選択肢", "index": 0 },
-              { "_id": "dceb1271-c6c2-418d-aed5-4096b40d3185", "label": "通常の選択肢{$TEXT_INPUT}", "plainLabel":  "通常の選択肢{$TEXT_INPUT}", "randomFixed": true, "index": 1 },
-              { "_id": "4699e69e-5944-4362-978d-78f31d4a8e3f", "label": "1行目 2行目", "index": 2 }
+              { "_id": "I001", "label": "通常の選択肢", "plainLabel":  "通常の選択肢", "index": 0 },
+              { "_id": "I002", "label": "通常の選択肢{$TEXT_INPUT}", "plainLabel":  "通常の選択肢{$TEXT_INPUT}", "randomFixed": true, "index": 1 },
+              { "_id": "I003", "label": "1行目 2行目", "index": 2 }
             ]
           },
           {
@@ -31,8 +31,8 @@
             "description": "",
             "vertical": false,
             "items": [
-              { "_id": "fc943661-46af-443a-980f-2896d1215cb7", "label": "選択肢2", "plainLabel": "選択肢2", "index": 0 },
-              { "_id": "af623af3-718a-466c-8a5d-ed23483648f3", "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "選択肢2", "index": 1 }
+              { "_id": "I004", "label": "選択肢2", "plainLabel": "選択肢2", "index": 0 },
+              { "_id": "I005", "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "選択肢2", "index": 1 }
             ],
             "random": false,
             "randomFixLast": false

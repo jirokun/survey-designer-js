@@ -289,6 +289,14 @@ describe('SurveyDesignerState', () => {
     });
   });
 
+  describe('updateItemAttribute', () => {
+    it('itemの属性を更新できる', () => {
+      expect(state.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, 'label'])).toBe('通常の選択肢');
+      const result = state.updateItemAttribute('P001', '1', 'I001', 'label', 'ABC');
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, 'label'])).toBe('ABC');
+    });
+  });
+
   describe('getAllQuestions', () => {
     it('すべてのquestion定義を取得できる', () => {
       const result = state.getAllQuestions();
@@ -325,6 +333,31 @@ describe('SurveyDesignerState', () => {
       const result2 = result.deleteChildCondition('B001', 'C002', childConditionId);
       expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions']).size).toBe(1);
       expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, '_id'])).toBe('CC002');
+    });
+  });
+
+  describe('deleteItem', () => {
+    it('指定したitemを削除でき、indexが更新されること', () => {
+      const result1 = state.deleteItem('P001', '1', 'I002');
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items']).size).toBe(2);
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, '_id'])).toBe('I001');
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 1, '_id'])).toBe('I003');
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, 'index'])).toBe(0);
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 1, 'index'])).toBe(1);
+    });
+  });
+
+  describe('addItem', () => {
+    it('指定したindexにitemを追加でき、indexが更新されること', () => {
+      const result1 = state.addItem('P001', '1', 1);
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items']).size).toBe(4);
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, '_id'])).toBe('I001');
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 2, '_id'])).toBe('I002');
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 3, '_id'])).toBe('I003');
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, 'index'])).toBe(0);
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 1, 'index'])).toBe(1);
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 2, 'index'])).toBe(2);
+      expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 3, 'index'])).toBe(3);
     });
   });
 
