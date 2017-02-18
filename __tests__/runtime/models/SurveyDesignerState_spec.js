@@ -243,6 +243,19 @@ describe('SurveyDesignerState', () => {
     });
   });
 
+  describe('swapItem', () => {
+    it('指定したitemを入れ替えることができる', () => {
+      const result = state.swapItem('P001', '1', 'I001', 'I003');
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, '_id'])).toBe('I003');
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 1, '_id'])).toBe('I002');
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 2, '_id'])).toBe('I001');
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, 'index'])).toBe(0);
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 1, 'index'])).toBe(1);
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 2, 'index'])).toBe(2);
+    });
+  });
+
+
   describe('findPrecedingPageNodeIds', () => {
     it('branchのnodeIdを指定し先行するページを指し示すnodeIdを一覧することができる', () => {
       const result = state.findPrecedingPageNodeIds('F002');
