@@ -19,9 +19,9 @@
             "description": "",
             "vertical": true,
             "items": [
-              { "_id": "I001", "label": "通常の選択肢", "plainLabel":  "通常の選択肢", "index": 0 },
-              { "_id": "I002", "label": "通常の選択肢{$TEXT_INPUT}", "plainLabel":  "通常の選択肢{$TEXT_INPUT}", "randomFixed": true, "index": 1 },
-              { "_id": "I003", "label": "1行目 2行目", "index": 2 }
+              { "_id": "I001", "label": "通常の選択肢", "plainLabel":  "通常の選択肢", "index": 0 , "additionalInput": false, "additionalInputType": "text" },
+              { "_id": "I002", "label": "通常の選択肢{$TEXT_INPUT}", "plainLabel":  "通常の選択肢{$TEXT_INPUT}", "randomFixed": true, "index": 1, "additionalInput": true, "additionalInputType": "text" },
+              { "_id": "I003", "label": "1行目 2行目", "index": 2, "additionalInput": false, "additionalInputType": "text" }
             ]
           },
           {
@@ -31,8 +31,8 @@
             "description": "",
             "vertical": false,
             "items": [
-              { "_id": "I004", "label": "選択肢2", "plainLabel": "選択肢2", "index": 0 },
-              { "_id": "I005", "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "選択肢2", "index": 1 }
+              { "_id": "I004", "label": "選択肢2", "plainLabel": "選択肢2", "index": 0, "additionalInput": false, "additionalInputType": "text" },
+              { "_id": "I005", "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "選択肢2", "index": 1, "additionalInput": false, "additionalInputType": "text" }
             ],
             "random": false,
             "randomFixLast": false

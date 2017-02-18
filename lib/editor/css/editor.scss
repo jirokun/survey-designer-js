@@ -132,6 +132,9 @@ html, body {
     .item-editor-row {
       .option {
         text-align: center;
+        .item-editor-unit {
+          width: 5em;
+        }
       }
       .item-editor-tinymce-container {
         padding-left: 5px;
