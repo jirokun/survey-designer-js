@@ -419,15 +419,9 @@ describe('SurveyDesignerState', () => {
 
   describe('swapQuestion', () => {
     it('同じページ内で0番目と1番目のquestionの入れ替えができること', () => {
-      const result = state.swapQuestion('F001', '1', 'F001', '2');
+      const result = state.swapQuestion('F001', '1', '2');
       expect(result.getIn(['survey', 'pages', 0, 'questions', 0, '_id'])).toBe('2');
       expect(result.getIn(['survey', 'pages', 0, 'questions', 1, '_id'])).toBe('1');
-    });
-
-    it('異なるページで0番目と0番目のquestionの入れ替えができること', () => {
-      const result = state.swapQuestion('F001', '1', 'F003', '3');
-      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, '_id'])).toBe('3');
-      expect(result.getIn(['survey', 'pages', 1, 'questions', 0, '_id'])).toBe('1');
     });
   });
 });
