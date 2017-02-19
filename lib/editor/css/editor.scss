@@ -179,7 +179,7 @@ html, body {
     .questions, .conditions {
       list-style: none;
       padding-left: 1.5em;
-      .question {
+      .question, .condition {
         position: relative;
         padding-right: $page-list-item-controller-width;
         white-space: nowrap;
