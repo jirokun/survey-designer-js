@@ -313,20 +313,21 @@ describe('SurveyDesignerState', () => {
   describe('getAllQuestions', () => {
     it('すべてのquestion定義を取得できる', () => {
       const result = state.getAllQuestions();
-      expect(result.size).toBe(2);
+      expect(result.size).toBe(3);
     });
   });
 
   describe('getAllOutputDefinitionMap', () => {
     it('すべてのoutputDefinitionを取得できる', () => {
       const result = state.getAllOutputDefinitionMap();
-      expect(result.size).toBe(6);
+      expect(result.size).toBe(7);
       expect(result.get('1__value1')).not.toBe(undefined);
       expect(result.get('1__value2')).not.toBe(undefined);
       expect(result.get('1__value2_text')).not.toBe(undefined);
       expect(result.get('1__value3')).not.toBe(undefined);
       expect(result.get('2__value1')).not.toBe(undefined);
       expect(result.get('2__value2')).not.toBe(undefined);
+      expect(result.get('3__value1')).not.toBe(undefined);
     });
   });
 
@@ -413,6 +414,20 @@ describe('SurveyDesignerState', () => {
       expect(result.getIn(['survey', 'nodes', 2, 'nextNodeId'])).toBe('F002');
       expect(result.getIn(['survey', 'nodes', 3, '_id'])).toBe('F002');
       expect(result.getIn(['survey', 'nodes', 3, 'nextNodeId'])).toBe(null);
+    });
+  });
+
+  describe('swapQuestion', () => {
+    it('同じページ内で0番目と1番目のquestionの入れ替えができること', () => {
+      const result = state.swapQuestion('F001', '1', 'F001', '2');
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, '_id'])).toBe('2');
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 1, '_id'])).toBe('1');
+    });
+
+    it('異なるページで0番目と0番目のquestionの入れ替えができること', () => {
+      const result = state.swapQuestion('F001', '1', 'F003', '3');
+      expect(result.getIn(['survey', 'pages', 0, 'questions', 0, '_id'])).toBe('3');
+      expect(result.getIn(['survey', 'pages', 1, 'questions', 0, '_id'])).toBe('1');
     });
   });
 });

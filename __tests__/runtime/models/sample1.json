@@ -42,7 +42,18 @@
       },
       {
         "title": "PageTitle Checkbox",
-        "questions": [],
+        "questions": [
+          {
+            "_id": "3",
+            "dataType": "Checkbox",
+            "title": "Checkbox vertical",
+            "description": "",
+            "vertical": true,
+            "items": [
+              { "_id": "I006", "label": "1行目 2行目", "index": 0, "additionalInput": false, "additionalInputType": "text" }
+            ]
+          }
+        ],
         "_id": "P002"
       }
     ],
