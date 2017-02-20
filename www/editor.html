@@ -25,5 +25,16 @@
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/node_modules/tinymce/tinymce.min.js"></script>
     <script src="/static/editor.bundle.js"></script>
+    <script>
+$.getJSON('/sample.json').then((survey) => {
+  const el = document.getElementById('root');
+  SurveyDesigner.Editor(el, {
+    survey: survey,
+    options: {
+      previewUrl: '/preview.html',
+    },
+  });
+});
+    </script>
   </body>
 </html>

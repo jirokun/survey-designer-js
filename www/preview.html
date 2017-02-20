@@ -17,7 +17,12 @@
 
     <div id="root">
     </div>
-    <script src="/static/validator.bundle.js"></script>
     <script src="/static/preview.bundle.js"></script>
+    <script>
+window.loadState = (initialState) => {
+  const el = document.getElementById('root');
+  SurveyDesigner.Preview(el, initialState);
+};
+    </script>
   </body>
 </html>
