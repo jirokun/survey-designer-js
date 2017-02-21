@@ -237,7 +237,7 @@ describe('SurveyDesignerState', () => {
     it('指定したconditionを入れ替えることができる', () => {
       expect(state.getIn(['survey', 'branches', 0, 'conditions', 0, 'nextNodeId'])).toBe('F001');
       expect(state.getIn(['survey', 'branches', 0, 'conditions', 2, 'nextNodeId'])).toBe('F003');
-      const result = state.swapCondition('B001', 0, 2);
+      const result = state.swapCondition('F002', 'C001', 'C003');
       expect(result.getIn(['survey', 'branches', 0, 'conditions', 0, 'nextNodeId'])).toBe('F003');
       expect(result.getIn(['survey', 'branches', 0, 'conditions', 2, 'nextNodeId'])).toBe('F001');
     });
@@ -272,17 +272,19 @@ describe('SurveyDesignerState', () => {
   });
 
   describe('findFollowingPageNodeIds', () => {
-    it('branchのnodeIdを指定し以降のページを指し示すnodeIdを一覧することができる', () => {
-      const result = state.findFollowingPageNodeIds('F002');
-      expect(result.length).toBe(1);
+    it('branchのnodeIdを指定し以降のpageとfinisherを指し示すnodeIdを一覧することができる', () => {
+      const result = state.findFollowingPageAndFinisherNodeIds('F002');
+      expect(result.length).toBe(2);
       expect(result[0]).toBe('F003');
+      expect(result[1]).toBe('F004');
     });
 
-    it('pageのnodeIdを指定し以降のページを指し示すnodeIdを一覧することができる', () => {
-      const result = state.findFollowingPageNodeIds('F001');
-      expect(result.length).toBe(2);
+    it('pageのnodeIdを指定し以降のpageとfinisherを指し示すnodeIdを一覧することができる', () => {
+      const result = state.findFollowingPageAndFinisherNodeIds('F001');
+      expect(result.length).toBe(3);
       expect(result[0]).toBe('F001');
       expect(result[1]).toBe('F003');
+      expect(result[2]).toBe('F004');
     });
   });
 
@@ -321,13 +323,13 @@ describe('SurveyDesignerState', () => {
     it('すべてのoutputDefinitionを取得できる', () => {
       const result = state.getAllOutputDefinitionMap();
       expect(result.size).toBe(7);
-      expect(result.get('1__value1')).not.toBe(undefined);
-      expect(result.get('1__value2')).not.toBe(undefined);
-      expect(result.get('1__value2_text')).not.toBe(undefined);
-      expect(result.get('1__value3')).not.toBe(undefined);
-      expect(result.get('2__value1')).not.toBe(undefined);
-      expect(result.get('2__value2')).not.toBe(undefined);
-      expect(result.get('3__value1')).not.toBe(undefined);
+      expect(result.get('I001')).not.toBe(undefined);
+      expect(result.get('I002')).not.toBe(undefined);
+      expect(result.get('I002_text')).not.toBe(undefined);
+      expect(result.get('I003')).not.toBe(undefined);
+      expect(result.get('I004')).not.toBe(undefined);
+      expect(result.get('I004')).not.toBe(undefined);
+      expect(result.get('I006')).not.toBe(undefined);
     });
   });
 

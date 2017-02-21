@@ -212,6 +212,9 @@ html, body {
   .branch {
     background-color: #eef;
   }
+  .finisher {
+    background-color: #efe;
+  }
   .arrow-down {
     position: relative;
     text-align: center;
@@ -282,7 +285,6 @@ html, body {
   top: 0;
   padding-right: 5px;
   padding-left: 5px;
-  background-color: #fff;
 }
 
 /* ドラッグのハンドラ */
