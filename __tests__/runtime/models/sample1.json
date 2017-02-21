@@ -69,7 +69,7 @@
             "childConditions": [
               {
                 "_id": "CC001",
-                "outputId": "P001_1",
+                "outputId": "I001",
                 "operator": "==",
                 "value": "1"
               }
@@ -82,7 +82,7 @@
             "childConditions": [
               {
                 "_id": "CC002",
-                "outputId": "P001_1",
+                "outputId": "I001",
                 "operator": "==",
                 "value": "1"
               }
