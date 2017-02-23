@@ -6,6 +6,14 @@
 ## Node.jsのインストール
 動作確認は7.4.0で行っています。nodebrewなどでインストールしてください。
 
+インストールの例
+```bash
+brew install nodebrew
+mkdir -p ~/.nodebrew/src/v7.4.0 
+nodebrew install-binary v7.4.0
+echo 'export PATH=$HOME/.nodebrew/current/bin:$PATH' >> .bashrc
+```
+
 ## yarnのインストール
 
 ```
@@ -19,7 +27,7 @@ yarn
 ```
 
 ## 環境変数の設定
-runtimeに必要なCSSを設定する必要があります
+runtimeに必要なCSSを設定する必要があります。PJに合わせた設定をしてください
 
 ```
 cat RUNTIME_CSS_URL=<css_url1>,[css_url2] > $PJ_ROOT/.env
