@@ -3,6 +3,7 @@ logs
 *.log
 npm-debug.log*
 .DS_Store
+.vscode
 
 ### Vim ###
 [._]*.s[a-w][a-z]

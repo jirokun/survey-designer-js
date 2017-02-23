@@ -16,6 +16,7 @@ html, body {
         box-sizing: border-box;
         height: 100%;
         width: 100%;
+        min-width: 600px;
         overflow: auto;
         h4 {
           border-bottom: 1px solid #ccc;
@@ -162,8 +163,9 @@ html, body {
 .component-button {
   margin-bottom: 5px;
 }
-.page-list {
+.graph-pane {
   padding: 10px;
+  min-width: 200px;
   .page, .branch, .finisher {
     position: relative;
     margin-bottom: 5px;
