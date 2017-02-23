@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Redux todos with undo example</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <style>
+      #global-navigation {
+        height: 36px;
+        background-color: black;
+        color: white;
+      }
+      #root {
+        height: calc(100% - 36px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="global-navigation">
+      Header
+    </div>
+    <div id="root">
+    </div>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/tinymce/tinymce.min.js"></script>
+    <script src="/static/editor.bundle.js"></script>
+    <script>
+$.getJSON('/sample.json').then((survey) => {
+  const el = document.getElementById('root');
+  SurveyDesigner.Editor(el, {
+    survey: survey,
+    options: {
+      previewUrl: '/preview.html',
+    },
+  });
+});
+    </script>
+  </body>
+</html>

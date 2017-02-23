@@ -1,0 +1,147 @@
+{
+  "runtime": {
+    "currentNodeId": "F001",
+    "nodeStack": [],
+    "answers": { }
+  },
+  "survey": {
+    "title": "sample enquete",
+    "creator": "Jiro Corporation",
+    "version": 1,
+    "pages": [
+      {
+        "title": "PageTitle Checkbox",
+        "questions": [
+          {
+            "_id": "1",
+            "dataType": "Checkbox",
+            "title": "Checkbox vertical",
+            "description": "",
+            "vertical": true,
+            "items": [
+              { "_id": "I001", "label": "通常の選択肢", "plainLabel":  "通常の選択肢", "index": 0 , "additionalInput": false, "additionalInputType": "text" },
+              { "_id": "I002", "label": "通常の選択肢{$TEXT_INPUT}", "plainLabel":  "通常の選択肢{$TEXT_INPUT}", "randomFixed": true, "index": 1, "additionalInput": true, "additionalInputType": "text" },
+              { "_id": "I003", "label": "1行目 2行目", "index": 2, "additionalInput": false, "additionalInputType": "text" }
+            ]
+          },
+          {
+            "_id": "2",
+            "title": "Checkbox horizontal",
+            "dataType": "Checkbox",
+            "description": "",
+            "vertical": false,
+            "items": [
+              { "_id": "I004", "label": "選択肢2", "plainLabel": "選択肢2", "index": 0, "additionalInput": false, "additionalInputType": "text" },
+              { "_id": "I005", "label": "<span style=\"color: red;\">HTML</span> hogehoge", "plainLabel": "選択肢2", "index": 1, "additionalInput": false, "additionalInputType": "text" }
+            ],
+            "random": false,
+            "randomFixLast": false
+          }
+        ],
+        "_id": "P001"
+      },
+      {
+        "title": "PageTitle Checkbox",
+        "questions": [
+          {
+            "_id": "3",
+            "dataType": "Checkbox",
+            "title": "Checkbox vertical",
+            "description": "",
+            "vertical": true,
+            "items": [
+              { "_id": "I006", "label": "1行目 2行目", "index": 0, "additionalInput": false, "additionalInputType": "text" }
+            ]
+          }
+        ],
+        "_id": "P002"
+      }
+    ],
+    "branches": [
+      {
+        "_id": "B001",
+        "type": "simple",
+        "conditions": [
+          {
+            "_id": "C001",
+            "conditionType": "some",
+            "nextNodeId": "F001",
+            "childConditions": [
+              {
+                "_id": "CC001",
+                "outputId": "I001",
+                "operator": "==",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "_id": "C002",
+            "conditionType": "some",
+            "nextNodeId": "F002",
+            "childConditions": [
+              {
+                "_id": "CC002",
+                "outputId": "I001",
+                "operator": "==",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "_id": "C003",
+            "conditionType": "some",
+            "nextNodeId": "F003",
+            "childConditions": [
+              {
+                "_id": "CC003",
+                "outputId": "I001",
+                "operator": "==",
+                "value": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "finishers": [
+      {
+        "_id": "F001",
+        "finishType": "COMPLETE",
+        "point": 30,
+        "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+      }
+    ],
+    "nodes": [
+      {
+        "_id": "F001",
+        "type": "page",
+        "refId": "P001",
+        "nextNodeId": "F002"
+      },
+      {
+        "_id": "F002",
+        "type": "branch",
+        "refId": "B001",
+        "nextNodeId": "F003"
+      },
+      {
+        "_id": "F003",
+        "type": "page",
+        "refId": "P002",
+        "nextNodeId": "F004"
+      },
+      {
+        "_id": "F004",
+        "type": "finisher",
+        "refId": "F001",
+        "nextNodeId": null
+      }
+    ]
+  },
+  "view": {
+    "pageListPane": true,
+    "editorPane": true,
+    "previewPane": true
+  }
+}

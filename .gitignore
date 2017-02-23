@@ -2,8 +2,24 @@
 logs
 *.log
 npm-debug.log*
+.DS_Store
+.vscode
+
+### Vim ###
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
 
 # Dependency directory
 node_modules
 
 dist
+bower_components/
+.sass-cache/
+
+# envinronments
+.env
