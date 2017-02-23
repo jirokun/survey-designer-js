@@ -95,7 +95,7 @@
             "childConditions": [
               {
                 "_id": "CC003",
-                "outputId": "",
+                "outputId": "I001",
                 "operator": "==",
                 "value": ""
               }
