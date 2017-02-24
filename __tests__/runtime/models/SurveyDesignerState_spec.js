@@ -166,6 +166,11 @@ describe('SurveyDesignerState', () => {
       const newState = state.deleteNode('F004');
       expect(newState.findNode('F003').getNextNodeId()).toBe(null);
     });
+
+    it('conditionの中で参照しているnodeIdも合わせて削除される', () => {
+      const newState = state.deleteNode('F003');
+      expect(newState.getIn(['survey', 'branches', 0, 'conditions', 2, 'nextNodeId'])).toBe('');
+    });
   });
 
   describe('addNode', () => {
