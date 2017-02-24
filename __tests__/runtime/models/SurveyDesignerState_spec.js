@@ -325,7 +325,7 @@ describe('SurveyDesignerState', () => {
       expect(result.size).toBe(7);
       expect(result.get('I001')).not.toBe(undefined);
       expect(result.get('I002')).not.toBe(undefined);
-      expect(result.get('I002_text')).not.toBe(undefined);
+      expect(result.get('I002__text')).not.toBe(undefined);
       expect(result.get('I003')).not.toBe(undefined);
       expect(result.get('I004')).not.toBe(undefined);
       expect(result.get('I004')).not.toBe(undefined);
