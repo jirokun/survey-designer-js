@@ -42,6 +42,16 @@ html, body {
         .mce-content-body {
           border: 1px solid #ccc;
         }
+        > div {
+          height: 100%;
+          .tab-content {
+            height: calc(100% - 42px);
+            .tab-pane {
+              overflow: auto;
+              height: 100%;
+            }
+          }
+        }
       }
       .preview-pane {
         position: absolute;
