@@ -19,8 +19,13 @@ html, body {
         min-width: 600px;
         overflow: auto;
         h4 {
-          border-bottom: 1px solid #ccc;
-          margin: 0 1em 5px;
+          margin: 0;
+          padding: 5px;
+          background-color: #d9edf7;
+        }
+        h5 {
+          border-bottom: 1px solid darkgreen;
+          margin-left: 1em;
         }
         .form-horizontal .form-group {
           margin-left: 0;
@@ -115,11 +120,10 @@ html, body {
   }
 }
 .question-editor {
-  border-top: 1px dashed black;
   padding-top: 15px;
   &:first-child {
     border-top: 0;
-    padding-top: 5px;
+    padding-top: 0;
   }
 }
 .item-editor {
