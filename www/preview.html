@@ -17,9 +17,12 @@
     </div>
     <script src="/static/preview.bundle.js"></script>
     <script>
-window.loadState = (initialState) => {
-  const el = document.getElementById('root');
-  SurveyDesigner.Preview(el, initialState);
+window.loadState = (json) => {
+  // そのまま渡してもjson2ImmutableStateで正しくparseできないためobjectを作り直す
+  // 原因は不明
+  var survey = JSON.parse(JSON.stringify(json));
+  var el = document.getElementById('root');
+  SurveyDesigner.Preview(el, { survey: survey });
 };
     </script>
   </body>
