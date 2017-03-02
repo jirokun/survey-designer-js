@@ -15,9 +15,9 @@ Session.vim
 
 
 # Dependency directory
-node_modules
+node_modules/
 
-dist
+dist/
 bower_components/
 .sass-cache/
 

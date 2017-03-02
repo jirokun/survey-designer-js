@@ -1,7 +1,7 @@
 {
   "name": "survey-designer-js",
   "version": "0.0.0",
-  "description": "Enquete system using react.js",
+  "description": "Survey system using react.js",
   "scripts": {
     "start": "node server.js",
     "build": "webpack",
