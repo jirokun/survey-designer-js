@@ -132,43 +132,43 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-  describe('deleteNode', () => {
+  describe('removeNode', () => {
     it('nodeを削除すると対応するpageも削除される', () => {
-      const newState = state.deleteNode('F001');
+      const newState = state.removeNode('F001');
       expect(newState.getNodes().size).toBe(3);
       expect(newState.getPages().size).toBe(1);
     });
 
     it('nodeを削除すると対応するbranchも削除される', () => {
-      const newState = state.deleteNode('F002');
+      const newState = state.removeNode('F002');
       expect(newState.getNodes().size).toBe(3);
       expect(newState.getBranches().size).toBe(0);
     });
 
     it('nodeを削除すると対応するfinisherも削除される', () => {
       expect(state.getFinishers().size).toBe(1);
-      const newState = state.deleteNode('F004');
+      const newState = state.removeNode('F004');
       expect(newState.getNodes().size).toBe(3);
       expect(newState.getFinishers().size).toBe(0);
     });
 
     it('先頭のnodeを削除することができる', () => {
-      const newState = state.deleteNode('F001');
+      const newState = state.removeNode('F001');
       expect(newState.getNodes().size).toBe(3);
     });
 
     it('途中のnodeを削除するとそこを参照しているnodeのnextNodeIdが削除したnodeのnextNodeIdに変更される', () => {
-      const newState = state.deleteNode('F003');
+      const newState = state.removeNode('F003');
       expect(newState.findNode('F002').getNextNodeId()).toBe('F004');
     });
 
     it('最後のnodeを削除するとそこを参照しているnodeのnextNodeIdが削除したnodeのnextNodeIdに変更される', () => {
-      const newState = state.deleteNode('F004');
+      const newState = state.removeNode('F004');
       expect(newState.findNode('F003').getNextNodeId()).toBe(null);
     });
 
     it('conditionの中で参照しているnodeIdも合わせて削除される', () => {
-      const newState = state.deleteNode('F003');
+      const newState = state.removeNode('F003');
       expect(newState.getIn(['survey', 'branches', 0, 'conditions', 2, 'nextNodeId'])).toBe('');
     });
   });
@@ -347,19 +347,19 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-  describe('deleteChildCondition', () => {
+  describe('removeChildCondition', () => {
     it('指定したchildConditionが削除できること', () => {
       const result = state.addChildCondition('B001', 'C002', 1);
       const childConditionId = result.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 1, '_id']);
-      const result2 = result.deleteChildCondition('B001', 'C002', childConditionId);
+      const result2 = result.removeChildCondition('B001', 'C002', childConditionId);
       expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions']).size).toBe(1);
       expect(result2.getIn(['survey', 'branches', 0, 'conditions', 1, 'childConditions', 0, '_id'])).toBe('CC002');
     });
   });
 
-  describe('deleteItem', () => {
+  describe('removeItem', () => {
     it('指定したitemを削除でき、indexが更新されること', () => {
-      const result1 = state.deleteItem('P001', '1', 'I002');
+      const result1 = state.removeItem('P001', '1', 'I002');
       expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items']).size).toBe(2);
       expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 0, '_id'])).toBe('I001');
       expect(result1.getIn(['survey', 'pages', 0, 'questions', 0, 'items', 1, '_id'])).toBe('I003');
