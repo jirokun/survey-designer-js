@@ -1,12 +1,12 @@
 /* eslint-env jest */
-import { json2ImmutableState } from '../../../lib/runtime/store';
+import SurveyDesignerState from '../../../lib/runtime/models/SurveyDesignerState';
 import CheckboxQuestionDefinition from '../../../lib/runtime/models/survey/questions/CheckboxQuestionDefinition';
 import sample1 from './sample1.json';
 
 describe('SurveyDesignerState', () => {
   let state;
   beforeAll(() => {
-    state = json2ImmutableState(sample1);
+    state = SurveyDesignerState.createFromJson(sample1);
   });
 
   describe('getCurrentNodeId', () => {

@@ -1,12 +1,12 @@
 /* eslint-env jest */
 import { Map } from 'immutable';
-import { json2ImmutableState } from '../../../../lib/runtime/store';
+import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
 import sample from './BranchDefinitions.json';
 
 describe('BranchDefinition', () => {
   let state;
   beforeAll(() => {
-    state = json2ImmutableState({ survey: sample });
+    state = SurveyDesignerState.createFromJson({ survey: sample });
   });
 
   describe('evaluateConditions', () => {
@@ -15,7 +15,7 @@ describe('BranchDefinition', () => {
         const answers = new Map()
           .set('e27c61fa-6c32-4a10-893f-e280bc089b9d__value1', 'on')
           .set('e27c61fa-6c32-4a10-893f-e280bc089b9d__value2', 'on');
-        const parsedObj = json2ImmutableState({
+        const parsedObj = SurveyDesignerState.createFromJson({
           conditions: [
             {
               _id: 'C001',
@@ -33,7 +33,7 @@ describe('BranchDefinition', () => {
           .setIn(['runtime', 'answers'], answers)
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const branch = newState.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(newState);
+        const result = branch.evaluateConditions(answers, newState.getAllOutputDefinitionMap());
         expect(result).toBe('N001');
       });
 
@@ -41,7 +41,7 @@ describe('BranchDefinition', () => {
         const answers = new Map()
           .set('e27c61fa-6c32-4a10-893f-e280bc089b9d__value1', 'on')
           .set('e27c61fa-6c32-4a10-893f-e280bc089b9d__value2', '');
-        const parsedObj = json2ImmutableState({
+        const parsedObj = SurveyDesignerState.createFromJson({
           conditions: [
             {
               _id: 'C001',
@@ -59,7 +59,7 @@ describe('BranchDefinition', () => {
           .setIn(['runtime', 'answers'], answers)
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const branch = newState.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(newState);
+        const result = branch.evaluateConditions(answers, newState.getAllOutputDefinitionMap());
         expect(result).toBe(null);
       });
     });
@@ -69,7 +69,7 @@ describe('BranchDefinition', () => {
         const answers = new Map()
           .set('e27c61fa-6c32-4a10-893f-e280bc089b9d__value1', 'on')
           .set('e27c61fa-6c32-4a10-893f-e280bc089b9d__value2', '');
-        const parsedObj = json2ImmutableState({
+        const parsedObj = SurveyDesignerState.createFromJson({
           conditions: [
             {
               _id: 'C001',
@@ -87,7 +87,7 @@ describe('BranchDefinition', () => {
           .setIn(['runtime', 'answers'], answers)
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const branch = newState.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(newState);
+        const result = branch.evaluateConditions(answers, newState.getAllOutputDefinitionMap());
         expect(result).toBe('N001');
       });
 
@@ -95,7 +95,7 @@ describe('BranchDefinition', () => {
         const answers = new Map()
           .set('e27c61fa-6c32-4a10-893f-e280bc089b9d__value1', '')
           .set('e27c61fa-6c32-4a10-893f-e280bc089b9d__value2', '');
-        const parsedObj = json2ImmutableState({
+        const parsedObj = SurveyDesignerState.createFromJson({
           conditions: [
             {
               _id: 'C001',
@@ -113,7 +113,7 @@ describe('BranchDefinition', () => {
           .setIn(['runtime', 'answers'], answers)
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const branch = newState.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(newState);
+        const result = branch.evaluateConditions(answers, newState.getAllOutputDefinitionMap());
         expect(result).toBe(null);
       });
     });
