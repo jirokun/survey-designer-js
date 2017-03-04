@@ -206,10 +206,10 @@ describe('SurveyDesignerState', () => {
 
   describe('submitPage', () => {
     it('入力値が追加される', () => {
-      const result1 = state.submitPage({ q1: 'abc' });
-      expect(result1.getAnswers().get('q1')).toBe('abc');
+      const result1 = state.submitPage({ '1__value1': 'abc' });
+      expect(result1.getAnswers().get('1__value1')).toBe('abc');
       const result2 = result1.submitPage({ q2: 'def' });
-      expect(result2.getAnswers().get('q1')).toBe('abc');
+      expect(result2.getAnswers().get('1__value1')).toBe('abc');
       expect(result2.getAnswers().get('q2')).toBe('def');
     });
   });
@@ -226,15 +226,10 @@ describe('SurveyDesignerState', () => {
     });
   });
 
-  describe('getQuestionNo', () => {
-    it('page番号も含めたquestion番号を取得できる', () => {
+  describe('calcQuestionNo', () => {
+    it('page番号は含めないquestion番号を取得できる', () => {
       const result = state.calcQuestionNo('P001', '2');
-      expect(result).toBe('1-2');
-    });
-
-    it('postfixを含めたquestion番号を取得できる', () => {
-      const result = state.calcQuestionNo('P001', '2', 'text');
-      expect(result).toBe('1-2-text');
+      expect(result).toBe(2);
     });
   });
 
