@@ -18,7 +18,7 @@ html, body {
         width: 100%;
         min-width: 600px;
         overflow: auto;
-        h4 {
+        h4.question-title {
           margin: 0;
           padding: 5px;
           background-color: #d9edf7;
@@ -30,6 +30,25 @@ html, body {
         .form-horizontal .form-group {
           margin-left: 0;
           margin-right: 0;
+        }
+        .logic-variables {
+          .add-logic-variable-button {
+            margin-bottom: 5px;
+          }
+          .expression {
+            .operator {
+              margin-top: 5px;
+              display: inline;
+              width: auto;
+            }
+            .operand {
+              display: inline;
+              width: calc(100% - 50px);
+            }
+            .delete-button {
+              margin-left: 10px;
+            }
+          }
         }
         .editor-controller {
           position: absolute;
