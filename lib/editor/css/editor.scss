@@ -331,3 +331,25 @@ html, body {
 .delete-button {
   cursor: pointer;
 }
+
+/* ナビゲーションバー */
+.enq-navbar {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+
+  &-nav {
+
+    &__left {
+      margin-left: -15px;
+    }
+  
+    >li {
+      border-left: 1px solid #e7e7e7;
+      
+      &:last-child {
+        border-right: 1px solid #e7e7e7;
+      }
+    }
+  }
+}
