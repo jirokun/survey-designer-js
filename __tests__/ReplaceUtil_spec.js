@@ -55,7 +55,7 @@ describe('ReplaceUtil', () => {
         { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(ru.outputNo2Name('abc${Q1-1-1#label}def')).toBe('abc${abcdefg#label}def');
+      expect(ru.outputNo2Name('abc${1-1-1#label}def')).toBe('abc${abcdefg#label}def');
     });
   });
 
@@ -74,7 +74,7 @@ describe('ReplaceUtil', () => {
         { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      const result1 = ru.outputNo2Name('${Q1-1-1#answer}');
+      const result1 = ru.outputNo2Name('${1-1-1#answer}');
       const result2 = ru.name2Value(result1);
       expect(result2).toBe('入力値');
     });
@@ -95,7 +95,7 @@ describe('ReplaceUtil', () => {
         { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(ru.name2OutputNo('${abcdefg#answer}')).toBe('${Q1-1-1#answer}');
+      expect(ru.name2OutputNo('${abcdefg#answer}')).toBe('${1-1-1#answer}');
     });
   });
 });
