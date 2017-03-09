@@ -92,6 +92,17 @@
                 "operator": "==",
                 "value": "on"
             }]
+        },
+        {
+            "_id": "7ee06f54-71f1-4dd1-9643-6d4ae91b3fc6",
+            "conditionType": "all",
+            "nextNodeId": "09d5a018-45d1-4dc4-9d72-34a33a1475de",
+            "childConditions": [{
+                "_id": "3f025909-dee8-4beb-9a8f-e7ddb371b18e",
+                "outputId": "b2c453ee-b3b1-47fd-8d52-cb693156f43c",
+                "operator": "==",
+                "value": "on"
+            }]
         }]
     }],
     "finishers": [{

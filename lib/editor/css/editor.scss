@@ -196,7 +196,7 @@ html, body {
 .component-button {
   margin-bottom: 5px;
 }
-.graph-pane {
+.flow-pane {
   padding: 10px;
   min-width: 200px;
   .page, .branch, .finisher {
@@ -269,13 +269,13 @@ html, body {
     }
   }
 }
-/* グラフ */
-.graph {
+/* フロー */
+.flow {
   height: 100%;
   width: 100%;
   overflow: hidden;
   position: relative;
-  .graph-controller {
+  .flow-controller {
     position: absolute;
     z-index: 100;
     right: 5px;

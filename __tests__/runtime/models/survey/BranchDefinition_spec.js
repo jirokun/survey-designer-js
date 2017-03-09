@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import { Map } from 'immutable';
 import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
-import sample from './BranchDefinitions.json';
+import sample from './BranchDefinition.json';
 
 describe('BranchDefinition', () => {
   let state;
@@ -171,6 +171,30 @@ describe('BranchDefinition', () => {
         const result = branch.evaluateConditions(answers, newState.getAllOutputDefinitionMap());
         expect(result).toBe(null);
       });
+    });
+  });
+
+
+  describe('updateConditionAttribute', () => {
+    it('conditionの属性を更新できる', () => {
+      const result = state.getSurvey().findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212').updateConditionAttribute('f538b3df-ecd7-486e-921c-a2a497ee9d09', 'conditionType', 'some');
+      expect(result.getIn(['conditions', 0, 'conditionType'])).toBe('some');
+    });
+  });
+
+  describe('updateChildConditionAttribute', () => {
+    it('childConditionの属性を更新できる', () => {
+      const result = state.getSurvey().findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212')
+        .updateChildConditionAttribute('f538b3df-ecd7-486e-921c-a2a497ee9d09', '57ea60ac-a7c9-48c8-a552-eb4940f7060c', 'operator', '!=');
+      expect(result.getIn(['conditions', 0, 'childConditions', 0, 'operator'])).toBe('!=');
+    });
+  });
+
+  describe('swapCondition', () => {
+    it('指定したconditionを入れ替えることができる', () => {
+      const result = state.getSurvey().findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212').swapCondition('f538b3df-ecd7-486e-921c-a2a497ee9d09', '7ee06f54-71f1-4dd1-9643-6d4ae91b3fc6');
+      expect(result.getIn(['conditions', 0, 'nextNodeId'])).toBe('09d5a018-45d1-4dc4-9d72-34a33a1475de');
+      expect(result.getIn(['conditions', 1, 'nextNodeId'])).toBe('dce07ee5-fa63-4a74-a81d-fa117ed62ada');
     });
   });
 });
