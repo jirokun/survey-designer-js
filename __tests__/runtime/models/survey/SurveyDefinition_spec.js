@@ -197,7 +197,7 @@ describe('PageDefinition', () => {
     });
 
     it('ブランチが間に入っていても正しくページ番号を取得できる', () => {
-      const result = state.calcPageNo('P002');
+      const result = state.getSurvey().calcPageNo('P002');
       expect(result).toBe('2');
     });
   });
