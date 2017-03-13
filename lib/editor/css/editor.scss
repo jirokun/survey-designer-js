@@ -1,4 +1,9 @@
 $page-list-item-controller-width: 21px;
+
+$backgroud-color-finisher: #e6f6d7;
+$backgroud-color-branch: #e7e1f9;
+$backgroud-color-page: #f8f9e1;
+
 html, body {
   height: 100%;
   overflow: hidden;
@@ -69,7 +74,7 @@ html, body {
         > div {
           height: 100%;
           .tab-content {
-            height: calc(100% - 42px);
+            height: calc(100% - 48px);
             .tab-pane {
               overflow: auto;
               height: 100%;
@@ -245,11 +250,14 @@ html, body {
       }
     }
   }
+  .page {
+    background-color: $backgroud-color-page;
+  }
   .branch {
-    background-color: #eef;
+    background-color: $backgroud-color-branch;
   }
   .finisher {
-    background-color: #efe;
+    background-color: $backgroud-color-finisher;
   }
   .arrow-down {
     position: relative;
@@ -330,4 +338,92 @@ html, body {
 /* 削除ボタン */
 .delete-button {
   cursor: pointer;
+}
+
+/* ナビゲーションバー */
+.enq-navbar {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+
+  &-nav {
+
+    &__left {
+      margin-left: -15px;
+    }
+  
+    >li {
+      border-left: 1px solid #e7e7e7;
+      
+      &:last-child {
+        border-right: 1px solid #e7e7e7;
+      }
+    }
+  }
+}
+
+
+/* タブ */
+.enq-tabs {
+  
+  >ul {
+    padding: 6px 5px 0 5px;
+  }
+}
+
+/* ボタン */
+.enq-button {
+  
+  &__page {
+    background-color: $backgroud-color-page;
+  }
+
+  &__branch {
+    background-color: $backgroud-color-branch;
+  }
+
+  &__finisher {
+    background-color: $backgroud-color-finisher;  
+  }
+}
+
+
+/* グラフ */
+.enq-page {
+  padding: 6px;
+}
+
+.enq-item-controller {
+  right: 6px;
+  top: 6px;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
+/* タイトル */
+.enq-title {
+  margin: 6px 0;
+  padding: 5px;
+  
+  &__page {
+    background-color: $backgroud-color-page;
+  }
+
+  &__branch {
+    background-color: $backgroud-color-branch;
+    
+    >label {
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+  }
+
+  &__finisher {
+    background-color: $backgroud-color-finisher;  
+  }
+}
+
+/* エディター */
+.enq-editor-pane {
+  height: calc(100% + 6px) !important;
 }
