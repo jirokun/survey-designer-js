@@ -18,12 +18,12 @@
     <script src="/static/preview.bundle.js"></script>
     <script>
 window.addEventListener('message', function(e) {
-  var survey = JSON.parse(e.data);
-  console.log(survey);
+  if (e.data.type !== 'surveyResponse') return;
+  var survey = JSON.parse(e.data.value);
   var el = document.getElementById('root');
   SurveyDesigner.Preview(el, { survey: survey });
 }, false);
-window.opener.postMessage('surveyRequest', '*');
+window.opener.postMessage({ type: 'surveyRequest' }, '*');
     </script>
   </body>
 </html>
