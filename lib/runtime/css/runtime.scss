@@ -4,3 +4,11 @@
 .tooltipster-base {
   pointer-events: auto;
 }
+.question {
+  strong {
+    font-weight: bold;
+  }
+  em {
+    font-style: italic;
+  }
+}
