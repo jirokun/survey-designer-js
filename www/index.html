@@ -28,7 +28,7 @@
     <script src="/node_modules/tinymce/tinymce.min.js"></script>
     <script src="/static/editor.bundle.js"></script>
     <script>
-$.getJSON('/sample.json').then((survey) => {
+$.getJSON('/sample.json').then(function(survey) {
   const el = document.getElementById('root');
   SurveyDesigner.Editor(el, {
     survey: survey,
