@@ -39,6 +39,7 @@
     "react-dnd-html5-backend": "^2.1.2",
     "react-frame-component": "^1.0.0",
     "react-mixin": "^3.0.5",
+    "react-numeric-input": "^2.0.7",
     "react-redux": "^5.0.2",
     "react-split-pane": "^0.1.52",
     "react-tinymce": "^0.5.1",

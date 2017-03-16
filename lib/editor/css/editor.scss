@@ -16,13 +16,13 @@ html, body {
     height: 100%;
     .main {
       position: relative;
-      height: calc(100% - 52px);
+      height: calc(100% - 38px);
       .editor-pane {
         box-sizing: border-box;
         height: 100%;
         width: 100%;
         min-width: 600px;
-        overflow: auto;
+        overflow: visible;
         h4.question-title {
           margin: 0;
           padding: 5px;
@@ -426,4 +426,15 @@ html, body {
 /* エディター */
 .enq-editor-pane {
   height: calc(100% + 6px) !important;
+}
+
+/* ValueEditorPart */
+.value-editor-part {
+  display: flex;
+  > *:first-child {
+    width: 200px;
+  }
+  > .react-numeric-input {
+    width: 100%;
+  }
 }
