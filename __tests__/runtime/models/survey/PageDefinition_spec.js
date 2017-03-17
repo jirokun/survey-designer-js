@@ -1,6 +1,5 @@
 /* eslint-env jest */
 import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
-import CheckboxQuestionDefinition from '../../../../lib/runtime/models/survey/questions/CheckboxQuestionDefinition';
 import sample1 from '../sample1.json';
 
 describe('PageDefinition', () => {

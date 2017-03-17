@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import { List, Map } from 'immutable';
 import LogicVariableDefinition from '../../../../lib/runtime/models/survey/LogicVariableDefinition';
-import OutputDefinition from '../../../../lib/runtime/models/survey/questions/OutputDefinition';
+import OutputDefinition from '../../../../lib/runtime/models/survey/questions/internal/OutputDefinition';
 
 describe('LogicVariableDefinition', () => {
   describe('createFunction', () => {

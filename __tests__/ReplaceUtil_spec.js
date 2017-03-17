@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import Immutable, { List } from 'immutable';
 import ReplaceUtil from '../lib/ReplaceUtil';
-import OutputDefinition from '../lib/runtime/models/survey/questions/OutputDefinition';
+import OutputDefinition from '../lib/runtime/models/survey/questions/internal/OutputDefinition';
 import ChoiceDefinition from '../lib/runtime/models/survey/questions/internal/ChoiceDefinition';
 
 describe('ReplaceUtil', () => {
