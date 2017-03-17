@@ -34,7 +34,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.createReplaceUtil(answers));
         expect(result).toBe('N001');
       });
 
@@ -61,7 +61,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.createReplaceUtil(answers));
         expect(result).toBe(null);
       });
     });
@@ -90,7 +90,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.createReplaceUtil(answers));
         expect(result).toBe('N001');
       });
 
@@ -117,7 +117,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.createReplaceUtil(answers));
         expect(result).toBe(null);
       });
     });
@@ -144,7 +144,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.createReplaceUtil(answers));
         expect(result).toBe(expectedResult);
       }
 
@@ -174,7 +174,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.createReplaceUtil(answers));
         expect(result).toBe(null);
       });
     });

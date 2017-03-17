@@ -1,7 +1,8 @@
 /* eslint-env jest */
-import Immutable from 'immutable';
+import Immutable, { List } from 'immutable';
 import ReplaceUtil from '../lib/ReplaceUtil';
 import OutputDefinition from '../lib/runtime/models/survey/questions/OutputDefinition';
+import ChoiceDefinition from '../lib/runtime/models/survey/questions/internal/ChoiceDefinition';
 
 describe('ReplaceUtil', () => {
   describe('name2Value', () => {
@@ -19,7 +20,26 @@ describe('ReplaceUtil', () => {
         { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(ru.name2Value('abc${abcdefg#answer}def')).toBe('abc入力値def');
+      expect(ru.name2Value('abc{{abcdefg.answer}}def')).toBe('abc入力値def');
+    });
+
+    it('choiceが正しく置換されること', () => {
+      const allOutputDefinitionMap = Immutable.fromJS({
+        abcdefg: new OutputDefinition({
+          _id: 'unique_id',
+          name: 'abcdefg',
+          label: 'ラベル',
+          outputNo: '1-1-1',
+          choices: List().push(new ChoiceDefinition({ _id: 'unique_id1', label: 'label1', value: 'value1' })),
+        }),
+      });
+      const ru = new ReplaceUtil(
+        allOutputDefinitionMap,
+        { '1-1-1': 'abcdefg' },
+        { abcdefg: '入力値' },
+      );
+      expect(ru.name2Value('abc {{abcdefg.choice.unique_id1.value}} def')).toBe('abc value1 def');
+      expect(ru.name2Value('abc {{abcdefg.choice.unique_id1.label}} def')).toBe('abc label1 def');
     });
 
     it('labelが正しく置換されること', () => {
@@ -36,7 +56,7 @@ describe('ReplaceUtil', () => {
         { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(ru.name2Value('abc${abcdefg#label}def')).toBe('abcラベルdef');
+      expect(ru.name2Value('abc{{abcdefg.label}}def')).toBe('abcラベルdef');
     });
   });
 
@@ -55,7 +75,7 @@ describe('ReplaceUtil', () => {
         { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(ru.outputNo2Name('abc${1-1-1#label}def')).toBe('abc${abcdefg#label}def');
+      expect(ru.outputNo2Name('abc{{1-1-1.label}}def')).toBe('abc{{abcdefg.label}}def');
     });
   });
 
@@ -74,7 +94,7 @@ describe('ReplaceUtil', () => {
         { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      const result1 = ru.outputNo2Name('${1-1-1#answer}');
+      const result1 = ru.outputNo2Name('{{1-1-1.answer}}');
       const result2 = ru.name2Value(result1);
       expect(result2).toBe('入力値');
     });
@@ -95,7 +115,7 @@ describe('ReplaceUtil', () => {
         { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(ru.name2OutputNo('${abcdefg#answer}')).toBe('${1-1-1#answer}');
+      expect(ru.name2OutputNo('{{abcdefg.answer}}')).toBe('{{1-1-1.answer}}');
     });
   });
 });
