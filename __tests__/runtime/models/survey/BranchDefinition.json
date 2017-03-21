@@ -47,7 +47,7 @@
         "_id": "c9137304-bfba-4d94-b24f-da6760c3b5f0",
         "questions": [{
             "_id": "a7808505-f243-4ef4-a7f1-f7a8fcabe455",
-            "dataType": "Checkbox",
+            "dataType": "MultiNumber",
             "title": "設問タイトル",
             "plainTitle": "設問タイトル",
             "description": "",

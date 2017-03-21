@@ -37,6 +37,19 @@
             "randomFixLast": false
           }
         ],
+        "logicalVariables": [
+          {
+            "_id": "lv1",
+            "variableName": "1-L-000",
+            "operands": [
+              "I001",
+              "I002"
+            ],
+            "operators": [
+              "+"
+            ]
+          }
+        ],
         "_id": "P001"
       },
       {

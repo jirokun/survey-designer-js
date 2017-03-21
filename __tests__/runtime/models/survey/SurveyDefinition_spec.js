@@ -151,7 +151,7 @@ describe('PageDefinition', () => {
   describe('getAllOutputDefinitionMap', () => {
     it('すべてのoutputDefinitionを取得できる', () => {
       const result = state.getSurvey().getAllOutputDefinitionMap();
-      expect(result.size).toBe(7);
+      expect(result.size).toBe(8);
       expect(result.get('I001')).not.toBe(undefined);
       expect(result.get('I002')).not.toBe(undefined);
       expect(result.get('I002__text')).not.toBe(undefined);
