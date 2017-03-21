@@ -61,4 +61,13 @@ describe('PageDefinition', () => {
       expect(result.getIn(['questions', 0, 'items', 2, 'index'])).toBe(2);
     });
   });
+
+  describe('validateLogicalVariable', () => {
+    it('オペレータが選択されていない箇所がある', () => {
+      expect(true).toBe(false);
+    });
+    it('参照する回答が存在しない', () => {
+      expect(true).toBe(false);
+    });
+  });
 });

@@ -1,12 +1,12 @@
 /* eslint-env jest */
 import { List, Map } from 'immutable';
-import LogicVariableDefinition from '../../../../lib/runtime/models/survey/LogicVariableDefinition';
+import LogicalVariableDefinition from '../../../../lib/runtime/models/survey/LogicalVariableDefinition';
 import OutputDefinition from '../../../../lib/runtime/models/survey/questions/internal/OutputDefinition';
 
-describe('LogicVariableDefinition', () => {
+describe('LogicalVariableDefinition', () => {
   describe('createFunction', () => {
     it('関数を生成する', () => {
-      const lv = new LogicVariableDefinition({
+      const lv = new LogicalVariableDefinition({
         _id: '000',
         variableName: 'name1',
         operators: List(['+']),
