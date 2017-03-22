@@ -132,6 +132,12 @@ describe('PageDefinition', () => {
       expect(result.getIn(['nodes', 3, '_id'])).toBe('F002');
       expect(result.getIn(['nodes', 3, 'nextNodeId'])).toBe(null);
     });
+
+    it('pagesの順番も入れ替わること', () => {
+      const result = state.getSurvey().swapNode('F001', 'F003');
+      expect(result.getIn(['pages', 0, '_id'])).toBe('P002');
+      expect(result.getIn(['pages', 1, '_id'])).toBe('P001');
+    });
   });
 
 
@@ -145,7 +151,7 @@ describe('PageDefinition', () => {
   describe('getAllOutputDefinitionMap', () => {
     it('すべてのoutputDefinitionを取得できる', () => {
       const result = state.getSurvey().getAllOutputDefinitionMap();
-      expect(result.size).toBe(7);
+      expect(result.size).toBe(8);
       expect(result.get('I001')).not.toBe(undefined);
       expect(result.get('I002')).not.toBe(undefined);
       expect(result.get('I002__text')).not.toBe(undefined);

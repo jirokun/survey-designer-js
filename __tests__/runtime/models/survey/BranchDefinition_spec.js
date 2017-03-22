@@ -2,6 +2,7 @@
 import { Map } from 'immutable';
 import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
 import sample from './BranchDefinition.json';
+import sample2 from './BranchDefinition2.json';
 
 describe('BranchDefinition', () => {
   let state;
@@ -34,7 +35,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.getReplacer(answers));
         expect(result).toBe('N001');
       });
 
@@ -61,7 +62,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.getReplacer(answers));
         expect(result).toBe(null);
       });
     });
@@ -90,7 +91,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.getReplacer(answers));
         expect(result).toBe('N001');
       });
 
@@ -117,7 +118,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.getReplacer(answers));
         expect(result).toBe(null);
       });
     });
@@ -144,7 +145,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.getReplacer(answers));
         expect(result).toBe(expectedResult);
       }
 
@@ -174,7 +175,7 @@ describe('BranchDefinition', () => {
           .setIn(['survey', 'branches', 0, 'conditions'], conditions);
         const newSurvey = newState.getSurvey();
         const branch = newSurvey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212');
-        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap());
+        const result = branch.evaluateConditions(answers, newSurvey.getAllOutputDefinitionMap(), newSurvey.getReplacer(answers));
         expect(result).toBe(null);
       });
     });
@@ -201,6 +202,39 @@ describe('BranchDefinition', () => {
       const result = state.getSurvey().findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212').swapCondition('f538b3df-ecd7-486e-921c-a2a497ee9d09', '7ee06f54-71f1-4dd1-9643-6d4ae91b3fc6');
       expect(result.getIn(['conditions', 0, 'nextNodeId'])).toBe('09d5a018-45d1-4dc4-9d72-34a33a1475de');
       expect(result.getIn(['conditions', 1, 'nextNodeId'])).toBe('dce07ee5-fa63-4a74-a81d-fa117ed62ada');
+    });
+  });
+
+  describe('validate', () => {
+    it('遷移先の参照が存在しない', () => {
+      const survey = state.getSurvey().setIn(['branches', 0, 'conditions', 0, 'nextNodeId'], '');
+      const branch = survey.getIn(['branches', 0]);
+      const result = branch.validate(survey);
+      expect(result.size).toBe(1);
+      expect(result.get(0)).toBe('分岐設定の遷移先が存在しません');
+    });
+    it('条件の設問が存在しない', () => {
+      const survey = state.getSurvey().setIn(['branches', 0, 'conditions', 0, 'childConditions', 0, 'outputId'], '');
+      const branch = survey.getIn(['branches', 0]);
+      const result = branch.validate(survey);
+      expect(result.size).toBe(1);
+      expect(result.get(0)).toBe('設定されていない分岐条件があります');
+    });
+    it('数値条件の値が未入力', () => {
+      const survey = state.getSurvey()
+        .setIn(['branches', 0, 'conditions', 0, 'childConditions', 0, 'outputId'], 'b6ad6c40-431d-432f-93c6-5270c421b609')
+        .setIn(['branches', 0, 'conditions', 0, 'childConditions', 0, 'value'], '');
+      const branch = survey.getIn(['branches', 0]);
+      const result = branch.validate(survey);
+      expect(result.size).toBe(1);
+      expect(result.get(0)).toBe('分岐条件の入力値が空欄です');
+    });
+    it('条件の選択値(radio)が未入力', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: sample2 }).getSurvey();
+      const branch = survey.getIn(['branches', 0]);
+      const result = branch.validate(survey);
+      expect(result.size).toBe(1);
+      expect(result.get(0)).toBe('分岐条件の入力値が選択されていません');
     });
   });
 });
