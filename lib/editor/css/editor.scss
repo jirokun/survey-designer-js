@@ -209,6 +209,9 @@ html, body {
     margin-bottom: 5px;
     border: 1px solid #ccc;
     width: 100%;
+    &.selected {
+      border: 3px solid #3c763d;
+    }
     .header {
       position: relative;
       white-space: nowrap;
