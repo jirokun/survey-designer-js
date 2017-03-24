@@ -42,6 +42,7 @@
     "react-mixin": "^3.0.5",
     "react-numeric-input": "^2.0.7",
     "react-redux": "^5.0.2",
+    "react-scroll": "^1.4.7",
     "react-split-pane": "^0.1.52",
     "react-tinymce": "^0.5.1",
     "redux": "^3.6.0",
