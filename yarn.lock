@@ -1596,6 +1596,10 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
+detect-browser@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-1.6.2.tgz#7b6b7d0125c399a3998613767a30d58b2764e858"
+
 detect-indent@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"
@@ -4452,6 +4456,10 @@ react-mixin@^3.0.5:
     object-assign "^4.0.1"
     smart-mixin "^2.0.0"
 
+react-numeric-input@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-numeric-input/-/react-numeric-input-2.0.7.tgz#f8d46ac4176cd2ef47c8e8c813171499fb65338d"
+
 react-overlays@^0.6.10:
   version "0.6.11"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.6.11.tgz#30689e813b0e1a000f24baee0f8a4a318a1a4232"
@@ -4483,6 +4491,12 @@ react-redux@^5.0.2:
     lodash "^4.2.0"
     lodash-es "^4.2.0"
     loose-envify "^1.1.0"
+
+react-scroll@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.4.7.tgz#e2823d0977ed76d5d5b9fd8dc8e1afb43ebb88fe"
+  dependencies:
+    object-assign "^4.0.1"
 
 react-split-pane@^0.1.52:
   version "0.1.58"

@@ -76,6 +76,7 @@ html, body {
           .tab-content {
             height: calc(100% - 48px);
             .tab-pane {
+              position: relative;
               overflow: auto;
               height: 100%;
             }
@@ -225,6 +226,9 @@ html, body {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        a {
+          cursor: pointer;
+        }
       }
       .insert-item-box {
         height: 10px;
