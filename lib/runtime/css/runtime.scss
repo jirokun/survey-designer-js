@@ -23,3 +23,13 @@
 .question-form-grid-table .personalInfo-label {
   box-sizing: border-box;
 }
+
+.matrix.question-form-grid-table td label {
+  white-space: nowrap;
+  > input {
+    margin: 0 5px;
+  }
+  > span {
+    margin: 0 5px 0 0;
+  }
+}
