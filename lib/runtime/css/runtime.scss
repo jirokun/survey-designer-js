@@ -6,14 +6,11 @@
 }
 .question {
   strong {
+    font-style: inherit;
     font-weight: bold;
   }
   em {
     font-style: italic;
-  }
-  .question-title {
-    em {
-      font-weight: bold;
-    }
+    font-weight: inherit;
   }
 }
