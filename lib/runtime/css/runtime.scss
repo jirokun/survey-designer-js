@@ -17,5 +17,9 @@
 .formErrorMsg.formErrorContent {
   color: #fff;
   padding: 0.5em;
+  box-sizing: border-box;
 }
 
+.question-form-grid-table .personalInfo-label {
+  box-sizing: border-box;
+}
