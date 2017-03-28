@@ -160,6 +160,19 @@ html, body {
     border-top: 0;
     padding-top: 0;
   }
+  .item-validator-list {
+    padding: 0;
+    > li {
+      display: flex;
+      > span:first-child {
+        white-space: nowrap;
+        line-height: 2;
+      }
+      > .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 .item-editor {
   .item-editor-table {
