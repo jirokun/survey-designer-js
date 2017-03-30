@@ -174,6 +174,16 @@ html, body {
     }
   }
 }
+
+/* HTMLのエディタ */
+.html-editor {
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  &:hover {
+    background-color: #fee;
+  }
+}
+
 .item-editor {
   .item-editor-table {
     width: 100%;
@@ -371,10 +381,10 @@ html, body {
     &__left {
       margin-left: -15px;
     }
-  
+
     >li {
       border-left: 1px solid #e7e7e7;
-      
+
       &:last-child {
         border-right: 1px solid #e7e7e7;
       }
@@ -385,7 +395,7 @@ html, body {
 
 /* タブ */
 .enq-tabs {
-  
+
   >ul {
     padding: 6px 5px 0 5px;
   }
@@ -393,7 +403,7 @@ html, body {
 
 /* ボタン */
 .enq-button {
-  
+
   &__page {
     background-color: $backgroud-color-page;
   }
@@ -403,7 +413,7 @@ html, body {
   }
 
   &__finisher {
-    background-color: $backgroud-color-finisher;  
+    background-color: $backgroud-color-finisher;
   }
 }
 
@@ -424,14 +434,14 @@ html, body {
 .enq-title {
   margin: 6px 0;
   padding: 5px;
-  
+
   &__page {
     background-color: $backgroud-color-page;
   }
 
   &__branch {
     background-color: $backgroud-color-branch;
-    
+
     >label {
       margin-bottom: 0;
       font-weight: normal;
@@ -439,7 +449,7 @@ html, body {
   }
 
   &__finisher {
-    background-color: $backgroud-color-finisher;  
+    background-color: $backgroud-color-finisher;
   }
 }
 

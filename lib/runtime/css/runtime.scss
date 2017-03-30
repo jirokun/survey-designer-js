@@ -4,7 +4,7 @@
 .tooltipster-base {
   pointer-events: auto;
 }
-.question {
+.question, .finisher {
   strong {
     font-style: inherit;
     font-weight: bold;
@@ -12,6 +12,9 @@
   em {
     font-style: italic;
     font-weight: inherit;
+  }
+  .notice {
+    font-weight: normal;
   }
 }
 .formErrorMsg.formErrorContent {
