@@ -182,6 +182,13 @@ html, body {
   &:hover {
     background-color: #fee;
   }
+  table {
+    border-collapse: collapse;
+    td, th {
+      padding: 1px 3px;
+      border: 1px solid #888;
+    }
+  }
 }
 
 .item-editor {
@@ -468,3 +475,4 @@ html, body {
     width: 100%;
   }
 }
+

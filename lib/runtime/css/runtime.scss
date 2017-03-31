@@ -36,3 +36,13 @@
     margin: 0 5px 0 0;
   }
 }
+
+.question-description {
+  table {
+    border-collapse: collapse;
+    td, th {
+      padding: 1px 3px;
+      border: 1px solid #888;
+    }
+  }
+}
