@@ -20,25 +20,25 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(4);
       expect(result.get(0).getId()).toBe('row1_column1');
       expect(result.get(0).getName()).toBe('matrix1_value1_1');
-      expect(result.get(0).getLabel()).toBe('行1 列1');
+      expect(result.get(0).getLabel()).toBe('設問タイトル-行1-列1');
       expect(result.get(0).getOutputType()).toBe(matrixType);
       expect(result.get(0).getOutputNo()).toBe('1-1-1-1');
 
       expect(result.get(1).getId()).toBe('row1_column2');
       expect(result.get(1).getName()).toBe('matrix1_value1_2');
-      expect(result.get(1).getLabel()).toBe('行1 列2');
+      expect(result.get(1).getLabel()).toBe('設問タイトル-行1-列2');
       expect(result.get(1).getOutputType()).toBe(matrixType);
       expect(result.get(1).getOutputNo()).toBe('1-1-1-2');
 
       expect(result.get(2).getId()).toBe('row2_column1');
       expect(result.get(2).getName()).toBe('matrix1_value2_1');
-      expect(result.get(2).getLabel()).toBe('行2 列1');
+      expect(result.get(2).getLabel()).toBe('設問タイトル-行2-列1');
       expect(result.get(2).getOutputType()).toBe(matrixType);
       expect(result.get(2).getOutputNo()).toBe('1-1-2-1');
 
       expect(result.get(3).getId()).toBe('row2_column2');
       expect(result.get(3).getName()).toBe('matrix1_value2_2');
-      expect(result.get(3).getLabel()).toBe('行2 列2');
+      expect(result.get(3).getLabel()).toBe('設問タイトル-行2-列2');
       expect(result.get(3).getOutputType()).toBe(matrixType);
       expect(result.get(3).getOutputNo()).toBe('1-1-2-2');
     }
@@ -64,13 +64,13 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(2);
       expect(result.get(0).getId()).toBe('row1');
       expect(result.get(0).getName()).toBe('matrix1_value1');
-      expect(result.get(0).getLabel()).toBe('行1');
+      expect(result.get(0).getLabel()).toBe('設問タイトル-行1');
       expect(result.get(0).getOutputType()).toBe(matrixType);
       expect(result.get(0).getOutputNo()).toBe('1-1-1');
 
       expect(result.get(1).getId()).toBe('row2');
       expect(result.get(1).getName()).toBe('matrix1_value2');
-      expect(result.get(1).getLabel()).toBe('行2');
+      expect(result.get(1).getLabel()).toBe('設問タイトル-行2');
       expect(result.get(1).getOutputType()).toBe(matrixType);
       expect(result.get(1).getOutputNo()).toBe('1-1-2');
     });
@@ -84,13 +84,13 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(6);
       expect(result.get(4).getId()).toBe('row1_total_row');
       expect(result.get(4).getName()).toBe('matrix1_row1_total');
-      expect(result.get(4).getLabel()).toBe('行1の合計値');
+      expect(result.get(4).getLabel()).toBe('設問タイトル-行1-合計値');
       expect(result.get(4).getOutputType()).toBe(matrixType);
       expect(result.get(4).getOutputNo()).toBe('1-1-row1-total');
 
       expect(result.get(5).getId()).toBe('row2_total_row');
       expect(result.get(5).getName()).toBe('matrix1_row2_total');
-      expect(result.get(5).getLabel()).toBe('行2の合計値');
+      expect(result.get(5).getLabel()).toBe('設問タイトル-行2-合計値');
       expect(result.get(5).getOutputType()).toBe(matrixType);
       expect(result.get(5).getOutputNo()).toBe('1-1-row2-total');
     });
@@ -104,13 +104,13 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(6);
       expect(result.get(4).getId()).toBe('column1_total_column');
       expect(result.get(4).getName()).toBe('matrix1_column1_total');
-      expect(result.get(4).getLabel()).toBe('列1の合計値');
+      expect(result.get(4).getLabel()).toBe('設問タイトル-列1-合計値');
       expect(result.get(4).getOutputType()).toBe(matrixType);
       expect(result.get(4).getOutputNo()).toBe('1-1-column1-total');
 
       expect(result.get(5).getId()).toBe('column2_total_column');
       expect(result.get(5).getName()).toBe('matrix1_column2_total');
-      expect(result.get(5).getLabel()).toBe('列2の合計値');
+      expect(result.get(5).getLabel()).toBe('設問タイトル-列2-合計値');
       expect(result.get(5).getOutputType()).toBe(matrixType);
       expect(result.get(5).getOutputNo()).toBe('1-1-column2-total');
     });
@@ -125,13 +125,13 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(6);
       expect(result.get(4).getId()).toBe('row1_column1_additional_input');
       expect(result.get(4).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(4).getLabel()).toBe('行1 列1の追加入力');
+      expect(result.get(4).getLabel()).toBe('設問タイトル-行1-列1-追加入力');
       expect(result.get(4).getOutputType()).toBe('text');
       expect(result.get(4).getOutputNo()).toBe('1-1-1-1-additional');
 
       expect(result.get(5).getId()).toBe('row2_column1_additional_input');
       expect(result.get(5).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(5).getLabel()).toBe('行2 列1の追加入力');
+      expect(result.get(5).getLabel()).toBe('設問タイトル-行2-列1-追加入力');
       expect(result.get(5).getOutputType()).toBe('text');
       expect(result.get(5).getOutputNo()).toBe('1-1-2-1-additional');
     });
@@ -146,13 +146,13 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(6);
       expect(result.get(4).getId()).toBe('column1_row1_additional_input');
       expect(result.get(4).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(4).getLabel()).toBe('列1 行1の追加入力');
+      expect(result.get(4).getLabel()).toBe('設問タイトル-列1-行1-追加入力');
       expect(result.get(4).getOutputType()).toBe('text');
       expect(result.get(4).getOutputNo()).toBe('1-1-1-1-additional');
 
       expect(result.get(5).getId()).toBe('column2_row1_additional_input');
       expect(result.get(5).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(5).getLabel()).toBe('列2 行1の追加入力');
+      expect(result.get(5).getLabel()).toBe('設問タイトル-列2-行1-追加入力');
       expect(result.get(5).getOutputType()).toBe('text');
       expect(result.get(5).getOutputNo()).toBe('1-1-2-1-additional');
     });
@@ -167,13 +167,13 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(4);
       expect(result.get(2).getId()).toBe('row1_column1_additional_input');
       expect(result.get(2).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(2).getLabel()).toBe('行1 列1の追加入力');
+      expect(result.get(2).getLabel()).toBe('設問タイトル-行1-列1-追加入力');
       expect(result.get(2).getOutputType()).toBe('text');
       expect(result.get(2).getOutputNo()).toBe('1-1-1-1-additional');
 
       expect(result.get(3).getId()).toBe('row2_column1_additional_input');
       expect(result.get(3).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(3).getLabel()).toBe('行2 列1の追加入力');
+      expect(result.get(3).getLabel()).toBe('設問タイトル-行2-列1-追加入力');
       expect(result.get(3).getOutputType()).toBe('text');
       expect(result.get(3).getOutputNo()).toBe('1-1-2-1-additional');
     });
@@ -188,13 +188,13 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(4);
       expect(result.get(2).getId()).toBe('column1_row1_additional_input');
       expect(result.get(2).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(2).getLabel()).toBe('列1 行1の追加入力');
+      expect(result.get(2).getLabel()).toBe('設問タイトル-列1-行1-追加入力');
       expect(result.get(2).getOutputType()).toBe('text');
       expect(result.get(2).getOutputNo()).toBe('1-1-1-1-additional');
 
       expect(result.get(3).getId()).toBe('column2_row1_additional_input');
       expect(result.get(3).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(3).getLabel()).toBe('列2 行1の追加入力');
+      expect(result.get(3).getLabel()).toBe('設問タイトル-列2-行1-追加入力');
       expect(result.get(3).getOutputType()).toBe('text');
       expect(result.get(3).getOutputNo()).toBe('1-1-2-1-additional');
     });
