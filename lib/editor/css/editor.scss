@@ -348,7 +348,8 @@ html, body {
       width: 100px;
     }
     > select {
-      width: 150px;
+      max-width: 150px;
+      width: auto;
     }
   }
 }
@@ -468,8 +469,8 @@ html, body {
 /* ValueEditorPart */
 .value-editor-part {
   display: flex;
-  > *:first-child {
-    width: 200px;
+  > select:first-child {
+    width: auto;
   }
   > .react-numeric-input {
     width: 100%;
