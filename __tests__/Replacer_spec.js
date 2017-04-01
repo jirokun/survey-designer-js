@@ -14,7 +14,7 @@ describe('Replacer', () => {
     state = SurveyDesignerState.createFromJson(sample1);
   });
 
-  describe('name2Value', () => {
+  describe('id2Value', () => {
     it('answerが正しく置換されること', () => {
       const allOutputDefinitionMap = Immutable.fromJS({
         abcdefg: new OutputDefinition({
@@ -26,10 +26,9 @@ describe('Replacer', () => {
       });
       const replacer = new Replacer(
         allOutputDefinitionMap,
-        { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(replacer.name2Value('abc{{abcdefg.answer}}def')).toBe('abc入力値def');
+      expect(replacer.id2Value('abc{{unique_id.answer}}def')).toBe('abc入力値def');
     });
 
     it('choiceが正しく置換されること', () => {
@@ -44,11 +43,10 @@ describe('Replacer', () => {
       });
       const replacer = new Replacer(
         allOutputDefinitionMap,
-        { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(replacer.name2Value('abc {{abcdefg.choice.unique_id1.value}} def')).toBe('abc value1 def');
-      expect(replacer.name2Value('abc {{abcdefg.choice.unique_id1.label}} def')).toBe('abc label1 def');
+      expect(replacer.id2Value('abc {{unique_id.choice.unique_id1.value}} def')).toBe('abc value1 def');
+      expect(replacer.id2Value('abc {{unique_id.choice.unique_id1.label}} def')).toBe('abc label1 def');
     });
 
     it('labelが正しく置換されること', () => {
@@ -62,14 +60,13 @@ describe('Replacer', () => {
       });
       const replacer = new Replacer(
         allOutputDefinitionMap,
-        { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(replacer.name2Value('abc{{abcdefg.label}}def')).toBe('abcラベルdef');
+      expect(replacer.id2Value('abc{{unique_id.label}}def')).toBe('abcラベルdef');
     });
   });
 
-  describe('outputNo2Name', () => {
+  describe('no2Id', () => {
     it('outputNoで入力した値がnameに置換される', () => {
       const allOutputDefinitionMap = Immutable.fromJS({
         abcdefg: new OutputDefinition({
@@ -81,14 +78,13 @@ describe('Replacer', () => {
       });
       const replacer = new Replacer(
         allOutputDefinitionMap,
-        { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(replacer.outputNo2Name('abc{{1-1-1.label}}def')).toBe('abc{{abcdefg.label}}def');
+      expect(replacer.no2Id('abc{{1-1-1.label}}def')).toBe('abc{{unique_id.label}}def');
     });
   });
 
-  describe('outputNo2Nameとname2Valueの組み合わせ', () => {
+  describe('no2Idとid2Valueの組み合わせ', () => {
     it('エディタで入力した値が正しく変換される', () => {
       const allOutputDefinitionMap = Immutable.fromJS({
         abcdefg: new OutputDefinition({
@@ -100,16 +96,15 @@ describe('Replacer', () => {
       });
       const replacer = new Replacer(
         allOutputDefinitionMap,
-        { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      const result1 = replacer.outputNo2Name('{{1-1-1.answer}}');
-      const result2 = replacer.name2Value(result1);
+      const result1 = replacer.no2Id('{{1-1-1.answer}}');
+      const result2 = replacer.id2Value(result1);
       expect(result2).toBe('入力値');
     });
   });
 
-  describe('name2OutputNo', () => {
+  describe('id2No', () => {
     it('nameが正しくoutputNoに変換される', () => {
       const allOutputDefinitionMap = Immutable.fromJS({
         abcdefg: new OutputDefinition({
@@ -121,10 +116,9 @@ describe('Replacer', () => {
       });
       const replacer = new Replacer(
         allOutputDefinitionMap,
-        { '1-1-1': 'abcdefg' },
         { abcdefg: '入力値' },
       );
-      expect(replacer.name2OutputNo('{{abcdefg.answer}}')).toBe('{{1-1-1.answer}}');
+      expect(replacer.id2No('{{unique_id.answer}}')).toBe('{{1-1-1.answer}}');
     });
   });
 
@@ -147,8 +141,9 @@ describe('Replacer', () => {
             })),
           },
         ))).getReplacer();
-      expect(replacer.validate(`{{1__value1.answer}}
-        {{2__value1.label}}
+      expect(replacer.validate(`
+        {{I001.answer}}
+        {{I005.label}}
         {{r1.choice.item1.label}}
         {{r1.choice.item1.value}}`)).toBe(true);
     });
