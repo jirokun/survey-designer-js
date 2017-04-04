@@ -44,7 +44,7 @@ describe('PageDefinition', () => {
   describe('updateItemAttribute', () => {
     it('itemの属性を更新できる', () => {
       const survey = state.getSurvey();
-      const replacer = survey.getReplacer();
+      const replacer = survey.createReplacer();
       const result = state.getSurvey().findPage('P001').updateItemAttribute('1', 'I001', 'label', 'ABC', replacer);
       expect(result.getIn(['questions', 0, 'items', 0, 'label'])).toBe('ABC');
     });
