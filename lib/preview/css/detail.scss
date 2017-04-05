@@ -10,6 +10,15 @@
   border-bottom: 1px solid $borderColor;
   border-radius: 0 4px 0 4px;
   padding: 0 10px;
+  z-index: 1;
+}
+
+@mixin tag($bgColor, $color) {
+  background-color: $bgColor;
+  border-radius: 20px;
+  color: $color;
+  padding: 3px 7px;
+  margin: 0 3px;
 }
 
 body {
@@ -31,6 +40,53 @@ body {
     .questionBox {
       border-top: none;
       border-bottom: none;
+    }
+  }
+  .question-form-list {
+    position: relative;
+    /** questionの動きを説明する */
+    .item-detail {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-left: 1px solid $border-color-question-detail;
+      border-bottom: 1px solid $border-color-question-detail;
+      background-color: $background-color-question-detail;
+      border-radius: 0 12px 0 4px;
+      padding: 0 10px;
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
+  .question-detail {
+    border: 1px solid $border-color-question-detail;
+    background-color: $background-color-question-detail;
+    border-radius: 4px;
+    padding: 0 10px;
+    list-style-type: decimal; 
+    list-style-position: inside;
+    &:empty {
+      display: none;
+    }
+  }
+
+  .detail-function {
+    @include tag($background-color-detail-function, $color-detail-function);
+  }
+
+  .fixed-value {
+    @include tag($background-color-fixed-value, $color-fixed-value);
+    &:before {
+      content: "固定値 ";
+    }
+  }
+
+  .answer-value {
+    @include tag($background-color-answer-value, $color-answer-value);
+    &:before {
+      content: "回答値 ";
     }
   }
 }
