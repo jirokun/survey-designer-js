@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     runtime: ['./lib/Runtime'],
     preview: ['./lib/Preview'],
+    detail: ['./lib/Detail'],
     editor: ['./lib/Editor'],
   },
   output: {

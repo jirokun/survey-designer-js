@@ -1,0 +1,36 @@
+@import "../../runtime/css/common";
+@import "../../editor/css/editor";
+
+@mixin no($bgColor, $borderColor) {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: $bgColor;
+  border-left: 1px solid $borderColor;
+  border-bottom: 1px solid $borderColor;
+  border-radius: 0 4px 0 4px;
+  padding: 0 10px;
+}
+
+body {
+  overflow: auto;
+}
+
+#root {
+  .page-no {
+    @include no($backgroud-color-page, $border-color-page);
+  }
+  .branch-no {
+    @include no($backgroud-color-branch, $border-color-branch);
+  }
+  .finisher-no {
+    @include no($backgroud-color-finisher, $border-color-finisher);
+  }
+  .questionsEditBox {
+    margin-bottom: 10px;
+    .questionBox {
+      border-top: none;
+      border-bottom: none;
+    }
+  }
+}
