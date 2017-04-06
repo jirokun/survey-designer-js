@@ -112,7 +112,7 @@ describe('Replacer', () => {
 
   describe('validate', () => {
     it('参照文字列が含まれていない', () => {
-      const replacer = state.getSurvey().createReplacer();
+      const replacer = state.getSurvey().updateReplacer();
       expect(replacer.validate('{{aaa.labe}}')).toBe(true);
     });
 
@@ -128,7 +128,7 @@ describe('Replacer', () => {
               value: 'value1',
             })),
           },
-        ))).createReplacer();
+        ))).updateReplacer();
       expect(replacer.validate(`
         {{I001.answer}}
         {{I005.answer_label}}`)).toBe(true);
@@ -146,7 +146,7 @@ describe('Replacer', () => {
               value: 'value1',
             })),
           },
-        ))).createReplacer();
+        ))).updateReplacer();
       expect(replacer.validate('{{9__value1.answer}}')).toBe(false);
       expect(replacer.validate('{{9__value1.label}}')).toBe(false);
       expect(replacer.validate('{{r9.choice.item1.label}}')).toBe(false);
