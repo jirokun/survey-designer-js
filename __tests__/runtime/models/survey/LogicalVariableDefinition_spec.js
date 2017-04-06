@@ -17,14 +17,12 @@ describe('LogicalVariableDefinition', () => {
         name: 'od1-name',
         label: 'label',
         outputType: 'number',
-        overrideItems: null,
         outputNo: '1-1-1',
       })).set('od2', new OutputDefinition({
         _id: 'od2',
         name: 'od2-name',
         label: 'label',
         outputType: 'number',
-        overrideItems: null,
         outputNo: '1-1-2',
       }));
       expect(lv.createFunctionCode(odList)).toBe(`return parseInt(answers[\'od1-name\'], 10)+parseInt(answers[\'od2-name\'], 10)`);
