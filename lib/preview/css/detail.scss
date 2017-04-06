@@ -45,18 +45,19 @@ body {
   .question-form-list {
     position: relative;
     /** questionの動きを説明する */
-    .item-detail {
-      position: absolute;
-      top: 0;
-      right: 0;
-      border-left: 1px solid $border-color-question-detail;
-      border-bottom: 1px solid $border-color-question-detail;
-      background-color: $background-color-question-detail;
-      border-radius: 0 12px 0 4px;
-      padding: 0 10px;
-      &:empty {
-        display: none;
-      }
+  }
+
+  .item-detail {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1px solid $border-color-question-detail;
+    border-bottom: 1px solid $border-color-question-detail;
+    background-color: $background-color-question-detail;
+    border-radius: 0 12px 0 4px;
+    padding: 0 10px;
+    &:empty {
+      display: none;
     }
   }
 
@@ -87,6 +88,19 @@ body {
     @include tag($background-color-answer-value, $color-answer-value);
     &:before {
       content: "回答値 ";
+    }
+  }
+
+  .matrix {
+    td, th {
+      position: relative;
+    }
+    .item-detail-shown {
+      min-width: 130px;
+      padding-top: 25px;
+      .item-detail {
+        border-radius: 0 0 0 4px;
+      }
     }
   }
 }
