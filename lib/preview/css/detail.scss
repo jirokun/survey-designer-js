@@ -73,24 +73,6 @@ body {
     }
   }
 
-  .detail-function {
-    @include tag($background-color-detail-function, $color-detail-function);
-  }
-
-  .fixed-value {
-    @include tag($background-color-fixed-value, $color-fixed-value);
-    &:before {
-      content: "固定値 ";
-    }
-  }
-
-  .answer-value {
-    @include tag($background-color-answer-value, $color-answer-value);
-    &:before {
-      content: "回答値 ";
-    }
-  }
-
   .matrix {
     td, th {
       position: relative;
@@ -102,5 +84,23 @@ body {
         border-radius: 0 0 0 4px;
       }
     }
+  }
+}
+
+.detail-function {
+  @include tag($background-color-detail-function, $color-detail-function);
+}
+
+.fixed-value {
+  @include tag($background-color-fixed-value, $color-fixed-value);
+  &:before {
+    content: "固定値 ";
+  }
+}
+
+.answer-value {
+  @include tag($background-color-answer-value, $color-answer-value);
+  &:before {
+    content: "回答値 ";
   }
 }
