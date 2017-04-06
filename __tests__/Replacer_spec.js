@@ -31,38 +31,26 @@ describe('Replacer', () => {
       expect(replacer.id2Value('abc{{unique_id.answer}}def')).toBe('abc入力値def');
     });
 
-    it('choiceが正しく置換されること', () => {
+    it('answer_labelが正しく置換されること', () => {
       const allOutputDefinitionMap = Immutable.fromJS({
         abcdefg: new OutputDefinition({
           _id: 'unique_id',
+          outputType: 'radio',
           name: 'abcdefg',
           label: 'ラベル',
           outputNo: '1-1-1',
-          choices: List().push(new ChoiceDefinition({ _id: 'unique_id1', label: 'label1', value: 'value1' })),
+          choices: List().push(new ChoiceDefinition({
+            _id: 'unique_id2',
+            label: '選択肢1',
+            value: 'value1',
+          })),
         }),
       });
       const replacer = new Replacer(
         allOutputDefinitionMap,
-        { abcdefg: '入力値' },
+        { abcdefg: 'value1' },
       );
-      expect(replacer.id2Value('abc {{unique_id.choice.unique_id1.value}} def')).toBe('abc value1 def');
-      expect(replacer.id2Value('abc {{unique_id.choice.unique_id1.label}} def')).toBe('abc label1 def');
-    });
-
-    it('labelが正しく置換されること', () => {
-      const allOutputDefinitionMap = Immutable.fromJS({
-        abcdefg: new OutputDefinition({
-          _id: 'unique_id',
-          name: 'abcdefg',
-          label: 'ラベル',
-          outputNo: '1-1-1',
-        }),
-      });
-      const replacer = new Replacer(
-        allOutputDefinitionMap,
-        { abcdefg: '入力値' },
-      );
-      expect(replacer.id2Value('abc{{unique_id.label}}def')).toBe('abcラベルdef');
+      expect(replacer.id2Value('abc{{unique_id.answer_label}}def')).toBe('abc選択肢1def');
     });
   });
 
@@ -143,9 +131,7 @@ describe('Replacer', () => {
         ))).createReplacer();
       expect(replacer.validate(`
         {{I001.answer}}
-        {{I005.label}}
-        {{r1.choice.item1.label}}
-        {{r1.choice.item1.value}}`)).toBe(true);
+        {{I005.answer_label}}`)).toBe(true);
     });
 
     it('存在しない設問の参照文字列が含まれている(answer, label, choice-label, choice-value)', () => {
