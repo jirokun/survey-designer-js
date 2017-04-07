@@ -77,5 +77,20 @@ body {
       }
     }
   }
+
+  .question-detail {
+    display: flex;
+    > div {
+      width: 50%;
+      padding: 5px;
+      table {
+        width: 100%;
+        td {
+          padding: 0 5px;
+          border: 1px solid black;
+        }
+      }
+    }
+  }
 }
 
