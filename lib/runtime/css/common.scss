@@ -10,15 +10,22 @@ $border-color-page: gold;
 
 $background-color-question-detail: #e5f0ff;
 $border-color-question-detail: #08198e;
+
 $background-color-detail-function: #426ef4;
 $color-detail-function: #fff;
+
 $background-color-answer-value: #fcc;
 $border-color-answer-value: #f7024b;
 $color-answer-value: #f7024b;
+
 $background-color-fixed-value: #009e14;
 $color-fixed-value: #fff;
+
 $background-color-validation-detail: #009e14;
 $color-validation-detail: #fff;
+
+$background-color-alert-value: #c11;
+$color-alert-value: #fff;
 
 @mixin tag($bgColor, $color, $borderColor) {
   background-color: $bgColor;
@@ -36,6 +43,10 @@ $color-validation-detail: #fff;
 
 .fixed-value {
   @include tag($background-color-fixed-value, $color-fixed-value, $background-color-fixed-value);
+}
+
+.alert-value {
+  @include tag($background-color-alert-value, $color-alert-value, $background-color-alert-value);
 }
 
 .answer-value {
