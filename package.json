@@ -51,6 +51,7 @@
     "redux-undo": "^0.6.0",
     "riek": "^1.0.7",
     "string": "^3.3.3",
+    "striptags": "^3.0.1",
     "throttle-debounce": "^1.0.1",
     "tinymce": "^4.4.3",
     "tooltipster": "^4.1.7"

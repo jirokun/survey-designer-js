@@ -12,7 +12,29 @@ $background-color-question-detail: #e5f0ff;
 $border-color-question-detail: #08198e;
 $background-color-detail-function: #426ef4;
 $color-detail-function: #fff;
-$background-color-answer-value: #f7024b;
-$color-answer-value: #fff;
+$background-color-answer-value: #fcc;
+$border-color-answer-value: #f7024b;
+$color-answer-value: #f7024b;
 $background-color-fixed-value: #009e14;
 $color-fixed-value: #fff;
+
+@mixin tag($bgColor, $color, $borderColor) {
+  background-color: $bgColor;
+  border: 1px solid $borderColor;
+  border-radius: 20px;
+  color: $color;
+  padding: 3px 7px;
+  margin: 0 3px;
+}
+
+.detail-function {
+  @include tag($background-color-detail-function, $color-detail-function, $background-color-detail-function);
+}
+
+.fixed-value {
+  @include tag($background-color-fixed-value, $color-fixed-value, $background-color-fixed-value);
+}
+
+.answer-value {
+  @include tag($background-color-answer-value, $color-answer-value, $border-color-answer-value);
+}
