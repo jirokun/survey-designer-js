@@ -69,16 +69,35 @@ body {
     td, th {
       position: relative;
     }
-    .item-detail-shown {
-      min-width: 130px;
+    .detail-shown {
+      vertical-align: top;
+      padding-top: 0;
+      .detail {
+        white-space: nowrap;
+        margin-bottom: 5px;
+        &:empty {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .question-form-list {
+    .detail-shown {
       padding-top: 25px;
-      .item-detail {
-        border-radius: 0 0 0 4px;
+      .question-form-list-input {
+        position: relative;
+        left: -28px;
+      }
+      > span {
+        position: relative;
+        left: -14px;
       }
     }
   }
 
   .question-detail {
+    margin-top: 10px;
     display: flex;
     > div {
       width: 50%;

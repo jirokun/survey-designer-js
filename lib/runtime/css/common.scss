@@ -17,6 +17,8 @@ $border-color-answer-value: #f7024b;
 $color-answer-value: #f7024b;
 $background-color-fixed-value: #009e14;
 $color-fixed-value: #fff;
+$background-color-validation-detail: #009e14;
+$color-validation-detail: #fff;
 
 @mixin tag($bgColor, $color, $borderColor) {
   background-color: $bgColor;
@@ -25,6 +27,7 @@ $color-fixed-value: #fff;
   color: $color;
   padding: 1px 7px;
   margin: 0 3px;
+  white-space: nowrap;
 }
 
 .detail-function {
@@ -37,4 +40,8 @@ $color-fixed-value: #fff;
 
 .answer-value {
   @include tag($background-color-answer-value, $color-answer-value, $border-color-answer-value);
+}
+
+.validation-detail {
+  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
 }
