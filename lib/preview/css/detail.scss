@@ -58,10 +58,39 @@ body {
     background-color: $background-color-question-detail;
     border-radius: 4px;
     padding: 0 10px;
-    list-style-type: decimal; 
-    list-style-position: inside;
+    margin-top: 10px;
+    display: flex;
     &:empty {
       display: none;
+    }
+    > div {
+      width: 50%;
+      padding: 5px;
+      table {
+        width: 100%;
+        td {
+          padding: 0 5px;
+          border: 1px solid black;
+        }
+      }
+    }
+  }
+
+  .page-detail {
+    border: 1px solid $border-color-page-detail;
+    background-color: $background-color-page-detail;
+    border-radius: 4px;
+    padding: 0 10px 10px;
+    margin: 6px;
+    &:empty {
+      display: none;
+    }
+    table {
+      width: 100%;
+      th, td {
+        padding: 0 5px;
+        border: 1px solid black;
+      }
     }
   }
 
@@ -92,22 +121,6 @@ body {
       > span {
         position: relative;
         left: -14px;
-      }
-    }
-  }
-
-  .question-detail {
-    margin-top: 10px;
-    display: flex;
-    > div {
-      width: 50%;
-      padding: 5px;
-      table {
-        width: 100%;
-        td {
-          padding: 0 5px;
-          border: 1px solid black;
-        }
       }
     }
   }
