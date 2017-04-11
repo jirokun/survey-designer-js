@@ -1,0 +1,16 @@
+@import "../../runtime/css/common";
+@import "../../runtime/css/runtime";
+
+.preview-answer {
+  border: 1px solid #666;
+  border-radius: 5px;
+  background: #fff;
+  padding: 5px;
+  width: 800px;
+  margin: 10px auto 0 auto;
+  box-sizing: border-box;
+  > h3 {
+    text-align: left;
+    font-size: large;
+  }
+}
