@@ -31,6 +31,7 @@ module.exports = {
     { tinymce: true },
   ],
   module: {
+    noParse: [path.join(__dirname, 'node_modules/handsontable/dist/handsontable.js')],
     /*
     preLoaders: [
       {
@@ -84,6 +85,12 @@ module.exports = {
         loader: 'expose-loader?ZeroClipboard',
       },
     ],
+    resolve: {
+      alias: {
+        handsontable: path.join(__dirname, 'node_modules/handsontable/dist/handsontable.full.js'),
+        'handsontable.css': path.join(__dirname, 'node_modules/handsontable/dist/handsontable.full.css'),
+      },
+    },
   },
   eslint: {
     configFile: '.eslintrc.json',
