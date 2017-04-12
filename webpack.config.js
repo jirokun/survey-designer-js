@@ -24,7 +24,7 @@ module.exports = {
     new webpack.DefinePlugin({ ENV: (() => JSON.stringify(loadenv('./.env')))() }),
     // new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
   ],
   externals: [
