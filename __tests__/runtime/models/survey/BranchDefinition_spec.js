@@ -2,7 +2,7 @@
 import { Map } from 'immutable';
 import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
 import sample from './BranchDefinition.json';
-import sample2 from './BranchDefinition2.json';
+import sampleRadio from './BranchDefinition_radio.json';
 
 describe('BranchDefinition', () => {
   let state;
@@ -230,7 +230,7 @@ describe('BranchDefinition', () => {
       expect(result.get(0)).toBe('分岐条件の入力値が空欄です');
     });
     it('条件の選択値(radio)が未入力', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: sample2 }).getSurvey();
+      const survey = SurveyDesignerState.createFromJson({ survey: sampleRadio }).getSurvey();
       const branch = survey.getIn(['branches', 0]);
       const result = branch.validate(survey);
       expect(result.size).toBe(1);
