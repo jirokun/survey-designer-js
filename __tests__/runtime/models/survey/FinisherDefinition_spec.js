@@ -11,7 +11,7 @@ describe('FinisherDefinition', () => {
   describe('validate', () => {
     it('再掲で参照している値が存在していない場合にエラーメッセージが返る', () => {
       const survey = state.getSurvey().setIn(['finishers', 0, 'html'], '{{a.answer}}');
-      survey.updateReplacer();
+      survey.refreshReplacer();
       const result = survey.getFinishers().get(0).validate(survey);
       expect(result.size).toBe(1);
       expect(result.get(0)).toBe('存在しない参照があります');
