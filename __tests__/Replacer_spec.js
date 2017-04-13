@@ -68,7 +68,7 @@ describe('Replacer', () => {
         allOutputDefinitionMap,
         { abcdefg: '入力値' },
       );
-      expect(replacer.no2Id('abc{{1-1-1.label}}def')).toBe('abc{{unique_id.label}}def');
+      expect(replacer.no2Id('abc{{1-1-1.answer}}def')).toBe('abc{{unique_id.answer}}def');
     });
   });
 
@@ -116,7 +116,7 @@ describe('Replacer', () => {
       expect(replacer.validate('{{aaa.labe}}')).toBe(true);
     });
 
-    it('存在する設問の参照文字列が含まれている(answer, label, choice-label, choice-value)', () => {
+    it('存在する設問の参照文字列が含まれている(answer, answer_label)', () => {
       const replacer = state.getSurvey().updateIn(['pages', 0, 'questions'], questions =>
         questions.push(new RadioQuestionDefinition(
           {
@@ -131,10 +131,10 @@ describe('Replacer', () => {
         ))).refreshReplacer();
       expect(replacer.validate(`
         {{I001.answer}}
-        {{I005.answer_label}}`)).toBe(true);
+        {{r1.answer_label}}`)).toBe(true);
     });
 
-    it('存在しない設問の参照文字列が含まれている(answer, label, choice-label, choice-value)', () => {
+    it('存在しない設問の参照文字列が含まれている(answer, answer_label)', () => {
       const replacer = state.getSurvey().updateIn(['pages', 0, 'questions'], questions =>
         questions.push(new RadioQuestionDefinition(
           {
@@ -148,9 +148,7 @@ describe('Replacer', () => {
           },
         ))).refreshReplacer();
       expect(replacer.validate('{{9__value1.answer}}')).toBe(false);
-      expect(replacer.validate('{{9__value1.label}}')).toBe(false);
-      expect(replacer.validate('{{r9.choice.item1.label}}')).toBe(false);
-      expect(replacer.validate('{{r9.choice.item1.value}}')).toBe(false);
+      expect(replacer.validate('{{9__value1.answer_label}}')).toBe(false);
     });
   });
 });
