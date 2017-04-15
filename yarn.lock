@@ -1378,12 +1378,11 @@ css-color-names@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
 
-css-in-js-utils@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-1.0.2.tgz#f7e46b172fd994f2cd6745858c9eda9065f9bc6b"
+css-in-js-utils@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/css-in-js-utils/-/css-in-js-utils-1.0.3.tgz#9ac7e02f763cf85d94017666565ed68a5b5f3215"
   dependencies:
     hyphenate-style-name "^1.0.2"
-    unitless-css-property "^1.0.2"
 
 css-loader@^0.28.0:
   version "0.28.0"
@@ -2506,7 +2505,7 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-hyphenate-style-name@^1.0.1, hyphenate-style-name@^1.0.2:
+hyphenate-style-name@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
 
@@ -2575,12 +2574,12 @@ ini@~1.3.0:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
 
-inline-style-prefixer@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/inline-style-prefixer/-/inline-style-prefixer-3.0.0.tgz#4feb44053c29aa2fe2aaecac4fb3e9459f871239"
+inline-style-prefixer@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/inline-style-prefixer/-/inline-style-prefixer-3.0.2.tgz#989865e0c5de7a946acbea71e16e02741efe0dd7"
   dependencies:
     bowser "^1.6.0"
-    css-in-js-utils "^1.0.0"
+    css-in-js-utils "^1.0.3"
 
 inquirer@^0.12.0:
   version "0.12.0"
@@ -4492,16 +4491,16 @@ react-scroll@^1.5.0:
   dependencies:
     object-assign "^4.0.1"
 
-react-split-pane@^0.1.52:
-  version "0.1.58"
-  resolved "https://registry.yarnpkg.com/react-split-pane/-/react-split-pane-0.1.58.tgz#0e9929401ffcd4eb655d7698774945af4758b53d"
+react-split-pane@^0.1.61:
+  version "0.1.61"
+  resolved "https://registry.yarnpkg.com/react-split-pane/-/react-split-pane-0.1.61.tgz#25781aeae3b89808524feb02b24ee26879cb803a"
   dependencies:
-    inline-style-prefixer "^3.0.0"
-    react-style-proptype "^2.0.1"
+    inline-style-prefixer "^3.0.2"
+    react-style-proptype "^2.0.2"
 
-react-style-proptype@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-style-proptype/-/react-style-proptype-2.0.1.tgz#6b29b9bceb11d6be279ffee3debe1fe1edbee97b"
+react-style-proptype@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-style-proptype/-/react-style-proptype-2.0.2.tgz#b4687990ac256deed89ee5777a3c58de5ac7bd15"
 
 react-tinymce@^0.5.1:
   version "0.5.1"
@@ -5317,12 +5316,6 @@ uniqid@^4.0.0:
 uniqs@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/uniqs/-/uniqs-2.0.0.tgz#ffede4b36b25290696e6e165d4a59edb998e6b02"
-
-unitless-css-property@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/unitless-css-property/-/unitless-css-property-1.0.2.tgz#dd4b666172fba241fcf50b6b31aee126700b170a"
-  dependencies:
-    hyphenate-style-name "^1.0.1"
 
 unpipe@~1.0.0:
   version "1.0.0"

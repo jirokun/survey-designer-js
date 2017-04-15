@@ -46,7 +46,7 @@
     "react-numeric-input": "^2.0.7",
     "react-redux": "^5.0.4",
     "react-scroll": "^1.5.0",
-    "react-split-pane": "^0.1.52",
+    "react-split-pane": "^0.1.61",
     "react-tinymce": "^0.5.1",
     "redux": "^3.6.0",
     "redux-immutable": "^4.0.0",
