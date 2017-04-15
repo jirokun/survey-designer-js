@@ -22,78 +22,83 @@ module.exports = {
   plugins: [
     // 環境変数の読み込み
     new webpack.DefinePlugin({ ENV: (() => JSON.stringify(loadenv('./.env')))() }),
-    // new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
   ],
   externals: [
     { tinymce: true },
   ],
   module: {
     noParse: [path.join(__dirname, 'node_modules/handsontable/dist/handsontable.js')],
-    /*
-    preLoaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-      },
-    ],
-    */
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loaders: ['babel'],
         exclude: /node_modules/,
         include: __dirname,
-      },
-      {
-        test: /\.json$/,
-        loader: 'json',
+        use: [
+          { loader: 'babel-loader' },
+        ],
       },
       {
         test: /\.css$/,
-        loader: 'style!css',
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+        ],
       },
       {
         test: /\.scss$/,
-        loader: 'style!css!sass',
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
+        ],
       },
       {
         test: /\.less$/,
-        loader: 'style!css!less',
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'less-loader' },
+        ],
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
-        loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]',
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 30000, name: '[name]-[hash].[ext]' },
+          },
+        ],
       },
       {
         test: require.resolve('numbro'),
-        loader: 'expose-loader?numbro',
+        use: [{ loader: 'expose-loader?numbro' }],
       },
       {
         test: require.resolve('moment'),
-        loader: 'expose-loader?moment',
+        use: [{ loader: 'expose-loader?moment' }],
       },
       {
         test: require.resolve('pikaday'),
-        loader: 'expose-loader?Pikaday',
+        use: [{ loader: 'expose-loader?Pikaday' }],
       },
       {
         test: require.resolve('zeroclipboard'),
-        loader: 'expose-loader?ZeroClipboard',
+        use: [{ loader: 'expose-loader?ZeroClipboard' }],
       },
     ],
+    /*
     resolve: {
       alias: {
         handsontable: path.join(__dirname, 'node_modules/handsontable/dist/handsontable.full.js'),
         'handsontable.css': path.join(__dirname, 'node_modules/handsontable/dist/handsontable.full.css'),
       },
     },
+    */
   },
+  /*
   eslint: {
     configFile: '.eslintrc.json',
     fix: true,
   },
+  */
 };
