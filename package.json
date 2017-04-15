@@ -4,7 +4,7 @@
   "description": "Survey system using react.js",
   "scripts": {
     "start": "node server.js",
-    "build": "webpack",
+    "build": "webpack -p",
     "build:watch": "webpack --watch",
     "test": "jest",
     "test:watch": "yarn test -- --watch"
