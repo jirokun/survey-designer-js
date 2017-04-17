@@ -30,17 +30,22 @@
   box-sizing: border-box;
 }
 
-.matrix.question-form-grid-table td {
-  input[type="number"] {
-    width: 4em;
+.matrix.question-form-grid-table {
+  .err {
+    background-color: #ffe4c4;
   }
-  label {
-    white-space: nowrap;
-    > input {
-      margin: 0 5px;
+  td {
+    input[type="number"] {
+      width: 4em;
     }
-    > span {
-      margin: 0 5px 0 0;
+    label {
+      white-space: nowrap;
+      > input {
+        margin: 0 5px;
+      }
+      > span {
+        margin: 0 5px 0 0;
+      }
     }
   }
 }
