@@ -21,7 +21,15 @@ window.addEventListener('message', function(e) {
   if (e.data.type !== 'surveyResponse') return;
   var survey = JSON.parse(e.data.value);
   var el = document.getElementById('root');
-  SurveyDesigner.Preview(el, { survey: survey });
+  SurveyDesigner.Preview(el, {
+    survey: survey,
+    options: {
+      pageLoadedFn: function(survey, runtime) {
+        var nodeId = runtime.getCurrentNodeId();
+        console.log(nodeId);
+      },
+    },
+  });
 }, false);
 window.opener.postMessage({ type: 'surveyRequest' }, '*');
     </script>
