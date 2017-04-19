@@ -6,6 +6,25 @@
 .tooltipster-base {
   pointer-events: auto;
 }
+
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-border,
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background {
+    border-top-color: #000;
+}
+
+.tooltipster-sidetip .tooltipster-box {
+    background: #000;
+    border: none;
+    border-radius: 0;
+}
+
+.tooltip-wrapper .tooltip-close {
+    display: none;
+}
+.tooltipster-sidetip .tooltipster-content {
+    padding: 5px 14px 6px 14px;
+}
+
 .question, .finisher {
   strong {
     font-style: inherit;
@@ -59,3 +78,4 @@
     }
   }
 }
+

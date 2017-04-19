@@ -25,16 +25,21 @@ html, body {
           background-color: #d9edf7;
         }
         h5 {
-          border-bottom: 1px solid darkgreen;
+          padding: 4px;
+          background-color: #efefef;
           margin-left: 1em;
+          margin-right: 1em;
         }
         .form-horizontal .form-group {
           margin-left: 0;
           margin-right: 0;
         }
+        .form-horizontal .control-label {
+          font-size: 87.5%;
+        }
         .logic-variables {
           .add-logic-variable-button {
-            margin-bottom: 5px;
+            margin-left: 6px;
           }
           .expression {
             .operator {
@@ -49,6 +54,10 @@ html, body {
             .delete-button {
               margin-left: 10px;
             }
+          }
+
+          &-title {
+            margin: 6px 0;
           }
         }
         .editor-controller {
@@ -65,7 +74,11 @@ html, body {
           }
         }
         .mce-content-body {
-          border: 1px solid #ccc;
+          border-top: 2px solid #aaa;
+          border-left: 2px solid #aaa;
+          border-bottom: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          padding-left: 4px;
         }
         > div {
           height: 100%;
@@ -174,7 +187,12 @@ html, body {
 /* HTMLのエディタ */
 .html-editor {
   cursor: pointer;
-  border-bottom: 1px solid #ccc;
+  border-top: 2px solid #aaa;
+  border-left: 2px solid #aaa;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding-left: 4px;
+  
   &:hover {
     background-color: #fee;
   }
@@ -194,6 +212,7 @@ html, body {
       padding: 0 3px;
       white-space: nowrap;
       vertical-align: top;
+      font-size: 87.5%;
     }
     .item-editor-row {
       .option {
@@ -228,17 +247,40 @@ html, body {
 .component-button {
   margin-bottom: 5px;
 }
+
+.fade-in {
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  -ms-transition: all .2s;
+  -o-transition: all .2s;
+  transition: all .2s;
+  opacity: 0;
+}
+
+.fade-in--finish {
+  opacity: 1;
+}
+
 .flow-pane {
   padding: 10px;
   min-width: 200px;
   .page, .branch, .finisher {
     position: relative;
     margin-bottom: 5px;
-    border: 1px solid #ccc;
     width: 100%;
-    &.selected {
-      border: 3px solid #3c763d;
+    animation: fadeIn .5s ease 0s 1 normal;
+    -webkit-animation: fadeIn .5s ease 0s 1 normal;
+    
+    @keyframes fadeIn {
+        0% {opacity: 0}
+        100% {opacity: 1}
     }
+
+    @-webkit-keyframes fadeIn {
+        0% {opacity: 0}
+        100% {opacity: 1}
+    }
+
     .header {
       position: relative;
       white-space: nowrap;
@@ -260,52 +302,127 @@ html, body {
         }
       }
       .insert-item-box {
-        height: 10px;
+        height: 6px;
         cursor: pointer;
-        div {
+        @extend .fade-in;
+
+       div {
           position: relative;
           height: 100%;
+          
           i {
             display: none;
-            color: #3c763d;
+            color: #000;
             position: absolute;
             top: -6px;
-            left: -20px;
-            font-size: 25px;
+            left: -14px;
+            font-size: 18px;
           }
         }
         div:hover {
-          background-color: #3c763d;
+          background-color: #000;
           i {
             display: inline;
           }
+        }
+        &:hover {
+         @extend .fade-in--finish;
         }
       }
     }
   }
   .page {
+    border: 1px solid #f4d99a;
     background-color: $backgroud-color-page;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;
+   
+    &:hover {
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+    }
+    
+    &.selected {
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #f4d99a;
+      }
+    }
   }
   .branch {
+    border: 1px solid #af9bff;
     background-color: $backgroud-color-branch;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;      
+
+    &:hover {
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+    }
+
+    &.selected {
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #af9bff;
+      }
+    }
   }
   .finisher {
+    border: 1px solid #a0db8e;
     background-color: $backgroud-color-finisher;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;      
+
+    &:hover {
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+    }
+
+    &.selected {
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #a0db8e;
+      }
+    }
   }
   .arrow-down {
     position: relative;
     text-align: center;
     font-size: large;
-    margin-top: -2px;
+    border: dashed 2px #dfdfdf;
+    margin-bottom: 2px;
+    margin: 6px 0;
+
     .btn {
       position: absolute;
       top: 0;
       left: 0;
       display: none;
+    @extend .fade-in;
+    
+    &:hover {
+      @extend .fade-in--finish
+    }
     }
     &:hover {
       .btn {
         display: block;
+        width: 100%;
+        padding: 5px 0 4px 0;
+        border: none;
+        background-color: #000;
       }
     }
   }
@@ -410,14 +527,35 @@ html, body {
 
   &__page {
     background-color: $backgroud-color-page;
+    border: 1px solid #f4d99a;
+    
+    &:hover {
+      background-color: $backgroud-color-page;
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+    }
   }
 
   &__branch {
     background-color: $backgroud-color-branch;
+    border: 1px solid #af9bff;
+    
+    &:hover {
+      background-color: $backgroud-color-branch;
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+    }
   }
 
   &__finisher {
     background-color: $backgroud-color-finisher;
+    border: 1px solid #a0db8e;
+    
+    &:hover {
+      background-color: $backgroud-color-finisher;
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+    }
   }
 }
 
@@ -472,3 +610,4 @@ html, body {
     width: 100%;
   }
 }
+
