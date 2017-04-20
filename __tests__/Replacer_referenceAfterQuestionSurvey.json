@@ -1,0 +1,151 @@
+{
+  "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+  "title": "名称未設定",
+  "version": 2,
+  "pages": [
+    {
+      "_id": "cj1qfegit000a3j6641nmuyx6",
+      "questions": [
+        {
+          "_id": "cj1qfekzz000k3j66phxekz1a",
+          "dataType": "MultiNumber",
+          "title": "設問タイトル",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj1qfekzz000l3j66ejn0huav",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj1qfedj000013j66lhvnyaql",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": "{{cj1qfeifo000f3j66hacqvhg9.answer}}"
+        }
+      ],
+      "logicalVariables": [],
+      "javaScriptCode": ""
+    },
+    {
+      "_id": "cj1qfedp500023j66e0uw0u0k",
+      "questions": [
+        {
+          "_id": "cj1qfeifn000e3j6690p1e8aa",
+          "dataType": "MultiNumber",
+          "title": "設問タイトル",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj1qfeifo000f3j66hacqvhg9",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj1qfedj000013j66lhvnyaql",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
+        }
+      ],
+      "logicalVariables": [],
+      "javaScriptCode": ""
+    }
+  ],
+  "branches": [],
+  "finishers": [
+    {
+      "_id": "cj1qfedp700063j66p4t8fegc",
+      "finishType": "COMPLETE",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+    }
+  ],
+  "nodes": [
+    {
+      "_id": "cj1qfegit000d3j661iqgn40u",
+      "type": "page",
+      "refId": "cj1qfegit000a3j6641nmuyx6",
+      "nextNodeId": "cj1qfedp500053j66vz52303z"
+    },
+    {
+      "_id": "cj1qfedp500053j66vz52303z",
+      "type": "page",
+      "refId": "cj1qfedp500023j66e0uw0u0k",
+      "nextNodeId": "cj1qfedp800073j662fkyr0m9"
+    },
+    {
+      "_id": "cj1qfedp800073j662fkyr0m9",
+      "type": "finisher",
+      "refId": "cj1qfedp700063j66p4t8fegc",
+      "nextNodeId": null
+    }
+  ],
+  "panel": null
+}

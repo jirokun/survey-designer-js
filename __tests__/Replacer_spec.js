@@ -7,6 +7,7 @@ import RadioQuestionDefinition from '../lib/runtime/models/survey/questions/Radi
 import ItemDefinition from '../lib/runtime/models/survey/questions/internal/ItemDefinition';
 import SurveyDesignerState from '../lib/runtime/models/SurveyDesignerState';
 import sample1 from './runtime/models/sample1.json';
+import referenceAfterQuestionSurvey from './Replacer_referenceAfterQuestionSurvey.json';
 
 describe('Replacer', () => {
   let state;
@@ -113,11 +114,11 @@ describe('Replacer', () => {
   describe('validate', () => {
     it('参照文字列が含まれていない', () => {
       const replacer = state.getSurvey().refreshReplacer();
-      expect(replacer.validate('{{aaa.labe}}')).toBe(true);
+      expect(replacer.validate('{{aaa.labe}}', state.getSurvey().getAllOutputDefinitions())).toBe(true);
     });
 
     it('存在する設問の参照文字列が含まれている(answer, answer_label)', () => {
-      const replacer = state.getSurvey().updateIn(['pages', 0, 'questions'], questions =>
+      const newSurvey = state.getSurvey().updateIn(['pages', 0, 'questions'], questions =>
         questions.push(new RadioQuestionDefinition(
           {
             _id: 'r1',
@@ -128,10 +129,12 @@ describe('Replacer', () => {
               value: 'value1',
             })),
           },
-        ))).refreshReplacer();
+        )));
+      const replacer = newSurvey.refreshReplacer();
       expect(replacer.validate(`
         {{I001.answer}}
-        {{r1.answer_label}}`)).toBe(true);
+        {{r1.answer_label}}`,
+        newSurvey.getAllOutputDefinitions())).toBe(true);
     });
 
     it('存在しない設問の参照文字列が含まれている(answer, answer_label)', () => {
@@ -147,8 +150,14 @@ describe('Replacer', () => {
             })),
           },
         ))).refreshReplacer();
-      expect(replacer.validate('{{9__value1.answer}}')).toBe(false);
-      expect(replacer.validate('{{9__value1.answer_label}}')).toBe(false);
+      expect(replacer.validate('{{9__value1.answer}}', state.getSurvey().getAllOutputDefinitions())).toBe(false);
+      expect(replacer.validate('{{9__value1.answer_label}}', state.getSurvey().getAllOutputDefinitions())).toBe(false);
+    });
+
+    it('自ページよりも後の設問を参照している', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: referenceAfterQuestionSurvey }).getSurvey();
+      const replacer = survey.refreshReplacer();
+      expect(replacer.validate('{{cj1qfeifo000f3j66hacqvhg9.answer}}', state.getSurvey().getAllOutputDefinitions())).toBe(false);
     });
   });
 });
