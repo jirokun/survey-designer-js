@@ -1,8 +1,16 @@
 /* eslint-env jest */
 import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
 import sample1 from '../sample1.json';
+import noBranchSurvey from './SurveyDefinition_noBranchSurvey.json';
+import hasNotScreeningBranchSurvey from './SurveyDefinition_hasNotScreeningBranchSurvey.json';
+import hasScreeningBranchSurvey from './SurveyDefinition_hasScreeningBranchSurvey.json';
+import hasReferenceInPageSurvey from './SurveyDefinition_hasReferenceInPageSurvey.json';
+import hasReferenceInFinisherSurvey from './SurveyDefinition_hasReferenceInFinisherSurvey.json';
+import hasNoReferenceSurvey from './SurveyDefinition_hasNoReferenceSurvey.json';
+import hasLogicalVariablesSurvey from './SurveyDefinition_hasLogicalVariablesSurvey.json';
+import hasJavaScriptSurvey from './SurveyDefinition_hasJavaScriptSurvey.json';
 
-describe('PageDefinition', () => {
+describe('SurveyDefinition', () => {
   let state;
   beforeAll(() => {
     state = SurveyDesignerState.createFromJson(sample1);
@@ -283,6 +291,75 @@ describe('PageDefinition', () => {
       expect(newState.getPages().size).toBe(3);
       expect(newState.getNodes().get(0).getNextNodeId()).toBe(newState.getNodes().get(1).getId());
       expect(newState.getNodes().get(1).getNextNodeId()).toBe(newState.getNodes().get(2).getId());
+    });
+  });
+
+  describe('hasNotScreeningBranch', () => {
+    it('スクリーニング設問がそもそもない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: noBranchSurvey }).getSurvey();
+      expect(survey.hasNotScreeningBranch()).toBe(false);
+    });
+
+    it('スクリーニング以外への分岐がある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasNotScreeningBranchSurvey }).getSurvey();
+      expect(survey.hasNotScreeningBranch()).toBe(true);
+    });
+
+    it('スクリーニングへの分岐がある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasScreeningBranchSurvey }).getSurvey();
+      expect(survey.hasNotScreeningBranch()).toBe(false);
+    });
+  });
+
+  describe('hasReferenceInPages', () => {
+    it('ページ内に再掲がある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasReferenceInPageSurvey }).getSurvey();
+      survey.refreshReplacer();
+      expect(survey.hasReferenceInPages()).toBe(true);
+    });
+
+    it('再掲がない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasNoReferenceSurvey }).getSurvey();
+      survey.refreshReplacer();
+      expect(survey.hasReferenceInPages()).toBe(false);
+    });
+  });
+
+  describe('hasReferenceInFinishers', () => {
+    it('ページ内に再掲がある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasReferenceInFinisherSurvey }).getSurvey();
+      survey.refreshReplacer();
+      expect(survey.hasReferenceInFinishers()).toBe(true);
+    });
+
+    it('再掲がない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasNoReferenceSurvey }).getSurvey();
+      survey.refreshReplacer();
+      expect(survey.hasReferenceInFinishers()).toBe(false);
+    });
+  });
+
+  describe('hasLogicalVariables', () => {
+    it('ロジック変数がある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasLogicalVariablesSurvey }).getSurvey();
+      expect(survey.hasLogicalVariables()).toBe(true);
+    });
+
+    it('ロジック変数がない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: sample1 }).getSurvey();
+      expect(survey.hasLogicalVariables()).toBe(false);
+    });
+  });
+
+  describe('hasJavaScript', () => {
+    it('JavaScriptがある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasJavaScriptSurvey }).getSurvey();
+      expect(survey.hasJavaScript()).toBe(true);
+    });
+
+    it('JavaScriptがない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: sample1 }).getSurvey();
+      expect(survey.hasJavaScript()).toBe(false);
     });
   });
 });
