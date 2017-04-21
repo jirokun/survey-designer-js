@@ -53,6 +53,29 @@ describe('Replacer', () => {
       );
       expect(replacer.id2Value('abc{{unique_id.answer_label}}def')).toBe('abc選択肢1def');
     });
+
+    it('answerがundefinedでもundefinedに変換されない', () => {
+      const allOutputDefinitionMap = Immutable.fromJS({
+        abcdefg: new OutputDefinition({
+          _id: 'unique_id',
+          outputType: 'radio',
+          name: 'abcdefg',
+          label: 'ラベル',
+          outputNo: '1-1-1',
+          choices: List().push(new ChoiceDefinition({
+            _id: 'unique_id2',
+            label: '選択肢1',
+            value: 'value1',
+          })),
+        }),
+      });
+      const replacer = new Replacer(
+        allOutputDefinitionMap,
+        { },
+      );
+      expect(replacer.id2Value('abc{{unique_id.answer}}def')).toBe('abcdef');
+      expect(replacer.id2Value('abc{{unique_id.answer_label}}def')).toBe('abcdef');
+    });
   });
 
   describe('no2Id', () => {
