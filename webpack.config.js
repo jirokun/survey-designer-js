@@ -85,6 +85,10 @@ module.exports = {
         test: require.resolve('zeroclipboard'),
         use: [{ loader: 'expose-loader?ZeroClipboard' }],
       },
+      {
+        test: require.resolve('underscore'),
+        use: [{ loader: 'expose-loader?_' }],
+      },
     ],
     /*
     resolve: {

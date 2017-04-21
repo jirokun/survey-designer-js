@@ -57,7 +57,8 @@
     "strip": "^3.0.0",
     "throttle-debounce": "^1.0.1",
     "tinymce": "^4.5.6",
-    "tooltipster": "^4.2.3"
+    "tooltipster": "^4.2.3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
