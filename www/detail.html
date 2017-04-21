@@ -21,7 +21,14 @@ window.addEventListener('message', function(e) {
   if (e.data.type !== 'surveyResponse') return;
   var survey = JSON.parse(e.data.value);
   var el = document.getElementById('root');
-  SurveyDesigner.Detail(el, { survey: survey, options: { showDetail: true, showAllPages: true } });
+  SurveyDesigner.Detail(el, {
+    survey: survey,
+    options: {
+      showDetail: true,
+      showAllPages: true,
+      errorHandlerUrl: '/api/log/jserror'
+    }
+  });
 }, false);
 window.opener.postMessage({ type: 'surveyRequest' }, '*');
     </script>

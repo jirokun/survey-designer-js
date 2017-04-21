@@ -27,6 +27,7 @@ window.addEventListener('message', function(e) {
       pageLoadedFn: function(survey, runtime) {
         var nodeId = runtime.getCurrentNodeId();
       },
+      errorHandlerUrl: '/api/log/jserror'
     },
   });
 }, false);
