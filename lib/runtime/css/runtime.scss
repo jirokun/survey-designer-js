@@ -45,6 +45,12 @@
   box-sizing: border-box;
 }
 
+.question-form-list {
+  input[type="number"] {
+    width: $number-input-width;
+  }
+}
+
 .question-form-grid-table .personalInfo-label {
   box-sizing: border-box;
 }
@@ -55,7 +61,7 @@
   }
   td {
     input[type="number"] {
-      width: 4em;
+      width: $number-input-width;
     }
     label {
       white-space: nowrap;
@@ -78,4 +84,3 @@
     }
   }
 }
-

@@ -30,6 +30,8 @@ $color-validation-detail: #fff;
 $background-color-alert-value: #c11;
 $color-alert-value: #fff;
 
+$number-input-width: 4em;
+
 @mixin tag($bgColor, $color, $borderColor) {
   background-color: $bgColor;
   border: 1px solid $borderColor;
