@@ -58,8 +58,15 @@
         "_id": "09d5a018-45d1-4dc4-9d72-34a33a1475de",
         "type": "page",
         "refId": "c9137304-bfba-4d94-b24f-da6760c3b5f0",
+        "nextNodeId": "a9d5a018-45d1-4dc4-9d72-34a33a1475df"
+    },
+    {
+        "_id": "a9d5a018-45d1-4dc4-9d72-34a33a1475df",
+        "type": "branch",
+        "refId": "805905f0-ef30-4a7c-949b-4f1e6f48f212",
         "nextNodeId": "dce07ee5-fa63-4a74-a81d-fa117ed62ada"
-    }, {
+    },
+    {
         "_id": "dce07ee5-fa63-4a74-a81d-fa117ed62ada",
         "type": "finisher",
         "refId": "ab9d449c-80e5-4077-86f7-ce8f912fe278",

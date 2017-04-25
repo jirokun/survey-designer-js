@@ -169,13 +169,32 @@ describe('Replacer', () => {
             items: List().push(new ItemDefinition({
               _id: 'item1',
               plainLabel: 'label1',
-              value: 'value1',
+              value: '1',
             })),
           },
         ))).refreshReplacer();
       expect(replacer.validate('{{9__value1.answer}}', state.getSurvey().getAllOutputDefinitions())).toBe(false);
       expect(replacer.validate('{{9__value1.answer_label}}', state.getSurvey().getAllOutputDefinitions())).toBe(false);
     });
+
+    it('choice_valueを参照している', () => {
+      const survey = state.getSurvey().updateIn(['pages', 0, 'questions'], questions =>
+        questions.push(new RadioQuestionDefinition(
+          {
+            _id: 'r1',
+            dataType: 'Radio',
+            index: 0,
+            items: List().push(new ItemDefinition({
+              _id: 'item1',
+              plainLabel: 'label1',
+              value: '1',
+            })),
+          },
+        )));
+      const replacer = survey.refreshReplacer();
+      expect(replacer.validate('{{item1.choice_value}}', survey.getAllOutputDefinitions())).toBe(true);
+    });
+
 
     it('自ページよりも後の設問を参照している', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: referenceAfterQuestionSurvey }).getSurvey();
