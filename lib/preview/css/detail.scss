@@ -30,6 +30,7 @@ html, body {
   }
   .questionsEditBox {
     margin-bottom: 10px;
+    page-break-inside: avoid;
     .questionBox {
       border-top: none;
       border-bottom: none;
@@ -134,3 +135,8 @@ html, body {
   }
 }
 
+@media print {
+  #surveyBox, .questionsEditBox {
+    width: 750px !important;
+  }
+}
