@@ -46,7 +46,7 @@
 }
 
 .question-form-list {
-  input[type="number"] {
+  input.number {
     width: $number-input-width;
   }
 }
@@ -60,7 +60,7 @@
     background-color: #ffe4c4;
   }
   td {
-    input[type="number"] {
+    input.number {
       width: $number-input-width;
     }
     label {
