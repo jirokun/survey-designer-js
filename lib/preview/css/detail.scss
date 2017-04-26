@@ -127,10 +127,12 @@ html, body {
     }
   }
 
-  .branch-editor.detail-mode {
-    line-height: 1;
-    .branch-editor-header > span, .condition-editor > span {
-      padding: 1px 7px;
+  .detail-mode {
+    .branch-editor {
+      line-height: 1;
+      span {
+        padding: 1px 7px;
+      }
     }
   }
 }
