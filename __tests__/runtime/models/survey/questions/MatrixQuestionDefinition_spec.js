@@ -115,7 +115,7 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.get(5).getOutputNo()).toBe('1-1-column2-total');
     });
 
-    it('matrixTypeがcheckboxで追加入力をonにしたときのOutputDefinitionも取得できる', () => {
+    it('matrixTypeがcheckboxで入力欄をonにしたときのOutputDefinitionも取得できる', () => {
       const matrixType = 'checkbox';
       const rows = createItems('row', '行');
       const columns = createItems('column', '列').update(0, item => item.set('additionalInput', true));
@@ -125,18 +125,18 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(6);
       expect(result.get(4).getId()).toBe('row1_column1_additional_input');
       expect(result.get(4).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(4).getLabel()).toBe('行1-列1-追加入力');
+      expect(result.get(4).getLabel()).toBe('行1-列1-入力欄');
       expect(result.get(4).getOutputType()).toBe('text');
       expect(result.get(4).getOutputNo()).toBe('1-1-1-1-additional');
 
       expect(result.get(5).getId()).toBe('row2_column1_additional_input');
       expect(result.get(5).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(5).getLabel()).toBe('行2-列1-追加入力');
+      expect(result.get(5).getLabel()).toBe('行2-列1-入力欄');
       expect(result.get(5).getOutputType()).toBe('text');
       expect(result.get(5).getOutputNo()).toBe('1-1-2-1-additional');
     });
 
-    it('matrixTypeがcheckboxで追加入力をonにしたときのOutputDefinitionも取得できる(列でグルーピング)', () => {
+    it('matrixTypeがcheckboxで入力欄をonにしたときのOutputDefinitionも取得できる(列でグルーピング)', () => {
       const matrixType = 'checkbox';
       const rows = createItems('row', '行').update(0, item => item.set('additionalInput', true));
       const columns = createItems('column', '列');
@@ -146,18 +146,18 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(6);
       expect(result.get(4).getId()).toBe('column1_row1_additional_input');
       expect(result.get(4).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(4).getLabel()).toBe('列1-行1-追加入力');
+      expect(result.get(4).getLabel()).toBe('列1-行1-入力欄');
       expect(result.get(4).getOutputType()).toBe('text');
       expect(result.get(4).getOutputNo()).toBe('1-1-1-1-additional');
 
       expect(result.get(5).getId()).toBe('column2_row1_additional_input');
       expect(result.get(5).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(5).getLabel()).toBe('列2-行1-追加入力');
+      expect(result.get(5).getLabel()).toBe('列2-行1-入力欄');
       expect(result.get(5).getOutputType()).toBe('text');
       expect(result.get(5).getOutputNo()).toBe('1-1-2-1-additional');
     });
 
-    it('matrixTypeがradioで追加入力をonにしたときのOutputDefinitionも取得できる', () => {
+    it('matrixTypeがradioで入力欄をonにしたときのOutputDefinitionも取得できる', () => {
       const matrixType = 'radio';
       const rows = createItems('row', '行');
       const columns = createItems('column', '列').update(0, item => item.set('additionalInput', true));
@@ -167,18 +167,18 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(4);
       expect(result.get(2).getId()).toBe('row1_column1_additional_input');
       expect(result.get(2).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(2).getLabel()).toBe('行1-列1-追加入力');
+      expect(result.get(2).getLabel()).toBe('行1-列1-入力欄');
       expect(result.get(2).getOutputType()).toBe('text');
       expect(result.get(2).getOutputNo()).toBe('1-1-1-1-additional');
 
       expect(result.get(3).getId()).toBe('row2_column1_additional_input');
       expect(result.get(3).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(3).getLabel()).toBe('行2-列1-追加入力');
+      expect(result.get(3).getLabel()).toBe('行2-列1-入力欄');
       expect(result.get(3).getOutputType()).toBe('text');
       expect(result.get(3).getOutputNo()).toBe('1-1-2-1-additional');
     });
 
-    it('matrixTypeがradioで追加入力をonにしたときのOutputDefinitionも取得できる(列でグルーピング)', () => {
+    it('matrixTypeがradioで入力欄をonにしたときのOutputDefinitionも取得できる(列でグルーピング)', () => {
       const matrixType = 'radio';
       const rows = createItems('row', '行').update(0, item => item.set('additionalInput', true));
       const columns = createItems('column', '列');
@@ -188,13 +188,13 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(4);
       expect(result.get(2).getId()).toBe('column1_row1_additional_input');
       expect(result.get(2).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(2).getLabel()).toBe('列1-行1-追加入力');
+      expect(result.get(2).getLabel()).toBe('列1-行1-入力欄');
       expect(result.get(2).getOutputType()).toBe('text');
       expect(result.get(2).getOutputNo()).toBe('1-1-1-1-additional');
 
       expect(result.get(3).getId()).toBe('column2_row1_additional_input');
       expect(result.get(3).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(3).getLabel()).toBe('列2-行1-追加入力');
+      expect(result.get(3).getLabel()).toBe('列2-行1-入力欄');
       expect(result.get(3).getOutputType()).toBe('text');
       expect(result.get(3).getOutputNo()).toBe('1-1-2-1-additional');
     });
