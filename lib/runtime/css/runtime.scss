@@ -91,11 +91,14 @@ $form-error-content-margin: 4px;
 $form-error-content-margin-total: $form-error-content-margin * 2;
 
 .m3-enquete__user-agent-group--SP {
-
   .questionBox {
-
     .question {
-
+      .matrix {
+        .formErrorContent {
+          width: calc(100% - #{$form-error-content-margin-total});
+          text-align: center;
+        }
+      }
       .formErrorContent {
         width: calc(100% - #{$form-error-content-margin-total});
       } 
