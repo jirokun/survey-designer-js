@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "webpack",
+    "build:production": "NODE_ENV=production webpack",
     "build:watch": "webpack --watch",
     "test": "jest",
     "test:watch": "yarn test -- --watch"
