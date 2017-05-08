@@ -1,0 +1,100 @@
+{
+  "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+  "title": "名称未設定",
+  "version": 2,
+  "pages": [
+    {
+      "_id": "cj1pzhzdg00023j66pvgv5plq",
+      "questions": [
+        {
+          "_id": "cj1q0u7da00213j66ffh315m8",
+          "dataType": "MultiNumber",
+          "title": "<p>設問タイトル</p>",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj1q0u7da00223j66lfpz28ys",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj1pzhzc000013j66ecd872d1",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
+        }
+      ],
+      "logicalVariables": [
+        {
+          "_id": "cj1q0u12u00203j6649grjip1",
+          "variableName": "000",
+          "operands": [
+            "cj1q0u7da00223j66lfpz28ys",
+            "cj1q0u7da00223j66lfpz28ys"
+          ],
+          "operators": [
+            "+"
+          ]
+        }
+      ],
+      "javaScriptCode": ""
+    }
+  ],
+  "branches": [],
+  "finishers": [
+    {
+      "_id": "cj1pzhzdh00063j66kerjvl2a",
+      "finishType": "SCREEN",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+    }
+  ],
+  "nodes": [
+    {
+      "_id": "cj1pzhzdg00053j66dou92ayf",
+      "type": "page",
+      "refId": "cj1pzhzdg00023j66pvgv5plq",
+      "nextNodeId": "cj1pzhzdi00073j6639h3xdix"
+    },
+    {
+      "_id": "cj1pzhzdi00073j6639h3xdix",
+      "type": "finisher",
+      "refId": "cj1pzhzdh00063j66kerjvl2a",
+      "nextNodeId": null
+    }
+  ],
+  "panel": null
+}

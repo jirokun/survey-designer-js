@@ -1,0 +1,614 @@
+@import "../../runtime/css/common";
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  min-width: 800px;
+}
+#root {
+  width: 100%;
+  position: relative;
+  > div {
+    height: 100%;
+    .main {
+      position: relative;
+      height: calc(100% - 38px);
+      .editor-pane {
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+        min-width: 600px;
+        overflow: visible;
+        h4.question-title {
+          margin: 0;
+          padding: 5px;
+          background-color: #d9edf7;
+        }
+        h5 {
+          padding: 4px;
+          background-color: #efefef;
+          margin-left: 1em;
+          margin-right: 1em;
+        }
+        .form-horizontal .form-group {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .form-horizontal .control-label {
+          font-size: 87.5%;
+        }
+        .logic-variables {
+          .add-logic-variable-button {
+            margin-left: 6px;
+          }
+          .expression {
+            .operator {
+              margin-top: 5px;
+              display: inline;
+              width: auto;
+            }
+            .operand {
+              display: inline;
+              width: calc(100% - 50px);
+            }
+            .delete-button {
+              margin-left: 10px;
+            }
+          }
+
+          &-title {
+            margin: 6px 0;
+          }
+        }
+        .editor-controller {
+          position: absolute;
+          z-index: 100;
+          right: 20px;
+          top: 5px;
+        }
+        .ReactCodeMirror {
+          height: 100%;
+          .CodeMirror {
+            font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+            height: 100%;
+          }
+        }
+        .mce-content-body {
+          border-top: 2px solid #aaa;
+          border-left: 2px solid #aaa;
+          border-bottom: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          padding-left: 4px;
+        }
+        > div {
+          height: 100%;
+          .tab-content {
+            height: calc(100% - 48px);
+            .tab-pane {
+              position: relative;
+              overflow: auto;
+              height: 100%;
+            }
+          }
+        }
+      }
+      .preview-pane {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        iframe {
+          box-sizing: border-box;
+          border: none;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .navbar {
+    margin-bottom: 0;
+  }
+}
+.SplitPane.vertical {
+  .Pane.vertical {
+    height: 100%;
+  }
+}
+.Pane {
+  overflow: auto;
+}
+.Pane.horizontal {
+  height: 100%;
+  overflow: auto;
+}
+.Resizer {
+  background: #000;
+  opacity: .2;
+  z-index: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  &:hover {
+    -webkit-transition: all 2s ease;
+    transition: all 2s ease;
+  }
+
+  &.horizontal {
+    height: 11px;
+    margin: -5px 0;
+    border-top: 5px solid rgba(255, 255, 255, 0);
+    border-bottom: 5px solid rgba(255, 255, 255, 0);
+    cursor: row-resize;
+    width: 100%;
+    &:hover {
+      border-top: 5px solid rgba(0, 0, 0, 0.5);
+      border-bottom: 5px solid rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &.vertical {
+    width: 11px;
+    margin: 0 -5px;
+    border-left: 5px solid rgba(255, 255, 255, 0);
+    border-right: 5px solid rgba(255, 255, 255, 0);
+    cursor: col-resize;
+    height: 100%;
+    &:hover {
+      border-left: 5px solid rgba(0, 0, 0, 0.5);
+      border-right: 5px solid rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+.question-editor {
+  padding-top: 15px;
+  &:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .item-validator-list {
+    padding: 0;
+    > li {
+      display: flex;
+      > span:first-child {
+        white-space: nowrap;
+        line-height: 2;
+      }
+      > .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+/* HTMLのエディタ */
+.html-editor {
+  cursor: pointer;
+  border-top: 2px solid #aaa;
+  border-left: 2px solid #aaa;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding-left: 4px;
+  min-height: 23px;
+  
+  &:hover {
+    background-color: #fee;
+  }
+  table {
+    border-collapse: collapse;
+    td, th {
+      padding: 1px 3px;
+      border: 1px solid #888;
+    }
+  }
+}
+
+.item-editor {
+  .item-editor-table {
+    width: 100%;
+    th {
+      padding: 0 3px;
+      white-space: nowrap;
+      vertical-align: top;
+      font-size: 87.5%;
+    }
+    .item-editor-row {
+      .option {
+        text-align: center;
+        .item-editor-unit {
+          width: 5em;
+        }
+      }
+      .item-editor-tinymce-container {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 100%;
+      }
+      .buttons {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+.clickable {
+  cursor: pointer;
+}
+.icon-button {
+  vertical-align: text-top;
+  margin-left: 8px;
+}
+/* フォームコンテナ */
+.form-container {
+  padding: 5px;
+}
+/* コンポーネントボタン */
+.component-button {
+  margin-bottom: 5px;
+}
+
+.fade-in {
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  -ms-transition: all .2s;
+  -o-transition: all .2s;
+  transition: all .2s;
+  opacity: 0;
+}
+
+.fade-in--finish {
+  opacity: 1;
+}
+
+.flow-pane {
+  padding: 10px;
+  min-width: 200px;
+  .page, .branch, .finisher {
+    position: relative;
+    margin-bottom: 5px;
+    width: 100%;
+    animation: fadeIn .5s ease 0s 1 normal;
+    -webkit-animation: fadeIn .5s ease 0s 1 normal;
+    
+    @keyframes fadeIn {
+        0% {opacity: 0}
+        100% {opacity: 1}
+    }
+
+    @-webkit-keyframes fadeIn {
+        0% {opacity: 0}
+        100% {opacity: 1}
+    }
+
+    .header {
+      position: relative;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-right: $page-list-item-controller-width;
+      overflow: hidden;
+    }
+    .questions, .conditions {
+      list-style: none;
+      padding-left: 1.5em;
+      .question, .condition {
+        position: relative;
+        padding-right: $page-list-item-controller-width;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        a {
+          cursor: pointer;
+        }
+      }
+      .insert-item-box {
+        height: 6px;
+        cursor: pointer;
+        @extend .fade-in;
+
+       div {
+          position: relative;
+          height: 100%;
+          
+          i {
+            display: none;
+            color: #000;
+            position: absolute;
+            top: -6px;
+            left: -14px;
+            font-size: 18px;
+          }
+        }
+        div:hover {
+          background-color: #000;
+          i {
+            display: inline;
+          }
+        }
+        &:hover {
+         @extend .fade-in--finish;
+        }
+      }
+    }
+  }
+  .page {
+    border: 1px solid #f4d99a;
+    background-color: $backgroud-color-page;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;
+   
+    &:hover {
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+    }
+    
+    &.selected {
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #f4d99a;
+      }
+    }
+  }
+  .branch {
+    border: 1px solid #af9bff;
+    background-color: $backgroud-color-branch;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;      
+
+    &:hover {
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+    }
+
+    &.selected {
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #af9bff;
+      }
+    }
+  }
+  .finisher {
+    border: 1px solid #a0db8e;
+    background-color: $backgroud-color-finisher;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;      
+
+    &:hover {
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+    }
+
+    &.selected {
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #a0db8e;
+      }
+    }
+  }
+  .arrow-down {
+    position: relative;
+    text-align: center;
+    font-size: large;
+    border: dashed 2px #dfdfdf;
+    margin-bottom: 2px;
+    margin: 6px 0;
+
+    .btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    @extend .fade-in;
+    
+    &:hover {
+      @extend .fade-in--finish
+    }
+    }
+    &:hover {
+      .btn {
+        display: block;
+        width: 100%;
+        padding: 5px 0 4px 0;
+        border: none;
+        background-color: #000;
+      }
+    }
+  }
+}
+/* フロー */
+.flow {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  .flow-controller {
+    position: absolute;
+    z-index: 100;
+    right: 5px;
+    top: 5px;
+    input[type="file"] {
+      display: none;
+    }
+  }
+  &.connect-mode {
+    background-color: #eef;
+  }
+}
+/* ブランチエディタ */
+.branch-editor {
+  .branch-editor-header {
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    align-items: center;
+
+    > span {
+      padding: 5px;
+    }
+    > input {
+      width: 100px;
+    }
+    > select {
+      max-width: 150px;
+      width: auto;
+    }
+  }
+}
+
+/* コンディションエディタ */
+.condition-editor {
+  @extend .branch-editor-header;
+  margin: 0.5em 0 0 0;
+}
+
+/* 追加、削除のボタンコンテナ */
+.item-controller {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+/* ドラッグのハンドラ */
+.drag-handler {
+  cursor: move;
+}
+/* 削除ボタン */
+.delete-button {
+  cursor: pointer;
+}
+
+/* ナビゲーションバー */
+.enq-navbar {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+
+  &-nav {
+
+    &__left {
+      margin-left: -15px;
+    }
+
+    >li {
+      border-left: 1px solid #e7e7e7;
+
+      &:last-child {
+        border-right: 1px solid #e7e7e7;
+      }
+    }
+  }
+}
+
+
+/* タブ */
+.enq-tabs {
+
+  >ul {
+    padding: 6px 5px 0 5px;
+  }
+}
+
+/* ボタン */
+.enq-button {
+
+  &__page {
+    background-color: $backgroud-color-page;
+    border: 1px solid #f4d99a;
+    
+    &:hover {
+      background-color: $backgroud-color-page;
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+    }
+  }
+
+  &__branch {
+    background-color: $backgroud-color-branch;
+    border: 1px solid #af9bff;
+    
+    &:hover {
+      background-color: $backgroud-color-branch;
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+    }
+  }
+
+  &__finisher {
+    background-color: $backgroud-color-finisher;
+    border: 1px solid #a0db8e;
+    
+    &:hover {
+      background-color: $backgroud-color-finisher;
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+    }
+  }
+}
+
+
+/* グラフ */
+.enq-page {
+  padding: 6px;
+}
+
+.enq-item-controller {
+  right: 6px;
+  top: 6px;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
+/* タイトル */
+.enq-title {
+  margin: 6px 0;
+  padding: 5px;
+
+  &__page {
+    background-color: $backgroud-color-page;
+  }
+
+  &__branch {
+    background-color: $backgroud-color-branch;
+
+    >label {
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+  }
+
+  &__finisher {
+    background-color: $backgroud-color-finisher;
+  }
+}
+
+/* エディター */
+.enq-editor-pane {
+  height: calc(100% + 6px) !important;
+}
+
+/* ValueEditorPart */
+.value-editor-part {
+  display: flex;
+  > select:first-child {
+    width: auto;
+  }
+  > .react-numeric-input {
+    width: 100%;
+  }
+}
+

@@ -1,0 +1,63 @@
+$page-list-item-controller-width: 21px;
+
+$backgroud-color-finisher: #e6f6d7;
+$backgroud-color-branch: #e7e1f9;
+$backgroud-color-page: #f9f3e0;
+
+$border-color-finisher: green;
+$border-color-branch: purple;
+$border-color-page: gold;
+
+$background-color-question-detail: #e5f0ff;
+$border-color-question-detail: #08198e;
+
+$background-color-page-detail: $backgroud-color-finisher;
+$border-color-page-detail: $border-color-finisher;
+
+$background-color-detail-function: #426ef4;
+$color-detail-function: #fff;
+
+$background-color-answer-value: #fcc;
+$border-color-answer-value: #f7024b;
+$color-answer-value: #f7024b;
+
+$background-color-fixed-value: #009e14;
+$color-fixed-value: #fff;
+
+$background-color-validation-detail: #009e14;
+$color-validation-detail: #fff;
+
+$background-color-alert-value: #c11;
+$color-alert-value: #fff;
+
+$number-input-width: 4em;
+
+@mixin tag($bgColor, $color, $borderColor) {
+  background-color: $bgColor;
+  border: 1px solid $borderColor;
+  border-radius: 20px;
+  color: $color;
+  padding: 1px 7px;
+  margin: 0 3px;
+  white-space: nowrap;
+}
+
+.detail-function {
+  @include tag($background-color-detail-function, $color-detail-function, $background-color-detail-function);
+}
+
+.fixed-value {
+  @include tag($background-color-fixed-value, $color-fixed-value, $background-color-fixed-value);
+}
+
+.alert-value {
+  @include tag($background-color-alert-value, $color-alert-value, $background-color-alert-value);
+}
+
+.answer-value {
+  @include tag($background-color-answer-value, $color-answer-value, $border-color-answer-value);
+}
+
+.validation-detail {
+  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
+}
