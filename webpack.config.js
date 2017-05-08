@@ -21,7 +21,13 @@ module.exports = {
   },
   plugins: [
     // 環境変数の読み込み
-    new webpack.DefinePlugin({ ENV: (() => JSON.stringify(loadenv('./.env')))() }),
+    new webpack.DefinePlugin({
+      ENV: (() => JSON.stringify(loadenv('./.env')))(),
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      },
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
   ],
   externals: [
     { tinymce: true },
