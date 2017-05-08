@@ -1,0 +1,76 @@
+{
+    "_id": "ef6005c2-0024-413e-9fb4-488a75bbba1a",
+    "title": "sample enquete",
+    "version": 1,
+    "pages": [{
+        "_id": "c9137304-bfba-4d94-b24f-da6760c3b5f0",
+        "questions": [{
+            "_id": "a7808505-f243-4ef4-a7f1-f7a8fcabe455",
+            "dataType": "Radio",
+            "title": "設問タイトル",
+            "plainTitle": "設問タイトル",
+            "description": "",
+            "random": false,
+            "unit": "",
+            "items": [{
+                "_id": "b6ad6c40-431d-432f-93c6-5270c421b609",
+                "index": 0,
+                "label": "",
+                "plainLabel": "",
+                "value": "value1",
+                "additionalInput": false,
+                "additionalInputType": "text",
+                "unit": "",
+                "randomFixed": false,
+                "exclusive": false
+            }],
+            "showTotal": false,
+            "totalEqualTo": null,
+            "minCheckCount": 1,
+            "maxCheckCount": 0,
+            "min": null,
+            "max": null
+        }],
+        "layout": "flow_layout"
+    }],
+    "branches": [{
+        "_id": "805905f0-ef30-4a7c-949b-4f1e6f48f212",
+        "type": null,
+        "conditions": [{
+            "_id": "7ee06f54-71f1-4dd1-9643-6d4ae91b3fc6",
+            "conditionType": "all",
+            "nextNodeId": "09d5a018-45d1-4dc4-9d72-34a33a1475de",
+            "childConditions": [{
+                "_id": "3f025909-dee8-4beb-9a8f-e7ddb371b18e",
+                "outputId": "a7808505-f243-4ef4-a7f1-f7a8fcabe455",
+                "operator": "==",
+                "value": ""
+            }]
+        }]
+    }],
+    "finishers": [{
+        "_id": "ab9d449c-80e5-4077-86f7-ce8f912fe278",
+        "finishType": "SCREEN",
+        "point": "0",
+        "html": "<p>ご回答ありがとうございました。<br />またのご協力をお待ちしております。</p>\n<p>0pt</p>"
+    }],
+    "nodes": [{
+        "_id": "09d5a018-45d1-4dc4-9d72-34a33a1475de",
+        "type": "page",
+        "refId": "c9137304-bfba-4d94-b24f-da6760c3b5f0",
+        "nextNodeId": "a9d5a018-45d1-4dc4-9d72-34a33a1475df"
+    },
+    {
+        "_id": "a9d5a018-45d1-4dc4-9d72-34a33a1475df",
+        "type": "branch",
+        "refId": "805905f0-ef30-4a7c-949b-4f1e6f48f212",
+        "nextNodeId": "dce07ee5-fa63-4a74-a81d-fa117ed62ada"
+    },
+    {
+        "_id": "dce07ee5-fa63-4a74-a81d-fa117ed62ada",
+        "type": "finisher",
+        "refId": "ab9d449c-80e5-4077-86f7-ce8f912fe278",
+        "nextNodeId": null
+    }],
+    "panel": {}
+}

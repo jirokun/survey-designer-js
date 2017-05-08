@@ -1,0 +1,144 @@
+@import "../../runtime/css/common";
+@import "../../editor/css/editor";
+
+@mixin no($bgColor, $borderColor) {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: $bgColor;
+  border-left: 1px solid $borderColor;
+  border-bottom: 1px solid $borderColor;
+  border-radius: 0 4px 0 4px;
+  padding: 0 10px;
+  z-index: 1;
+}
+
+html, body {
+  height: auto;
+  overflow: auto;
+}
+
+#root {
+  .page-no {
+    @include no($backgroud-color-page, $border-color-page);
+  }
+  .branch-no {
+    @include no($backgroud-color-branch, $border-color-branch);
+  }
+  .finisher-no {
+    @include no($backgroud-color-finisher, $border-color-finisher);
+  }
+  .questionsEditBox {
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+    .questionBox {
+      border-top: none;
+      border-bottom: none;
+    }
+  }
+  .question-form-list {
+    position: relative;
+    /** questionの動きを説明する */
+  }
+
+  .item-detail {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1px solid $border-color-question-detail;
+    border-bottom: 1px solid $border-color-question-detail;
+    background-color: $background-color-question-detail;
+    border-radius: 0 12px 0 4px;
+    padding: 0 10px;
+    &:empty {
+      display: none;
+    }
+  }
+
+  .question-detail {
+    border: 1px solid $border-color-question-detail;
+    background-color: $background-color-question-detail;
+    border-radius: 4px;
+    padding: 0 10px;
+    margin-top: 10px;
+    display: flex;
+    &:empty {
+      display: none;
+    }
+    > div {
+      width: 50%;
+      padding: 5px;
+      table {
+        width: 100%;
+        td {
+          padding: 0 5px;
+          border: 1px solid black;
+        }
+      }
+    }
+  }
+
+  .page-detail {
+    border: 1px solid $border-color-page-detail;
+    background-color: $background-color-page-detail;
+    border-radius: 4px;
+    padding: 0 10px 10px;
+    margin: 6px;
+    &:empty {
+      display: none;
+    }
+    table {
+      width: 100%;
+      th, td {
+        padding: 0 5px;
+        border: 1px solid black;
+      }
+    }
+  }
+
+  .matrix {
+    td, th {
+      position: relative;
+    }
+    .detail-shown {
+      vertical-align: top;
+      padding-top: 0;
+      .detail {
+        white-space: nowrap;
+        margin-bottom: 5px;
+        &:empty {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .question-form-list {
+    .detail-shown {
+      padding-top: 25px;
+      .question-form-list-input {
+        position: relative;
+        left: -28px;
+      }
+      > span {
+        position: relative;
+        left: -14px;
+      }
+    }
+  }
+
+  .detail-mode {
+    .branch-editor {
+      line-height: 1;
+      span {
+        padding: 1px 7px;
+      }
+    }
+  }
+}
+
+@media print {
+  #surveyBox, .questionsEditBox {
+    width: 750px !important;
+  }
+}

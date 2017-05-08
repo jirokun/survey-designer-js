@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SurveyDesinger Preview</title>
+    <style>
+      .m3-enquete__user-agent-group--SP #surveyBox,
+      .m3-enquete__user-agent-group--APP #surveyBox,
+      .m3-enquete__user-agent-group--SP .questionsEditBox,
+      .m3-enquete__user-agent-group--APP .questionsEditBox {
+        width: 320px;
+      }
+    </style>
+  </head>
+  <body class="m3-enquete__user-agent-group--PC">
+
+    <div id="root">
+    </div>
+    <script src="/static/detail.bundle.js"></script>
+    <script>
+window.addEventListener('message', function(e) {
+  if (e.origin !== location.origin) {
+    alert('オリジンが一致しません');
+    return;
+  }
+  if (e.data.type !== 'surveyResponse') return;
+  var survey = JSON.parse(e.data.value);
+  var el = document.getElementById('root');
+  SurveyDesigner.Detail(el, {
+    survey: survey,
+    options: {
+      showDetail: true,
+      showAllPages: true,
+    }
+  });
+}, false);
+window.opener.postMessage({ type: 'surveyRequest' }, '*');
+    </script>
+  </body>
+</html>

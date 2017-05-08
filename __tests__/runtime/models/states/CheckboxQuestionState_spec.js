@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import { List } from 'immutable';
-import ItemDefinition from '../../../../lib/runtime/models/survey/questions/ItemDefinition';
+import ItemDefinition from '../../../../lib/runtime/models/survey/questions/internal/ItemDefinition';
 import CheckboxQuestionState from '../../../../lib/runtime/states/CheckboxQuestionState';
 import CheckboxQuestionDefinition from '../../../../lib/runtime/models/survey/questions/CheckboxQuestionDefinition';
 

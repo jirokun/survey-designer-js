@@ -1,4 +1,5 @@
-$page-list-item-controller-width: 21px;
+@import "../../runtime/css/common";
+
 html, body {
   height: 100%;
   overflow: hidden;
@@ -11,25 +12,53 @@ html, body {
     height: 100%;
     .main {
       position: relative;
-      height: calc(100% - 52px);
+      height: calc(100% - 38px);
       .editor-pane {
         box-sizing: border-box;
         height: 100%;
         width: 100%;
         min-width: 600px;
-        overflow: auto;
-        h4 {
+        overflow: visible;
+        h4.question-title {
           margin: 0;
           padding: 5px;
           background-color: #d9edf7;
         }
         h5 {
-          border-bottom: 1px solid darkgreen;
+          padding: 4px;
+          background-color: #efefef;
           margin-left: 1em;
+          margin-right: 1em;
         }
         .form-horizontal .form-group {
           margin-left: 0;
           margin-right: 0;
+        }
+        .form-horizontal .control-label {
+          font-size: 87.5%;
+        }
+        .logic-variables {
+          .add-logic-variable-button {
+            margin-left: 6px;
+          }
+          .expression {
+            .operator {
+              margin-top: 5px;
+              display: inline;
+              width: auto;
+            }
+            .operand {
+              display: inline;
+              width: calc(100% - 50px);
+            }
+            .delete-button {
+              margin-left: 10px;
+            }
+          }
+
+          &-title {
+            margin: 6px 0;
+          }
         }
         .editor-controller {
           position: absolute;
@@ -45,13 +74,18 @@ html, body {
           }
         }
         .mce-content-body {
-          border: 1px solid #ccc;
+          border-top: 2px solid #aaa;
+          border-left: 2px solid #aaa;
+          border-bottom: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          padding-left: 4px;
         }
         > div {
           height: 100%;
           .tab-content {
-            height: calc(100% - 42px);
+            height: calc(100% - 48px);
             .tab-pane {
+              position: relative;
               overflow: auto;
               height: 100%;
             }
@@ -135,7 +169,43 @@ html, body {
     border-top: 0;
     padding-top: 0;
   }
+  .item-validator-list {
+    padding: 0;
+    > li {
+      display: flex;
+      > span:first-child {
+        white-space: nowrap;
+        line-height: 2;
+      }
+      > .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
+
+/* HTMLのエディタ */
+.html-editor {
+  cursor: pointer;
+  border-top: 2px solid #aaa;
+  border-left: 2px solid #aaa;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding-left: 4px;
+  min-height: 23px;
+  
+  &:hover {
+    background-color: #fee;
+  }
+  table {
+    border-collapse: collapse;
+    td, th {
+      padding: 1px 3px;
+      border: 1px solid #888;
+    }
+  }
+}
+
 .item-editor {
   .item-editor-table {
     width: 100%;
@@ -143,6 +213,7 @@ html, body {
       padding: 0 3px;
       white-space: nowrap;
       vertical-align: top;
+      font-size: 87.5%;
     }
     .item-editor-row {
       .option {
@@ -177,14 +248,40 @@ html, body {
 .component-button {
   margin-bottom: 5px;
 }
-.graph-pane {
+
+.fade-in {
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  -ms-transition: all .2s;
+  -o-transition: all .2s;
+  transition: all .2s;
+  opacity: 0;
+}
+
+.fade-in--finish {
+  opacity: 1;
+}
+
+.flow-pane {
   padding: 10px;
   min-width: 200px;
   .page, .branch, .finisher {
     position: relative;
     margin-bottom: 5px;
-    border: 1px solid #ccc;
     width: 100%;
+    animation: fadeIn .5s ease 0s 1 normal;
+    -webkit-animation: fadeIn .5s ease 0s 1 normal;
+    
+    @keyframes fadeIn {
+        0% {opacity: 0}
+        100% {opacity: 1}
+    }
+
+    @-webkit-keyframes fadeIn {
+        0% {opacity: 0}
+        100% {opacity: 1}
+    }
+
     .header {
       position: relative;
       white-space: nowrap;
@@ -201,61 +298,143 @@ html, body {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        a {
+          cursor: pointer;
+        }
       }
       .insert-item-box {
-        height: 10px;
-        div {
+        height: 6px;
+        cursor: pointer;
+        @extend .fade-in;
+
+       div {
           position: relative;
           height: 100%;
+          
           i {
             display: none;
-            color: #3c763d;
+            color: #000;
             position: absolute;
             top: -6px;
-            left: -20px;
-            font-size: 25px;
+            left: -14px;
+            font-size: 18px;
           }
         }
         div:hover {
-          background-color: #3c763d;
+          background-color: #000;
           i {
             display: inline;
           }
         }
+        &:hover {
+         @extend .fade-in--finish;
+        }
+      }
+    }
+  }
+  .page {
+    border: 1px solid #f4d99a;
+    background-color: $backgroud-color-page;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;
+   
+    &:hover {
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+    }
+    
+    &.selected {
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #f4d99a;
       }
     }
   }
   .branch {
-    background-color: #eef;
+    border: 1px solid #af9bff;
+    background-color: $backgroud-color-branch;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;      
+
+    &:hover {
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+    }
+
+    &.selected {
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #af9bff;
+      }
+    }
   }
   .finisher {
-    background-color: #efe;
+    border: 1px solid #a0db8e;
+    background-color: $backgroud-color-finisher;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;      
+
+    &:hover {
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+    }
+
+    &.selected {
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+      transition-duration:.2s;
+      transition-timing-function: ease-in-out;
+      
+      &:hover {
+      box-shadow: 0 0 0 2px #a0db8e;
+      }
+    }
   }
   .arrow-down {
     position: relative;
     text-align: center;
     font-size: large;
-    margin-top: -2px;
+    border: dashed 2px #dfdfdf;
+    margin-bottom: 2px;
+    margin: 6px 0;
+
     .btn {
       position: absolute;
       top: 0;
       left: 0;
       display: none;
+    @extend .fade-in;
+    
+    &:hover {
+      @extend .fade-in--finish
+    }
     }
     &:hover {
       .btn {
         display: block;
+        width: 100%;
+        padding: 5px 0 4px 0;
+        border: none;
+        background-color: #000;
       }
     }
   }
 }
-/* グラフ */
-.graph {
+/* フロー */
+.flow {
   height: 100%;
   width: 100%;
   overflow: hidden;
   position: relative;
-  .graph-controller {
+  .flow-controller {
     position: absolute;
     z-index: 100;
     right: 5px;
@@ -283,7 +462,8 @@ html, body {
       width: 100px;
     }
     > select {
-      width: 150px;
+      max-width: 150px;
+      width: auto;
     }
   }
 }
@@ -311,3 +491,124 @@ html, body {
 .delete-button {
   cursor: pointer;
 }
+
+/* ナビゲーションバー */
+.enq-navbar {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+
+  &-nav {
+
+    &__left {
+      margin-left: -15px;
+    }
+
+    >li {
+      border-left: 1px solid #e7e7e7;
+
+      &:last-child {
+        border-right: 1px solid #e7e7e7;
+      }
+    }
+  }
+}
+
+
+/* タブ */
+.enq-tabs {
+
+  >ul {
+    padding: 6px 5px 0 5px;
+  }
+}
+
+/* ボタン */
+.enq-button {
+
+  &__page {
+    background-color: $backgroud-color-page;
+    border: 1px solid #f4d99a;
+    
+    &:hover {
+      background-color: $backgroud-color-page;
+      border: 1px solid #f4d99a;
+      box-shadow: 0 0 0 1px #f4d99a;
+    }
+  }
+
+  &__branch {
+    background-color: $backgroud-color-branch;
+    border: 1px solid #af9bff;
+    
+    &:hover {
+      background-color: $backgroud-color-branch;
+      border: 1px solid #af9bff;
+      box-shadow: 0 0 0 1px #af9bff;
+    }
+  }
+
+  &__finisher {
+    background-color: $backgroud-color-finisher;
+    border: 1px solid #a0db8e;
+    
+    &:hover {
+      background-color: $backgroud-color-finisher;
+      border: 1px solid #a0db8e;
+      box-shadow: 0 0 0 1px #a0db8e;
+    }
+  }
+}
+
+
+/* グラフ */
+.enq-page {
+  padding: 6px;
+}
+
+.enq-item-controller {
+  right: 6px;
+  top: 6px;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
+/* タイトル */
+.enq-title {
+  margin: 6px 0;
+  padding: 5px;
+
+  &__page {
+    background-color: $backgroud-color-page;
+  }
+
+  &__branch {
+    background-color: $backgroud-color-branch;
+
+    >label {
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+  }
+
+  &__finisher {
+    background-color: $backgroud-color-finisher;
+  }
+}
+
+/* エディター */
+.enq-editor-pane {
+  height: calc(100% + 6px) !important;
+}
+
+/* ValueEditorPart */
+.value-editor-part {
+  display: flex;
+  > select:first-child {
+    width: auto;
+  }
+  > .react-numeric-input {
+    width: 100%;
+  }
+}
+

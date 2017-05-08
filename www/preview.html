@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Preview</title>
+    <title>SurveyDesinger Preview</title>
     <style>
       .m3-enquete__user-agent-group--SP #surveyBox,
       .m3-enquete__user-agent-group--APP #surveyBox,
@@ -17,13 +17,24 @@
     </div>
     <script src="/static/preview.bundle.js"></script>
     <script>
-window.loadState = (json) => {
-  // そのまま渡してもjson2ImmutableStateで正しくparseできないためobjectを作り直す
-  // 原因は不明
-  var survey = JSON.parse(JSON.stringify(json));
+window.addEventListener('message', function(e) {
+  if (e.origin !== location.origin) {
+    alert('オリジンが一致しません');
+    return;
+  }
+  if (e.data.type !== 'surveyResponse') return;
+  var survey = JSON.parse(e.data.value);
   var el = document.getElementById('root');
-  SurveyDesigner.Preview(el, { survey: survey });
-};
+  SurveyDesigner.Preview(el, {
+    survey: survey,
+    options: {
+      pageLoadedFn: function(survey, runtime) {
+        var nodeId = runtime.getCurrentNodeId();
+      },
+    },
+  });
+}, false);
+window.opener.postMessage({ type: 'surveyRequest' }, '*');
     </script>
   </body>
 </html>
