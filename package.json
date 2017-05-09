@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Survey system using react.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=development node server.js",
     "build": "webpack",
     "build:production": "NODE_ENV=production webpack",
     "build:watch": "webpack --watch",
