@@ -498,6 +498,22 @@ html, body {
   border-left: 0;
   border-right: 0;
 
+  .menu-title {
+    white-space: nowrap;
+    > * {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 450px;
+    }
+  }
+  .menu-panel {
+    white-space: nowrap;
+    > * {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 330px;
+    }
+  }
   &-nav {
 
     &__left {
