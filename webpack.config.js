@@ -2,6 +2,20 @@ const path = require('path');
 const webpack = require('webpack');
 const loadenv = require('node-env-file');
 
+const plugins = [
+  // 環境変数の読み込み
+  new webpack.DefinePlugin({
+    ENV: (() => JSON.stringify(loadenv('./.env')))(),
+    'process.env': {
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+    },
+  }),
+];
+// プロダクション環境のみuglifyする
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
+
 module.exports = {
   // devtool: 'cheap-module-eval-source-map',
   // devtool: 'inline-source-map',
@@ -19,16 +33,7 @@ module.exports = {
     library: 'SurveyDesigner',
     libraryTarget: 'var',
   },
-  plugins: [
-    // 環境変数の読み込み
-    new webpack.DefinePlugin({
-      ENV: (() => JSON.stringify(loadenv('./.env')))(),
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      },
-    }),
-    new webpack.optimize.UglifyJsPlugin(),
-  ],
+  plugins,
   externals: [
     { tinymce: true },
   ],
