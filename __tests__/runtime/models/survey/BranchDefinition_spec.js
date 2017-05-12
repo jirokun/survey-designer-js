@@ -191,8 +191,9 @@ describe('BranchDefinition', () => {
 
   describe('updateChildConditionAttribute', () => {
     it('childConditionの属性を更新できる', () => {
-      const result = state.getSurvey().findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212')
-        .updateChildConditionAttribute('f538b3df-ecd7-486e-921c-a2a497ee9d09', '57ea60ac-a7c9-48c8-a552-eb4940f7060c', 'operator', '!=');
+      const survey = state.getSurvey();
+      const result = survey.findBranch('805905f0-ef30-4a7c-949b-4f1e6f48f212')
+        .updateChildConditionAttribute(survey, 'f538b3df-ecd7-486e-921c-a2a497ee9d09', '57ea60ac-a7c9-48c8-a552-eb4940f7060c', 'operator', '!=');
       expect(result.getIn(['conditions', 0, 'childConditions', 0, 'operator'])).toBe('!=');
     });
   });

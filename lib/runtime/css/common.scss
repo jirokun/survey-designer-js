@@ -40,6 +40,9 @@ $number-input-width: 4em;
   padding: 1px 7px;
   margin: 0 3px;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  overflow: hidden;
 }
 
 .detail-function {
