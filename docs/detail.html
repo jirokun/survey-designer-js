@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8"/>
     <title>SurveyDesinger Preview</title>
     <style>
       .m3-enquete__user-agent-group--SP #surveyBox,
@@ -15,7 +16,7 @@
 
     <div id="root">
     </div>
-    <script src="/static/detail.bundle.js"></script>
+    <script src="js/detail.bundle.js"></script>
     <script>
 window.addEventListener('message', function(e) {
   if (e.origin !== location.origin) {
@@ -25,9 +26,19 @@ window.addEventListener('message', function(e) {
   if (e.data.type !== 'surveyResponse') return;
   var survey = JSON.parse(e.data.value);
   var el = document.getElementById('root');
+
+  var params = {};
+  location.search.substr(1).split(/&/).forEach(function(token) {
+    var keyValue = token.split(/=/);
+    if (keyValue.length !== 2) return;
+    var ret = {};
+    params[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+  });
+
   SurveyDesigner.Detail(el, {
     survey: survey,
     options: {
+      css: params.css || 'js/default.css',
       showDetail: true,
       showAllPages: true,
     }

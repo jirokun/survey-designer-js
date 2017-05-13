@@ -1,6 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const loadenv = require('node-env-file');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+
+const defaultCss  = new ExtractTextPlugin('[name].css');
 
 const plugins = [
   // 環境変数の読み込み
@@ -16,9 +20,7 @@ if (process.env.NODE_ENV === 'production') {
   plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
-module.exports = {
-  // devtool: 'cheap-module-eval-source-map',
-  // devtool: 'inline-source-map',
+module.exports = [{
   devtool: 'source-map',
   entry: {
     runtime: ['./lib/Runtime'],
@@ -29,7 +31,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].bundle.js',
-    publicPath: '/static/',
+    publicPath: '/js/',
     library: 'SurveyDesigner',
     libraryTarget: 'var',
   },
@@ -57,6 +59,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        exclude: /default.scss$/,
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },
@@ -101,19 +104,25 @@ module.exports = {
         use: [{ loader: 'expose-loader?_' }],
       },
     ],
-    /*
-    resolve: {
-      alias: {
-        handsontable: path.join(__dirname, 'node_modules/handsontable/dist/handsontable.full.js'),
-        'handsontable.css': path.join(__dirname, 'node_modules/handsontable/dist/handsontable.full.css'),
+  },
+},
+{
+  entry: {
+    default: ['./lib/runtime/css/default.scss'],
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].css',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        loader: defaultCss.extract(['css-loader', 'sass-loader']),
       },
-    },
-    */
+    ],
   },
-  /*
-  eslint: {
-    configFile: '.eslintrc.json',
-    fix: true,
-  },
-  */
-};
+  plugins: [
+    defaultCss,
+  ],
+}];

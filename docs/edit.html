@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <title>SurveyDesinger Editor</title>
     <!--
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
@@ -23,19 +24,27 @@
     </div>
     <div id="root">
     </div>
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/node_modules/tinymce/tinymce.min.js"></script>
-    <script src="/static/editor.bundle.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/tinymce.min.js"></script>
+    <script src="js/editor.bundle.js"></script>
     <script>
 $.getJSON('/sample.json').then(function(survey) {
   var el = document.getElementById('root');
+  var params = {};
+  location.search.substr(1).split(/&/).forEach(function(token) {
+    var keyValue = token.split(/=/);
+    if (keyValue.length !== 2) return;
+    var ret = {};
+    params[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+  });
+  var options = {
+    previewUrl: 'preview.html' + location.search,
+    showDetailUrl: 'detail.html' + location.search,
+    css: params.css || 'js/default.css',
+  };
   SurveyDesigner.Editor(el, {
     survey: survey,
-    options: {
-      previewUrl: '/preview.html',
-      showDetailUrl: '/detail.html',
-    },
+    options: options
   });
 });
     </script>

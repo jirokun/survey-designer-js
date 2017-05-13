@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Survey Designer JS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+  </head>
+  <body>
+    <div class="container"> <div class="row">
+        <div class="page-header">
+          <h1>Survey Designer JS</h1>
+        </div>
+        <div class="col-md-12">
+          JavaScriptで動作する高度なアンケートをプログラミング不要で作成するためのシステムです。<br/>
+          アンケートの作成はGUIで行います。
+        </div>
+      </div>
+
+      <div class="row">
+        <h2>特徴</h2>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">作成可能な設問</div>
+            <div class="panel-body">
+              <p>以下の設問を簡単に作成することが可能です。各設問には設問タイトル・補足説明を記載することが可能です</p>
+              <ul>
+                <li>基本設問</li>
+                <ul>
+                  <li>複数選択肢</li>
+                  <li>単一選択肢</li>
+                  <li>数値記入</li>
+                  <li>1行テキスト</li>
+                  <li>複数行テキスト</li>
+                  <li>表形式</li>
+                  <li>説明文</li>
+                </ul>
+                <li>拡張設問</li>
+                <ul>
+                  <li>調査許諾</li>
+                  <li>日程</li>
+                  <li>個人情報</li>
+                </ul>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">条件分岐</div>
+            <div class="panel-body">
+              <p>ユーザの入力値に応じて遷移するページを分岐することができます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">SCREENとCOMPLETE</div>
+            <div class="panel-body">
+              <p>終了ページにSCREENとCOMPLETEページの2種類を設定することができます。ページ分岐を経由して最終的に到達した終了ページによってユーザがSCREEN回答かCOMPLETE回答かを判別できます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">入力値の再掲処理</div>
+            <div class="panel-body">
+              <p>ユーザが入力した値を後続するページで表示することができます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">ロジック変数</div>
+            <div class="panel-body">
+              <p>後続の分岐条件や再掲処理で使用することが可能な変数を定義することができます。ユーザの入力値を足したり、引いたりしたものを格納することができます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">さらに高度な利用(JavaScript)</div>
+            <div class="panel-body">
+              <p>既存の仕組みで対応できなかったことを考えて、ページ内でJavaScriptを設定することができます。JavaScriptは下記のタイミングで実行できます。</p>
+              <ul>
+                <li>ページが描画されたとき</li>
+                <li>ページが次のページに行く直前</li>
+                <li>バリデーション時。サーバサイドに問い合わせを行うようなバリデーションも作成可能です。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h2>起動方法</h2>
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">オンラインサンプル</div>
+            <div class="panel-body">
+              <p><a href="./edit.html">こちら</a>からオンラインサンプルを試すことができます。</p>
+              <h4 class="text-danger">制限事項</h4>
+              オンラインサンプルでは下記の機能を実行することができません。
+              <ul>
+                <li>作成したアンケートの保存</li>
+                <li>パネルの選択</li>
+                <li>配信依頼確認</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">起動方法</div>
+            <div class="panel-body">
+              <h4>動作確認環境</h4>
+              <div>
+                <ul>
+                  <li>node.js 7.4.0</li>
+                  <li>yarn 0.22.0</li>
+                </ul>
+              </div>
+              <h4>ローカル環境で動かす</h4>
+              <pre>$ git clone https://github.com/jirokun/survey-designer-js.git
+$ cd survey-designer-js
+$ yarn
+$ yarn start</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h2>使い方</h2>
+        <p>サーバサイド実装は今のところ存在していません。そのため、Survey Designer Jsに合う形でサーバサイドを実装して組み込む必要があります。</p>
+        <p>時間ができればサーバサイドの実装も作りたいですが、時間が取れないためいまのところ予定はたっておりません。</p>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>

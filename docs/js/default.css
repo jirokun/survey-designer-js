@@ -1,0 +1,97 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #32373c; }
+
+.formButtons.preview {
+  background-color: #4b4a3c;
+  color: #fff;
+  padding: 5px;
+  text-align: center; }
+  .formButtons.preview > p {
+    display: inline-block;
+    margin: 0 1em; }
+
+.m3-enquete__user-agent-group--SP #content {
+  width: 320px; }
+  .m3-enquete__user-agent-group--SP #content .formError.fixed {
+    display: inline-block;
+    background-color: orange; }
+
+#content {
+  width: 800px;
+  margin: auto;
+  font-family: open sans,sans-serif;
+  background-color: #fff;
+  padding-bottom: 10px; }
+  #content h1 {
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #2f4c69;
+    color: white;
+    margin: 0; }
+  #content p {
+    margin: 0; }
+  #content .page .questionBox {
+    margin-bottom: 30px; }
+    #content .page .questionBox .question-description:empty {
+      display: none; }
+    #content .page .questionBox .question-title {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      padding-left: 40px;
+      padding-right: 40px;
+      margin: 0;
+      font-size: large; }
+    #content .page .questionBox .question-description {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      padding-left: 40px;
+      padding-right: 40px;
+      margin: 0;
+      font-size: medium;
+      font-weight: normal;
+      margin-bottom: 10px; }
+    #content .page .questionBox .question {
+      padding-left: 50px; }
+      #content .page .questionBox .question ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none; }
+    #content .page .questionBox .additionalInput {
+      margin: 0 5px; }
+    #content .page .questionBox .CheckboxQuestion .checkbox li {
+      margin: 5px 0; }
+      #content .page .questionBox .CheckboxQuestion .checkbox li.disabled {
+        opacity: 0.5; }
+    #content .page .questionBox .MultiNumberQuestion .multiNumberLine .multiNumberLabel {
+      width: 400px;
+      display: inline-block; }
+    #content .page .questionBox .MultiNumberQuestion .multiNumberLine .multiNumberAssociated {
+      display: inline-block;
+      width: 200px; }
+  #content .page .formButtons {
+    padding-left: 40px;
+    padding-right: 40px; }
+    #content .page .formButtons .response-warning {
+      font-size: x-small; }
+  #content .page table.personalInfo td {
+    text-align: left; }
+  #content .page .DescriptionQuestion .description {
+    padding-left: 40px;
+    padding-right: 40px; }
+  #content .notice {
+    margin-bottom: 10px; }
+  #content .finisher {
+    padding: 40px; }
+  #content table {
+    border-collapse: collapse; }
+    #content table th, #content table td {
+      padding: 3px 5px;
+      border: 1px solid #888;
+      text-align: center; }
+  #content .questionsEditBox {
+    position: relative;
+    margin: 10px;
+    border: 1px solid #888;
+    min-height: 50px; }

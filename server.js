@@ -7,23 +7,12 @@ const app = new (express)();
 const port = 3000;
 
 const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config[0].output.publicPath }));
 app.use(webpackHotMiddleware(compiler));
 
-app.use('/', express.static('www'));
-app.use('/node_modules/', express.static('node_modules'));
-app.use('/bower_components/', express.static('bower_components'));
-/*
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + 'www/index.html')
-})
-app.get("/runtime", function(req, res) {
-  res.sendFile(__dirname + 'www/runtime.html')
-})
-app.get("/editor", function(req, res) {
-  res.sendFile(__dirname + 'www/editor.html')
-})
-*/
+app.use('/', express.static('docs'));
+app.use('/js/jquery.min.js', express.static('/node_modules/jquery/dist/jquery.min.js'));
+app.use('/js/tinymce.min.js', express.static('/node_modules/tinymce/tinymce.min.js'));
 
 app.listen(port, (error) => {
   if (error) {
