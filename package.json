@@ -29,6 +29,7 @@
     "es6-promise": "^4.1.0",
     "events": "^1.1.1",
     "expose-loader": "^0.7.3",
+    "extract-text-webpack-plugin": "^2.1.0",
     "handsontable": "^0.31.2",
     "immutable": "^3.8.1",
     "jquery": "^3.1.1",
