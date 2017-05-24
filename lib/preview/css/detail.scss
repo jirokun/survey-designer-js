@@ -135,6 +135,10 @@ html, body {
       }
     }
   }
+
+  .output-no {
+    @include tag(#312, #fff, #756);
+  }
 }
 
 @media print {
