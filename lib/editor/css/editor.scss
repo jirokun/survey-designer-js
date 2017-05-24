@@ -628,3 +628,11 @@ html, body {
   }
 }
 
+.item-visibility-editor {
+  td.disabled {
+    background-color: #ddd;
+  }
+}
+.item-visibility-condition-popover.popover {
+  max-width: 800px;
+}
