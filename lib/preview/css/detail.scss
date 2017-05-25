@@ -1,18 +1,6 @@
 @import "../../runtime/css/common";
 @import "../../editor/css/editor";
 
-@mixin no($bgColor, $borderColor) {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background: $bgColor;
-  border-left: 1px solid $borderColor;
-  border-bottom: 1px solid $borderColor;
-  border-radius: 0 4px 0 4px;
-  padding: 0 10px;
-  z-index: 1;
-}
-
 html, body {
   height: auto;
   overflow: auto;
