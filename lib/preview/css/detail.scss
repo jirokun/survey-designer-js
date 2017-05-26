@@ -1,18 +1,6 @@
 @import "../../runtime/css/common";
 @import "../../editor/css/editor";
 
-@mixin no($bgColor, $borderColor) {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background: $bgColor;
-  border-left: 1px solid $borderColor;
-  border-bottom: 1px solid $borderColor;
-  border-radius: 0 4px 0 4px;
-  padding: 0 10px;
-  z-index: 1;
-}
-
 html, body {
   height: auto;
   overflow: auto;
@@ -62,18 +50,30 @@ html, body {
     padding: 0 10px;
     margin-top: 10px;
     display: flex;
+    flex-wrap: wrap;
     &:empty {
       display: none;
     }
     > div {
-      width: 50%;
+      flex: auto; 
       padding: 5px;
-      table {
+    }
+    table {
+      width: 100%;
+      th {
+        padding: 0 5px;
+        border: 1px solid black;
+        background-color: #b5c0ef;
+      }
+      td {
+        padding: 0 5px;
+        border: 1px solid black;
+      }
+    }
+    .item-visibilities {
+      width: 100%;
+      > div {
         width: 100%;
-        td {
-          padding: 0 5px;
-          border: 1px solid black;
-        }
       }
     }
   }

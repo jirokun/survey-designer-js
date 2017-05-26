@@ -38,6 +38,7 @@
   .notice {
     font-weight: normal;
   }
+
 }
 .formErrorMsg.formErrorContent {
   color: #fff;
@@ -85,6 +86,19 @@
   }
 }
 
+.page-no {
+  @include no($backgroud-color-page, $border-color-page);
+}
+.branch-no {
+  @include no($backgroud-color-branch, $border-color-branch);
+}
+.finisher-no {
+  @include no($backgroud-color-finisher, $border-color-finisher);
+}
+
+.hidden {
+  display: none;
+}
 /* フォーム　エラー表示　SP */
 
 $form-error-content-margin: 4px;
