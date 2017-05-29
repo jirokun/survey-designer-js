@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Survey system using react.js",
   "scripts": {
-    "start": "NODE_ENV=development node server.js",
+    "start": "webpack-dev-server --open",
     "build": "webpack",
     "build:production": "NODE_ENV=production webpack",
     "build:watch": "webpack --watch",
@@ -97,6 +97,7 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^2.4.5",
     "webpack-hot-middleware": "^2.18.0"
   }
 }
