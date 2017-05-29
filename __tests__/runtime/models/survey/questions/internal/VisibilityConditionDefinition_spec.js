@@ -120,7 +120,7 @@ describe('VisibilityConditionDefinition', () => {
       expect(result.getOutputDefinitionId()).toBe('od2');
       expect(result.getComparisonType()).toBe(null);
       expect(result.getValue()).toBe('{{od1.answer_value}}');
-      expect(result.getOperator()).toBe(null);
+      expect(result.getOperator()).toBe('==');
       expect(result.getVisibilityType()).toBe('show');
     });
 
@@ -162,7 +162,7 @@ describe('VisibilityConditionDefinition', () => {
       expect(result.getOutputDefinitionId()).toBe('od2');
       expect(result.getComparisonType()).toBe(null);
       expect(result.getValue()).toBe('{{choice1.choice_value}}');
-      expect(result.getOperator()).toBe(null);
+      expect(result.getOperator()).toBe('==');
       expect(result.getVisibilityType()).toBe('show');
     });
 

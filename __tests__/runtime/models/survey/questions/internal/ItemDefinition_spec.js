@@ -1,13 +1,11 @@
 /* eslint-env jest */
-import { List, Map } from 'immutable';
+import { Map } from 'immutable';
 import SurveyDesignerState from '../../../../../../lib/runtime/models/SurveyDesignerState';
-import OutputDefinition from '../../../../../../lib/runtime/models/survey/questions/internal/OutputDefinition';
 import VisibilityConditionDefinition from '../../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
-import ItemDefinition from '../../../../../../lib/runtime/models/survey/questions/internal/ItemDefinition';
 import allOutputTypeJson from './ItemDefinition_allOutputType.json';
 
 describe('ItemDefinition', () => {
-  describe('isVisibilityConditionMatch', () => {
+  describe('matchesVisibilityCondition', () => {
     describe('条件設問で選択しているOutputDefinitionのoutputTypeがcheckbox', () => {
       it('選択しているが選ばれている場合', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
@@ -20,13 +18,14 @@ describe('ItemDefinition', () => {
           value: 'true',
         });
         survey = survey.updateIn(['pages', 0, 'questions', 1, 'items', 0], item => item.set('visibilityCondition', visibilityCondition));
+        survey.refreshReplacer({});
         const item = survey.getIn(['pages', 0, 'questions', 1, 'items', 0]);
         expect(targetOutputDefinition.getOutputType()).toBe('checkbox');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '1' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '1' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(false);
       });
 
       it('選択していないが選ばれている場合', () => {
@@ -40,13 +39,14 @@ describe('ItemDefinition', () => {
           value: null,
         });
         survey = survey.updateIn(['pages', 0, 'questions', 1, 'items', 0], item => item.set('visibilityCondition', visibilityCondition));
+        survey.refreshReplacer({});
         const item = survey.getIn(['pages', 0, 'questions', 1, 'items', 0]);
         expect(targetOutputDefinition.getOutputType()).toBe('checkbox');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '1' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '1' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(true);
       });
     });
 
@@ -62,13 +62,14 @@ describe('ItemDefinition', () => {
           value: 'true',
         });
         survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', visibilityCondition));
+        survey.refreshReplacer({});
         const item = survey.getIn(['pages', 0, 'questions', 0, 'items', 0]);
         expect(targetOutputDefinition.getOutputType()).toBe('radio');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '1' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '1' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(false);
       });
 
       it('選択していないが選ばれている場合', () => {
@@ -82,13 +83,14 @@ describe('ItemDefinition', () => {
           value: null,
         });
         survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', visibilityCondition));
+        survey.refreshReplacer({});
         const item = survey.getIn(['pages', 0, 'questions', 0, 'items', 0]);
         expect(targetOutputDefinition.getOutputType()).toBe('radio');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '1' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '1' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(true);
       });
     });
 
@@ -98,7 +100,7 @@ describe('ItemDefinition', () => {
         return outputDefinitions.get(2);
       }
       function getSurvey(comparisonType, operator, value) {
-        const survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
+        let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
         const targetOutputDefinition = getTargetOutputDefinition(survey);
         const visibilityCondition = new VisibilityConditionDefinition({
           _id: 'vcd1',
@@ -107,7 +109,9 @@ describe('ItemDefinition', () => {
           operator,
           value,
         });
-        return survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', visibilityCondition));
+        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', visibilityCondition));
+        survey.refreshReplacer({});
+        return survey;
       }
       function getItem(survey) {
         return survey.getIn(['pages', 0, 'questions', 0, 'items', 0]);
@@ -118,11 +122,11 @@ describe('ItemDefinition', () => {
         const item = getItem(survey);
         const targetOutputDefinition = getTargetOutputDefinition(survey);
         expect(targetOutputDefinition.getOutputType()).toBe('number');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(false);
       });
 
       it('fixedValueと!=が選ばれている場合', () => {
@@ -130,11 +134,11 @@ describe('ItemDefinition', () => {
         const item = getItem(survey);
         const targetOutputDefinition = getTargetOutputDefinition(survey);
         expect(targetOutputDefinition.getOutputType()).toBe('number');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(true);
       });
 
       it('fixedValueと<が選ばれている場合', () => {
@@ -142,13 +146,13 @@ describe('ItemDefinition', () => {
         const item = getItem(survey);
         const targetOutputDefinition = getTargetOutputDefinition(survey);
         expect(targetOutputDefinition.getOutputType()).toBe('number');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '9' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '9.9' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '9' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '9.9' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '0' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(false);
       });
 
       it('fixedValueと<=が選ばれている場合', () => {
@@ -156,12 +160,12 @@ describe('ItemDefinition', () => {
         const item = getItem(survey);
         const targetOutputDefinition = getTargetOutputDefinition(survey);
         expect(targetOutputDefinition.getOutputType()).toBe('number');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '11' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '9.9' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '11' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '9.9' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(false);
       });
 
       it('fixedValueと>が選ばれている場合', () => {
@@ -169,11 +173,11 @@ describe('ItemDefinition', () => {
         const item = getItem(survey);
         const targetOutputDefinition = getTargetOutputDefinition(survey);
         expect(targetOutputDefinition.getOutputType()).toBe('number');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '11' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '11' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(false);
       });
 
       it('fixedValueと>=が選ばれている場合', () => {
@@ -181,12 +185,12 @@ describe('ItemDefinition', () => {
         const item = getItem(survey);
         const targetOutputDefinition = getTargetOutputDefinition(survey);
         expect(targetOutputDefinition.getOutputType()).toBe('number');
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '11' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(true);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '9.9' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
-        expect(item.isVisibilityConditionMatch(survey, Map())).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '11' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '10' }))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '9.9' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: '' }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map({ [targetOutputDefinition.getName()]: null }))).toBe(false);
+        expect(item.matchesVisibilityCondition(survey, Map())).toBe(false);
       });
 
       it('answerValueと==が選ばれている場合', () => {
@@ -198,7 +202,7 @@ describe('ItemDefinition', () => {
         };
         survey.refreshReplacer(answers);
         expect(targetOutputDefinition.getOutputType()).toBe('number');
-        expect(item.isVisibilityConditionMatch(survey, Map(answers))).toBe(true);
+        expect(item.matchesVisibilityCondition(survey, Map(answers))).toBe(true);
       });
     });
   });
