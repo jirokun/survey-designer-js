@@ -6,7 +6,7 @@ import CheckboxQuestionDefinition from '../../../../lib/runtime/models/survey/qu
 
 describe('CheckboxQuestionState', () => {
   describe('setItemState', () => {
-    it('排他を選択したときに他の項目が未選択かつdisabledになる', () => {
+    it('排他を選択したときに他の項目が選択値が変わらずdisabledになる', () => {
       const question = CheckboxQuestionDefinition
         .create()
         .set('items', List([
@@ -20,7 +20,7 @@ describe('CheckboxQuestionState', () => {
       expect(model.getIn(['itemState', 1, 'disabled'])).toBe(false);
 
       const result = model.setItemState(1, true);
-      expect(result.getIn(['itemState', 0, 'checked'])).toBe(false);
+      expect(result.getIn(['itemState', 0, 'checked'])).toBe(true);
       expect(result.getIn(['itemState', 0, 'disabled'])).toBe(true);
       expect(result.getIn(['itemState', 1, 'checked'])).toBe(true);
       expect(result.getIn(['itemState', 1, 'disabled'])).toBe(false);
