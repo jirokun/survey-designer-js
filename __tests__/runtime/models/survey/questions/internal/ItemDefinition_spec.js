@@ -3,9 +3,41 @@ import { Map } from 'immutable';
 import SurveyDesignerState from '../../../../../../lib/runtime/models/SurveyDesignerState';
 import VisibilityConditionDefinition from '../../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
 import allOutputTypeJson from './ItemDefinition_allOutputType.json';
+import threePagesJson from './ItemDefinition_3pages.json';
 
 describe('ItemDefinition', () => {
   describe('matchesVisibilityCondition', () => {
+    describe('条件設問で選択しているOutputDefinitionの配置', () => {
+      function common(targetOutputDefinitionIndex) {
+        let survey = SurveyDesignerState.createFromJson({ survey: threePagesJson }).getSurvey();
+        const outputDefinitions = survey.getAllOutputDefinitions();
+        const targetOutputDefinition = outputDefinitions.get(targetOutputDefinitionIndex); // 1ページ目のチェックボックス
+        const visibilityCondition = new VisibilityConditionDefinition({
+          _id: 'vcd1',
+          outputDefinitionId: targetOutputDefinition.getId(),
+          operator: '!!',
+          value: 'true',
+        });
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', visibilityCondition));
+        survey.refreshReplacer({});
+        const node = survey.getNodes().get(1);
+        const page = survey.findPageFromNode(node.getId());
+        const question = page.getQuestions().get('0');
+        return visibilityCondition.validate(survey, node, page, question, null);
+      }
+      it('現在のページよりも前のページのOutputDefinitionを参照', () => {
+        const errors = common(0);
+        expect(errors.size).toBe(0);
+      });
+      it('現在のページのOutputDefinitionを参照', () => {
+        const errors = common(2);
+        expect(errors.size).toBe(0);
+      });
+      it('現在のページよりも後のページのOutputDefinitionを参照', () => {
+        const errors = common(4);
+        expect(errors.size).toBe(1);
+      });
+    });
     describe('条件設問で選択しているOutputDefinitionのoutputTypeがcheckbox', () => {
       it('選択しているが選ばれている場合', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
