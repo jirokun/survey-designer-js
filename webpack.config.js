@@ -45,7 +45,7 @@ module.exports = {
   module: {
     noParse: [path.join(__dirname, 'node_modules/handsontable/dist/handsontable.js')],
     rules: [
-      { test: /webpack-dev-server.client/, loader: 'null-loader' }, // auto reloadを向こうにするための設定
+      { test: /webpack-dev-server.client/, loader: 'null-loader' }, // auto reloadを無効にするための設定
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
