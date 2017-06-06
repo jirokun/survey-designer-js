@@ -37,6 +37,11 @@ module.exports = {
   externals: [
     { tinymce: true },
   ],
+  devServer: {
+    contentBase: [path.join(__dirname, 'www'), __dirname],
+    port: 3000,
+    disableHostCheck: true,
+  },
   module: {
     noParse: [path.join(__dirname, 'node_modules/handsontable/dist/handsontable.js')],
     rules: [
