@@ -13,7 +13,7 @@ const plugins = [
 ];
 // プロダクション環境のみuglifyする
 if (process.env.NODE_ENV === 'production') {
-  plugins.push(new webpack.optimize.UglifyJsPlugin());
+  plugins.push(new webpack.optimize.UglifyJsPlugin({ sourceMap: true }));
 }
 
 module.exports = {
