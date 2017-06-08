@@ -31,7 +31,7 @@ describe('ItemDefinition', () => {
       });
       it('現在のページのOutputDefinitionを参照', () => {
         const errors = common(2);
-        expect(errors.size).toBe(0);
+        expect(errors.size).toBe(1);
       });
       it('現在のページよりも後のページのOutputDefinitionを参照', () => {
         const errors = common(4);

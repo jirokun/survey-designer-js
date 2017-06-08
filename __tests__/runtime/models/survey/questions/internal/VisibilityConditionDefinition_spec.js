@@ -263,31 +263,31 @@ describe('VisibilityConditionDefinition', () => {
   describe('validate', () => {
     it('条件設問が存在しない場合', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey()
-        .updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        .updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: 'dummy',
         })));
       survey.refreshReplacer();
       const errors = survey.validate();
       expect(errors.size).toBe(2);
       expect(errors.get(0)).toBe('パネルが選択されていません');
-      expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で条件設問の値が不正です');
+      expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で条件設問の値が不正です');
     });
 
     it('比較方法が選択されていない場合', () => {
       let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-      survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+      survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
         outputDefinitionId: survey.getAllOutputDefinitions().get(0).getId(),
       })));
       survey.refreshReplacer();
       const errors = survey.validate();
       expect(errors.size).toBe(2);
       expect(errors.get(0)).toBe('パネルが選択されていません');
-      expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で比較方法が不正です');
+      expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で比較方法が不正です');
     });
 
     it('動作種別が選択されていない場合', () => {
       let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-      survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item =>
+      survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item =>
         item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(0).getId(),
           visibilityType: null,
@@ -297,14 +297,14 @@ describe('VisibilityConditionDefinition', () => {
       const errors = survey.validate();
       expect(errors.size).toBe(3);
       expect(errors.get(0)).toBe('パネルが選択されていません');
-      expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で比較方法が不正です');
-      expect(errors.get(2)).toBe('設問 1-1 選択肢1 表示条件で動作種別が不正です');
+      expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で比較方法が不正です');
+      expect(errors.get(2)).toBe('設問 2-1 選択肢1 表示条件で動作種別が不正です');
     });
 
     it('CheckboxQuestionDefinitionの場合「選択肢」という表現でエラーが生成される', () => {
       const questionIndex = 0;
       const survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey()
-        .updateIn(['pages', 0, 'questions', questionIndex, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        .updateIn(['pages', 1, 'questions', questionIndex, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: 'dummy',
         })));
       survey.refreshReplacer();
@@ -313,13 +313,13 @@ describe('VisibilityConditionDefinition', () => {
       const errors = survey.validate();
       expect(errors.size).toBe(2);
       expect(errors.get(0)).toBe('パネルが選択されていません');
-      expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で条件設問の値が不正です');
+      expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で条件設問の値が不正です');
     });
 
     it('RadioQuestionDefinitionの場合「選択肢」という表現でエラーが生成される', () => {
       const questionIndex = 1;
       const survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey()
-        .updateIn(['pages', 0, 'questions', questionIndex, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        .updateIn(['pages', 1, 'questions', questionIndex, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: 'dummy',
         })));
       survey.refreshReplacer();
@@ -328,13 +328,13 @@ describe('VisibilityConditionDefinition', () => {
       const errors = survey.validate();
       expect(errors.size).toBe(2);
       expect(errors.get(0)).toBe('パネルが選択されていません');
-      expect(errors.get(1)).toBe('設問 1-2 選択肢1 表示条件で条件設問の値が不正です');
+      expect(errors.get(1)).toBe('設問 2-2 選択肢1 表示条件で条件設問の値が不正です');
     });
 
     it('MultiNumberQuestionDefinitionの場合「項目」という表現でエラーが生成される', () => {
       const questionIndex = 2;
       const survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey()
-        .updateIn(['pages', 0, 'questions', questionIndex, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        .updateIn(['pages', 1, 'questions', questionIndex, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: 'dummy',
         })));
       survey.refreshReplacer();
@@ -343,16 +343,16 @@ describe('VisibilityConditionDefinition', () => {
       const errors = survey.validate();
       expect(errors.size).toBe(2);
       expect(errors.get(0)).toBe('パネルが選択されていません');
-      expect(errors.get(1)).toBe('設問 1-3 項目1 表示条件で条件設問の値が不正です');
+      expect(errors.get(1)).toBe('設問 2-3 項目1 表示条件で条件設問の値が不正です');
     });
 
     it('MatrixQuestionDefinitionの場合「行」「列」という表現でエラーが生成される', () => {
       const questionIndex = 3;
       const survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey()
-        .updateIn(['pages', 0, 'questions', questionIndex, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        .updateIn(['pages', 1, 'questions', questionIndex, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: 'dummy',
         })))
-        .updateIn(['pages', 0, 'questions', questionIndex, 'subItems', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        .updateIn(['pages', 1, 'questions', questionIndex, 'subItems', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: 'dummy',
         })));
       survey.refreshReplacer();
@@ -361,8 +361,8 @@ describe('VisibilityConditionDefinition', () => {
       const errors = survey.validate();
       expect(errors.size).toBe(3);
       expect(errors.get(0)).toBe('パネルが選択されていません');
-      expect(errors.get(1)).toBe('設問 1-4 行1 表示条件で条件設問の値が不正です');
-      expect(errors.get(2)).toBe('設問 1-4 列1 表示条件で条件設問の値が不正です');
+      expect(errors.get(1)).toBe('設問 2-4 行1 表示条件で条件設問の値が不正です');
+      expect(errors.get(2)).toBe('設問 2-4 列1 表示条件で条件設問の値が不正です');
     });
 
     describe('outputTypeがcheckboxの場合', () => {
@@ -375,7 +375,7 @@ describe('VisibilityConditionDefinition', () => {
 
       it('比較値タイプを選択していない場合なにもエラーがでない', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: null,
@@ -389,7 +389,7 @@ describe('VisibilityConditionDefinition', () => {
       });
       it('比較値を選択していない場合なにもエラーがでない', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: null,
@@ -403,7 +403,7 @@ describe('VisibilityConditionDefinition', () => {
       });
       it('比較方法を選択していない場合エラーとなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: null,
@@ -414,11 +414,11 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で比較方法が不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で比較方法が不正です');
       });
       it('動作種別を選択していない場合エラーとなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: null,
@@ -429,7 +429,7 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で動作種別が不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で動作種別が不正です');
       });
     });
 
@@ -443,7 +443,7 @@ describe('VisibilityConditionDefinition', () => {
 
       it('比較値タイプを選択していない場合なにもエラーがでない', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: `{{${survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId()}.answer}}`,
@@ -458,7 +458,7 @@ describe('VisibilityConditionDefinition', () => {
 
       it('比較値を選択していない場合なにもエラーとなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: null,
@@ -469,12 +469,12 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で比較値が不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で比較値が不正です');
       });
 
       it('比較方法を選択していない場合エラーとなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: `{{${survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId()}.answer}}`,
@@ -485,12 +485,12 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で比較方法が不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で比較方法が不正です');
       });
 
       it('動作種別を選択していない場合エラーとなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: `{{${survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId()}.answer}}`,
@@ -501,15 +501,15 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で動作種別が不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で動作種別が不正です');
       });
 
       it('存在するchoiceのvalueを設定している場合、エラーとならない', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
-          value: '{{cj2zzy0i0000i3k67ac8dv8bq.choice_value}}',
+          value: '{{cj2xe2lhr000m3k67px7ghq2z.choice_value}}',
           operator: '!!',
           visibilityType: ItemVisibility.HIDE,
         })));
@@ -521,7 +521,7 @@ describe('VisibilityConditionDefinition', () => {
 
       it('存在しないchoiceのvalueを設定している場合、エラーなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: '{{dummy.choice_value}}',
@@ -545,7 +545,7 @@ describe('VisibilityConditionDefinition', () => {
 
       it('比較値タイプを選択していない場合なにもエラーがでない', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: null,
           value: '10',
@@ -556,12 +556,12 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で比較値タイプが不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で比較値タイプが不正です');
       });
 
       it('比較値を選択していない場合なにもエラーとなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: 'fixedValue',
           value: null,
@@ -572,12 +572,12 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で比較値が不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で比較値が不正です');
       });
 
       it('比較方法を選択していない場合エラーとなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: 'fixedValue',
           value: '10',
@@ -588,12 +588,12 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で比較方法が不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で比較方法が不正です');
       });
 
       it('動作種別を選択していない場合エラーとなる', () => {
         let survey = SurveyDesignerState.createFromJson({ survey: allOutputTypeJson }).getSurvey();
-        survey = survey.updateIn(['pages', 0, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
+        survey = survey.updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition({
           outputDefinitionId: survey.getAllOutputDefinitions().get(outputDefinitionIndex).getId(),
           comparisonType: 'fixedValue',
           value: '10',
@@ -604,7 +604,7 @@ describe('VisibilityConditionDefinition', () => {
         const errors = survey.validate();
         expect(errors.size).toBe(2);
         expect(errors.get(0)).toBe('パネルが選択されていません');
-        expect(errors.get(1)).toBe('設問 1-1 選択肢1 表示条件で動作種別が不正です');
+        expect(errors.get(1)).toBe('設問 2-1 選択肢1 表示条件で動作種別が不正です');
       });
     });
   });
