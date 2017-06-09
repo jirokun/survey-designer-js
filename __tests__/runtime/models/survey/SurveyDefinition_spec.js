@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
+import VisibilityConditionDefinition from '../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
 import sample1 from '../sample1.json';
 import noBranchSurvey from './SurveyDefinition_noBranchSurvey.json';
 import hasNotScreeningBranchSurvey from './SurveyDefinition_hasNotScreeningBranchSurvey.json';
@@ -360,6 +361,18 @@ describe('SurveyDefinition', () => {
     it('JavaScriptがない', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: sample1 }).getSurvey();
       expect(survey.hasJavaScript()).toBe(false);
+    });
+  });
+
+  describe('hasVisibilityCondition', () => {
+    it('visibilityConditionがある', () => {
+      const survey = state.getSurvey().updateIn(['pages', 1, 'questions', 0, 'items', 0], item => item.set('visibilityCondition', new VisibilityConditionDefinition()));
+      expect(survey.hasVisibilityCondition()).toBe(true);
+    });
+
+    it('visibilityConditionがない', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasVisibilityCondition()).toBe(false);
     });
   });
 });
