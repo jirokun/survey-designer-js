@@ -213,6 +213,58 @@
           "maxCheckCount": 0,
           "min": "",
           "max": ""
+        },
+        {
+          "_id": "cj3o56mfc000g3j6844q83ubl",
+          "dataType": "Select",
+          "title": "設問タイトル",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj3o56mfc000h3j68huv7m2gj",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "1",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj3o56akh00013j68op2ff1fw",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
         }
       ],
       "logicalVariables": [],
@@ -420,6 +472,58 @@
           ],
           "showTotal": false,
           "matrixType": "radio",
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
+        },
+        {
+          "_id": "cj3o56pb9000u3j68boyen1ce",
+          "dataType": "Select",
+          "title": "設問タイトル",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj3o56pb9000v3j68mah2tsro",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "1",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj3o56akh00013j68op2ff1fw",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": null,
           "matrixReverse": false,
           "matrixSumRows": false,
           "matrixSumCols": false,

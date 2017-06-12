@@ -76,6 +76,50 @@ describe('Replacer', () => {
       expect(replacer.id2Value('abc{{unique_id.answer}}def')).toBe('abcdef');
       expect(replacer.id2Value('abc{{unique_id.answer_label}}def')).toBe('abcdef');
     });
+
+    it('choice_value(radio)を変換できる', () => {
+      const allOutputDefinitionMap = Immutable.fromJS({
+        abcdefg: new OutputDefinition({
+          _id: 'unique_id',
+          outputType: 'radio',
+          name: 'abcdefg',
+          label: 'ラベル',
+          outputNo: '1-1-1',
+          choices: List().push(new ChoiceDefinition({
+            _id: 'unique_id2',
+            label: '選択肢1',
+            value: 'value1',
+          })),
+        }),
+      });
+      const replacer = new Replacer(
+        allOutputDefinitionMap,
+        { },
+      );
+      expect(replacer.id2Value('{{unique_id2.choice_value}}')).toBe('value1');
+    });
+
+    it('choice_value(select)を変換できる', () => {
+      const allOutputDefinitionMap = Immutable.fromJS({
+        abcdefg: new OutputDefinition({
+          _id: 'unique_id',
+          outputType: 'select',
+          name: 'abcdefg',
+          label: 'ラベル',
+          outputNo: '1-1-1',
+          choices: List().push(new ChoiceDefinition({
+            _id: 'unique_id2',
+            label: '選択肢1',
+            value: 'value1',
+          })),
+        }),
+      });
+      const replacer = new Replacer(
+        allOutputDefinitionMap,
+        { },
+      );
+      expect(replacer.id2Value('{{unique_id2.choice_value}}')).toBe('value1');
+    });
   });
 
   describe('no2Id', () => {
@@ -177,7 +221,7 @@ describe('Replacer', () => {
       expect(replacer.validate('{{9__value1.answer_label}}', state.getSurvey().getAllOutputDefinitions())).toBe(false);
     });
 
-    it('choice_valueを参照している', () => {
+    it('choice_value(radio)を参照している', () => {
       const survey = state.getSurvey().updateIn(['pages', 0, 'questions'], questions =>
         questions.push(new RadioQuestionDefinition(
           {
@@ -195,6 +239,23 @@ describe('Replacer', () => {
       expect(replacer.validate('{{item1.choice_value}}', survey.getAllOutputDefinitions())).toBe(true);
     });
 
+    it('choice_value(select)を参照している', () => {
+      const survey = state.getSurvey().updateIn(['pages', 0, 'questions'], questions =>
+        questions.push(new RadioQuestionDefinition(
+          {
+            _id: 'r1',
+            dataType: 'Select',
+            index: 0,
+            items: List().push(new ItemDefinition({
+              _id: 'item1',
+              plainLabel: 'label1',
+              value: '1',
+            })),
+          },
+        )));
+      const replacer = survey.refreshReplacer();
+      expect(replacer.validate('{{item1.choice_value}}', survey.getAllOutputDefinitions())).toBe(true);
+    });
 
     it('自ページよりも後の設問を参照している', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: referenceAfterQuestionSurvey }).getSurvey();
