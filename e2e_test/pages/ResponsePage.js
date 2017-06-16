@@ -2,6 +2,16 @@
 /* global browser */
 
 class BranchEditorPage {
+  getAnswers() {
+    return browser.execute(() => {
+      const readableAnswers = {};
+      SurveyJS.surveyManager.survey.getAllOutputDefinitions().forEach(function(od) {
+        readableAnswers[od.getOutputNo()] = SurveyJS.surveyManager.answers[od.getName()];
+      });
+      return readableAnswers;
+    }).value;
+  }
+
   findElementsByOutputNo(outputNo) {
     return browser.elements(`*[data-output-no="${outputNo}"]`);
   }
@@ -23,6 +33,11 @@ class BranchEditorPage {
 
   getPageLabel() {
     return browser.elements('.finisher-no,.page-no').getText();
+  }
+
+  close() {
+    browser.close();
+    browser.window(browser.windowHandles().value[0]);
   }
 }
 
