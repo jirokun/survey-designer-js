@@ -1,3 +1,17 @@
+os: linux
 language: node_js
-node_js:
-  - "6"
+node_js: '7'
+sudo: required
+env: DISPLAY=':99.0'
+dist: trusty
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+before_script:
+  - echo "RUNTIME_CSS_URL=${RUNTIME_CSS_URL}" > .env
+  - sh -e /etc/init.d/xvfb start
+

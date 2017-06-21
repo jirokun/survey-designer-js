@@ -6,6 +6,9 @@
   "global": {
     "ENV": false
   },
+  "env": {
+    "mocha": true
+  },
   "rules": {
     "max-len": ["error", 140, 2, {
       "ignoreUrls": true,

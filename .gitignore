@@ -20,6 +20,7 @@ node_modules/
 dist/
 bower_components/
 .sass-cache/
+errorShots
 
 # envinronments
 .env

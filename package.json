@@ -7,13 +7,19 @@
     "build": "webpack",
     "build:production": "NODE_ENV=production webpack",
     "build:watch": "webpack --watch",
-    "test": "jest",
-    "test:watch": "yarn test -- --watch"
+    "test": "jest && node e2e_test.js",
+    "test:watch": "yarn test -- --watch",
+    "test:e2e": "wdio wdio.conf.js",
+    "test:e2e:watch": "wdio wdio.conf.js --watch",
+    "test:e2e:repl": "wdio wdio.conf.js repl"
   },
   "license": "MIT",
   "files": [
     "dist"
   ],
+  "jest": {
+    "verbose": true
+  },
   "peerDependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
@@ -72,6 +78,7 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "chai": "^4.0.1",
     "css-loader": "^0.28.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.0.0",
@@ -79,6 +86,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jest": "^19.0.1",
     "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-mocha": "^4.9.0",
     "eslint-plugin-react": "^6.10.3",
     "expect": "^1.20.2",
     "express": "^4.15.2",
@@ -96,6 +104,11 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
+    "wdio-dot-reporter": "0.0.8",
+    "wdio-mocha-framework": "^0.5.10",
+    "wdio-selenium-standalone-service": "0.0.8",
+    "wdio-spec-reporter": "^0.1.0",
+    "webdriverio": "^4.8.0",
     "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-dev-server": "^2.4.5",
