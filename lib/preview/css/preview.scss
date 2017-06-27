@@ -9,8 +9,18 @@
   width: 800px;
   margin: 10px auto 0 auto;
   box-sizing: border-box;
-  > h3 {
+  > .title {
     text-align: left;
     font-size: large;
+  }
+  > .go-to-specified-page {
+    text-align: left;
+  }
+  > .help {
+    text-align: left;
+    line-height: 16px;
+    color: #777;
+    margin-top: 5px;
+    margin-left: 5px;
   }
 }

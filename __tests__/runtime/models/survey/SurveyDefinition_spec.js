@@ -157,6 +157,13 @@ describe('SurveyDefinition', () => {
     });
   });
 
+  describe('getAllPageOrFinisherNodeIds', () => {
+    it('すべてのPageもしくはFinisherののNodeId一覧を取得できる', () => {
+      const result = state.getSurvey().getAllPageOrFinisherNodeIds();
+      expect(result.size).toBe(3);
+    });
+  });
+
   describe('getAllOutputDefinitionMap', () => {
     it('すべてのoutputDefinitionを取得できる', () => {
       const result = state.getSurvey().getAllOutputDefinitionMap();
