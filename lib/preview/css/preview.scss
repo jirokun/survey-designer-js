@@ -9,9 +9,10 @@
   width: 800px;
   margin: 10px auto 0 auto;
   box-sizing: border-box;
-  > .title {
+  > .caption {
     text-align: left;
-    font-size: large;
+    font-size: 120%;
+    font-weight: bold;
   }
   > .current-page {
     text-align: left;
@@ -20,7 +21,7 @@
     text-align: left;
     line-height: 16px;
     color: #777;
-    margin-top: 5px;
+    margin-top: 3px;
     margin-left: 5px;
   }
 }
