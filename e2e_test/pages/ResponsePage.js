@@ -1,7 +1,7 @@
 /* eslint-env node */
 /* global browser */
 
-class BranchEditorPage {
+class ResponsePage {
   getAnswers() {
     return browser.execute(() => {
       const readableAnswers = {};
@@ -10,6 +10,16 @@ class BranchEditorPage {
       });
       return readableAnswers;
     }).value;
+  }
+
+  transformAnswers(answers) {
+    return browser.execute((a) => {
+      const readableAnswers = {};
+      SurveyJS.surveyManager.survey.getAllOutputDefinitions().forEach(function(od) {
+        readableAnswers[od.getOutputNo()] = a[od.getName()];
+      });
+      return readableAnswers;
+    }, answers).value;
   }
 
   findElementsByOutputNo(outputNo) {
@@ -41,4 +51,4 @@ class BranchEditorPage {
   }
 }
 
-module.exports = BranchEditorPage;
+module.exports = ResponsePage;

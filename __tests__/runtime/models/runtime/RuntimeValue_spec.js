@@ -39,9 +39,9 @@ describe('RuntimeValue', () => {
     it('入力値が追加される', () => {
       const survey = state.getSurvey();
       survey.refreshReplacer();
-      const result1 = state.getRuntime().submitPage(survey, { '1__value1': 'abc' });
+      const result1 = state.getRuntime().updateAnswers(survey, { '1__value1': 'abc' });
       expect(result1.getAnswers().get('1__value1')).toBe('abc');
-      const result2 = result1.submitPage(state.getSurvey(), { q2: 'def' });
+      const result2 = result1.updateAnswers(state.getSurvey(), { q2: 'def' });
       expect(result2.getAnswers().get('1__value1')).toBe('abc');
       expect(result2.getAnswers().get('q2')).toBe('def');
     });

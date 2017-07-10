@@ -84,6 +84,11 @@ class EditorPage {
     browser.click('#global-navigation');
   }
 
+  loadSurvey(survey) {
+    const jsonStr = JSON.stringify(survey);
+    browser.execute(`window.loadSurvey(${jsonStr})`);
+  }
+
   preview() {
     const beforeSize = browser.windowHandles().value.length;
     browser.click('.menu-preview');
