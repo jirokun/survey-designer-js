@@ -636,3 +636,10 @@ html, body {
 .item-visibility-condition-popover.popover {
   max-width: 800px;
 }
+.item-bulk-add-popover.popover {
+  max-width: none;
+}
+.item-bulk-add-editor {
+  width: 800px;
+  height: 400px;
+}
