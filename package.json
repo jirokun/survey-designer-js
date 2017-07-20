@@ -19,7 +19,8 @@
     "dist"
   ],
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "collectCoverage": true
   },
   "peerDependencies": {
     "react": "^15.3.2",
