@@ -20,6 +20,7 @@
   ],
   "jest": {
     "verbose": true,
+    "coverageDirectory": "./coverage/",
     "collectCoverage": true
   },
   "peerDependencies": {
