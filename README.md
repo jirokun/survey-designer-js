@@ -1,4 +1,4 @@
-# survey-designer-js <a href="https://travis-ci.org/jirokun/survey-designer-js"><img src="https://travis-ci.org/jirokun/survey-designer-js.svg?branch=master"/></a>
+# survey-designer-js <a href="https://travis-ci.org/jirokun/survey-designer-js"><img src="https://travis-ci.org/jirokun/survey-designer-js.svg?branch=master"/></a> [![codecov](https://codecov.io/gh/jirokun/survey-designer-js/branch/develop/graph/badge.svg)](https://codecov.io/gh/jirokun/survey-designer-js)
 
 アンケートデザインのためのJavaScript
 
