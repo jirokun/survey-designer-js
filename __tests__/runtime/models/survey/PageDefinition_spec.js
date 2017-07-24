@@ -58,6 +58,26 @@ describe('PageDefinition', () => {
       expect(result1.getIn(['questions', 0, 'items', 4, 'label'])).toBe('<span>b</span>');
       expect(result1.getIn(['questions', 0, 'items', 4, 'plainLabel'])).toBe('b');
     });
+
+    it('文字列はtrimされること', () => {
+      const result1 = state.getSurvey().findPage('P001').bulkAddItems('1', ` a
+b 
+ c 
+\td\t
+ <span> e </span> 
+`);
+      expect(result1.getIn(['questions', 0, 'items']).size).toBe(8);
+      expect(result1.getIn(['questions', 0, 'items', 3, 'label'])).toBe('a');
+      expect(result1.getIn(['questions', 0, 'items', 3, 'plainLabel'])).toBe('a');
+      expect(result1.getIn(['questions', 0, 'items', 4, 'label'])).toBe('b');
+      expect(result1.getIn(['questions', 0, 'items', 4, 'plainLabel'])).toBe('b');
+      expect(result1.getIn(['questions', 0, 'items', 5, 'label'])).toBe('c');
+      expect(result1.getIn(['questions', 0, 'items', 5, 'plainLabel'])).toBe('c');
+      expect(result1.getIn(['questions', 0, 'items', 6, 'label'])).toBe('d');
+      expect(result1.getIn(['questions', 0, 'items', 6, 'plainLabel'])).toBe('d');
+      expect(result1.getIn(['questions', 0, 'items', 7, 'label'])).toBe('<span> e </span>');
+      expect(result1.getIn(['questions', 0, 'items', 7, 'plainLabel'])).toBe('e');
+    });
   });
 
   describe('swapQuestion', () => {
