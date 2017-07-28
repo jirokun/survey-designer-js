@@ -33,6 +33,53 @@ describe('PageDefinition', () => {
     });
   });
 
+  describe('bulkAddItem', () => {
+    it('一括でitemが追加されindexも正しい値が設定されていること', () => {
+      const result1 = state.getSurvey().findPage('P001').bulkAddItems('1', 'a\nb');
+      expect(result1.getIn(['questions', 0, 'items']).size).toBe(5);
+      expect(result1.getIn(['questions', 0, 'items', 3, 'label'])).toBe('a');
+      expect(result1.getIn(['questions', 0, 'items', 3, 'index'])).toBe(3);
+      expect(result1.getIn(['questions', 0, 'items', 4, 'label'])).toBe('b');
+      expect(result1.getIn(['questions', 0, 'items', 4, 'index'])).toBe(4);
+    });
+
+    it('空行は追加されないこと', () => {
+      const result1 = state.getSurvey().findPage('P001').bulkAddItems('1', 'a\n\nb');
+      expect(result1.getIn(['questions', 0, 'items']).size).toBe(5);
+      expect(result1.getIn(['questions', 0, 'items', 3, 'label'])).toBe('a');
+      expect(result1.getIn(['questions', 0, 'items', 4, 'label'])).toBe('b');
+    });
+
+    it('HTMLタグは削除されてplainLabelに設定されること', () => {
+      const result1 = state.getSurvey().findPage('P001').bulkAddItems('1', '<span>a</span>\n<span>b</span>');
+      expect(result1.getIn(['questions', 0, 'items']).size).toBe(5);
+      expect(result1.getIn(['questions', 0, 'items', 3, 'label'])).toBe('<span>a</span>');
+      expect(result1.getIn(['questions', 0, 'items', 3, 'plainLabel'])).toBe('a');
+      expect(result1.getIn(['questions', 0, 'items', 4, 'label'])).toBe('<span>b</span>');
+      expect(result1.getIn(['questions', 0, 'items', 4, 'plainLabel'])).toBe('b');
+    });
+
+    it('文字列はtrimされること', () => {
+      const result1 = state.getSurvey().findPage('P001').bulkAddItems('1', ` a
+b 
+ c 
+\td\t
+ <span> e </span> 
+`);
+      expect(result1.getIn(['questions', 0, 'items']).size).toBe(8);
+      expect(result1.getIn(['questions', 0, 'items', 3, 'label'])).toBe('a');
+      expect(result1.getIn(['questions', 0, 'items', 3, 'plainLabel'])).toBe('a');
+      expect(result1.getIn(['questions', 0, 'items', 4, 'label'])).toBe('b');
+      expect(result1.getIn(['questions', 0, 'items', 4, 'plainLabel'])).toBe('b');
+      expect(result1.getIn(['questions', 0, 'items', 5, 'label'])).toBe('c');
+      expect(result1.getIn(['questions', 0, 'items', 5, 'plainLabel'])).toBe('c');
+      expect(result1.getIn(['questions', 0, 'items', 6, 'label'])).toBe('d');
+      expect(result1.getIn(['questions', 0, 'items', 6, 'plainLabel'])).toBe('d');
+      expect(result1.getIn(['questions', 0, 'items', 7, 'label'])).toBe('<span> e </span>');
+      expect(result1.getIn(['questions', 0, 'items', 7, 'plainLabel'])).toBe('e');
+    });
+  });
+
   describe('swapQuestion', () => {
     it('同じページ内で0番目と1番目のquestionの入れ替えができること', () => {
       const result = state.getSurvey().findPage('P001').swapQuestion('1', '2');
