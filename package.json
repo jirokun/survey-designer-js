@@ -19,7 +19,9 @@
     "dist"
   ],
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   },
   "peerDependencies": {
     "react": "^15.3.2",

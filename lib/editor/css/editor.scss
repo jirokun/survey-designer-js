@@ -19,6 +19,9 @@ html, body {
         width: 100%;
         min-width: 600px;
         overflow: visible;
+        .control-label {
+          font-weight: bold;
+        }
         h4.question-title {
           margin: 0;
           padding: 5px;
@@ -635,4 +638,11 @@ html, body {
 }
 .item-visibility-condition-popover.popover {
   max-width: 800px;
+}
+.item-bulk-add-popover.popover {
+  max-width: none;
+}
+.item-bulk-add-editor {
+  width: 800px;
+  height: 400px;
 }

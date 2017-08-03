@@ -4,6 +4,7 @@ logs
 npm-debug.log*
 .DS_Store
 .vscode
+coverage
 
 ### Vim ###
 [._]*.s[a-w][a-z]
