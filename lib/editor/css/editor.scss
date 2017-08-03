@@ -19,6 +19,9 @@ html, body {
         width: 100%;
         min-width: 600px;
         overflow: visible;
+        .control-label {
+          font-weight: bold;
+        }
         h4.question-title {
           margin: 0;
           padding: 5px;
