@@ -10,6 +10,8 @@ import hasReferenceInFinisherSurvey from './SurveyDefinition_hasReferenceInFinis
 import hasNoReferenceSurvey from './SurveyDefinition_hasNoReferenceSurvey.json';
 import hasLogicalVariablesSurvey from './SurveyDefinition_hasLogicalVariablesSurvey.json';
 import hasJavaScriptSurvey from './SurveyDefinition_hasJavaScriptSurvey.json';
+import isValidPositionOfCompleteFinisherValid from './SurveyDefinition_isValidPositionOfCompleteFinisherValid.json';
+import isValidPositionOfCompleteFinisherInvalid from './SurveyDefinition_isValidPositionOfCompleteFinisherInValid.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -380,6 +382,18 @@ describe('SurveyDefinition', () => {
     it('visibilityConditionがない', () => {
       const survey = state.getSurvey();
       expect(survey.hasVisibilityCondition()).toBe(false);
+    });
+  });
+
+  describe('isValidPositionOfCompleteFinisher', () => {
+    it('最後のページの次がCOMPLETEである', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherValid }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(true);
+    });
+
+    it('最後のページの次がCOMPLETEでない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherInvalid }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(false);
     });
   });
 });
