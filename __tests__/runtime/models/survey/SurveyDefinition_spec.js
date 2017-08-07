@@ -11,7 +11,7 @@ import hasNoReferenceSurvey from './SurveyDefinition_hasNoReferenceSurvey.json';
 import hasLogicalVariablesSurvey from './SurveyDefinition_hasLogicalVariablesSurvey.json';
 import hasJavaScriptSurvey from './SurveyDefinition_hasJavaScriptSurvey.json';
 import isValidPositionOfCompleteFinisherValid from './SurveyDefinition_isValidPositionOfCompleteFinisherValid.json';
-import isValidPositionOfCompleteFinisherInvalid from './SurveyDefinition_isValidPositionOfCompleteFinisherInValid.json';
+import isValidPositionOfCompleteFinisherInvalid from './SurveyDefinition_isValidPositionOfCompleteFinisherInvalid.json';
 
 describe('SurveyDefinition', () => {
   let state;
