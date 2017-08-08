@@ -196,6 +196,7 @@ html, body {
   border-right: 1px solid #ddd;
   padding-left: 4px;
   min-height: 23px;
+  overflow: auto;
   
   &:hover {
     background-color: #fee;
@@ -207,6 +208,9 @@ html, body {
       border: 1px solid #888;
     }
   }
+}
+.html-editor-tinymce {
+  overflow: auto;
 }
 
 .item-editor {
@@ -646,3 +650,4 @@ html, body {
   width: 800px;
   height: 400px;
 }
+
