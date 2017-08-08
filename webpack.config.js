@@ -25,6 +25,7 @@ module.exports = {
     preview: ['./lib/Preview'],
     detail: ['./lib/Detail'],
     editor: ['./lib/Editor'],
+    image: ['./lib/Image'],
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -42,6 +43,10 @@ module.exports = {
     host: '0.0.0.0',
     port: 3000,
     disableHostCheck: true,
+    setup: (app) => {
+      app.post('/images/save', (req, res) => res.redirect('/images/save.json'));
+      app.post('/images/delete', (req, res) => res.redirect('/images/delete.json'));
+    },
   },
   module: {
     noParse: [path.join(__dirname, 'node_modules/handsontable/dist/handsontable.js')],
@@ -79,7 +84,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
+        test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
         use: [
           {
             loader: 'url-loader',
