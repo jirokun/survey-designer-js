@@ -76,6 +76,7 @@
     "react-numeric-input": "^2.0.7",
     "react-redux": "^5.0.4",
     "react-scroll": "1.4.8",
+    "react-spinkit": "^3.0.0",
     "react-split-pane": "^0.1.61",
     "react-tinymce": "^0.5.1",
     "react-transform-hmr": "^1.0.0",
