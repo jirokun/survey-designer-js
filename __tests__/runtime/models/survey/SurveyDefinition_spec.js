@@ -226,7 +226,7 @@ describe('SurveyDefinition', () => {
     });
   });
 
-  describe('findFollowingPageNodeIds', () => {
+  describe('findFollowingPageAndFinisherNodeIds', () => {
     it('branchのnodeIdを指定し以降のpageとfinisherを指し示すnodeIdを一覧することができる', () => {
       const result = state.getSurvey().findFollowingPageAndFinisherNodeIds('F002');
       expect(result.length).toBe(2);
@@ -243,6 +243,20 @@ describe('SurveyDefinition', () => {
     });
   });
 
+  describe('findFollowingPageNodeIds', () => {
+    it('branchのnodeIdを指定し以降のpageを指し示すnodeIdを一覧することができる', () => {
+      const result = state.getSurvey().findFollowingPageNodeIds('F002');
+      expect(result.length).toBe(1);
+      expect(result[0]).toBe('F003');
+    });
+
+    it('pageのnodeIdを指定し以降のpageを指し示すnodeIdを一覧することができる', () => {
+      const result = state.getSurvey().findFollowingPageNodeIds('F001');
+      expect(result.length).toBe(2);
+      expect(result[0]).toBe('F001');
+      expect(result[1]).toBe('F003');
+    });
+  });
 
   describe('calcPageNo', () => {
     it('ページ番号を取得できる', () => {
