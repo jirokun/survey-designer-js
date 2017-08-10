@@ -10,12 +10,13 @@ import hasReferenceInFinisherSurvey from './survey_definition/hasReferenceInFini
 import hasNoReferenceSurvey from './survey_definition/hasNoReferenceSurvey.json';
 import hasLogicalVariablesSurvey from './survey_definition/hasLogicalVariablesSurvey.json';
 import hasJavaScriptSurvey from './survey_definition/hasJavaScriptSurvey.json';
-import isValidPositionOfCompleteFinisherOk from './survey_definition/isValidPositionOfCompleteFinisherOk.json';
-import isValidPositionOfCompleteFinisherNg from './survey_definition/isValidPositionOfCompleteFinisherNg.json';
-import isValidCompleteFinisherOk from './survey_definition/isValidCompleteFinisherOk.json';
-import isValidCompleteFinisherNg from './survey_definition/isValidCompleteFinisherNg.json';
+import isValidPositionOfCompleteFinisherCase1 from './survey_definition/isValidPositionOfCompleteFinisherCase1.json';
+import isValidPositionOfCompleteFinisherCase2 from './survey_definition/isValidPositionOfCompleteFinisherCase2.json';
+import isValidPositionOfCompleteFinisherCase3 from './survey_definition/isValidPositionOfCompleteFinisherCase3.json';
+import isValidCompleteFinisherCase1 from './survey_definition/isValidCompleteFinisherCase1.json';
+import isValidCompleteFinisherCase2 from './survey_definition/isValidCompleteFinisherCase2.json';
+import isValidCompleteFinisherCase3 from './survey_definition/isValidCompleteFinisherCase3.json';
 import getFinisherNodesValid from './survey_definition/getFinisherNodesValid.json';
-import getCompleteFinisherNodesValid from './survey_definition/getCompleteFinisherNodesValid.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -60,19 +61,6 @@ describe('SurveyDefinition', () => {
       const survey = SurveyDesignerState.createFromJson(getFinisherNodesValid).getSurvey();
       const nodes = survey.getFinisherNodes();
       expect(nodes.size).toBe(2);
-      expect(nodes.get(0).constructor.name).toBe('NodeDefinition');
-    });
-
-    it('存在しないnodeIdを指定すると例外が発生する', () => {
-      expect(state.getSurvey().findNode('NONE')).toBeNull();
-    });
-  });
-
-  describe('getCompleteFinisherNodes', () => {
-    it('COMPLETEのfinisherのnodesが取得できる', () => {
-      const survey = SurveyDesignerState.createFromJson(getCompleteFinisherNodesValid).getSurvey();
-      const nodes = survey.getCompleteFinisherNodes();
-      expect(nodes.size).toBe(1);
       expect(nodes.get(0).constructor.name).toBe('NodeDefinition');
     });
 
@@ -431,25 +419,35 @@ describe('SurveyDefinition', () => {
 
   describe('isValidPositionOfCompleteFinisher', () => {
     it('最後のページの次がCOMPLETEである', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherOk }).getSurvey();
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase1 }).getSurvey();
       expect(survey.isValidPositionOfCompleteFinisher()).toBe(true);
     });
 
     it('最後のページの次がCOMPLETEでない', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherNg }).getSurvey();
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase2 }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(false);
+    });
+
+    it('PAGE => FINISHER:SCREEN => FINISHER:COMPLETE の場合はNG', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase3 }).getSurvey();
       expect(survey.isValidPositionOfCompleteFinisher()).toBe(false);
     });
   });
 
-  describe('isValidCompleteFinisher', () => {
-    it('最後のページの次がCOMPLETEである', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherOk }).getSurvey();
-      expect(survey.isValidCompleteFinisher()).toBe(true);
+  describe('isValidFinisher', () => {
+    it('FINISHER:SCREEN => PAGE => FINISHER:COMPLETE の場合はNG', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase1 }).getSurvey();
+      expect(survey.isValidFinisher()).toBe(false);
     });
 
-    it('最後のページの次がCOMPLETEでない', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherNg }).getSurvey();
-      expect(survey.isValidCompleteFinisher()).toBe(false);
+    it('FINISHER:COMPLETE => PAGE => FINISHER:SCREEN の場合はNG', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase2 }).getSurvey();
+      expect(survey.isValidFinisher()).toBe(false);
+    });
+
+    it('PAGE => FINISHER:COMPLETE => FINISHER:SCREEN の場合はOK', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase3 }).getSurvey();
+      expect(survey.isValidFinisher()).toBe(true);
     });
   });
 });

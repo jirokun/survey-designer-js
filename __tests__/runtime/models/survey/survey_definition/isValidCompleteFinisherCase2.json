@@ -4,26 +4,20 @@
   "version": 2,
   "pages": [
     {
-      "_id": "cj1pzhzdg00023j66pvgv5plq",
-      "questions": [],
-      "logicalVariables": [],
-      "javaScriptCode": ""
-    },
-    {
-      "_id": "cj1pzu4t0000s3j66y9jxkxi8",
+      "_id": "cj1pzhzdg00023j66pvgv5plqa",
       "questions": [
         {
-          "_id": "cj1pzu4t0000t3j6632rpahs1",
+          "_id": "cj1pzhzdg00033j669199lgv2",
           "dataType": "Checkbox",
-          "title": "設問タイトル",
-          "plainTitle": "設問タイトル",
+          "title": "<p>設問タイトルa</p>",
+          "plainTitle": "設問タイトルa",
           "description": "",
           "random": false,
           "subItemsRandom": false,
           "unit": "",
           "items": [
             {
-              "_id": "cj1pzu4t0000u3j66zvcjx3a6",
+              "_id": "cj1pzhzdg00043j662v6dune9",
               "index": 0,
               "label": "名称未設定",
               "plainLabel": "名称未設定",
@@ -67,20 +61,20 @@
       "javaScriptCode": ""
     },
     {
-      "_id": "cj1pzkb2r000a3j667qwrajum",
+      "_id": "cj1pzhzdg00023j66pvgv5plqb",
       "questions": [
         {
-          "_id": "cj1pzkb2r000b3j66dmzxbsrm",
+          "_id": "cj1pzhzdg00033j669199lgv2",
           "dataType": "Checkbox",
-          "title": "",
-          "plainTitle": "",
+          "title": "<p>設問タイトルa</p>",
+          "plainTitle": "設問タイトルa",
           "description": "",
           "random": false,
           "subItemsRandom": false,
           "unit": "",
           "items": [
             {
-              "_id": "cj1pzkb2r000c3j66bf9qc2gn",
+              "_id": "cj1pzhzdg00043j662v6dune9",
               "index": 0,
               "label": "名称未設定",
               "plainLabel": "名称未設定",
@@ -124,74 +118,42 @@
       "javaScriptCode": ""
     }
   ],
-  "branches": [
-    {
-      "_id": "cj1pztyig000o3j66l7rk98zc",
-      "type": null,
-      "conditions": [
-        {
-          "_id": "cj1pztyig000p3j66h56xctnp",
-          "conditionType": "all",
-          "nextNodeId": "cj1pzkb2s000d3j66nxgw5ost",
-          "childConditions": [
-            {
-              "_id": "cj1pztyig000q3j662tsxs0g0",
-              "outputId": "cj1pzhzdg00043j662v6dune9",
-              "operator": "==",
-              "value": "1"
-            }
-          ]
-        }
-      ]
-    }
-  ],
+  "branches": [],
   "finishers": [
     {
       "_id": "cj1pzhzdh00063j66kerjvl2a",
       "finishType": "COMPLETE",
       "point": 0,
-      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。その１"
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。COMPLETE"
     },
     {
       "_id": "cj1pzhzdh00063j66kerjvl2b",
-      "finishType": "COMPLETE",
+      "finishType": "SCREEN",
       "point": 0,
-      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。その２"
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。SCREEN"
     }
   ],
   "nodes": [
     {
-      "_id": "cj1pzhzdg00053j66dou92ayf",
+      "_id": "cj1pzhzdi00073j6639h3xdix1",
       "type": "page",
-      "refId": "cj1pzhzdg00023j66pvgv5plq",
-      "nextNodeId": "cj1pztyih000r3j66zyzp216g"
+      "refId": "cj1pzhzdg00023j66pvgv5plqa",
+      "nextNodeId": "cj1pzhzdi00073j6639h3xdix2"
     },
     {
-      "_id": "cj1pztyih000r3j66zyzp216g",
-      "type": "branch",
-      "refId": "cj1pztyig000o3j66l7rk98zc",
-      "nextNodeId": "cj1pzu4t0000v3j66f8v41e0r"
-    },
-    {
-      "_id": "cj1pzu4t0000v3j66f8v41e0r",
-      "type": "page",
-      "refId": "cj1pzu4t0000s3j66y9jxkxi8",
-      "nextNodeId": "cj1pzkb2s000d3j66nxgw5ost"
-    },
-    {
-      "_id": "cj1pzkb2s000d3j66nxgw5ost",
+      "_id": "cj1pzhzdi00073j6639h3xdix2",
       "type": "finisher",
       "refId": "cj1pzhzdh00063j66kerjvl2a",
-      "nextNodeId": "cj1pzhzdi00073j6639h3xdix"
+      "nextNodeId": "cj1pzhzdi00073j6639h3xdix3"
     },
     {
-      "_id": "cj1pzhzdi00073j6639h3xdix",
+      "_id": "cj1pzhzdi00073j6639h3xdix3",
       "type": "page",
-      "refId": "cj1pzkb2r000a3j667qwrajum",
-      "nextNodeId": "cj1pzkb2s000d3j66nxgw5osq"
+      "refId": "cj1pzhzdg00023j66pvgv5plqb",
+      "nextNodeId": "cj1pzhzdi00073j6639h3xdix4"
     },
     {
-      "_id": "cj1pzkb2s000d3j66nxgw5osq",
+      "_id": "cj1pzhzdi00073j6639h3xdix4",
       "type": "finisher",
       "refId": "cj1pzhzdh00063j66kerjvl2b",
       "nextNodeId": null

@@ -1,0 +1,163 @@
+{
+  "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+  "title": "名称未設定",
+  "version": 2,
+  "pages": [
+    {
+      "_id": "cj1pzhzdg00023j66pvgv5plqa",
+      "questions": [
+        {
+          "_id": "cj1pzhzdg00033j669199lgv2",
+          "dataType": "Checkbox",
+          "title": "<p>設問タイトルa</p>",
+          "plainTitle": "設問タイトルa",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj1pzhzdg00043j662v6dune9",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "1",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj1pzhzc000013j66ecd872d1",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
+        }
+      ],
+      "logicalVariables": [],
+      "javaScriptCode": ""
+    },
+    {
+      "_id": "cj1pzhzdg00023j66pvgv5plqb",
+      "questions": [
+        {
+          "_id": "cj1pzhzdg00033j669199lgv2",
+          "dataType": "Checkbox",
+          "title": "<p>設問タイトルa</p>",
+          "plainTitle": "設問タイトルa",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj1pzhzdg00043j662v6dune9",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "1",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj1pzhzc000013j66ecd872d1",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
+        }
+      ],
+      "logicalVariables": [],
+      "javaScriptCode": ""
+    }
+  ],
+  "branches": [],
+  "finishers": [
+    {
+      "_id": "cj1pzhzdh00063j66kerjvl2a",
+      "finishType": "SCREEN",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。SCREEN"
+    },
+    {
+      "_id": "cj1pzhzdh00063j66kerjvl2b",
+      "finishType": "COMPLETE",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。COMPLETE"
+    }
+  ],
+  "nodes": [
+    {
+      "_id": "cj1pzhzdi00073j6639h3xdix1",
+      "type": "page",
+      "refId": "cj1pzhzdg00023j66pvgv5plqa",
+      "nextNodeId": "cj1pzhzdi00073j6639h3xdix2"
+    },
+    {
+      "_id": "cj1pzhzdi00073j6639h3xdix2",
+      "type": "finisher",
+      "refId": "cj1pzhzdh00063j66kerjvl2a",
+      "nextNodeId": "cj1pzhzdi00073j6639h3xdix3"
+    },
+    {
+      "_id": "cj1pzhzdi00073j6639h3xdix3",
+      "type": "page",
+      "refId": "cj1pzhzdg00023j66pvgv5plqb",
+      "nextNodeId": "cj1pzhzdi00073j6639h3xdix4"
+    },
+    {
+      "_id": "cj1pzhzdi00073j6639h3xdix4",
+      "type": "finisher",
+      "refId": "cj1pzhzdh00063j66kerjvl2b",
+      "nextNodeId": null
+    }
+  ],
+  "panel": null
+}
