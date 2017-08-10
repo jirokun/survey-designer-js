@@ -1,0 +1,54 @@
+.image-manager {
+  .upload-form {
+    margin-bottom: 20px;
+    input[type="file"] {
+      display: inline;
+      max-width: 400px;
+      margin-right: 20px;
+    }
+  }
+  
+  .image-container {
+    .image-block {
+      display: inline-block;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      .image-link {
+        display: table-cell;
+        height: 150px;
+        border: 1px solid #888;
+        padding: 3px;
+        vertical-align: middle;
+        &.selected {
+          border: 3px solid blue;
+        }
+        img {
+          max-height: 140px;
+          max-width: 140px;
+        }
+      }
+      .image-delete {
+        display: block;
+      }
+    }
+  }
+  .image-manager-block-layer {
+    background: black;
+    opacity: 0.5;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
+  .image-manager-spinner {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

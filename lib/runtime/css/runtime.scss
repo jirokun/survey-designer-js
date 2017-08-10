@@ -139,3 +139,10 @@ $form-error-content-margin-total: $form-error-content-margin * 2;
   background-image: none;
   border: 1px solid #666;
 }
+
+img.popup {
+  cursor: pointer;
+  &.err {
+    border: 2px solid #bf0303;
+  }
+}
