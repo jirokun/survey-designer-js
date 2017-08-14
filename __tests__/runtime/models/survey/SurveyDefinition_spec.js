@@ -13,9 +13,12 @@ import hasJavaScriptSurvey from './survey_definition/hasJavaScriptSurvey.json';
 import isValidPositionOfCompleteFinisherCase1 from './survey_definition/isValidPositionOfCompleteFinisherCase1.json';
 import isValidPositionOfCompleteFinisherCase2 from './survey_definition/isValidPositionOfCompleteFinisherCase2.json';
 import isValidPositionOfCompleteFinisherCase3 from './survey_definition/isValidPositionOfCompleteFinisherCase3.json';
+import isValidPositionOfCompleteFinisherCase4 from './survey_definition/isValidPositionOfCompleteFinisherCase4.json';
+import isValidPositionOfCompleteFinisherCase5 from './survey_definition/isValidPositionOfCompleteFinisherCase5.json';
 import isValidCompleteFinisherCase1 from './survey_definition/isValidCompleteFinisherCase1.json';
 import isValidCompleteFinisherCase2 from './survey_definition/isValidCompleteFinisherCase2.json';
 import isValidCompleteFinisherCase3 from './survey_definition/isValidCompleteFinisherCase3.json';
+import isValidCompleteFinisherCase4 from './survey_definition/isValidCompleteFinisherCase4.json';
 import getFinisherNodesValid from './survey_definition/getFinisherNodesValid.json';
 
 describe('SurveyDefinition', () => {
@@ -231,18 +234,20 @@ describe('SurveyDefinition', () => {
     });
   });
 
-  describe('findFollowingPageNodeIds', () => {
+  describe('findFollowingPageAndBranchNodeIds', () => {
     it('branchのnodeIdを指定し以降のpageを指し示すnodeIdを一覧することができる', () => {
-      const result = state.getSurvey().findFollowingPageNodeIds('F002');
-      expect(result.length).toBe(1);
-      expect(result[0]).toBe('F003');
+      const result = state.getSurvey().findFollowingPageAndBranchNodeIds('F002');
+      expect(result.length).toBe(2);
+      expect(result[0]).toBe('F002');
+      expect(result[1]).toBe('F003');
     });
 
     it('pageのnodeIdを指定し以降のpageを指し示すnodeIdを一覧することができる', () => {
-      const result = state.getSurvey().findFollowingPageNodeIds('F001');
-      expect(result.length).toBe(2);
+      const result = state.getSurvey().findFollowingPageAndBranchNodeIds('F001');
+      expect(result.length).toBe(3);
       expect(result[0]).toBe('F001');
-      expect(result[1]).toBe('F003');
+      expect(result[1]).toBe('F002');
+      expect(result[2]).toBe('F003');
     });
   });
 
@@ -432,6 +437,16 @@ describe('SurveyDefinition', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase3 }).getSurvey();
       expect(survey.isValidPositionOfCompleteFinisher()).toBe(false);
     });
+
+    it('BRANCH => FINISHER:COMPLETE => FINISHER:SCREEN の場合はOK', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase4 }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(true);
+    });
+
+    it('PAGE => BRANCH => FINISHER:SCREEN => FINISHER:COMPLETE の場合はOK', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase5 }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(false);
+    });
   });
 
   describe('isValidFinisher', () => {
@@ -448,6 +463,11 @@ describe('SurveyDefinition', () => {
     it('PAGE => FINISHER:COMPLETE => FINISHER:SCREEN の場合はOK', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase3 }).getSurvey();
       expect(survey.isValidFinisher()).toBe(true);
+    });
+
+    it('FINISHER:COMPLETE => BRANCH => FINISHER:SCREEN の場合はNG', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase4 }).getSurvey();
+      expect(survey.isValidFinisher()).toBe(false);
     });
   });
 });
