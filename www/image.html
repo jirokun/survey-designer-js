@@ -18,29 +18,17 @@
     </style>
   </head>
   <body>
-    <div id="global-navigation">
-      Header
-    </div>
     <div id="root">
     </div>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/node_modules/tinymce/tinymce.min.js"></script>
-    <script src="/static/editor.bundle.js"></script>
+    <script src="/static/image.bundle.js"></script>
     <script>
-$.getJSON('/sample.json').then(function(survey) {
-  var el = document.getElementById('root');
-  SurveyDesigner.Editor(el, {
-    survey: survey,
-    options: {
-      previewUrl: '/preview.html',
-      showDetailUrl: '/detail.html',
-      imageManagerUrl: '/image.html',
-      imageListUrl: '/images.json',
-      saveImageUrl: '/save',
-      deleteImageUrl: '/delete',
-    },
-  });
+var el = document.getElementById('root');
+SurveyDesigner.Image(el, {
+  imageListUrl: '/images/images.json',
+  uploadImageUrl: '/images/save',
+  deleteImageUrl: '/images/delete',
 });
     </script>
   </body>

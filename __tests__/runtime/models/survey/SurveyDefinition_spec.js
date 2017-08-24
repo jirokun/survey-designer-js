@@ -2,14 +2,24 @@
 import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
 import VisibilityConditionDefinition from '../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
 import sample1 from '../sample1.json';
-import noBranchSurvey from './SurveyDefinition_noBranchSurvey.json';
-import hasNotScreeningBranchSurvey from './SurveyDefinition_hasNotScreeningBranchSurvey.json';
-import hasScreeningBranchSurvey from './SurveyDefinition_hasScreeningBranchSurvey.json';
-import hasReferenceInPageSurvey from './SurveyDefinition_hasReferenceInPageSurvey.json';
-import hasReferenceInFinisherSurvey from './SurveyDefinition_hasReferenceInFinisherSurvey.json';
-import hasNoReferenceSurvey from './SurveyDefinition_hasNoReferenceSurvey.json';
-import hasLogicalVariablesSurvey from './SurveyDefinition_hasLogicalVariablesSurvey.json';
-import hasJavaScriptSurvey from './SurveyDefinition_hasJavaScriptSurvey.json';
+import noBranchSurvey from './survey_definition/noBranchSurvey.json';
+import hasNotScreeningBranchSurvey from './survey_definition/hasNotScreeningBranchSurvey.json';
+import hasScreeningBranchSurvey from './survey_definition/hasScreeningBranchSurvey.json';
+import hasReferenceInPageSurvey from './survey_definition/hasReferenceInPageSurvey.json';
+import hasReferenceInFinisherSurvey from './survey_definition/hasReferenceInFinisherSurvey.json';
+import hasNoReferenceSurvey from './survey_definition/hasNoReferenceSurvey.json';
+import hasLogicalVariablesSurvey from './survey_definition/hasLogicalVariablesSurvey.json';
+import hasJavaScriptSurvey from './survey_definition/hasJavaScriptSurvey.json';
+import isValidPositionOfCompleteFinisherCase1 from './survey_definition/isValidPositionOfCompleteFinisherCase1.json';
+import isValidPositionOfCompleteFinisherCase2 from './survey_definition/isValidPositionOfCompleteFinisherCase2.json';
+import isValidPositionOfCompleteFinisherCase3 from './survey_definition/isValidPositionOfCompleteFinisherCase3.json';
+import isValidPositionOfCompleteFinisherCase4 from './survey_definition/isValidPositionOfCompleteFinisherCase4.json';
+import isValidPositionOfCompleteFinisherCase5 from './survey_definition/isValidPositionOfCompleteFinisherCase5.json';
+import isValidCompleteFinisherCase1 from './survey_definition/isValidCompleteFinisherCase1.json';
+import isValidCompleteFinisherCase2 from './survey_definition/isValidCompleteFinisherCase2.json';
+import isValidCompleteFinisherCase3 from './survey_definition/isValidCompleteFinisherCase3.json';
+import isValidCompleteFinisherCase4 from './survey_definition/isValidCompleteFinisherCase4.json';
+import getFinisherNodesValid from './survey_definition/getFinisherNodesValid.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -41,6 +51,19 @@ describe('SurveyDefinition', () => {
     it('nodesが取得できる', () => {
       const nodes = state.getSurvey().getNodes();
       expect(nodes.size).toBe(4);
+      expect(nodes.get(0).constructor.name).toBe('NodeDefinition');
+    });
+
+    it('存在しないnodeIdを指定すると例外が発生する', () => {
+      expect(state.getSurvey().findNode('NONE')).toBeNull();
+    });
+  });
+
+  describe('getFinisherNodes', () => {
+    it('finisherのnodesが取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson(getFinisherNodesValid).getSurvey();
+      const nodes = survey.getFinisherNodes();
+      expect(nodes.size).toBe(2);
       expect(nodes.get(0).constructor.name).toBe('NodeDefinition');
     });
 
@@ -194,7 +217,7 @@ describe('SurveyDefinition', () => {
     });
   });
 
-  describe('findFollowingPageNodeIds', () => {
+  describe('findFollowingPageAndFinisherNodeIds', () => {
     it('branchのnodeIdを指定し以降のpageとfinisherを指し示すnodeIdを一覧することができる', () => {
       const result = state.getSurvey().findFollowingPageAndFinisherNodeIds('F002');
       expect(result.length).toBe(2);
@@ -211,6 +234,22 @@ describe('SurveyDefinition', () => {
     });
   });
 
+  describe('findFollowingPageAndBranchNodeIds', () => {
+    it('branchのnodeIdを指定し以降のpageを指し示すnodeIdを一覧することができる', () => {
+      const result = state.getSurvey().findFollowingPageAndBranchNodeIds('F002');
+      expect(result.length).toBe(2);
+      expect(result[0]).toBe('F002');
+      expect(result[1]).toBe('F003');
+    });
+
+    it('pageのnodeIdを指定し以降のpageを指し示すnodeIdを一覧することができる', () => {
+      const result = state.getSurvey().findFollowingPageAndBranchNodeIds('F001');
+      expect(result.length).toBe(3);
+      expect(result[0]).toBe('F001');
+      expect(result[1]).toBe('F002');
+      expect(result[2]).toBe('F003');
+    });
+  });
 
   describe('calcPageNo', () => {
     it('ページ番号を取得できる', () => {
@@ -380,6 +419,55 @@ describe('SurveyDefinition', () => {
     it('visibilityConditionがない', () => {
       const survey = state.getSurvey();
       expect(survey.hasVisibilityCondition()).toBe(false);
+    });
+  });
+
+  describe('isValidPositionOfCompleteFinisher', () => {
+    it('最後のページの次がCOMPLETEである', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase1 }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(true);
+    });
+
+    it('最後のページの次がCOMPLETEでない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase2 }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(false);
+    });
+
+    it('PAGE => FINISHER:SCREEN => FINISHER:COMPLETE の場合はNG', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase3 }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(false);
+    });
+
+    it('BRANCH => FINISHER:COMPLETE => FINISHER:SCREEN の場合はOK', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase4 }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(true);
+    });
+
+    it('PAGE => BRANCH => FINISHER:SCREEN => FINISHER:COMPLETE の場合はOK', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidPositionOfCompleteFinisherCase5 }).getSurvey();
+      expect(survey.isValidPositionOfCompleteFinisher()).toBe(false);
+    });
+  });
+
+  describe('isValidFinisher', () => {
+    it('FINISHER:SCREEN => PAGE => FINISHER:COMPLETE の場合はNG', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase1 }).getSurvey();
+      expect(survey.isValidFinisher()).toBe(false);
+    });
+
+    it('FINISHER:COMPLETE => PAGE => FINISHER:SCREEN の場合はNG', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase2 }).getSurvey();
+      expect(survey.isValidFinisher()).toBe(false);
+    });
+
+    it('PAGE => FINISHER:COMPLETE => FINISHER:SCREEN の場合はOK', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase3 }).getSurvey();
+      expect(survey.isValidFinisher()).toBe(true);
+    });
+
+    it('FINISHER:COMPLETE => BRANCH => FINISHER:SCREEN の場合はNG', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase4 }).getSurvey();
+      expect(survey.isValidFinisher()).toBe(false);
     });
   });
 });
