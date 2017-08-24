@@ -1,0 +1,14 @@
+.allJavaScriptEditor {
+  &__title {
+    padding: 0 10px 5px;
+    font-size: 18px;
+  }
+
+  &__btn-save, &__btn-close {
+    margin: 0px 5px;
+  }
+}
+
+.CodeMirror {
+  height: 85vh;
+}
