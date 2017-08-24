@@ -76,3 +76,20 @@ $number-input-width: 4em;
 .validation-detail {
   @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
 }
+
+/** 縦書き対応 */
+.vertical-writing {
+  writing-mode: vertical-rl;
+	-ms-writing-mode: tb-rl;
+  -webkit-writing-mode:vertical-rl;
+  height: 100px; 
+  word-wrap : break-word;
+  vertical-align:middle;
+  text-align:center;
+  display:inline;
+}
+
+.col-vertical-writing {
+  vertical-align:middle;
+  text-align:center;
+}
