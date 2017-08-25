@@ -7,8 +7,45 @@
   &__btn-save, &__btn-close {
     margin: 0px 5px;
   }
+
+  &__notification {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    display: inline-block;
+    margin: 0 0 0 10px;
+    padding: 1px 5px;
+    font-size: 13px;
+  }
+
+  @keyframes cssAnimation {
+    to {
+      padding: 0;
+      margin: 0;
+      width:0;
+      height:0;
+      overflow:hidden;
+    }
+  }
+  @-webkit-keyframes cssAnimation {
+    to {
+      padding: 0;
+      margin: 0;
+      width:0;
+      height:0;
+      visibility:hidden;
+    }
+  }
 }
 
 .CodeMirror {
   height: 85vh;
 }
+
+
