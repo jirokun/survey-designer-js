@@ -640,7 +640,7 @@ html, body {
     background-color: #ddd;
   }
 }
-.item-visibility-condition-popover.popover {
+.item-validation-popover.popover, .item-visibility-condition-popover.popover {
   max-width: 800px;
 }
 .item-bulk-add-popover.popover {
@@ -651,3 +651,16 @@ html, body {
   height: 400px;
 }
 
+.individual-number-validation-popover {
+  max-width: 800px;
+  min-height: 200px;
+  .validation-rule {
+    display: table;
+    .individual-number-validation {
+      display: table-row;
+      > * {
+        display: table-cell
+      }
+    }
+  }
+}
