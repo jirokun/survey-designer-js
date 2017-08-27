@@ -76,3 +76,6 @@ $number-input-width: 4em;
 .validation-detail {
   @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
 }
+.number-validation-type {
+  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
+}
