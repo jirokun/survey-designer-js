@@ -1,0 +1,183 @@
+{
+    "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+    "title": "名称未設定",
+    "version": 2,
+    "pages": [
+        {
+            "_id": "cj6u32sgc00023j68k5o0khh1",
+            "questions": [
+                {
+                    "_id": "cj6u330kl00063j681zt4zvz1",
+                    "dataType": "MultiNumber",
+                    "title": "設問タイトル",
+                    "plainTitle": "設問タイトル",
+                    "description": "",
+                    "random": false,
+                    "subItemsRandom": false,
+                    "unit": "",
+                    "items": [
+                        {
+                            "_id": "cj6u330kl00073j68cdmyznj4",
+                            "index": 0,
+                            "label": "名称未設定",
+                            "plainLabel": "名称未設定",
+                            "value": "",
+                            "additionalInput": false,
+                            "additionalInputType": "text",
+                            "unit": "",
+                            "randomFixed": false,
+                            "exclusive": false,
+                            "visibilityCondition": null,
+                            "totalEqualTo": ""
+                        }
+                    ],
+                    "subItems": [
+                        {
+                            "_id": "cj6u32s6k00013j68ijrnwlzs",
+                            "index": 0,
+                            "label": "名称未設定",
+                            "plainLabel": "名称未設定",
+                            "value": "",
+                            "additionalInput": false,
+                            "additionalInputType": "text",
+                            "unit": "",
+                            "randomFixed": false,
+                            "exclusive": false,
+                            "visibilityCondition": null,
+                            "totalEqualTo": ""
+                        }
+                    ],
+                    "showTotal": false,
+                    "matrixType": null,
+                    "matrixReverse": false,
+                    "matrixSumRows": false,
+                    "matrixSumCols": false,
+                    "totalEqualTo": "",
+                    "minCheckCount": 1,
+                    "maxCheckCount": 0,
+                    "min": "",
+                    "max": "",
+                    "numberValidationRuleMap": {}
+                }
+            ],
+            "logicalVariables": [
+                {
+                    "_id": "cj6u339cf000i3j68ir0kwb37",
+                    "variableName": "000",
+                    "operands": [
+                        "cj6u330kl00073j68cdmyznj4",
+                        "cj6u330kl00073j68cdmyznj4"
+                    ],
+                    "operators": [
+                        "+"
+                    ]
+                }
+            ],
+            "javaScriptCode": ""
+        },
+        {
+            "_id": "cj6u331yn000a3j68rghajsrp",
+            "questions": [
+                {
+                    "_id": "cj6u333tl000c3j686m1gkv3w",
+                    "dataType": "MultiNumber",
+                    "title": "設問タイトル",
+                    "plainTitle": "設問タイトル",
+                    "description": "",
+                    "random": false,
+                    "subItemsRandom": false,
+                    "unit": "",
+                    "items": [
+                        {
+                            "_id": "cj6u333tl000d3j68idm4u7rz",
+                            "index": 0,
+                            "label": "名称未設定",
+                            "plainLabel": "名称未設定",
+                            "value": "",
+                            "additionalInput": false,
+                            "additionalInputType": "text",
+                            "unit": "",
+                            "randomFixed": false,
+                            "exclusive": false,
+                            "visibilityCondition": null,
+                            "totalEqualTo": ""
+                        }
+                    ],
+                    "subItems": [
+                        {
+                            "_id": "cj6u32s6k00013j68ijrnwlzs",
+                            "index": 0,
+                            "label": "名称未設定",
+                            "plainLabel": "名称未設定",
+                            "value": "",
+                            "additionalInput": false,
+                            "additionalInputType": "text",
+                            "unit": "",
+                            "randomFixed": false,
+                            "exclusive": false,
+                            "visibilityCondition": null,
+                            "totalEqualTo": ""
+                        }
+                    ],
+                    "showTotal": false,
+                    "matrixType": null,
+                    "matrixReverse": false,
+                    "matrixSumRows": false,
+                    "matrixSumCols": false,
+                    "totalEqualTo": "",
+                    "minCheckCount": 1,
+                    "maxCheckCount": 0,
+                    "min": "",
+                    "max": "",
+                    "numberValidationRuleMap": {}
+                }
+            ],
+            "logicalVariables": [
+                {
+                    "_id": "cj6u33itz000l3j687zsxond1",
+                    "variableName": "000",
+                    "operands": [
+                        "cj6u330kl00073j68cdmyznj4",
+                        "cj6u339cf000i3j68ir0kwb37",
+                        "cj6u333tl000d3j68idm4u7rz"
+                    ],
+                    "operators": [
+                        "+",
+                        "+"
+                    ]
+                }
+            ],
+            "javaScriptCode": ""
+        }
+    ],
+    "branches": [],
+    "finishers": [
+        {
+            "_id": "cj6u32sge00043j68tzdy2to8",
+            "finishType": "COMPLETE",
+            "point": 0,
+            "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+        }
+    ],
+    "nodes": [
+        {
+            "_id": "cj6u32sgc00033j68kjtaj925",
+            "type": "page",
+            "refId": "cj6u32sgc00023j68k5o0khh1",
+            "nextNodeId": "cj6u331yn000b3j68vrw3rbfk"
+        },
+        {
+            "_id": "cj6u331yn000b3j68vrw3rbfk",
+            "type": "page",
+            "refId": "cj6u331yn000a3j68rghajsrp",
+            "nextNodeId": "cj6u32sge00053j68vapo6iyi"
+        },
+        {
+            "_id": "cj6u32sge00053j68vapo6iyi",
+            "type": "finisher",
+            "refId": "cj6u32sge00043j68tzdy2to8",
+            "nextNodeId": null
+        }
+    ],
+    "panel": null
+}

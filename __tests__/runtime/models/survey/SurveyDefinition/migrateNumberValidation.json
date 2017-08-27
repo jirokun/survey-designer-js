@@ -1,0 +1,343 @@
+{
+  "_id": "cbdb9cc0-88f2-11e7-8d37-525400fb2293",
+  "title": "数値制限のmigrateテスト用",
+  "version": 2,
+  "pages": [
+    {
+      "_id": "cj6rk9sn8000i3k68lsw9woam",
+      "questions": [
+        {
+          "_id": "cj6rka444000p3k68jronwu4m",
+          "dataType": "MultiNumber",
+          "title": "<p>数値入力(固定値)</p>",
+          "plainTitle": "数値入力(固定値)",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj6rka444000q3k6844u5sckf",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "1",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            },
+            {
+              "_id": "cj6rkbbr8000w3k68qjoeqf2r",
+              "index": 1,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "2",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj6rk4ubz00013k68jkpigveo",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": true,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "30",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "10",
+          "max": "20"
+        },
+        {
+          "_id": "cj6rkbv0j00133k68fv5ovyec",
+          "dataType": "Matrix",
+          "title": "<p>表形式 数値(固定値)</p>",
+          "plainTitle": "表形式 数値(固定値)",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj6rkbv0j00143k68wgtqptkl",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": "3"
+            },
+            {
+              "_id": "cj6rkcnz1001a3k68k6s04oki",
+              "index": 1,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": "7"
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj6rkbv0j00153k68t7dgni2y",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": "4"
+            },
+            {
+              "_id": "cj6rkcol3001c3k68ulxowpfb",
+              "index": 1,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": "8"
+            }
+          ],
+          "showTotal": false,
+          "matrixType": "number",
+          "matrixReverse": false,
+          "matrixSumRows": true,
+          "matrixSumCols": true,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
+        }
+      ],
+      "logicalVariables": [],
+      "javaScriptCode": ""
+    },
+    {
+      "_id": "cj6rkdv8f001e3k68bs9vy76j",
+      "questions": [
+        {
+          "_id": "cj6rkdzt1001g3k68vrmn4bym",
+          "dataType": "MultiNumber",
+          "title": "<p>数値入力(回答値)</p>",
+          "plainTitle": "数値入力(回答値)",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj6rkdzt1001h3k68twexkru0",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "1",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            },
+            {
+              "_id": "cj6rkexly00283k683nhikfg4",
+              "index": 1,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "2",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj6rk4ubz00013k68jkpigveo",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
+        },
+        {
+          "_id": "cj6rke2l1001m3k68td914843",
+          "dataType": "Matrix",
+          "title": "<p>表形式(回答値)</p>",
+          "plainTitle": "表形式(回答値)",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj6rke2l1001n3k68w5lduxfc",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": "{{cj6rka444000q3k6844u5sckf.answer}}"
+            },
+            {
+              "_id": "cj6rkhf3i002b3k68aewmsryc",
+              "index": 1,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": "{{cj6rkbbr8000w3k68qjoeqf2r.answer}}"
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj6rke2l1001o3k68dtih37ni",
+              "index": 0,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": "{{cj6rka444000q3k6844u5sckf.answer}}"
+            },
+            {
+              "_id": "cj6rkhfmf002d3k689ysdhra1",
+              "index": 1,
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": "{{cj6rkbbr8000w3k68qjoeqf2r.answer}}"
+            }
+          ],
+          "showTotal": false,
+          "matrixType": "number",
+          "matrixReverse": false,
+          "matrixSumRows": true,
+          "matrixSumCols": true,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": ""
+        }
+      ],
+      "logicalVariables": [],
+      "javaScriptCode": ""
+    }
+  ],
+  "branches": [],
+  "finishers": [
+    {
+      "_id": "cj6qqd3b8000a3d6x7c16ekwb",
+      "finishType": "COMPLETE",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+    }
+  ],
+  "nodes": [
+    {
+      "_id": "cj6rk9sn8000j3k68dby2muse",
+      "type": "page",
+      "refId": "cj6rk9sn8000i3k68lsw9woam",
+      "nextNodeId": "cj6rkdv8f001f3k68gr65w261"
+    },
+    {
+      "_id": "cj6rkdv8f001f3k68gr65w261",
+      "type": "page",
+      "refId": "cj6rkdv8f001e3k68bs9vy76j",
+      "nextNodeId": "cj6qqd3b8000b3d6xw73sa9vr"
+    },
+    {
+      "_id": "cj6qqd3b8000b3d6xw73sa9vr",
+      "type": "finisher",
+      "refId": "cj6qqd3b8000a3d6x7c16ekwb",
+      "nextNodeId": null
+    }
+  ],
+  "panel": null
+}
