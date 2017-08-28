@@ -199,4 +199,42 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.get(3).getOutputNo()).toBe('1-1-2-1-additional');
     });
   });
+
+  describe('getAdditionalOutputDevId', () => {
+    it('追加記入のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getAdditionalOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy1_yy2_text');
+    });
+
+    it('行列逆の場合、追加記入用のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition({ matrixReverse: true });
+      expect(question.getAdditionalOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy2_yy1_text');
+    });
+  });
+
+  describe('getOutputDevId', () => {
+    it('追加記入のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy1_yy2');
+    });
+
+    it('行列逆の場合、追加記入用のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition({ matrixReverse: true });
+      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy2_yy1');
+    });
+  });
+
+  describe('getOutputTotalRowDevId', () => {
+    it('追加記入のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getOutputTotalRowDevId('ww1_xx1_yy1')).toBe('ww1_xx1_yy1_total_row');
+    });
+  });
+
+  describe('getOutputTotalColDevId', () => {
+    it('追加記入のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getOutputTotalColDevId('ww1_xx1_yy2')).toBe('ww1_xx1_yy2_total_column');
+    });
+  });
 });

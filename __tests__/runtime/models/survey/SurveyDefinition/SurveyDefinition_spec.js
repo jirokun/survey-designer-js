@@ -1,25 +1,30 @@
 /* eslint-env jest */
-import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
-import VisibilityConditionDefinition from '../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
-import sample1 from '../sample1.json';
-import noBranchSurvey from './survey_definition/noBranchSurvey.json';
-import hasNotScreeningBranchSurvey from './survey_definition/hasNotScreeningBranchSurvey.json';
-import hasScreeningBranchSurvey from './survey_definition/hasScreeningBranchSurvey.json';
-import hasReferenceInPageSurvey from './survey_definition/hasReferenceInPageSurvey.json';
-import hasReferenceInFinisherSurvey from './survey_definition/hasReferenceInFinisherSurvey.json';
-import hasNoReferenceSurvey from './survey_definition/hasNoReferenceSurvey.json';
-import hasLogicalVariablesSurvey from './survey_definition/hasLogicalVariablesSurvey.json';
-import hasJavaScriptSurvey from './survey_definition/hasJavaScriptSurvey.json';
-import isValidPositionOfCompleteFinisherCase1 from './survey_definition/isValidPositionOfCompleteFinisherCase1.json';
-import isValidPositionOfCompleteFinisherCase2 from './survey_definition/isValidPositionOfCompleteFinisherCase2.json';
-import isValidPositionOfCompleteFinisherCase3 from './survey_definition/isValidPositionOfCompleteFinisherCase3.json';
-import isValidPositionOfCompleteFinisherCase4 from './survey_definition/isValidPositionOfCompleteFinisherCase4.json';
-import isValidPositionOfCompleteFinisherCase5 from './survey_definition/isValidPositionOfCompleteFinisherCase5.json';
-import isValidCompleteFinisherCase1 from './survey_definition/isValidCompleteFinisherCase1.json';
-import isValidCompleteFinisherCase2 from './survey_definition/isValidCompleteFinisherCase2.json';
-import isValidCompleteFinisherCase3 from './survey_definition/isValidCompleteFinisherCase3.json';
-import isValidCompleteFinisherCase4 from './survey_definition/isValidCompleteFinisherCase4.json';
-import getFinisherNodesValid from './survey_definition/getFinisherNodesValid.json';
+import { Map } from 'immutable';
+import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
+import VisibilityConditionDefinition from '../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
+import sample1 from '../../sample1.json';
+import noBranchSurvey from './noBranchSurvey.json';
+import hasNotScreeningBranchSurvey from './hasNotScreeningBranchSurvey.json';
+import hasScreeningBranchSurvey from './hasScreeningBranchSurvey.json';
+import hasReferenceInPageSurvey from './hasReferenceInPageSurvey.json';
+import hasReferenceInFinisherSurvey from './hasReferenceInFinisherSurvey.json';
+import hasNoReferenceSurvey from './hasNoReferenceSurvey.json';
+import hasLogicalVariablesSurvey from './hasLogicalVariablesSurvey.json';
+import hasJavaScriptSurvey from './hasJavaScriptSurvey.json';
+import isValidPositionOfCompleteFinisherCase1 from './isValidPositionOfCompleteFinisherCase1.json';
+import isValidPositionOfCompleteFinisherCase2 from './isValidPositionOfCompleteFinisherCase2.json';
+import isValidPositionOfCompleteFinisherCase3 from './isValidPositionOfCompleteFinisherCase3.json';
+import isValidPositionOfCompleteFinisherCase4 from './isValidPositionOfCompleteFinisherCase4.json';
+import isValidPositionOfCompleteFinisherCase5 from './isValidPositionOfCompleteFinisherCase5.json';
+import isValidCompleteFinisherCase1 from './isValidCompleteFinisherCase1.json';
+import isValidCompleteFinisherCase2 from './isValidCompleteFinisherCase2.json';
+import isValidCompleteFinisherCase3 from './isValidCompleteFinisherCase3.json';
+import isValidCompleteFinisherCase4 from './isValidCompleteFinisherCase4.json';
+import getFinisherNodesValid from './getFinisherNodesValid.json';
+import findNextPageIdFromRefId from './findNextpageIdFromRefId.json';
+import findOutputDevIdFromName from './findOutputDevIdFromName.json';
+import updateAllJavaScript from './updateAllJavaScript.json';
+import getAllDevIds from './getAllDevIds.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -468,6 +473,75 @@ describe('SurveyDefinition', () => {
     it('FINISHER:COMPLETE => BRANCH => FINISHER:SCREEN の場合はNG', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase4 }).getSurvey();
       expect(survey.isValidFinisher()).toBe(false);
+    });
+  });
+
+  describe('findNextPageIdFromRefId', () => {
+    it('次のページがあるなら、idを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageIdFromRefId }).getSurvey();
+      expect(survey.findNextPageIdFromRefId('cj1pzhzdg00023j66pvgv5plq')).toBe('cj1q0g8au001s3j66v7lvbklq');
+    });
+
+    it('次のページがないなら、nullを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageIdFromRefId }).getSurvey();
+      expect(survey.findNextPageIdFromRefId('cj1q0g8au001s3j66v7lvbklq')).toBe(null);
+    });
+  });
+
+  describe('findOutputDevIdFromName', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: findOutputDevIdFromName }).getSurvey();
+      expect(survey.findOutputDevIdFromName('cj1q0g6p5001o3j66hp2fwios__value1')).toBe('www_xx1_yy1');
+    });
+
+    it('存在しないnameなら、nullを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: findOutputDevIdFromName }).getSurvey();
+      expect(survey.findOutputDevIdFromName('invalid_name')).toBe(null);
+    });
+  });
+
+  describe('updateAllJavaScript', () => {
+    it('前ページのJavaScriptを更新する', () => {
+      const id2Key = new Map()
+        .set('cj1pzhzdg00023j66pvgv5plq', 'update after 1')
+        .set('cj1q0g8au001s3j66v7lvbklq', 'update after 2');
+
+      const survey = SurveyDesignerState.createFromJson({ survey: updateAllJavaScript }).getSurvey();
+      const newSurvey = survey.updateAllJavaScript(id2Key, new Date());
+      expect(newSurvey.findPage('cj1pzhzdg00023j66pvgv5plq').getJavaScriptCode()).toBe('update after 1');
+      expect(newSurvey.findPage('cj1q0g8au001s3j66v7lvbklq').getJavaScriptCode()).toBe('update after 2');
+    });
+  });
+
+  describe('getAllPageDevIds', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
+      const devIds = survey.getAllPageDevIds();
+      expect(devIds.toArray()).toEqual(['ww1', 'ww2']);
+    });
+  });
+
+  describe('getAllQuestionDevIds', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
+      const devIds = survey.getAllQuestionDevIds();
+      expect(devIds.toArray()).toEqual(['ww1_xx1', 'ww2_xx2']);
+    });
+  });
+
+  describe('getAllItemDevIds', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
+      const devIds = survey.getAllItemDevIds();
+      expect(devIds.toArray()).toEqual(['ww1_xx1_yy1', 'ww2_xx2_yy3']);
+    });
+  });
+
+  describe('getAllSubItemDevIds', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
+      const devIds = survey.getAllSubItemDevIds();
+      expect(devIds.toArray()).toEqual(['ww1_xx1_yy2', 'ww2_xx2_yy4']);
     });
   });
 });
