@@ -42,6 +42,7 @@ class QuestionEditorPage {
   setLabel(index, label) {
     const questionEl = this.findQuestionElement();
     const itemEditorRowEl = questionEl.elements('.item-editor-row').value[index];
+    browser.pause(100);
     itemEditorRowEl.click('.html-editor');
     itemEditorRowEl.click('.item-editor-tinymce');
     itemEditorRowEl.setValue('.item-editor-tinymce', label);
@@ -50,6 +51,7 @@ class QuestionEditorPage {
   addItem(index) {
     if (index === 0) throw new Error('QuestionEditorPage.addItemに0は指定できません');
     const questionEl = this.findQuestionElement();
+    browser.pause(50);
     questionEl.elements('.item-editor-row').value[index - 1].click('.glyphicon-plus-sign');
   }
 
