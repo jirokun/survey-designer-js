@@ -57,25 +57,3 @@ $number-input-width: 4em;
   z-index: 1;
 }
 
-.detail-function {
-  @include tag($background-color-detail-function, $color-detail-function, $background-color-detail-function);
-}
-
-.fixed-value {
-  @include tag($background-color-fixed-value, $color-fixed-value, $background-color-fixed-value);
-}
-
-.alert-value {
-  @include tag($background-color-alert-value, $color-alert-value, $background-color-alert-value);
-}
-
-.answer-value {
-  @include tag($background-color-answer-value, $color-answer-value, $border-color-answer-value);
-}
-
-.validation-detail {
-  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
-}
-.number-validation-type {
-  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
-}
