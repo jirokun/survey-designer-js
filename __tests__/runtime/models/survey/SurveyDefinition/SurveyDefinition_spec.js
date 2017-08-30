@@ -1,7 +1,7 @@
 /* eslint-env jest */
-import { Map } from 'immutable';
 import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
 import VisibilityConditionDefinition from '../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
+import AllJavaScriptCode from '../../../../../lib/editor/models/AllJavaScriptCode';
 import sample1 from '../../sample1.json';
 import noBranchSurvey from './noBranchSurvey.json';
 import hasNotScreeningBranchSurvey from './hasNotScreeningBranchSurvey.json';
@@ -500,14 +500,12 @@ describe('SurveyDefinition', () => {
     });
   });
 
-  describe('updateAllJavaScript', () => {
+  describe('updateAllJavaScriptCode', () => {
     it('前ページのJavaScriptを更新する', () => {
-      const id2Key = new Map()
-        .set('cj1pzhzdg00023j66pvgv5plq', 'update after 1')
-        .set('cj1q0g8au001s3j66v7lvbklq', 'update after 2');
+      const allJavaScriptCode = new AllJavaScriptCode({ code: '// Page Start: cj1pzhzdg00023j66pvgv5plq\nupdate after 1\n// Page End: cj1pzhzdg00023j66pvgv5plq\n// Page Start: cj1q0g8au001s3j66v7lvbklq\nupdate after 2\n// Page End: cj1q0g8au001s3j66v7lvbklq\n' });
 
       const survey = SurveyDesignerState.createFromJson({ survey: updateAllJavaScript }).getSurvey();
-      const newSurvey = survey.updateAllJavaScript(id2Key, new Date());
+      const newSurvey = survey.updateAllJavaScriptCode(allJavaScriptCode);
       expect(newSurvey.findPage('cj1pzhzdg00023j66pvgv5plq').getJavaScriptCode()).toBe('update after 1');
       expect(newSurvey.findPage('cj1q0g8au001s3j66v7lvbklq').getJavaScriptCode()).toBe('update after 2');
     });
