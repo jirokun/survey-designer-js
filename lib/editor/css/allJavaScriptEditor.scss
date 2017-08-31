@@ -1,7 +1,12 @@
 .allJavaScriptEditor {
+  display: flex;
+  flex-direction: column;
+
   &__title {
     padding: 0 10px 5px;
     font-size: 18px;
+    height: 38px;
+    margin: 5px 0 0 0;
   }
 
   &__btn-save, &__btn-close {
@@ -42,12 +47,15 @@
       visibility:hidden;
     }
   }
-}
 
-.CodeMirror {
-  height: 90vh;
-  border: #AAA solid 1px;
-  margin: 10px;
+  .ReactCodeMirror {
+    height: calc(100% - 38px);
+    .CodeMirror {
+      height: 100%;
+      border: #AAA solid 1px;
+      box-sizing: border-box;
+    }
+  }
 }
 
 
