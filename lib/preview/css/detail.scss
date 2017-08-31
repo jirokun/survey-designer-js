@@ -139,6 +139,14 @@ html, body {
   .output-no {
     @include tag(#312, #fff, #756);
   }
+
+  .dev-id {
+    @include tag(#aaa, #fff, #ccc);
+    border-radius: 2px;
+    padding: 2px 4px;
+    font-size: 10px;
+    font-weight: normal;
+  }
 }
 
 @media print {
