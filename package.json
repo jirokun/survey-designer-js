@@ -56,6 +56,7 @@
     "json-loader": "^0.5.4",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
+    "mutationobserver-shim": "^0.3.2",
     "node-env-file": "^0.1.8",
     "node-libs-browser": "^2.0.0",
     "node-sass": "^4.5.3",
@@ -125,10 +126,10 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
-    "wdio-dot-reporter": "0.0.8",
-    "wdio-mocha-framework": "^0.5.10",
-    "wdio-selenium-standalone-service": "0.0.8",
-    "wdio-spec-reporter": "^0.1.0",
+    "wdio-dot-reporter": "^0.0.9",
+    "wdio-mocha-framework": "^0.5.11",
+    "wdio-selenium-standalone-service": "^0.0.9",
+    "wdio-spec-reporter": "^0.1.2",
     "webdriverio": "^4.8.0"
   }
 }

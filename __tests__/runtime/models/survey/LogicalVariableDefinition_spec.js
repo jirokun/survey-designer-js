@@ -1,31 +1,23 @@
 /* eslint-env jest */
-import { List, Map } from 'immutable';
-import LogicalVariableDefinition from '../../../../lib/runtime/models/survey/LogicalVariableDefinition';
-import OutputDefinition from '../../../../lib/runtime/models/survey/questions/internal/OutputDefinition';
+import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
+import hasMultiplePagesAndLogicalVariablesSurvey from './survey_definition/hasMultiplePagesAndLogicalVariablesSurvey.json';
 
 describe('LogicalVariableDefinition', () => {
   describe('createFunction', () => {
-    it('関数を生成する', () => {
-      const lv = new LogicalVariableDefinition({
-        _id: '000',
-        variableName: 'name1',
-        operators: List(['+']),
-        operands: List(['od1', 'od2']),
-      });
-      const odList = Map().set('od1', new OutputDefinition({
-        _id: 'od1',
-        name: 'od1-name',
-        label: 'label',
-        outputType: 'number',
-        outputNo: '1-1-1',
-      })).set('od2', new OutputDefinition({
-        _id: 'od2',
-        name: 'od2-name',
-        label: 'label',
-        outputType: 'number',
-        outputNo: '1-1-2',
-      }));
-      expect(lv.createFunctionCode(odList)).toBe(`return parseInt(answers[\'od1-name\'], 10)+parseInt(answers[\'od2-name\'], 10)`);
+    it('同じページの数値記入の足し算の場合', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasMultiplePagesAndLogicalVariablesSurvey }).getSurvey();
+      const page = survey.getPages().get(0);
+      const logicalVariable = page.getLogicalVariables().get(0);
+      const result = logicalVariable.createFunctionCode(survey, page);
+      expect(result).toBe(`return (parseInt($('*[name=\"cj6u330kl00063j681zt4zvz1__value1\"]:enabled:visible').val(), 10) || 0)+(parseInt($('*[name=\"cj6u330kl00063j681zt4zvz1__value1\"]:enabled:visible').val(), 10) || 0)`);
+    });
+
+    it('前のページの数値記入とロジック変数と現在のページの数値記入の足し算の場合', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasMultiplePagesAndLogicalVariablesSurvey }).getSurvey();
+      const page = survey.getPages().get(1);
+      const logicalVariable = page.getLogicalVariables().get(0);
+      const result = logicalVariable.createFunctionCode(survey, page);
+      expect(result).toBe(`return (parseInt(answers['cj6u330kl00063j681zt4zvz1__value1'], 10) || 0)+(parseInt(answers['cj6u339cf000i3j68ir0kwb37'], 10) || 0)+(parseInt($('*[name=\"cj6u333tl000c3j686m1gkv3w__value1\"]:enabled:visible').val(), 10) || 0)`);
     });
   });
 });

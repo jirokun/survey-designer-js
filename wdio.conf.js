@@ -40,7 +40,7 @@ exports.config = {
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [
-        { maxInstances: 3, browserName: 'chrome' },
+        { maxInstances: 3, browserName: 'chrome', chromeOptions: { useAutomationExtension: false } },
         //{ maxInstances: 1, browserName: 'firefox' },
         //{ maxInstances: 1, browserName: 'safari' },
     ],

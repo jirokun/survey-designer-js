@@ -1,6 +1,8 @@
 /* eslint-env node */
 /* global browser */
 
+const PAUSE_TIME = 200;
+
 class QuestionEditorPage {
   constructor(editorPage, questionNo) {
     this.editorPage = editorPage;
@@ -41,18 +43,22 @@ class QuestionEditorPage {
 
   setLabel(index, label) {
     const questionEl = this.findQuestionElement();
+    browser.pause(PAUSE_TIME);
     const itemEditorRowEl = questionEl.elements('.item-editor-row').value[index];
-    browser.pause(100);
+    browser.pause(PAUSE_TIME);
     itemEditorRowEl.click('.html-editor');
+    browser.pause(PAUSE_TIME);
     itemEditorRowEl.click('.item-editor-tinymce');
+    browser.pause(PAUSE_TIME);
     itemEditorRowEl.setValue('.item-editor-tinymce', label);
   }
 
   addItem(index) {
     if (index === 0) throw new Error('QuestionEditorPage.addItemに0は指定できません');
     const questionEl = this.findQuestionElement();
-    browser.pause(50);
+    browser.pause(PAUSE_TIME);
     questionEl.elements('.item-editor-row').value[index - 1].click('.glyphicon-plus-sign');
+    browser.pause(PAUSE_TIME);
   }
 
   removeItem(index) {

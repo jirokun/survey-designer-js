@@ -25,6 +25,7 @@ import findNextPageIdFromRefId from './findNextpageIdFromRefId.json';
 import findOutputDevIdFromName from './findOutputDevIdFromName.json';
 import updateAllJavaScript from './updateAllJavaScript.json';
 import getAllDevIds from './getAllDevIds.json';
+import migrateNumberValidation from './migrateNumberValidation.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -540,6 +541,113 @@ describe('SurveyDefinition', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
       const devIds = survey.getAllSubItemDevIds();
       expect(devIds.toArray()).toEqual(['ww1_xx1_yy2', 'ww2_xx2_yy4']);
+    });
+  });
+
+  describe('findNumberValidationRuleById', () => {
+    it('NumberValidationRuleを取得できる', () => {
+      const survey = state.getSurvey().updateIn(['pages', 1, 'questions', 0], question => question.addNumberValidation('DUMMY'));
+      const numberValidationRule = survey.getIn(['pages', 1, 'questions', 0, 'numberValidationRuleMap', 'DUMMY', 0]);
+      const actual = survey.findNumberValidationRuleById(numberValidationRule.getId());
+      expect(actual.equals(numberValidationRule)).toBe(true);
+    });
+  });
+
+  describe('migrate', () => {
+    it('MultiNumberの最小値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      // 数値の項目1つ目
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().size).toBe(2);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().get(0).getValue()).toBe('10');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().get(0).getOperator()).toBe('>=');
+
+      // 数値の項目2つ目
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().size).toBe(2);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().get(0).getValue()).toBe('10');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().get(0).getOperator()).toBe('>=');
+    });
+
+    it('MultiNumberの最大値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      // 数値の項目1つ目
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().size).toBe(2);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().get(1).getValue()).toBe('20');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().get(1).getOperator()).toBe('<=');
+
+      // 数値の項目2つ目
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().size).toBe(2);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().get(1).getValue()).toBe('20');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().get(1).getOperator()).toBe('<=');
+    });
+
+    it('MultiNumberの合計値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      // 数値の合計値
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000p3k68jronwu4m__total').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000p3k68jronwu4m__total').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000p3k68jronwu4m__total').get(0).getNumberValidations().get(0).getValue()).toBe('30');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000p3k68jronwu4m__total').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+    });
+
+    it('MatrixQuestionの行の合計値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(1);
+
+      // 行1の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00143k68wgtqptkl_total_row').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00143k68wgtqptkl_total_row').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00143k68wgtqptkl_total_row').get(0).getNumberValidations().get(0).getValue()).toBe('3');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00143k68wgtqptkl_total_row').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+      // 行2の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcnz1001a3k68k6s04oki_total_row').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcnz1001a3k68k6s04oki_total_row').get(0).getNumberValidations().get(0).getValue()).toBe('7');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcnz1001a3k68k6s04oki_total_row').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+    });
+
+    it('MatrixQuestionの列の合計値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(1);
+
+      // 列1の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('4');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+      // 列2の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('8');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+    });
+
+    it('すでに移行済みのものは再度migrate処理を行わない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true })
+        .get('survey')
+        .updateIn(['pages', 0, 'questions', 1], question => question.addNumberValidation('cj6rkcol3001c3k68ulxowpfb_total_column', { value: '999', operator: '!=' }));
+
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(1);
+
+      // 行1の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column')).toBe(undefined);
+      // 行2の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('999');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('!=');
     });
   });
 });
