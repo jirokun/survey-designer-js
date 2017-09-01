@@ -40,14 +40,23 @@ $.getJSON('/sample.json').then(function(survey) {
       saveImageUrl: '/save',
       deleteImageUrl: '/delete',
       cssOptions: [
-        { title: 'XMLモード', urls: [
-          'http://localhost:3000/ignore/compiled.css'
-        ] },
-        { title: 'FSモード', urls: [
-          'https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css',
-          'https://fastsurvey.m3.com/css/common.css',
-          'https://fastsurvey.m3.com/css/survey.css'
-        ] }
+        { title: 'XMLモード',
+          runtimeUrls: [
+            'http://localhost:3000/ignore/compiled.css'
+          ],
+          previewUrls: []
+        },
+        { title: 'FSモード',
+          runtimeUrls: [
+            'https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css',
+            'https://fastsurvey.m3.com/css/common.css',
+            'https://fastsurvey.m3.com/css/survey.css'
+          ],
+          previewUrls: [
+            'http://localhost:3000/css/preview/detail.css',
+            'http://localhost:3000/css/preview/preview.css'
+          ]
+        }
       ]
     },
   });
