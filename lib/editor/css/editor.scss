@@ -185,6 +185,9 @@ html, body {
       }
     }
   }
+  &:last-child {
+    margin-bottom: 250px; /* 余白 */
+  }
 }
 
 /* HTMLのエディタ */
