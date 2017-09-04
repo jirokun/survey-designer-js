@@ -139,6 +139,9 @@ html, body {
           box-sizing: border-box;
           border: none;
           width: 100%;
+          height: 100%;
+        }
+        &.page > iframe {
           height: calc(100% - 25px) !important;
         }
         .mce-tinymce {
