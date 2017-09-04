@@ -134,7 +134,7 @@ $form-error-content-margin-total: $form-error-content-margin * 2;
 }
 
 .questionBox .question select {
-  display: block;
+  display: inline-block;
   min-width: 30%;
   max-width: 90%;
   height: 34px;

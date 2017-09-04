@@ -1,9 +1,37 @@
 @import "../../runtime/css/common";
 
+@mixin flowNode($borderColor, $backgroundColor) {
+  border: 1px solid $borderColor;
+  background-color: $backgroundColor;
+  transition-duration:.2s;
+  transition-timing-function: ease-in-out;
+
+  &:hover {
+    border: 1px solid $borderColor;
+    box-shadow: 0 0 0 1px $borderColor;
+  }
+
+  &.selected {
+    border: 1px solid $borderColor;
+    box-shadow: 0 0 0 1px $borderColor;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;
+
+    &:hover {
+      box-shadow: 0 0 0 2px $borderColor;
+    }
+  }
+}
+
 html, body {
   height: 100%;
   overflow: hidden;
   min-width: 800px;
+
+  // free-editモードでの編集時のスタイル
+  &.mce-content-body {
+    overflow: hidden;
+  }
 }
 #root {
   width: 100%;
@@ -100,11 +128,34 @@ html, body {
         height: 100%;
         width: 100%;
         overflow: hidden;
-        iframe {
+        .preview-pane-header {
+          height: 25px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          border-bottom: 1px solid #ccc;
+        }
+        > iframe {
           box-sizing: border-box;
           border: none;
           width: 100%;
-          height: 100%;
+          height: calc(100% - 25px) !important;
+        }
+        .mce-tinymce {
+          height: calc(100% - 25px);
+          .mce-container-body {
+            height: 100%;
+            .mce-edit-area {
+              height: calc(100% - 37px - 37px);
+              > iframe {
+                height: 100% !important;
+                box-sizing: border-box;
+                border: none;
+                width: 100%;
+                height: 100% !important;
+              }
+            }
+          }
         }
       }
     }
@@ -342,71 +393,19 @@ html, body {
       }
     }
   }
+
   .page {
-    border: 1px solid #f4d99a;
-    background-color: $backgroud-color-page;
-    transition-duration:.2s;
-    transition-timing-function: ease-in-out;
-   
-    &:hover {
-      border: 1px solid #f4d99a;
-      box-shadow: 0 0 0 1px #f4d99a;
-    }
-    
-    &.selected {
-      border: 1px solid #f4d99a;
-      box-shadow: 0 0 0 1px #f4d99a;
-      transition-duration:.2s;
-      transition-timing-function: ease-in-out;
-      
-      &:hover {
-      box-shadow: 0 0 0 2px #f4d99a;
-      }
+    @include flowNode(#f4d99a, $backgroud-color-page);
+
+    &.free-edit {
+      @include flowNode(#eb9af4, $backgroud-color-page-free-edit);
     }
   }
   .branch {
-    border: 1px solid #af9bff;
-    background-color: $backgroud-color-branch;
-    transition-duration:.2s;
-    transition-timing-function: ease-in-out;      
-
-    &:hover {
-      border: 1px solid #af9bff;
-      box-shadow: 0 0 0 1px #af9bff;
-    }
-
-    &.selected {
-      border: 1px solid #af9bff;
-      box-shadow: 0 0 0 1px #af9bff;
-      transition-duration:.2s;
-      transition-timing-function: ease-in-out;
-      
-      &:hover {
-      box-shadow: 0 0 0 2px #af9bff;
-      }
-    }
+    @include flowNode(#af9bff, $backgroud-color-branch)
   }
   .finisher {
-    border: 1px solid #a0db8e;
-    background-color: $backgroud-color-finisher;
-    transition-duration:.2s;
-    transition-timing-function: ease-in-out;      
-
-    &:hover {
-      border: 1px solid #a0db8e;
-      box-shadow: 0 0 0 1px #a0db8e;
-    }
-
-    &.selected {
-      border: 1px solid #a0db8e;
-      box-shadow: 0 0 0 1px #a0db8e;
-      transition-duration:.2s;
-      transition-timing-function: ease-in-out;
-      
-      &:hover {
-      box-shadow: 0 0 0 2px #a0db8e;
-      }
-    }
+    @include flowNode(#a0db8e, $backgroud-color-finisher)
   }
   .arrow-down {
     position: relative;
@@ -421,11 +420,11 @@ html, body {
       top: 0;
       left: 0;
       display: none;
-    @extend .fade-in;
-    
-    &:hover {
-      @extend .fade-in--finish
-    }
+      @extend .fade-in;
+
+      &:hover {
+        @extend .fade-in--finish
+      }
     }
     &:hover {
       .btn {
