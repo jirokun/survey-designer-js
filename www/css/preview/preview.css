@@ -6,19 +6,22 @@
     width: 800px;
     margin: 10px auto 0 auto;
     box-sizing: border-box;
-> .caption {
+}
+
+.preview-answer .current-page {
+    text-align: left;
+}
+
+.preview-answer .caption {
     text-align: left;
     font-size: 120%;
     font-weight: bold;
 }
-> .current-page {
-    text-align: left;
-}
-> .help {
+
+.preview-answer .help {
     text-align: left;
     line-height: 16px;
     color: #777;
     margin-top: 3px;
     margin-left: 5px;
-}
 }
