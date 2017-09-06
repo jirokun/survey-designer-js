@@ -650,4 +650,18 @@ describe('SurveyDefinition', () => {
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('!=');
     });
   });
+
+  describe('isOutputDefinitionEqual', () => {
+    it('OuputDefinitionが変更されていたらfalseを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true }).get('survey');
+      const question = survey.getIn(['pages', 0, 'questions', 0]);
+      const result = survey.isOutputDefinitionEqual(survey.updateIn(['pages', 0], page => page.removeQuestion(question.getId())));
+      expect(result).toBe(false);
+    });
+    it('OuputDefinitionが変更されていない場合trueを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true }).get('survey');
+      const result = survey.isOutputDefinitionEqual(survey);
+      expect(result).toBe(true);
+    });
+  });
 });
