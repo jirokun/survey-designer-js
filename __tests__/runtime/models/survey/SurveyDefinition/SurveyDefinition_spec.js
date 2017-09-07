@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
 import VisibilityConditionDefinition from '../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
+import NumberValidationRuleDefinition from '../../../../../lib/runtime/models/survey/questions/internal/NumberValidationRuleDefinition';
 import AllJavaScriptCode from '../../../../../lib/editor/models/AllJavaScriptCode';
 import sample1 from '../../sample1.json';
 import noBranchSurvey from './noBranchSurvey.json';
@@ -425,6 +426,16 @@ describe('SurveyDefinition', () => {
     it('visibilityConditionがない', () => {
       const survey = state.getSurvey();
       expect(survey.hasVisibilityCondition()).toBe(false);
+    });
+  });
+  describe('hasNumberValidationRules', () => {
+    it('numberValidationRuleがある', () => {
+      const survey = state.getSurvey().updateIn(['pages', 1, 'questions', 0, 'numberValidationRuleMap'], map => map.set('hoge', NumberValidationRuleDefinition.create()));
+      expect(survey.hasNumberValidationRules()).toBe(true);
+    });
+    it('numberValidationRuleがない', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasNumberValidationRules()).toBe(false);
     });
   });
 
