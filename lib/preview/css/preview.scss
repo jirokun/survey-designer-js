@@ -1,0 +1,27 @@
+@import "../../runtime/css/common";
+@import "../../runtime/css/runtime";
+
+.preview-answer {
+  border: 1px solid #666;
+  border-radius: 5px;
+  background: #fff;
+  padding: 5px;
+  width: 800px;
+  margin: 10px auto 0 auto;
+  box-sizing: border-box;
+  > .caption {
+    text-align: left;
+    font-size: 120%;
+    font-weight: bold;
+  }
+  > .current-page {
+    text-align: left;
+  }
+  > .help {
+    text-align: left;
+    line-height: 16px;
+    color: #777;
+    margin-top: 3px;
+    margin-left: 5px;
+  }
+}

@@ -1,0 +1,179 @@
+@import "../../runtime/css/common";
+@import "../../editor/css/editor";
+
+.detail-function {
+  @include tag($background-color-detail-function, $color-detail-function, $background-color-detail-function);
+}
+
+.fixed-value {
+  @include tag($background-color-fixed-value, $color-fixed-value, $background-color-fixed-value);
+}
+
+.alert-value {
+  @include tag($background-color-alert-value, $color-alert-value, $background-color-alert-value);
+}
+
+.answer-value {
+  @include tag($background-color-answer-value, $color-answer-value, $border-color-answer-value);
+}
+
+.validation-detail {
+  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
+}
+.number-validation-type {
+  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
+}
+
+html, body {
+  height: auto;
+  overflow: auto;
+}
+
+#root {
+  .page-no {
+    @include no($backgroud-color-page, $border-color-page);
+  }
+  .branch-no {
+    @include no($backgroud-color-branch, $border-color-branch);
+  }
+  .finisher-no {
+    @include no($backgroud-color-finisher, $border-color-finisher);
+  }
+  .questionsEditBox {
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+    .questionBox {
+      border-top: none;
+      border-bottom: none;
+    }
+  }
+  .question-form-list {
+    position: relative;
+    /** questionの動きを説明する */
+  }
+
+  .item-detail {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1px solid $border-color-question-detail;
+    border-bottom: 1px solid $border-color-question-detail;
+    background-color: $background-color-question-detail;
+    border-radius: 0 12px 0 4px;
+    padding: 0 10px;
+    &:empty {
+      display: none;
+    }
+  }
+
+  .question-detail {
+    border: 1px solid $border-color-question-detail;
+    background-color: $background-color-question-detail;
+    border-radius: 4px;
+    padding: 0 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    &:empty {
+      display: none;
+    }
+    > div {
+      flex: auto;
+      padding: 5px;
+    }
+    table {
+      width: 100%;
+      th {
+        padding: 0 5px;
+        border: 1px solid black;
+        background-color: #b5c0ef;
+      }
+      td {
+        padding: 0 5px;
+        border: 1px solid black;
+      }
+    }
+    .item-visibilities {
+      width: 100%;
+      > div {
+        width: 100%;
+      }
+    }
+  }
+
+  .page-detail {
+    border: 1px solid $border-color-page-detail;
+    background-color: $background-color-page-detail;
+    border-radius: 4px;
+    padding: 0 10px 10px;
+    margin: 6px;
+    &:empty {
+      display: none;
+    }
+    table {
+      width: 100%;
+      th, td {
+        padding: 0 5px;
+        border: 1px solid black;
+      }
+    }
+  }
+
+  .matrix {
+    td, th {
+      position: relative;
+    }
+    .detail-shown {
+      vertical-align: top;
+      padding-top: 0;
+      .detail {
+        white-space: nowrap;
+        margin-bottom: 5px;
+        &:empty {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .question-form-list {
+    .detail-shown {
+      padding-top: 25px;
+      .question-form-list-input {
+        position: relative;
+        left: -28px;
+      }
+      > span {
+        position: relative;
+        left: -14px;
+      }
+    }
+  }
+
+  .detail-mode {
+    .branch-editor {
+      line-height: 1;
+      span {
+        padding: 1px 7px;
+      }
+    }
+  }
+
+  .output-no {
+    @include tag(#312, #fff, #756);
+  }
+
+  .dev-id {
+    @include tag(#aaa, #fff, #ccc);
+    border-radius: 2px;
+    padding: 2px 4px;
+    font-size: 10px;
+    font-weight: normal;
+  }
+}
+
+@media print {
+  #surveyBox, .questionsEditBox {
+    width: 750px !important;
+  }
+}
