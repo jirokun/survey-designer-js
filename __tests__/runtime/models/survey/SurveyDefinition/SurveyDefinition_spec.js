@@ -1,4 +1,5 @@
 /* eslint-env jest */
+import { List } from 'immutable';
 import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
 import VisibilityConditionDefinition from '../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
 import AllJavaScriptCode from '../../../../../lib/editor/models/AllJavaScriptCode';
@@ -512,6 +513,18 @@ describe('SurveyDefinition', () => {
     });
   });
 
+  describe('updateCssUrls', () => {
+    it('CSSのURLが更新される', () => {
+      let survey = state.getSurvey();
+      const runtimeUrls = List.of('a.css', 'b.css');
+      const previewUrls = List.of('c.css', 'd.css');
+
+      survey = survey.updateCssUrls(runtimeUrls, previewUrls);
+      expect(survey.getCssRuntimeUrls()).toBe(runtimeUrls);
+      expect(survey.getCssPreviewUrls()).toBe(previewUrls);
+    });
+  });
+
   describe('getAllPageDevIds', () => {
     it('存在するnameなら、devIdを取得できる', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
@@ -648,6 +661,22 @@ describe('SurveyDefinition', () => {
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().size).toBe(1);
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('999');
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('!=');
+    });
+  });
+
+  describe('hasCssUrls', () => {
+    it('CSS URLを持っている場合、trueを返す', () => {
+      let survey = state.getSurvey();
+      const runtimeUrls = List.of('a.css', 'b.css');
+      const previewUrls = List.of('c.css', 'd.css');
+
+      survey = survey.updateCssUrls(runtimeUrls, previewUrls);
+      expect(survey.hasCssUrls()).toBeTruthy();
+    });
+
+    it('CSS URLを持っていない場合、falseを返す', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasCssUrls()).toBeFalsy();
     });
   });
 });
