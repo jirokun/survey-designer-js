@@ -1,0 +1,136 @@
+{
+    "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+    "title": "名称未設定",
+    "version": 2,
+    "pages": [
+        {
+            "_id": "cj6kedzdh00023j68ydpzq68c",
+            "questions": [
+                {
+                    "_id": "cj6kee1sg00063j68hc64p00x",
+                    "dataType": "MultiNumber",
+                    "title": "設問タイトル",
+                    "plainTitle": "設問タイトル",
+                    "description": "",
+                    "random": false,
+                    "subItemsRandom": false,
+                    "unit": "",
+                    "items": [
+                        {
+                            "_id": "cj6kee1sg00073j68j2v9clne",
+                            "index": 0,
+                            "label": "名称未設定",
+                            "plainLabel": "名称未設定",
+                            "value": "1",
+                            "additionalInput": false,
+                            "additionalInputType": "text",
+                            "unit": "",
+                            "randomFixed": false,
+                            "exclusive": false,
+                            "visibilityCondition": null
+                        },
+                        {
+                            "_id": "cj6kee421000b3j68dclnnkj4",
+                            "index": 1,
+                            "label": "名称未設定",
+                            "plainLabel": "名称未設定",
+                            "value": "2",
+                            "additionalInput": false,
+                            "additionalInputType": "text",
+                            "unit": "",
+                            "randomFixed": false,
+                            "exclusive": false,
+                            "visibilityCondition": null
+                        },
+                        {
+                            "_id": "cj6kee3xw000a3j681f19up17",
+                            "index": 2,
+                            "label": "名称未設定",
+                            "plainLabel": "名称未設定",
+                            "value": "3",
+                            "additionalInput": false,
+                            "additionalInputType": "text",
+                            "unit": "",
+                            "randomFixed": false,
+                            "exclusive": false,
+                            "visibilityCondition": null
+                        }
+                    ],
+                    "subItems": [
+                        {
+                            "_id": "cj6kedyzz00013j687ikuo0w9",
+                            "index": 0,
+                            "label": "名称未設定",
+                            "plainLabel": "名称未設定",
+                            "value": "",
+                            "additionalInput": false,
+                            "additionalInputType": "text",
+                            "unit": "",
+                            "randomFixed": false,
+                            "exclusive": false,
+                            "visibilityCondition": null
+                        }
+                    ],
+                    "showTotal": false,
+                    "matrixType": null,
+                    "matrixReverse": false,
+                    "matrixSumRows": false,
+                    "matrixSumCols": false,
+                    "totalEqualTo": "",
+                    "minCheckCount": 1,
+                    "maxCheckCount": 0,
+                    "min": "",
+                    "max": "",
+                    "numberValidationRuleMap": {
+                        "cj6kee1sg00073j68j2v9clne": [
+                            {
+                                "_id": "cj6kr0dn000163j685rrx2x7g",
+                                "numberValidations": [
+                                    {
+                                        "_id": "cj6kr0dn000173j68jniau8a5",
+                                        "value": "1",
+                                        "operator": "=="
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "logicalVariables": [],
+            "javaScriptCode": ""
+        }
+    ],
+    "branches": [],
+    "finishers": [
+        {
+            "_id": "cj6kedzdm00043j683uamjct8",
+            "finishType": "COMPLETE",
+            "point": 0,
+            "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+        }
+    ],
+    "nodes": [
+        {
+            "_id": "cj6kedzdh00033j680vg21vzw",
+            "type": "page",
+            "refId": "cj6kedzdh00023j68ydpzq68c",
+            "nextNodeId": "cj6kedzdm00053j68l311gdz7"
+        },
+        {
+            "_id": "cj6kedzdm00053j68l311gdz7",
+            "type": "finisher",
+            "refId": "cj6kedzdm00043j683uamjct8",
+            "nextNodeId": null
+        }
+    ],
+    "cssRuntimeUrls": [
+        "/css/a.css",
+        "/css/b.css"
+    ],
+    "cssPreviewUrls": [
+        "/css/c.css",
+        "/css/d.css"
+    ],
+    "panel": null
+}
