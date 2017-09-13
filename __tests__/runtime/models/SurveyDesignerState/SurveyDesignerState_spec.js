@@ -1,7 +1,8 @@
 /* eslint-env jest */
-import SurveyDesignerState from '../../../lib/runtime/models/SurveyDesignerState';
-import PageDefinition from '../../../lib/runtime/models/survey/PageDefinition';
+import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
+import PageDefinition from '../../../../lib/runtime/models/survey/PageDefinition';
 import json from './SurveyDesignerState.json';
+import setInitialCssUrlsHasCssUrlsJson from './SetInitialCssUrlsHasCssUrls.json';
 
 describe('SurveyDesignerState', () => {
   describe('createFromJson', () => {
@@ -16,6 +17,17 @@ describe('SurveyDesignerState', () => {
       expect(numberValidationRuleMap.getNumberValidations().get(0).getId()).toBe('cj6kr0dn000173j68jniau8a5');
       expect(numberValidationRuleMap.getNumberValidations().get(0).getValue()).toBe('1');
       expect(numberValidationRuleMap.getNumberValidations().get(0).getOperator()).toBe('==');
+    });
+  });
+
+  describe('setInitialCssUrls', () => {
+    it('既に持っている場合は設定を変更しない', () => {
+      let state = SurveyDesignerState.createFromJson({ survey: setInitialCssUrlsHasCssUrlsJson });
+      state = state.setInitialCssUrls();
+
+      const survey = state.getSurvey();
+      expect(survey.getCssRuntimeUrls().toArray().sort().toString()).toBe(['/css/a.css', '/css/b.css'].sort().toString());
+      expect(survey.getCssPreviewUrls().toArray().sort().toString()).toBe(['/css/c.css', '/css/d.css'].sort().toString());
     });
   });
 });
