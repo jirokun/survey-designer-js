@@ -143,6 +143,14 @@ $form-error-content-margin-total: $form-error-content-margin * 2;
   border: 1px solid #666;
 }
 
+.questionBox {
+  .matrix {
+    .additional-input {
+      margin: 0 3px;
+    }
+  }
+}
+
 img.popup {
   cursor: pointer;
   &.err {
