@@ -27,6 +27,8 @@ import findOutputDevIdFromName from './findOutputDevIdFromName.json';
 import updateAllJavaScript from './updateAllJavaScript.json';
 import getAllDevIds from './getAllDevIds.json';
 import migrateNumberValidation from './migrateNumberValidation.json';
+import migrateScheduleQuestionNoSubItems from './migrateScheduleQuestionNoSubItems.json';
+import migrateScheduleQuestionHasSubItems from './migrateScheduleQuestionHasSubItems.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -659,6 +661,27 @@ describe('SurveyDefinition', () => {
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().size).toBe(1);
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('999');
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('!=');
+    });
+
+    it('日程質問でSubItemsがない場合はSubItemsを追加する', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionNoSubItems }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      expect(targetQuestion.getSubItems().size).toBe(3);
+      expect(targetQuestion.getSubItems().get(0).getLabel()).toBe('<b>A.<br />午前<br />9:00～12:00</b>');
+      expect(targetQuestion.getSubItems().get(1).getLabel()).toBe('<b>B.<br />午後<br />12:00～16:00</b>');
+      expect(targetQuestion.getSubItems().get(2).getLabel()).toBe('<b>C.<br />夜間<br />16:00 以降</b>');
+    });
+
+    it('日程質問でSubItemsがすでにある場合はSubItemsを追加しない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionHasSubItems }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      expect(targetQuestion.getSubItems().size).toBe(2);
+      expect(targetQuestion.getSubItems().get(0).getLabel()).toBe('hoge');
+      expect(targetQuestion.getSubItems().get(1).getLabel()).toBe('fuga');
     });
   });
 
