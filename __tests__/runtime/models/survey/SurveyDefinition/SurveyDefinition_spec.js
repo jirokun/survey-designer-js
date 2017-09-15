@@ -22,7 +22,7 @@ import isValidCompleteFinisherCase2 from './isValidCompleteFinisherCase2.json';
 import isValidCompleteFinisherCase3 from './isValidCompleteFinisherCase3.json';
 import isValidCompleteFinisherCase4 from './isValidCompleteFinisherCase4.json';
 import getFinisherNodesValid from './getFinisherNodesValid.json';
-import findNextPageIdFromRefId from './findNextpageIdFromRefId.json';
+import findNextPageFromRefId from './findNextpageFromRefId.json';
 import findOutputDevIdFromName from './findOutputDevIdFromName.json';
 import updateAllJavaScript from './updateAllJavaScript.json';
 import getAllDevIds from './getAllDevIds.json';
@@ -490,15 +490,15 @@ describe('SurveyDefinition', () => {
     });
   });
 
-  describe('findNextPageIdFromRefId', () => {
+  describe('findNextPageFromRefId', () => {
     it('次のページがあるなら、idを取得できる', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageIdFromRefId }).getSurvey();
-      expect(survey.findNextPageIdFromRefId('cj1pzhzdg00023j66pvgv5plq')).toBe('cj1q0g8au001s3j66v7lvbklq');
+      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageFromRefId }).getSurvey();
+      expect(survey.findNextPageFromRefId('cj1pzhzdg00023j66pvgv5plq').getId()).toBe('cj1q0g8au001s3j66v7lvbklq');
     });
 
     it('次のページがないなら、nullを返す', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageIdFromRefId }).getSurvey();
-      expect(survey.findNextPageIdFromRefId('cj1q0g8au001s3j66v7lvbklq')).toBe(null);
+      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageFromRefId }).getSurvey();
+      expect(survey.findNextPageFromRefId('cj1q0g8au001s3j66v7lvbklq')).toBe(null);
     });
   });
 
@@ -516,7 +516,7 @@ describe('SurveyDefinition', () => {
 
   describe('updateAllJavaScriptCode', () => {
     it('前ページのJavaScriptを更新する', () => {
-      const allJavaScriptCode = new AllJavaScriptCode({ code: '// Page Start: cj1pzhzdg00023j66pvgv5plq\nupdate after 1\n// Page End: cj1pzhzdg00023j66pvgv5plq\n// Page Start: cj1q0g8au001s3j66v7lvbklq\nupdate after 2\n// Page End: cj1q0g8au001s3j66v7lvbklq\n' });
+      const allJavaScriptCode = new AllJavaScriptCode({ code: '// Page Start: ww1\nupdate after 1\n// Page End: ww1\n// Page Start: ww2\nupdate after 2\n// Page End: ww2\n' });
 
       const survey = SurveyDesignerState.createFromJson({ survey: updateAllJavaScript }).getSurvey();
       const newSurvey = survey.updateAllJavaScriptCode(allJavaScriptCode);
