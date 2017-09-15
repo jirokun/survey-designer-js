@@ -200,27 +200,15 @@ describe('MatrixQuestionDefinition', () => {
     });
   });
 
-  describe('getAdditionalOutputDevId', () => {
-    it('追加記入のdev-idを返す', () => {
-      const question = new MatrixQuestionDefinition();
-      expect(question.getAdditionalOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy1_yy2_text');
-    });
-
-    it('行列逆の場合、追加記入用のdev-idを返す', () => {
-      const question = new MatrixQuestionDefinition({ matrixReverse: true });
-      expect(question.getAdditionalOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy2_yy1_text');
-    });
-  });
-
   describe('getOutputDevId', () => {
-    it('追加記入のdev-idを返す', () => {
+    it('通常入力のdev-idを返す', () => {
       const question = new MatrixQuestionDefinition();
-      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy1_yy2');
+      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2', false)).toBe('ww1_xx1_yy1_yy2');
     });
 
-    it('行列逆の場合、追加記入用のdev-idを返す', () => {
-      const question = new MatrixQuestionDefinition({ matrixReverse: true });
-      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy2_yy1');
+    it('追加記入のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2', true)).toBe('ww1_xx1_yy1_yy2_text');
     });
   });
 
