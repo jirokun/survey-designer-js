@@ -1,0 +1,94 @@
+{
+  "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+  "title": "ScheduleQuestionのマイグレーション確認用",
+  "version": 2,
+  "pages": [
+    {
+      "_id": "cj7ibzyse00003h6xypvsjgez",
+      "devId": "EWN",
+      "questions": [
+        {
+          "_id": "cj7ic07ie00063h6x8rs4zlbm",
+          "devId": "EWN_Tq4",
+          "dataType": "Schedule",
+          "title": "以下の日時の中よりインタビュー調査にご参加が可能な日時枠と、具体的な時間帯をお知らせください。",
+          "plainTitle": "日程",
+          "description": "<p>可能な限り、複数日時をお知らせ頂きたくお願い致します。<br>\n        (回答例）●月●日（曜日）午後 <span style=\"border:1px solid black;\">レ</span>（14:00－16:00の間）等</p>",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj7ic07ie00043h6xyqb0m7lu",
+              "index": 0,
+              "devId": "EWN_Tq4_hkq",
+              "label": "9月2日(月)",
+              "plainLabel": "9月2日(月)",
+              "value": "value1",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            },
+            {
+              "_id": "cj7ic07ie00053h6xabdsm2j2",
+              "index": 1,
+              "devId": "EWN_Tq4_REc",
+              "label": "9月3日(火)",
+              "plainLabel": "9月3日(火)",
+              "value": "value2",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": "",
+          "numberValidationRuleMap": {}
+        }
+      ],
+      "logicalVariables": [],
+      "javaScriptCode": ""
+    }
+  ],
+  "branches": [],
+  "finishers": [
+    {
+      "_id": "cj7ibzysh00023h6x0182f6a1",
+      "finishType": "COMPLETE",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+    }
+  ],
+  "nodes": [
+    {
+      "_id": "cj7ibzysf00013h6xdiyq9snx",
+      "type": "page",
+      "refId": "cj7ibzyse00003h6xypvsjgez",
+      "nextNodeId": "cj7ibzysh00033h6xqvifw7mo"
+    },
+    {
+      "_id": "cj7ibzysh00033h6xqvifw7mo",
+      "type": "finisher",
+      "refId": "cj7ibzysh00023h6x0182f6a1",
+      "nextNodeId": null
+    }
+  ],
+  "panel": null
+}

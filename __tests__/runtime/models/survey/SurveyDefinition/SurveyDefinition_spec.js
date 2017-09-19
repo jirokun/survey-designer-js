@@ -2,6 +2,7 @@
 import { List } from 'immutable';
 import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
 import VisibilityConditionDefinition from '../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
+import NumberValidationRuleDefinition from '../../../../../lib/runtime/models/survey/questions/internal/NumberValidationRuleDefinition';
 import AllJavaScriptCode from '../../../../../lib/editor/models/AllJavaScriptCode';
 import sample1 from '../../sample1.json';
 import noBranchSurvey from './noBranchSurvey.json';
@@ -22,11 +23,13 @@ import isValidCompleteFinisherCase2 from './isValidCompleteFinisherCase2.json';
 import isValidCompleteFinisherCase3 from './isValidCompleteFinisherCase3.json';
 import isValidCompleteFinisherCase4 from './isValidCompleteFinisherCase4.json';
 import getFinisherNodesValid from './getFinisherNodesValid.json';
-import findNextPageIdFromRefId from './findNextpageIdFromRefId.json';
+import findNextPageFromRefId from './findNextpageFromRefId.json';
 import findOutputDevIdFromName from './findOutputDevIdFromName.json';
 import updateAllJavaScript from './updateAllJavaScript.json';
 import getAllDevIds from './getAllDevIds.json';
 import migrateNumberValidation from './migrateNumberValidation.json';
+import migrateScheduleQuestionNoSubItems from './migrateScheduleQuestionNoSubItems.json';
+import migrateScheduleQuestionHasSubItems from './migrateScheduleQuestionHasSubItems.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -428,6 +431,16 @@ describe('SurveyDefinition', () => {
       expect(survey.hasVisibilityCondition()).toBe(false);
     });
   });
+  describe('hasNumberValidationRules', () => {
+    it('numberValidationRuleがある', () => {
+      const survey = state.getSurvey().updateIn(['pages', 1, 'questions', 0, 'numberValidationRuleMap'], map => map.set('hoge', NumberValidationRuleDefinition.create()));
+      expect(survey.hasNumberValidationRules()).toBe(true);
+    });
+    it('numberValidationRuleがない', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasNumberValidationRules()).toBe(false);
+    });
+  });
 
   describe('isValidPositionOfCompleteFinisher', () => {
     it('最後のページの次がCOMPLETEである', () => {
@@ -478,15 +491,15 @@ describe('SurveyDefinition', () => {
     });
   });
 
-  describe('findNextPageIdFromRefId', () => {
+  describe('findNextPageFromRefId', () => {
     it('次のページがあるなら、idを取得できる', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageIdFromRefId }).getSurvey();
-      expect(survey.findNextPageIdFromRefId('cj1pzhzdg00023j66pvgv5plq')).toBe('cj1q0g8au001s3j66v7lvbklq');
+      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageFromRefId }).getSurvey();
+      expect(survey.findNextPageFromRefId('cj1pzhzdg00023j66pvgv5plq').getId()).toBe('cj1q0g8au001s3j66v7lvbklq');
     });
 
     it('次のページがないなら、nullを返す', () => {
-      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageIdFromRefId }).getSurvey();
-      expect(survey.findNextPageIdFromRefId('cj1q0g8au001s3j66v7lvbklq')).toBe(null);
+      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageFromRefId }).getSurvey();
+      expect(survey.findNextPageFromRefId('cj1q0g8au001s3j66v7lvbklq')).toBe(null);
     });
   });
 
@@ -504,7 +517,7 @@ describe('SurveyDefinition', () => {
 
   describe('updateAllJavaScriptCode', () => {
     it('前ページのJavaScriptを更新する', () => {
-      const allJavaScriptCode = new AllJavaScriptCode({ code: '// Page Start: cj1pzhzdg00023j66pvgv5plq\nupdate after 1\n// Page End: cj1pzhzdg00023j66pvgv5plq\n// Page Start: cj1q0g8au001s3j66v7lvbklq\nupdate after 2\n// Page End: cj1q0g8au001s3j66v7lvbklq\n' });
+      const allJavaScriptCode = new AllJavaScriptCode({ code: '// Page Start: ww1\nupdate after 1\n// Page End: ww1\n// Page Start: ww2\nupdate after 2\n// Page End: ww2\n' });
 
       const survey = SurveyDesignerState.createFromJson({ survey: updateAllJavaScript }).getSurvey();
       const newSurvey = survey.updateAllJavaScriptCode(allJavaScriptCode);
@@ -661,6 +674,41 @@ describe('SurveyDefinition', () => {
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().size).toBe(1);
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('999');
       expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('!=');
+    });
+
+    it('日程質問でSubItemsがない場合はSubItemsを追加する', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionNoSubItems }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      expect(targetQuestion.getSubItems().size).toBe(3);
+      expect(targetQuestion.getSubItems().get(0).getLabel()).toBe('<b>A.<br />午前<br />9:00～12:00</b>');
+      expect(targetQuestion.getSubItems().get(1).getLabel()).toBe('<b>B.<br />午後<br />12:00～16:00</b>');
+      expect(targetQuestion.getSubItems().get(2).getLabel()).toBe('<b>C.<br />夜間<br />16:00 以降</b>');
+    });
+
+    it('日程質問でSubItemsがすでにある場合はSubItemsを追加しない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionHasSubItems }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      expect(targetQuestion.getSubItems().size).toBe(2);
+      expect(targetQuestion.getSubItems().get(0).getLabel()).toBe('hoge');
+      expect(targetQuestion.getSubItems().get(1).getLabel()).toBe('fuga');
+    });
+  });
+
+  describe('isOutputDefinitionEqual', () => {
+    it('OuputDefinitionが変更されていたらfalseを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true }).get('survey');
+      const question = survey.getIn(['pages', 0, 'questions', 0]);
+      const result = survey.isOutputDefinitionEqual(survey.updateIn(['pages', 0], page => page.removeQuestion(question.getId())));
+      expect(result).toBe(false);
+    });
+    it('OuputDefinitionが変更されていない場合trueを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true }).get('survey');
+      const result = survey.isOutputDefinitionEqual(survey);
+      expect(result).toBe(true);
     });
   });
 
