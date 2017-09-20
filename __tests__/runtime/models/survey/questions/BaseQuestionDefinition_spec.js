@@ -7,6 +7,7 @@ import NumberValidationRuleDefinition from '../../../../../lib/runtime/models/su
 import NumberValidationDefinition from '../../../../../lib/runtime/models/survey/questions/internal/NumberValidationDefinition';
 import MultiNumberQuestionDefinition from '../../../../../lib/runtime/models/survey/questions/MultiNumberQuestionDefinition';
 import json from './BaseQuestionDefinition.json';
+import over10NumberValidationRulesSurvey from '../SurveyDefinition/over10NumberValidationRulesSurvey.json';
 
 const ID_LENGTH = 25;
 
@@ -109,6 +110,13 @@ describe('BaseQuestionDefinition', () => {
       expect(question.getNumberValidationRuleMap().get('ODID1').get(0).getValidationTypeInQuestion()).toBe(2);
       expect(question.getNumberValidationRuleMap().get('ODID2').get(0).getValidationTypeInQuestion()).toBe(3);
       expect(question.getNumberValidationRuleMap().get('ODID3').get(0).getValidationTypeInQuestion()).toBe(1);
+    });
+
+    it('validationTypeInQuestionが二桁になっても正しく更新できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: over10NumberValidationRulesSurvey }).getSurvey();
+      const question = survey.getPages().get(0).getQuestions().get(0);
+      const result = question.updateNumberValidationTypeInQuestion('cj7stuzg4000i3b6xvfw3dyjt_cj7stv0f3000m3b6xc61anqy8');
+      expect(result.getNumberValidationRuleMap().get('cj7stuzg4000i3b6xvfw3dyjt_cj7stv0f3000m3b6xc61anqy8').get(0).getValidationTypeInQuestion()).toBe(11);
     });
   });
 
