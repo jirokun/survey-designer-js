@@ -136,7 +136,7 @@ describe('BaseQuestionDefinition', () => {
     it('validationTypeInQuestionでユニーク化したNumberValidatinoRuleのListを取得できる ', () => {
       const question = new BaseQuestionDefinition({ _id: 'dummy' }).addNumberValidation('ODID1').addNumberValidation('ODID2');
       expect(question.getUniquedNumberValidationRules().size).toBe(1);
-      const question2 = question.setIn(['numberValidationRuleMap', 'ODID2', 0, 'numberValidations', 0, 'value'], 'hoge');
+      const question2 = question.setIn(['numberValidationRuleMap', 'ODID2', 0, 'validationTypeInQuestion'], 9);
       expect(question2.getUniquedNumberValidationRules().size).toBe(2);
     });
   });
