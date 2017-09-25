@@ -30,6 +30,7 @@ import getAllDevIds from './getAllDevIds.json';
 import migrateNumberValidation from './migrateNumberValidation.json';
 import migrateScheduleQuestionNoSubItems from './migrateScheduleQuestionNoSubItems.json';
 import migrateScheduleQuestionHasSubItems from './migrateScheduleQuestionHasSubItems.json';
+import migrateScheduleQuestionHasUndefinedOneSubItems from './migrateScheduleQuestionHasUndefinedOneSubItems.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -678,8 +679,7 @@ describe('SurveyDefinition', () => {
 
     it('日程質問でSubItemsがない場合はSubItemsを追加する', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionNoSubItems }).getSurvey();
-      const result = survey.migrate();
-      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+      const targetQuestion = survey.getPages().get(0).getQuestions().get(0);
 
       expect(targetQuestion.getSubItems().size).toBe(3);
       expect(targetQuestion.getSubItems().get(0).getLabel()).toBe('<b>A.<br />午前<br />9:00～12:00</b>');
@@ -687,10 +687,19 @@ describe('SurveyDefinition', () => {
       expect(targetQuestion.getSubItems().get(2).getLabel()).toBe('<b>C.<br />夜間<br />16:00 以降</b>');
     });
 
+    it('日程質問でSubItemsが1つ「名称未設定」の場合はSubItemsを追加する', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionHasUndefinedOneSubItems }).getSurvey();
+      const targetQuestion2 = survey.getPages().get(0).getQuestions().get(1);
+
+      expect(targetQuestion2.getSubItems().size).toBe(3);
+      expect(targetQuestion2.getSubItems().get(0).getLabel()).toBe('<b>A.<br />午前<br />9:00～12:00</b>');
+      expect(targetQuestion2.getSubItems().get(1).getLabel()).toBe('<b>B.<br />午後<br />12:00～16:00</b>');
+      expect(targetQuestion2.getSubItems().get(2).getLabel()).toBe('<b>C.<br />夜間<br />16:00 以降</b>');
+    });
+
     it('日程質問でSubItemsがすでにある場合はSubItemsを追加しない', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionHasSubItems }).getSurvey();
-      const result = survey.migrate();
-      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+      const targetQuestion = survey.getPages().get(0).getQuestions().get(0);
 
       expect(targetQuestion.getSubItems().size).toBe(2);
       expect(targetQuestion.getSubItems().get(0).getLabel()).toBe('hoge');
