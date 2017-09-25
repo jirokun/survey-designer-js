@@ -28,7 +28,7 @@ describe('BranchDefinition', () => {
               ],
             },
           ],
-        }, true);
+        }, { rawRecord: true });
         const conditions = parsedObj.get('conditions');
         const newState = state
           .setIn(['runtime', 'answers'], answers)
@@ -55,7 +55,7 @@ describe('BranchDefinition', () => {
               ],
             },
           ],
-        }, true);
+        }, { rawRecord: true });
         const conditions = parsedObj.get('conditions');
         const newState = state
           .setIn(['runtime', 'answers'], answers)
@@ -84,7 +84,7 @@ describe('BranchDefinition', () => {
               ],
             },
           ],
-        }, true);
+        }, { rawRecord: true });
         const conditions = parsedObj.get('conditions');
         const newState = state
           .setIn(['runtime', 'answers'], answers)
@@ -111,7 +111,7 @@ describe('BranchDefinition', () => {
               ],
             },
           ],
-        }, true);
+        }, { rawRecord: true });
         const conditions = parsedObj.get('conditions');
         const newState = state
           .setIn(['runtime', 'answers'], answers)
@@ -138,7 +138,7 @@ describe('BranchDefinition', () => {
               ],
             },
           ],
-        }, true);
+        }, { rawRecord: true });
         const conditions = parsedObj.get('conditions');
         const newState = state
           .setIn(['runtime', 'answers'], answers)
@@ -168,7 +168,7 @@ describe('BranchDefinition', () => {
               ],
             },
           ],
-        }, true);
+        }, { rawRecord: true });
         const conditions = parsedObj.get('conditions');
         const newState = state
           .setIn(['runtime', 'answers'], answers)

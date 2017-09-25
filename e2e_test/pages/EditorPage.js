@@ -9,6 +9,7 @@ class EditorPage {
     });
 
     browser.url('/?env=development');
+    browser.pause(50);
     browser.waitForVisible('.flow-pane .page');
   }
 

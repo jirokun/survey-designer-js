@@ -199,4 +199,30 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.get(3).getOutputNo()).toBe('1-1-2-1-additional');
     });
   });
+
+  describe('getOutputDevId', () => {
+    it('通常入力のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2', false)).toBe('ww1_xx1_yy1_yy2');
+    });
+
+    it('追加記入のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2', true)).toBe('ww1_xx1_yy1_yy2_text');
+    });
+  });
+
+  describe('getOutputTotalRowDevId', () => {
+    it('追加記入のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getOutputTotalRowDevId('ww1_xx1_yy1')).toBe('ww1_xx1_yy1_total_row');
+    });
+  });
+
+  describe('getOutputTotalColDevId', () => {
+    it('追加記入のdev-idを返す', () => {
+      const question = new MatrixQuestionDefinition();
+      expect(question.getOutputTotalColDevId('ww1_xx1_yy2')).toBe('ww1_xx1_yy2_total_column');
+    });
+  });
 });

@@ -1,25 +1,35 @@
 /* eslint-env jest */
-import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
-import VisibilityConditionDefinition from '../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
-import sample1 from '../sample1.json';
-import noBranchSurvey from './survey_definition/noBranchSurvey.json';
-import hasNotScreeningBranchSurvey from './survey_definition/hasNotScreeningBranchSurvey.json';
-import hasScreeningBranchSurvey from './survey_definition/hasScreeningBranchSurvey.json';
-import hasReferenceInPageSurvey from './survey_definition/hasReferenceInPageSurvey.json';
-import hasReferenceInFinisherSurvey from './survey_definition/hasReferenceInFinisherSurvey.json';
-import hasNoReferenceSurvey from './survey_definition/hasNoReferenceSurvey.json';
-import hasLogicalVariablesSurvey from './survey_definition/hasLogicalVariablesSurvey.json';
-import hasJavaScriptSurvey from './survey_definition/hasJavaScriptSurvey.json';
-import isValidPositionOfCompleteFinisherCase1 from './survey_definition/isValidPositionOfCompleteFinisherCase1.json';
-import isValidPositionOfCompleteFinisherCase2 from './survey_definition/isValidPositionOfCompleteFinisherCase2.json';
-import isValidPositionOfCompleteFinisherCase3 from './survey_definition/isValidPositionOfCompleteFinisherCase3.json';
-import isValidPositionOfCompleteFinisherCase4 from './survey_definition/isValidPositionOfCompleteFinisherCase4.json';
-import isValidPositionOfCompleteFinisherCase5 from './survey_definition/isValidPositionOfCompleteFinisherCase5.json';
-import isValidCompleteFinisherCase1 from './survey_definition/isValidCompleteFinisherCase1.json';
-import isValidCompleteFinisherCase2 from './survey_definition/isValidCompleteFinisherCase2.json';
-import isValidCompleteFinisherCase3 from './survey_definition/isValidCompleteFinisherCase3.json';
-import isValidCompleteFinisherCase4 from './survey_definition/isValidCompleteFinisherCase4.json';
-import getFinisherNodesValid from './survey_definition/getFinisherNodesValid.json';
+import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
+import VisibilityConditionDefinition from '../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
+import NumberValidationRuleDefinition from '../../../../../lib/runtime/models/survey/questions/internal/NumberValidationRuleDefinition';
+import AllJavaScriptCode from '../../../../../lib/editor/models/AllJavaScriptCode';
+import sample1 from '../../sample1.json';
+import noBranchSurvey from './noBranchSurvey.json';
+import hasNotScreeningBranchSurvey from './hasNotScreeningBranchSurvey.json';
+import hasScreeningBranchSurvey from './hasScreeningBranchSurvey.json';
+import hasReferenceInPageSurvey from './hasReferenceInPageSurvey.json';
+import hasReferenceInFinisherSurvey from './hasReferenceInFinisherSurvey.json';
+import hasNoReferenceSurvey from './hasNoReferenceSurvey.json';
+import hasLogicalVariablesSurvey from './hasLogicalVariablesSurvey.json';
+import hasJavaScriptSurvey from './hasJavaScriptSurvey.json';
+import isValidPositionOfCompleteFinisherCase1 from './isValidPositionOfCompleteFinisherCase1.json';
+import isValidPositionOfCompleteFinisherCase2 from './isValidPositionOfCompleteFinisherCase2.json';
+import isValidPositionOfCompleteFinisherCase3 from './isValidPositionOfCompleteFinisherCase3.json';
+import isValidPositionOfCompleteFinisherCase4 from './isValidPositionOfCompleteFinisherCase4.json';
+import isValidPositionOfCompleteFinisherCase5 from './isValidPositionOfCompleteFinisherCase5.json';
+import isValidCompleteFinisherCase1 from './isValidCompleteFinisherCase1.json';
+import isValidCompleteFinisherCase2 from './isValidCompleteFinisherCase2.json';
+import isValidCompleteFinisherCase3 from './isValidCompleteFinisherCase3.json';
+import isValidCompleteFinisherCase4 from './isValidCompleteFinisherCase4.json';
+import getFinisherNodesValid from './getFinisherNodesValid.json';
+import findNextPageFromRefId from './findNextpageFromRefId.json';
+import findOutputDevIdFromName from './findOutputDevIdFromName.json';
+import updateAllJavaScript from './updateAllJavaScript.json';
+import getAllDevIds from './getAllDevIds.json';
+import migrateNumberValidation from './migrateNumberValidation.json';
+import migrateScheduleQuestionNoSubItems from './migrateScheduleQuestionNoSubItems.json';
+import migrateScheduleQuestionHasSubItems from './migrateScheduleQuestionHasSubItems.json';
+import migrateScheduleQuestionHasUndefinedOneSubItems from './migrateScheduleQuestionHasUndefinedOneSubItems.json';
 
 describe('SurveyDefinition', () => {
   let state;
@@ -421,6 +431,16 @@ describe('SurveyDefinition', () => {
       expect(survey.hasVisibilityCondition()).toBe(false);
     });
   });
+  describe('hasNumberValidationRules', () => {
+    it('numberValidationRuleがある', () => {
+      const survey = state.getSurvey().updateIn(['pages', 1, 'questions', 0, 'numberValidationRuleMap'], map => map.set('hoge', NumberValidationRuleDefinition.create()));
+      expect(survey.hasNumberValidationRules()).toBe(true);
+    });
+    it('numberValidationRuleがない', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasNumberValidationRules()).toBe(false);
+    });
+  });
 
   describe('isValidPositionOfCompleteFinisher', () => {
     it('最後のページの次がCOMPLETEである', () => {
@@ -468,6 +488,223 @@ describe('SurveyDefinition', () => {
     it('FINISHER:COMPLETE => BRANCH => FINISHER:SCREEN の場合はNG', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: isValidCompleteFinisherCase4 }).getSurvey();
       expect(survey.isValidFinisher()).toBe(false);
+    });
+  });
+
+  describe('findNextPageFromRefId', () => {
+    it('次のページがあるなら、idを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageFromRefId }).getSurvey();
+      expect(survey.findNextPageFromRefId('cj1pzhzdg00023j66pvgv5plq').getId()).toBe('cj1q0g8au001s3j66v7lvbklq');
+    });
+
+    it('次のページがないなら、nullを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: findNextPageFromRefId }).getSurvey();
+      expect(survey.findNextPageFromRefId('cj1q0g8au001s3j66v7lvbklq')).toBe(null);
+    });
+  });
+
+  describe('findOutputDevIdFromName', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: findOutputDevIdFromName }).getSurvey();
+      expect(survey.findOutputDevIdFromName('cj1q0g6p5001o3j66hp2fwios__value1')).toBe('www_xx1_yy1');
+    });
+
+    it('存在しないnameなら、nullを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: findOutputDevIdFromName }).getSurvey();
+      expect(survey.findOutputDevIdFromName('invalid_name')).toBe(null);
+    });
+  });
+
+  describe('updateAllJavaScriptCode', () => {
+    it('前ページのJavaScriptを更新する', () => {
+      const allJavaScriptCode = new AllJavaScriptCode({ code: '// Page Start: ww1\nupdate after 1\n// Page End: ww1\n// Page Start: ww2\nupdate after 2\n// Page End: ww2\n' });
+
+      const survey = SurveyDesignerState.createFromJson({ survey: updateAllJavaScript }).getSurvey();
+      const newSurvey = survey.updateAllJavaScriptCode(allJavaScriptCode);
+      expect(newSurvey.findPage('cj1pzhzdg00023j66pvgv5plq').getJavaScriptCode()).toBe('update after 1');
+      expect(newSurvey.findPage('cj1q0g8au001s3j66v7lvbklq').getJavaScriptCode()).toBe('update after 2');
+    });
+  });
+
+  describe('getAllPageDevIds', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
+      const devIds = survey.getAllPageDevIds();
+      expect(devIds.toArray()).toEqual(['ww1', 'ww2']);
+    });
+  });
+
+  describe('getAllQuestionDevIds', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
+      const devIds = survey.getAllQuestionDevIds();
+      expect(devIds.toArray()).toEqual(['ww1_xx1', 'ww2_xx2']);
+    });
+  });
+
+  describe('getAllItemDevIds', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
+      const devIds = survey.getAllItemDevIds();
+      expect(devIds.toArray()).toEqual(['ww1_xx1_yy1', 'ww2_xx2_yy3']);
+    });
+  });
+
+  describe('getAllSubItemDevIds', () => {
+    it('存在するnameなら、devIdを取得できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
+      const devIds = survey.getAllSubItemDevIds();
+      expect(devIds.toArray()).toEqual(['ww1_xx1_yy2', 'ww2_xx2_yy4']);
+    });
+  });
+
+  describe('findNumberValidationRuleById', () => {
+    it('NumberValidationRuleを取得できる', () => {
+      const survey = state.getSurvey().updateIn(['pages', 1, 'questions', 0], question => question.addNumberValidation('DUMMY'));
+      const numberValidationRule = survey.getIn(['pages', 1, 'questions', 0, 'numberValidationRuleMap', 'DUMMY', 0]);
+      const actual = survey.findNumberValidationRuleById(numberValidationRule.getId());
+      expect(actual.equals(numberValidationRule)).toBe(true);
+    });
+  });
+
+  describe('migrate', () => {
+    it('MultiNumberの最小値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      // 数値の項目1つ目
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().size).toBe(2);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().get(0).getValue()).toBe('10');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().get(0).getOperator()).toBe('>=');
+
+      // 数値の項目2つ目
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().size).toBe(2);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().get(0).getValue()).toBe('10');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().get(0).getOperator()).toBe('>=');
+    });
+
+    it('MultiNumberの最大値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      // 数値の項目1つ目
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().size).toBe(2);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().get(1).getValue()).toBe('20');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000q3k6844u5sckf').get(0).getNumberValidations().get(1).getOperator()).toBe('<=');
+
+      // 数値の項目2つ目
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().size).toBe(2);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().get(1).getValue()).toBe('20');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbbr8000w3k68qjoeqf2r').get(0).getNumberValidations().get(1).getOperator()).toBe('<=');
+    });
+
+    it('MultiNumberの合計値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(0);
+
+      // 数値の合計値
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000p3k68jronwu4m__total').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000p3k68jronwu4m__total').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000p3k68jronwu4m__total').get(0).getNumberValidations().get(0).getValue()).toBe('30');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rka444000p3k68jronwu4m__total').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+    });
+
+    it('MatrixQuestionの行の合計値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(1);
+
+      // 行1の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00143k68wgtqptkl_total_row').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00143k68wgtqptkl_total_row').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00143k68wgtqptkl_total_row').get(0).getNumberValidations().get(0).getValue()).toBe('3');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00143k68wgtqptkl_total_row').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+      // 行2の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcnz1001a3k68k6s04oki_total_row').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcnz1001a3k68k6s04oki_total_row').get(0).getNumberValidations().get(0).getValue()).toBe('7');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcnz1001a3k68k6s04oki_total_row').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+    });
+
+    it('MatrixQuestionの列の合計値がNumberValidationRuleに変換される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }).getSurvey();
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(1);
+
+      // 列1の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column').size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('4');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+      // 列2の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('8');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('==');
+    });
+
+    it('すでに移行済みのものは再度migrate処理を行わない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true })
+        .get('survey')
+        .updateIn(['pages', 0, 'questions', 1], question => question.addNumberValidation('cj6rkcol3001c3k68ulxowpfb_total_column', { value: '999', operator: '!=' }));
+
+      const result = survey.migrate();
+      const targetQuestion = result.getPages().get(0).getQuestions().get(1);
+
+      // 行1の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkbv0j00153k68t7dgni2y_total_column')).toBe(undefined);
+      // 行2の合計
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().size).toBe(1);
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getValue()).toBe('999');
+      expect(targetQuestion.getNumberValidationRuleMap().get('cj6rkcol3001c3k68ulxowpfb_total_column').get(0).getNumberValidations().get(0).getOperator()).toBe('!=');
+    });
+
+    it('日程質問でSubItemsがない場合はSubItemsを追加する', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionNoSubItems }).getSurvey();
+      const targetQuestion = survey.getPages().get(0).getQuestions().get(0);
+
+      expect(targetQuestion.getSubItems().size).toBe(3);
+      expect(targetQuestion.getSubItems().get(0).getLabel()).toBe('<b>A.<br />午前<br />9:00～12:00</b>');
+      expect(targetQuestion.getSubItems().get(1).getLabel()).toBe('<b>B.<br />午後<br />12:00～16:00</b>');
+      expect(targetQuestion.getSubItems().get(2).getLabel()).toBe('<b>C.<br />夜間<br />16:00 以降</b>');
+    });
+
+    it('日程質問でSubItemsが1つ「名称未設定」の場合はSubItemsを追加する', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionHasUndefinedOneSubItems }).getSurvey();
+      const targetQuestion2 = survey.getPages().get(0).getQuestions().get(1);
+
+      expect(targetQuestion2.getSubItems().size).toBe(3);
+      expect(targetQuestion2.getSubItems().get(0).getLabel()).toBe('<b>A.<br />午前<br />9:00～12:00</b>');
+      expect(targetQuestion2.getSubItems().get(1).getLabel()).toBe('<b>B.<br />午後<br />12:00～16:00</b>');
+      expect(targetQuestion2.getSubItems().get(2).getLabel()).toBe('<b>C.<br />夜間<br />16:00 以降</b>');
+    });
+
+    it('日程質問でSubItemsがすでにある場合はSubItemsを追加しない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateScheduleQuestionHasSubItems }).getSurvey();
+      const targetQuestion = survey.getPages().get(0).getQuestions().get(0);
+
+      expect(targetQuestion.getSubItems().size).toBe(2);
+      expect(targetQuestion.getSubItems().get(0).getLabel()).toBe('hoge');
+      expect(targetQuestion.getSubItems().get(1).getLabel()).toBe('fuga');
+    });
+  });
+
+  describe('isOutputDefinitionEqual', () => {
+    it('OuputDefinitionが変更されていたらfalseを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true }).get('survey');
+      const question = survey.getIn(['pages', 0, 'questions', 0]);
+      const result = survey.isOutputDefinitionEqual(survey.updateIn(['pages', 0], page => page.removeQuestion(question.getId())));
+      expect(result).toBe(false);
+    });
+    it('OuputDefinitionが変更されていない場合trueを返す', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true }).get('survey');
+      const result = survey.isOutputDefinitionEqual(survey);
+      expect(result).toBe(true);
     });
   });
 });

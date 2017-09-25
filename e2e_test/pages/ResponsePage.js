@@ -28,6 +28,7 @@ class ResponsePage {
 
   clickByOutputNo(outputNo, index = 0) {
     const element = this.findElementsByOutputNo(outputNo).value[index];
+    browser.pause(10);
     element.click();
   }
 

@@ -1,6 +1,7 @@
 /* eslint-env jest */
-import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
-import sample1 from '../sample1.json';
+import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
+import sample1 from '../../sample1.json';
+import getDevIdJson from './getDevId.json';
 
 describe('PageDefinition', () => {
   let state;
@@ -77,6 +78,14 @@ b
       expect(result1.getIn(['questions', 0, 'items', 6, 'plainLabel'])).toBe('d');
       expect(result1.getIn(['questions', 0, 'items', 7, 'label'])).toBe('<span> e </span>');
       expect(result1.getIn(['questions', 0, 'items', 7, 'plainLabel'])).toBe('e');
+    });
+  });
+
+  describe('getDevId', () => {
+    it('devIdを取得できる', () => {
+      const surveyState = SurveyDesignerState.createFromJson(getDevIdJson);
+      const result = surveyState.getSurvey().findPage('P001').getDevId();
+      expect(result).toBe('ww1');
     });
   });
 

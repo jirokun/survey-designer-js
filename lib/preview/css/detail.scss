@@ -1,6 +1,29 @@
 @import "../../runtime/css/common";
 @import "../../editor/css/editor";
 
+.detail-function {
+  @include tag($background-color-detail-function, $color-detail-function, $background-color-detail-function);
+}
+
+.fixed-value {
+  @include tag($background-color-fixed-value, $color-fixed-value, $background-color-fixed-value);
+}
+
+.alert-value {
+  @include tag($background-color-alert-value, $color-alert-value, $background-color-alert-value);
+}
+
+.answer-value {
+  @include tag($background-color-answer-value, $color-answer-value, $border-color-answer-value);
+}
+
+.validation-detail {
+  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
+}
+.number-validation-type {
+  @include tag($background-color-validation-detail, $color-validation-detail, $background-color-validation-detail);
+}
+
 html, body {
   height: auto;
   overflow: auto;
@@ -138,6 +161,14 @@ html, body {
 
   .output-no {
     @include tag(#312, #fff, #756);
+  }
+
+  .dev-id {
+    @include tag(#aaa, #fff, #ccc);
+    border-radius: 2px;
+    padding: 2px 4px;
+    font-size: 10px;
+    font-weight: normal;
   }
 }
 
