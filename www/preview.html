@@ -18,6 +18,12 @@
     <script src="/static/preview.bundle.js"></script>
     <script>
 var m = location.search.match(/json=([^&]+)/);
+var options = {
+  pageLoadedFn: function(survey, runtime) {
+    var nodeId = runtime.getCurrentNodeId();
+  }
+};
+
 if (m) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', m[1], true);
@@ -31,11 +37,7 @@ if (m) {
       var el = document.getElementById('root');
       SurveyDesigner.Preview(el, {
         survey: survey,
-        options: {
-          pageLoadedFn: function(survey, runtime) {
-            var nodeId = runtime.getCurrentNodeId();
-          },
-        },
+        options: options
       });
     }
   };
@@ -51,11 +53,7 @@ if (m) {
     var el = document.getElementById('root');
     SurveyDesigner.Preview(el, {
       survey: survey,
-      options: {
-        pageLoadedFn: function(survey, runtime) {
-          var nodeId = runtime.getCurrentNodeId();
-        },
-      },
+      options: options
     });
   }, false);
   window.opener.postMessage({ type: 'surveyRequest' }, '*');
