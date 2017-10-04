@@ -122,18 +122,12 @@ describe('MatrixQuestionDefinition', () => {
       const def = new MatrixQuestionDefinition({ _id: 'matrix1', dataType: 'Matrix', matrixType, items: rows, subItems: columns });
 
       const result = def.getOutputDefinitions('1', '1');
-      expect(result.size).toBe(6);
-      expect(result.get(4).getId()).toBe('row1_column1_additional_input');
-      expect(result.get(4).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(4).getLabel()).toBe('行1-列1-入力欄');
+      expect(result.size).toBe(5);
+      expect(result.get(4).getId()).toBe('column1_additional_input');
+      expect(result.get(4).getName()).toBe('matrix1_value1__text');
+      expect(result.get(4).getLabel()).toBe('列1-入力欄');
       expect(result.get(4).getOutputType()).toBe('text');
-      expect(result.get(4).getOutputNo()).toBe('1-1-1-1-additional');
-
-      expect(result.get(5).getId()).toBe('row2_column1_additional_input');
-      expect(result.get(5).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(5).getLabel()).toBe('行2-列1-入力欄');
-      expect(result.get(5).getOutputType()).toBe('text');
-      expect(result.get(5).getOutputNo()).toBe('1-1-2-1-additional');
+      expect(result.get(4).getOutputNo()).toBe('1-1-column1-additional');
     });
 
     it('matrixTypeがcheckboxで入力欄をonにしたときのOutputDefinitionも取得できる(列でグルーピング)', () => {
@@ -143,18 +137,12 @@ describe('MatrixQuestionDefinition', () => {
       const def = new MatrixQuestionDefinition({ _id: 'matrix1', dataType: 'Matrix', matrixType, items: rows, subItems: columns, matrixReverse: true });
 
       const result = def.getOutputDefinitions('1', '1');
-      expect(result.size).toBe(6);
-      expect(result.get(4).getId()).toBe('column1_row1_additional_input');
-      expect(result.get(4).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(4).getLabel()).toBe('列1-行1-入力欄');
+      expect(result.size).toBe(5);
+      expect(result.get(4).getId()).toBe('row1_additional_input');
+      expect(result.get(4).getName()).toBe('matrix1_value1__text');
+      expect(result.get(4).getLabel()).toBe('行1-入力欄');
       expect(result.get(4).getOutputType()).toBe('text');
-      expect(result.get(4).getOutputNo()).toBe('1-1-1-1-additional');
-
-      expect(result.get(5).getId()).toBe('column2_row1_additional_input');
-      expect(result.get(5).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(5).getLabel()).toBe('列2-行1-入力欄');
-      expect(result.get(5).getOutputType()).toBe('text');
-      expect(result.get(5).getOutputNo()).toBe('1-1-2-1-additional');
+      expect(result.get(4).getOutputNo()).toBe('1-1-row1-additional');
     });
 
     it('matrixTypeがradioで入力欄をonにしたときのOutputDefinitionも取得できる', () => {
@@ -164,18 +152,12 @@ describe('MatrixQuestionDefinition', () => {
       const def = new MatrixQuestionDefinition({ _id: 'matrix1', dataType: 'Matrix', matrixType, items: rows, subItems: columns });
 
       const result = def.getOutputDefinitions('1', '1');
-      expect(result.size).toBe(4);
-      expect(result.get(2).getId()).toBe('row1_column1_additional_input');
-      expect(result.get(2).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(2).getLabel()).toBe('行1-列1-入力欄');
+      expect(result.size).toBe(3);
+      expect(result.get(2).getId()).toBe('column1_additional_input');
+      expect(result.get(2).getName()).toBe('matrix1_value1__text');
+      expect(result.get(2).getLabel()).toBe('列1-入力欄');
       expect(result.get(2).getOutputType()).toBe('text');
-      expect(result.get(2).getOutputNo()).toBe('1-1-1-1-additional');
-
-      expect(result.get(3).getId()).toBe('row2_column1_additional_input');
-      expect(result.get(3).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(3).getLabel()).toBe('行2-列1-入力欄');
-      expect(result.get(3).getOutputType()).toBe('text');
-      expect(result.get(3).getOutputNo()).toBe('1-1-2-1-additional');
+      expect(result.get(2).getOutputNo()).toBe('1-1-column1-additional');
     });
 
     it('matrixTypeがradioで入力欄をonにしたときのOutputDefinitionも取得できる(列でグルーピング)', () => {
@@ -185,42 +167,19 @@ describe('MatrixQuestionDefinition', () => {
       const def = new MatrixQuestionDefinition({ _id: 'matrix1', dataType: 'Matrix', matrixType, items: rows, subItems: columns, matrixReverse: true });
 
       const result = def.getOutputDefinitions('1', '1');
-      expect(result.size).toBe(4);
-      expect(result.get(2).getId()).toBe('column1_row1_additional_input');
-      expect(result.get(2).getName()).toBe('matrix1_value1_1__text');
-      expect(result.get(2).getLabel()).toBe('列1-行1-入力欄');
+      expect(result.size).toBe(3);
+      expect(result.get(2).getId()).toBe('row1_additional_input');
+      expect(result.get(2).getName()).toBe('matrix1_value1__text');
+      expect(result.get(2).getLabel()).toBe('行1-入力欄');
       expect(result.get(2).getOutputType()).toBe('text');
-      expect(result.get(2).getOutputNo()).toBe('1-1-1-1-additional');
-
-      expect(result.get(3).getId()).toBe('column2_row1_additional_input');
-      expect(result.get(3).getName()).toBe('matrix1_value2_1__text');
-      expect(result.get(3).getLabel()).toBe('列2-行1-入力欄');
-      expect(result.get(3).getOutputType()).toBe('text');
-      expect(result.get(3).getOutputNo()).toBe('1-1-2-1-additional');
-    });
-  });
-
-  describe('getAdditionalOutputDevId', () => {
-    it('追加記入のdev-idを返す', () => {
-      const question = new MatrixQuestionDefinition();
-      expect(question.getAdditionalOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy1_yy2_text');
-    });
-
-    it('行列逆の場合、追加記入用のdev-idを返す', () => {
-      const question = new MatrixQuestionDefinition({ matrixReverse: true });
-      expect(question.getAdditionalOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy2_yy1_text');
+      expect(result.get(2).getOutputNo()).toBe('1-1-row1-additional');
     });
   });
 
   describe('getOutputDevId', () => {
-    it('追加記入のdev-idを返す', () => {
+    it('通常入力のdev-idを返す', () => {
       const question = new MatrixQuestionDefinition();
       expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy1_yy2');
-    });
-
-    it('行列逆の場合、追加記入用のdev-idを返す', () => {
-      const question = new MatrixQuestionDefinition({ matrixReverse: true });
-      expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy2_yy1');
     });
   });
 

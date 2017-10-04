@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const loadenv = require('node-env-file');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 const plugins = [
   // 環境変数の読み込み
@@ -9,6 +11,12 @@ const plugins = [
     'process.env': {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
     },
+  }),
+  new ExtractTextPlugin({
+    filename:  (getPath) => {
+      return getPath('css/[name].css').replace('css/js', 'css');
+    },
+    allChunks: true
   }),
 ];
 // プロダクション環境のみuglifyする
@@ -53,6 +61,17 @@ module.exports = {
     rules: [
       { test: /webpack-dev-server.client/, loader: 'null-loader' }, // auto reloadを無効にするための設定
       {
+        test: /\.scss$/,
+        use: ExtractTextPlugin
+          .extract({
+            fallback: 'style-loader',
+            use: [
+              { loader: 'css-loader', query: { sourceMap: true, minimize: false } },
+              { loader: 'sass-loader', query: { sourceMaps: true } }
+            ]
+          })
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         include: __dirname,
@@ -63,22 +82,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader' },
+          { loader: 'style-loader', options: { insertAt: 'top' } },
           { loader: 'css-loader' },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
         ],
       },
       {
         test: /\.less$/,
         use: [
-          { loader: 'style-loader' },
+          { loader: 'style-loader', options: { insertAt: 'top' } },
           { loader: 'css-loader' },
           { loader: 'less-loader' },
         ],

@@ -7,6 +7,7 @@ import NumberValidationRuleDefinition from '../../../../../lib/runtime/models/su
 import NumberValidationDefinition from '../../../../../lib/runtime/models/survey/questions/internal/NumberValidationDefinition';
 import MultiNumberQuestionDefinition from '../../../../../lib/runtime/models/survey/questions/MultiNumberQuestionDefinition';
 import json from './BaseQuestionDefinition.json';
+import over10NumberValidationRulesSurvey from '../SurveyDefinition/over10NumberValidationRulesSurvey.json';
 
 const ID_LENGTH = 25;
 
@@ -110,6 +111,13 @@ describe('BaseQuestionDefinition', () => {
       expect(question.getNumberValidationRuleMap().get('ODID2').get(0).getValidationTypeInQuestion()).toBe(3);
       expect(question.getNumberValidationRuleMap().get('ODID3').get(0).getValidationTypeInQuestion()).toBe(1);
     });
+
+    it('validationTypeInQuestionが二桁になっても正しく更新できる', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: over10NumberValidationRulesSurvey }).getSurvey();
+      const question = survey.getPages().get(0).getQuestions().get(0);
+      const result = question.updateNumberValidationTypeInQuestion('cj7stuzg4000i3b6xvfw3dyjt_cj7stv0f3000m3b6xc61anqy8');
+      expect(result.getNumberValidationRuleMap().get('cj7stuzg4000i3b6xvfw3dyjt_cj7stv0f3000m3b6xc61anqy8').get(0).getValidationTypeInQuestion()).toBe(11);
+    });
   });
 
   describe('findNumberValidationRule', () => {
@@ -128,7 +136,7 @@ describe('BaseQuestionDefinition', () => {
     it('validationTypeInQuestionでユニーク化したNumberValidatinoRuleのListを取得できる ', () => {
       const question = new BaseQuestionDefinition({ _id: 'dummy' }).addNumberValidation('ODID1').addNumberValidation('ODID2');
       expect(question.getUniquedNumberValidationRules().size).toBe(1);
-      const question2 = question.setIn(['numberValidationRuleMap', 'ODID2', 0, 'numberValidations', 0, 'value'], 'hoge');
+      const question2 = question.setIn(['numberValidationRuleMap', 'ODID2', 0, 'validationTypeInQuestion'], 9);
       expect(question2.getUniquedNumberValidationRules().size).toBe(2);
     });
   });
@@ -203,6 +211,26 @@ describe('BaseQuestionDefinition', () => {
       const result = survey.validate();
       expect(result.size).toBe(2);
       expect(result.get(1)).toBe('設問 1-1 数値制限で不正な参照が設定されています');
+    });
+  });
+
+  describe('clean', () => {
+    it('不要なnumberValidaitonRuleが削除される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: json }).getSurvey();
+      const page = survey.getPages().get(0);
+      let question = page.getQuestions().get(0);
+      const ods = question.getOutputDefinitions();
+      question = question.copyNumberValidationRules(survey, [
+        { sourceNumberValidationRuleId: 'cj6kr0dn000163j685rrx2x7g', targetOutputDefinitionId: ods.get(1).getId() },
+        { sourceNumberValidationRuleId: 'cj6kr0dn000163j685rrx2x7g', targetOutputDefinitionId: ods.get(2).getId() },
+      ]);
+      expect(question.getNumberValidationRuleMap().keySeq().size).toBe(3);
+      const result1 = question.update('items', items => items.filter((item, i) => i !== 0)).clean(survey, page);
+      expect(result1.getNumberValidationRuleMap().keySeq().size).toBe(2);
+      const result2 = result1.update('items', items => items.filter((item, i) => i !== 0)).clean(survey, page);
+      expect(result2.getNumberValidationRuleMap().keySeq().size).toBe(1);
+      const result3 = result2.update('items', items => items.filter((item, i) => i !== 0)).clean(survey, page);
+      expect(result3.getNumberValidationRuleMap().keySeq().size).toBe(0);
     });
   });
 });

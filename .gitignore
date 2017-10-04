@@ -25,3 +25,5 @@ errorShots
 
 # envinronments
 .env
+
+www/ignore

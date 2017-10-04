@@ -115,7 +115,7 @@ $form-error-content-margin-total: $form-error-content-margin * 2;
       }
       .formErrorContent {
         width: calc(100% - #{$form-error-content-margin-total});
-      } 
+      }
       img {
         max-width: none;
       }
@@ -143,9 +143,21 @@ $form-error-content-margin-total: $form-error-content-margin * 2;
   border: 1px solid #666;
 }
 
+.questionBox {
+  .matrix {
+    .additional-input {
+      margin: 0 3px;
+    }
+  }
+}
+
 img.popup {
   cursor: pointer;
   &.err {
     border: 2px solid #bf0303;
   }
+}
+
+.survey-header {
+  display: none;
 }
