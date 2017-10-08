@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import { List } from 'immutable';
+import $ from 'jquery';
 import MatrixQuestionDefinition from '../../../../../lib/runtime/models/survey/questions/MatrixQuestionDefinition';
 import ItemDefinition from '../../../../../lib/runtime/models/survey/questions/internal/ItemDefinition';
 import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
@@ -331,6 +332,36 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(2);
       expect(result.get(1).getType()).toBe('WARNING');
       expect(result.get(1).getMessage()).toBe('設問 1-1 表形式で列項目をランダム表示を選択していますが、行が結合されており正しく動作しない可能性があります');
+    });
+
+    it('pageがfreeModeかつitemIdに対応する行がテーブルに存在していない場合エラーが返る', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: freeModeColSpanSurvey }).getSurvey().updateIn(['pages', 0, 'html'], (html) => {
+        const $html = $(html);
+        $html.find('tr#cj7jyh2g700053j7159so1lad').remove();
+        return $html.prop('outerHTML');
+      });
+      survey.refreshReplacer();
+      const result = survey.validate();
+      expect(result.size).toBe(3);
+      expect(result.get(1).getType()).toBe('WARNING');
+      expect(result.get(1).getMessage()).toBe('設問 1-1 テーブルの行ラベル「名称未設定」に対応する行が存在していません');
+      expect(result.get(2).getType()).toBe('WARNING');
+      expect(result.get(2).getMessage()).toBe('1-1-1に対応するフォームフィールドが存在しません');
+      survey.validate();
+    });
+
+    it('pageがfreeModeかつsubItemIdに対応する列がテーブルに存在していない場合エラーが返る', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: freeModeColSpanSurvey }).getSurvey().updateIn(['pages', 0, 'html'], (html) => {
+        const $html = $(html);
+        $html.find('td#cj7jysdj7000a3j71fha5t1ad').remove();
+        return $html.prop('outerHTML');
+      }).setIn(['pages', 0, 'questions', 0, 'subItemsRandom'], false);
+      survey.refreshReplacer();
+      const result = survey.validate();
+      expect(result.size).toBe(2);
+      expect(result.get(1).getType()).toBe('WARNING');
+      expect(result.get(1).getMessage()).toBe('設問 1-1 テーブルの列ラベル「名称未設定」に対応する列が存在していません');
+      survey.validate();
     });
   });
 });
