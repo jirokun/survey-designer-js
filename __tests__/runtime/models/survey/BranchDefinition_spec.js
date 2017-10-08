@@ -212,14 +212,14 @@ describe('BranchDefinition', () => {
       const branch = survey.getIn(['branches', 0]);
       const result = branch.validate(survey);
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('分岐設定の遷移先が存在しません');
+      expect(result.get(0).getMessage()).toBe('分岐設定の遷移先が存在しません');
     });
     it('条件の設問が存在しない', () => {
       const survey = state.getSurvey().setIn(['branches', 0, 'conditions', 0, 'childConditions', 0, 'outputId'], '');
       const branch = survey.getIn(['branches', 0]);
       const result = branch.validate(survey);
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('設定されていない分岐条件があります');
+      expect(result.get(0).getMessage()).toBe('設定されていない分岐条件があります');
     });
     it('数値条件の値が未入力', () => {
       const survey = state.getSurvey()
@@ -228,14 +228,14 @@ describe('BranchDefinition', () => {
       const branch = survey.getIn(['branches', 0]);
       const result = branch.validate(survey);
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('分岐条件の入力値が空欄です');
+      expect(result.get(0).getMessage()).toBe('分岐条件の入力値が空欄です');
     });
     it('条件の選択値(radio)が未入力', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: sampleRadio }).getSurvey();
       const branch = survey.getIn(['branches', 0]);
       const result = branch.validate(survey);
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('分岐条件の入力値が選択されていません');
+      expect(result.get(0).getMessage()).toBe('分岐条件の入力値が選択されていません');
     });
   });
 });

@@ -71,4 +71,52 @@ describe('CheckboxQuestionDefinition', () => {
       expect(orderMap[2][2]).toBe(true);
     });
   });
+
+  describe('createOutputDefinitionsFromItem', () => {
+    it('additionlInputを含まないitemの場合1つのOutputDefinitionが返る', () => {
+      const outputDefinitions = new CheckboxQuestionDefinition({ _id: 'c1' }).getOutputDefinitionsFromItem(new ItemDefinition({ _id: 'id1', label: '0', index: 0 }), '0', '0');
+      expect(outputDefinitions.size).toBe(1);
+      expect(outputDefinitions.get(0).getId()).toBe('id1');
+      expect(outputDefinitions.get(0).getName()).toBe('c1__value1');
+    });
+
+    it('additionlInputを含むitemの場合2つのOutputDefinitionが返る', () => {
+      const outputDefinitions = new CheckboxQuestionDefinition({ _id: 'c1' }).getOutputDefinitionsFromItem(new ItemDefinition({ _id: 'id1', label: '0', index: 0, additionalInput: true }), '0', '0');
+      expect(outputDefinitions.size).toBe(2);
+      expect(outputDefinitions.get(0).getId()).toBe('id1');
+      expect(outputDefinitions.get(1).getId()).toBe('id1__text');
+      expect(outputDefinitions.get(0).getName()).toBe('c1__value1');
+      expect(outputDefinitions.get(1).getName()).toBe('c1__value1__text');
+    });
+  });
+
+  describe('getOutputDefinitions', () => {
+    it('item(additionalInputなし)が2つある場合2つのOutputDefinitionが返る', () => {
+      const items = List.of(
+        new ItemDefinition({ _id: 'id1', label: '0', index: 0 }),
+        new ItemDefinition({ _id: 'id2', label: '1', index: 1 }),
+      );
+
+      const outputDefinitions = new CheckboxQuestionDefinition({ _id: 'c1', items }).getOutputDefinitions('0', '0');
+      expect(outputDefinitions.size).toBe(2);
+      expect(outputDefinitions.get(0).getId()).toBe('id1');
+      expect(outputDefinitions.get(1).getId()).toBe('id2');
+      expect(outputDefinitions.get(0).getName()).toBe('c1__value1');
+      expect(outputDefinitions.get(1).getName()).toBe('c1__value2');
+    });
+
+    it('item(additionalInputあり)が2つある場合4つのOutputDefinitionが返る', () => {
+      const items = List.of(
+        new ItemDefinition({ _id: 'id1', label: '0', index: 0, additionalInput: true }),
+        new ItemDefinition({ _id: 'id2', label: '1', index: 1, additionalInput: true }),
+      );
+
+      const outputDefinitions = new CheckboxQuestionDefinition({ _id: 'c1', items }).getOutputDefinitions('0', '0');
+      expect(outputDefinitions.size).toBe(4);
+      expect(outputDefinitions.get(0).getId()).toBe('id1');
+      expect(outputDefinitions.get(1).getId()).toBe('id1__text');
+      expect(outputDefinitions.get(2).getId()).toBe('id2');
+      expect(outputDefinitions.get(3).getId()).toBe('id2__text');
+    });
+  });
 });

@@ -12,7 +12,8 @@ describe('ChildConditionDefinition', () => {
       const survey = new SurveyDefinition();
       const result = new ChildConditionDefinition({ _id: 'ccd1' }).validate(survey, 'dummyBranchId');
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('設定されていない分岐条件があります');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('設定されていない分岐条件があります');
     });
 
     it('outputTypeがnumberかつvalueが空の場合エラーとなる', () => {
@@ -30,7 +31,8 @@ describe('ChildConditionDefinition', () => {
         outputId: 'od1',
       }).validate(survey, 'dummyBranchId');
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('分岐条件の入力値が空欄です');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('分岐条件の入力値が空欄です');
     });
 
     it('outputTypeがradioかつvalueが空の場合エラーとなる', () => {
@@ -48,7 +50,8 @@ describe('ChildConditionDefinition', () => {
         outputId: 'od1',
       }).validate(survey, 'dummyBranchId');
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('分岐条件の入力値が選択されていません');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('分岐条件の入力値が選択されていません');
     });
 
     it('outputTypeがselectかつvalueが空の場合エラーとなる', () => {
@@ -66,7 +69,8 @@ describe('ChildConditionDefinition', () => {
         outputId: 'od1',
       }).validate(survey, 'dummyBranchId');
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('分岐条件の入力値が選択されていません');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('分岐条件の入力値が選択されていません');
     });
 
     it('outputTypeがnumberかつvalueの参照地がない場合エラーとなる', () => {
@@ -88,7 +92,8 @@ describe('ChildConditionDefinition', () => {
         choices: List([new ChoiceDefinition()]),
       }).validate(survey, 'dummyBranchId');
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('分岐条件の参照先が存在しません');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('分岐条件の参照先が存在しません');
     });
 
     it('outputTypeがnumberかつvalueの参照地がある場合エラーとならない', () => {
