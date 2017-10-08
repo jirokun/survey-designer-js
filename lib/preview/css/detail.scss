@@ -110,6 +110,13 @@ html, body {
     &:empty {
       display: none;
     }
+    .page-settings {
+      display: flex;
+      > div {
+        width: 50%;
+        margin: 0 5px;
+      }
+    }
     table {
       width: 100%;
       th, td {

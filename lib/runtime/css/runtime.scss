@@ -64,7 +64,9 @@
     input.number {
       width: $number-input-width;
     }
+    padding: 0.6em 0;
     label {
+      padding: 0;
       white-space: nowrap;
       > input {
         margin: 0 5px;
@@ -112,6 +114,12 @@ $form-error-content-margin-total: $form-error-content-margin * 2;
           width: calc(100% - #{$form-error-content-margin-total});
           text-align: center;
         }
+        td {
+          padding: 0.6em 0;
+          label {
+            padding: 0;
+          }
+        }
       }
       .formErrorContent {
         width: calc(100% - #{$form-error-content-margin-total});
@@ -134,7 +142,7 @@ $form-error-content-margin-total: $form-error-content-margin * 2;
 }
 
 .questionBox .question select {
-  display: block;
+  display: inline-block;
   min-width: 30%;
   max-width: 90%;
   height: 34px;
