@@ -80,6 +80,9 @@ html, body {
     > div {
       flex: auto;
       padding: 5px;
+      &:empty {
+        display: none;
+      }
     }
     table {
       width: 100%;
@@ -99,6 +102,12 @@ html, body {
         width: 100%;
       }
     }
+  }
+
+  .survey-setting-detail {
+    @extend .question-detail;
+    margin: 5px;
+    padding-bottom: 10px;
   }
 
   .page-detail {
