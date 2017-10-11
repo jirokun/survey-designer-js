@@ -532,10 +532,12 @@ describe('SurveyDefinition', () => {
       let survey = state.getSurvey();
       const runtimeUrls = List.of('a.css', 'b.css');
       const previewUrls = List.of('c.css', 'd.css');
+      const detailUrls = List.of('e.css', 'f.css');
 
-      survey = survey.updateCssUrls(runtimeUrls, previewUrls);
+      survey = survey.updateCssUrls(runtimeUrls, previewUrls, detailUrls);
       expect(survey.getCssRuntimeUrls()).toBe(runtimeUrls);
       expect(survey.getCssPreviewUrls()).toBe(previewUrls);
+      expect(survey.getCssDetailUrls()).toBe(detailUrls);
     });
   });
 
@@ -726,8 +728,9 @@ describe('SurveyDefinition', () => {
       let survey = state.getSurvey();
       const runtimeUrls = List.of('a.css', 'b.css');
       const previewUrls = List.of('c.css', 'd.css');
+      const detailUrls = List.of('e.css', 'f.css');
 
-      survey = survey.updateCssUrls(runtimeUrls, previewUrls);
+      survey = survey.updateCssUrls(runtimeUrls, previewUrls, detailUrls);
       expect(survey.hasCssUrls()).toBeTruthy();
     });
 
