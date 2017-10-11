@@ -38,7 +38,7 @@ describe('Option', () => {
       expect(option.getCssOptionById(cssOption1.getId())).toBe(cssOption1);
     });
 
-    it('マッチするURLがない場合、対応するcssOptionを返す', () => {
+    it('マッチするURLがない場合、nullを返す', () => {
       const cssOption1 = CssOption.create('title1', List.of('a.css', 'b.css'), List.of('c.css', 'd.css'), List.of('e.css', 'f.css'));
       const cssOption2 = CssOption.create('title2', List.of('g.css', 'h.css'), List.of('i.css', 'j.css'), List.of('k.css', 'l.css'));
       const cssOptions = List.of(cssOption1, cssOption2);
