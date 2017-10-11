@@ -7,7 +7,9 @@ describe('CssOption', () => {
     it('runtimeUrlsと一致する場合はtrueを返す', () => {
       const runtimeUrls = List.of('/css/runtime/a.css', '/css/runtime/b.css');
       const previewUrls = List.of('/css/preview/c.css', '/css/preview/d.css');
-      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls);
+      const detailUrls = List.of('/css/detail/e.css', '/css/preview/f.css');
+      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls, detailUrls);
+
       const exp = List.of('/css/runtime/a.css', '/css/runtime/b.css');
       expect(cssOption.matchRuntimeUrls(exp)).toBeTruthy();
     });
@@ -15,8 +17,10 @@ describe('CssOption', () => {
     it('runtimeUrlsと一致しない場合はfalseを返す', () => {
       const runtimeUrls = List.of('/css/runtime/a.css', '/css/runtime/b.css');
       const previewUrls = List.of('/css/preview/c.css', '/css/preview/d.css');
-      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls);
-      const exp = List.of('/css/runtime/a.css', '/css/runtime/e.css');
+      const detailUrls = List.of('/css/detail/e.css', '/css/preview/f.css');
+      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls, detailUrls);
+
+      const exp = List.of('/css/runtime/a.css', '/css/runtime/g.css');
       expect(cssOption.matchRuntimeUrls(exp)).toBeFalsy();
     });
   });
@@ -25,7 +29,9 @@ describe('CssOption', () => {
     it('runtimeUrlsと一致する場合はtrueを返す', () => {
       const runtimeUrls = List.of('/css/runtime/a.css', '/css/runtime/b.css');
       const previewUrls = List.of('/css/preview/c.css', '/css/preview/d.css');
-      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls);
+      const detailUrls = List.of('/css/detail/e.css', '/css/preview/f.css');
+      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls, detailUrls);
+
       const exp = List.of('/css/preview/c.css', '/css/preview/d.css');
       expect(cssOption.matchPreviewUrls(exp)).toBeTruthy();
     });
@@ -33,9 +39,33 @@ describe('CssOption', () => {
     it('runtimeUrlsと一致しない場合はfalseを返す', () => {
       const runtimeUrls = List.of('/css/runtime/a.css', '/css/runtime/b.css');
       const previewUrls = List.of('/css/preview/c.css', '/css/preview/d.css');
-      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls);
-      const exp = List.of('/css/preview/c.css', '/css/preview/e.css');
+      const detailUrls = List.of('/css/detail/e.css', '/css/preview/f.css');
+      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls, detailUrls);
+
+      const exp = List.of('/css/preview/c.css', '/css/preview/g.css');
       expect(cssOption.matchPreviewUrls(exp)).toBeFalsy();
+    });
+  });
+
+  describe('matchDetailUrls', () => {
+    it('detailUrlsと一致する場合はtrueを返す', () => {
+      const runtimeUrls = List.of('/css/runtime/a.css', '/css/runtime/b.css');
+      const previewUrls = List.of('/css/preview/c.css', '/css/preview/d.css');
+      const detailUrls = List.of('/css/detail/e.css', '/css/preview/f.css');
+      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls, detailUrls);
+
+      const exp = List.of('/css/detail/e.css', '/css/preview/f.css');
+      expect(cssOption.matchDetailUrls(exp)).toBeTruthy();
+    });
+
+    it('detailUrlsと一致しない場合はfalseを返す', () => {
+      const runtimeUrls = List.of('/css/runtime/a.css', '/css/runtime/b.css');
+      const previewUrls = List.of('/css/preview/c.css', '/css/preview/d.css');
+      const detailUrls = List.of('/css/detail/e.css', '/css/preview/f.css');
+      const cssOption = CssOption.create('hoge', runtimeUrls, previewUrls, detailUrls);
+
+      const exp = List.of('/css/detail/e.css', '/css/preview/g.css');
+      expect(cssOption.matchDetailUrls(exp)).toBeFalsy();
     });
   });
 });
