@@ -1,9 +1,37 @@
 @import "../../runtime/css/common";
 
+@mixin flowNode($borderColor, $backgroundColor) {
+  border: 1px solid $borderColor;
+  background-color: $backgroundColor;
+  transition-duration:.2s;
+  transition-timing-function: ease-in-out;
+
+  &:hover {
+    border: 1px solid $borderColor;
+    box-shadow: 0 0 0 1px $borderColor;
+  }
+
+  &.selected {
+    border: 1px solid $borderColor;
+    box-shadow: 0 0 0 1px $borderColor;
+    transition-duration:.2s;
+    transition-timing-function: ease-in-out;
+
+    &:hover {
+      box-shadow: 0 0 0 2px $borderColor;
+    }
+  }
+}
+
 html, body {
   height: 100%;
   overflow: hidden;
   min-width: 800px;
+
+  // free-editモードでの編集時のスタイル
+  &.mce-content-body {
+    overflow: hidden;
+  }
 }
 #root {
   width: 100%;
@@ -69,11 +97,20 @@ html, body {
           right: 20px;
           top: 5px;
         }
-        .ReactCodeMirror {
+        .source-editor-container {
           height: 100%;
-          .CodeMirror {
-            font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+          .source-editor {
             height: 100%;
+            .CodeMirror {
+              font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+              height: 100%;
+            }
+          }
+          .help {
+            z-index: 2;
+            position: absolute;
+            top: 5px;
+            right: 15px;
           }
         }
         .mce-content-body {
@@ -100,11 +137,45 @@ html, body {
         height: 100%;
         width: 100%;
         overflow: hidden;
-        iframe {
+        .preview-pane-header {
+          height: 25px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          border-bottom: 1px solid #ccc;
+          &:empty {
+            display: none;
+          }
+        }
+        > iframe {
           box-sizing: border-box;
           border: none;
           width: 100%;
           height: 100%;
+        }
+        &.page > iframe {
+          height: 100% !important;
+        }
+        &.free-mode.page > iframe {
+          height: calc(100% - 25px) !important;
+        }
+        .mce-tinymce {
+          &.mce-fullscreen {
+            height: 100%;
+          }
+          .mce-container-body {
+            height: 100%;
+            .mce-edit-area {
+              height: calc(100% - 37px - 37px);
+              > iframe {
+                height: 100% !important;
+                box-sizing: border-box;
+                border: none;
+                width: 100%;
+                height: 100% !important;
+              }
+            }
+          }
         }
       }
     }
@@ -188,6 +259,15 @@ html, body {
   &:last-child {
     margin-bottom: 250px; /* 余白 */
   }
+
+  .checkbox.disabled, .checkbox-inline.disabled {
+    opacity: 0.5;
+  }
+
+  input.disabled {
+    background-color: $disabled-background-color;
+    cursor: not-allowed;
+  }
 }
 
 /* HTMLのエディタ */
@@ -201,6 +281,13 @@ html, body {
   min-height: 23px;
   overflow: auto;
   
+  &.disabled {
+    cursor: not-allowed;
+    background-color: $disabled-background-color;
+    &:hover {
+      background-color: $disabled-background-color;
+    }
+  }
   &:hover {
     background-color: #fee;
   }
@@ -239,6 +326,10 @@ html, body {
       }
       .buttons {
         white-space: nowrap;
+      }
+      .disabled, input[disabled], select[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
     }
   }
@@ -342,71 +433,19 @@ html, body {
       }
     }
   }
+
   .page {
-    border: 1px solid #f4d99a;
-    background-color: $backgroud-color-page;
-    transition-duration:.2s;
-    transition-timing-function: ease-in-out;
-   
-    &:hover {
-      border: 1px solid #f4d99a;
-      box-shadow: 0 0 0 1px #f4d99a;
-    }
-    
-    &.selected {
-      border: 1px solid #f4d99a;
-      box-shadow: 0 0 0 1px #f4d99a;
-      transition-duration:.2s;
-      transition-timing-function: ease-in-out;
-      
-      &:hover {
-      box-shadow: 0 0 0 2px #f4d99a;
-      }
+    @include flowNode(#f4d99a, $backgroud-color-page);
+
+    &.free-edit {
+      @include flowNode(#eb9af4, $backgroud-color-page-free-edit);
     }
   }
   .branch {
-    border: 1px solid #af9bff;
-    background-color: $backgroud-color-branch;
-    transition-duration:.2s;
-    transition-timing-function: ease-in-out;      
-
-    &:hover {
-      border: 1px solid #af9bff;
-      box-shadow: 0 0 0 1px #af9bff;
-    }
-
-    &.selected {
-      border: 1px solid #af9bff;
-      box-shadow: 0 0 0 1px #af9bff;
-      transition-duration:.2s;
-      transition-timing-function: ease-in-out;
-      
-      &:hover {
-      box-shadow: 0 0 0 2px #af9bff;
-      }
-    }
+    @include flowNode(#af9bff, $backgroud-color-branch)
   }
   .finisher {
-    border: 1px solid #a0db8e;
-    background-color: $backgroud-color-finisher;
-    transition-duration:.2s;
-    transition-timing-function: ease-in-out;      
-
-    &:hover {
-      border: 1px solid #a0db8e;
-      box-shadow: 0 0 0 1px #a0db8e;
-    }
-
-    &.selected {
-      border: 1px solid #a0db8e;
-      box-shadow: 0 0 0 1px #a0db8e;
-      transition-duration:.2s;
-      transition-timing-function: ease-in-out;
-      
-      &:hover {
-      box-shadow: 0 0 0 2px #a0db8e;
-      }
-    }
+    @include flowNode(#a0db8e, $backgroud-color-finisher)
   }
   .arrow-down {
     position: relative;
@@ -421,11 +460,11 @@ html, body {
       top: 0;
       left: 0;
       display: none;
-    @extend .fade-in;
-    
-    &:hover {
-      @extend .fade-in--finish
-    }
+      @extend .fade-in;
+
+      &:hover {
+        @extend .fade-in--finish
+      }
     }
     &:hover {
       .btn {
@@ -640,7 +679,7 @@ html, body {
 
 .item-visibility-editor {
   td.disabled {
-    background-color: #ddd;
+    background-color: $disabled-background-color;
   }
 }
 .item-validation-popover.popover, .item-visibility-condition-popover.popover {
@@ -664,6 +703,66 @@ html, body {
       > * {
         display: table-cell
       }
+    }
+  }
+}
+
+.survey-settings-modal .modal-dialog {
+  width: 800px;
+}
+
+.wide-tooltip .tooltip-inner {
+  max-width: 600px;
+}
+.text-left .tooltip-inner {
+  text-align: left;
+}
+
+.matrix-table-editor-part {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  .matrix-table-editor-part__backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.5;
+  }
+  .mce-tinymce {
+    position: fixed;
+    width: calc(100% - 100px);
+    height: calc(100vh - 100px);
+    top: 50px;
+    left: 50px;
+    .mce-container-body {
+      height: 100%;
+      .mce-edit-area {
+        height: calc(100% - 37px - 37px);
+        > iframe {
+          height: 100% !important;
+          box-sizing: border-box;
+          border: none;
+          width: 100%;
+          height: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+.help-tooltip {
+  font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+  table {
+    border-collapse: collapse;
+    th, td {
+      padding: 2px 4px;
+      border: 1px solid #888;
     }
   }
 }

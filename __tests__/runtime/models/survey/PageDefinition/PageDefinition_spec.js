@@ -124,14 +124,16 @@ b
       survey.refreshReplacer();
       const result = survey.findPage('P001').validate(survey);
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('1-L-000で選択されていない演算子があります');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('1-L-000で選択されていない演算子があります');
     });
     it('参照する回答が存在しないときエラーが返る', () => {
       const survey = state.getSurvey().setIn(['pages', 0, 'logicalVariables', 0, 'operands', 0], '');
       survey.refreshReplacer();
       const result = survey.findPage('P001').validate(survey);
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('1-L-000で選択されていない設問があります');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('1-L-000で選択されていない設問があります');
     });
   });
 
@@ -141,7 +143,8 @@ b
       survey.refreshReplacer();
       const result = survey.findPage('P001').validate(survey);
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('設問 1-1 タイトルで存在しない参照があります');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('設問 1-1 タイトルで存在しない参照があります');
     });
   });
 });

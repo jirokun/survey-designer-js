@@ -1,4 +1,4 @@
-.preview-answer {
+.optional-area {
   border: 1px solid #666;
   border-radius: 5px;
   background: #fff;
@@ -6,7 +6,7 @@
   width: 800px;
   margin: 10px auto 0 auto;
   box-sizing: border-box;
-  > .caption {
+  .caption {
     text-align: left;
     font-size: 120%;
     font-weight: bold;
@@ -21,4 +21,31 @@
     margin-top: 3px;
     margin-left: 5px;
   }
+}
+.dd-menu-items {
+  li {
+    padding: 3px 20px;
+    width: 100px;
+    text-align: left;
+  }
+  li.checked:before {
+    content: "✓"
+  }
+}
+.warning-area {
+  font-size: 0.875rem;
+  margin-top: 5px;
+  background-color: #f9f3e0;
+  border: 1px solid gold;
+  text-align: left;
+  ul {
+    padding-left: 10px;
+    list-style-position: inside;
+    list-style-type: decimal;
+  }
+}
+.error-area {
+  @extend .warning-area;
+  background-color: #fcc;
+  border: 1px solid #f7024b;
 }

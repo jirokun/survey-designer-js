@@ -736,4 +736,15 @@ describe('SurveyDefinition', () => {
       expect(survey.hasCssUrls()).toBeFalsy();
     });
   });
+
+  describe('hasFreeModePages', () => {
+    it('freeModeのページがある場合trueを返す', () => {
+      const survey = state.getSurvey().setIn(['pages', 0, 'freeMode'], true);
+      expect(survey.hasFreeModePages()).toBe(true);
+    });
+    it('freeModeのページがない場合falseを返す', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasFreeModePages()).toBe(false);
+    });
+  });
 });

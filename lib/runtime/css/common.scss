@@ -3,6 +3,7 @@ $page-list-item-controller-width: 21px;
 $backgroud-color-finisher: #e6f6d7;
 $backgroud-color-branch: #e7e1f9;
 $backgroud-color-page: #f9f3e0;
+$backgroud-color-page-free-edit: #ffe8e8;
 
 $border-color-finisher: green;
 $border-color-branch: purple;
@@ -31,6 +32,9 @@ $background-color-alert-value: #c11;
 $color-alert-value: #fff;
 
 $number-input-width: 4em;
+
+$disabled-background-color: #eeeeee;
+$disabled-opacity-color: 0.5;
 
 @mixin tag($bgColor, $color, $borderColor) {
   background-color: $bgColor;

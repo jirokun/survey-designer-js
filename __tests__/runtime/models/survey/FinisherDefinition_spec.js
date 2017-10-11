@@ -14,7 +14,8 @@ describe('FinisherDefinition', () => {
       survey.refreshReplacer();
       const result = survey.getFinishers().get(0).validate(survey);
       expect(result.size).toBe(1);
-      expect(result.get(0)).toBe('存在しない参照があります');
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('存在しない参照があります');
     });
   });
 });

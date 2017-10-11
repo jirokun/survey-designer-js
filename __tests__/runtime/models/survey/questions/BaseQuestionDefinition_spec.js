@@ -188,7 +188,8 @@ describe('BaseQuestionDefinition', () => {
       survey.refreshReplacer();
       const result = survey.validate();
       expect(result.size).toBe(2);
-      expect(result.get(1)).toBe('設問 1-1 数値制限で値が設定されていません');
+      expect(result.get(1).getType()).toBe('ERROR');
+      expect(result.get(1).getMessage()).toBe('設問 1-1 数値制限で値が設定されていません');
     });
 
     it('NumberValidationRuleの比較方法が設定されていない場合にvalidateでエラーが返る', () => {
@@ -199,7 +200,8 @@ describe('BaseQuestionDefinition', () => {
       survey.refreshReplacer();
       const result = survey.validate();
       expect(result.size).toBe(2);
-      expect(result.get(1)).toBe('設問 1-1 数値制限で比較方法が設定されていません');
+      expect(result.get(1).getType()).toBe('ERROR');
+      expect(result.get(1).getMessage()).toBe('設問 1-1 数値制限で比較方法が設定されていません');
     });
 
     it('NumberValidationRuleの値が存在しない参照の場合にvalidateでエラーが返る', () => {
@@ -210,7 +212,8 @@ describe('BaseQuestionDefinition', () => {
       survey.refreshReplacer();
       const result = survey.validate();
       expect(result.size).toBe(2);
-      expect(result.get(1)).toBe('設問 1-1 数値制限で不正な参照が設定されています');
+      expect(result.get(1).getType()).toBe('ERROR');
+      expect(result.get(1).getMessage()).toBe('設問 1-1 数値制限で不正な参照が設定されています');
     });
   });
 
