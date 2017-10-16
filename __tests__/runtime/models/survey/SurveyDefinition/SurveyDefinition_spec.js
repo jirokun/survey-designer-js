@@ -740,14 +740,28 @@ describe('SurveyDefinition', () => {
     });
   });
 
-  describe('hasFreeModePages', () => {
+  describe('hasFreeModePage', () => {
     it('freeModeのページがある場合trueを返す', () => {
       const survey = state.getSurvey().setIn(['pages', 0, 'freeMode'], true);
-      expect(survey.hasFreeModePages()).toBe(true);
+      expect(survey.hasFreeModePage()).toBe(true);
     });
     it('freeModeのページがない場合falseを返す', () => {
       const survey = state.getSurvey();
-      expect(survey.hasFreeModePages()).toBe(false);
+      expect(survey.hasFreeModePage()).toBe(false);
+    });
+  });
+
+  describe('hasMatrixEnabledQuestion', () => {
+    it('テーブルカスタマイズが有効になったクエスチョンがある場合trueを返す', () => {
+      const survey = state.getSurvey()
+        .setIn(['pages', 0, 'questions', 0, 'dataType'], 'Matrix')
+        .setIn(['pages', 0, 'questions', 0, 'matrixHtmlEnabled'], true)
+        .setIn(['pages', 0, 'questions', 0, 'matrixHtml'], '<p></p>');
+      expect(survey.hasMatrixEnabledQuestion()).toBe(true);
+    });
+    it('テーブルカスタマイズが有効になったクエスチョンがない場合falseを返す', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasMatrixEnabledQuestion()).toBe(false);
     });
   });
 });
