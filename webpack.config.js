@@ -67,9 +67,9 @@ module.exports = {
             fallback: 'style-loader',
             use: [
               { loader: 'css-loader', query: { sourceMap: true, minimize: false } },
-              { loader: 'sass-loader', query: { sourceMaps: true } }
-            ]
-          })
+              { loader: 'sass-loader', query: { sourceMaps: true } },
+            ],
+          }),
       },
       {
         test: /\.jsx?$/,
@@ -81,18 +81,24 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          { loader: 'style-loader', options: { insertAt: 'top' } },
-          { loader: 'css-loader' },
-        ],
+        use: ExtractTextPlugin
+          .extract({
+            fallback: 'style-loader',
+            use: [
+              { loader: 'css-loader', query: { sourceMap: true, minimize: false } },
+            ],
+          }),
       },
       {
         test: /\.less$/,
-        use: [
-          { loader: 'style-loader', options: { insertAt: 'top' } },
-          { loader: 'css-loader' },
-          { loader: 'less-loader' },
-        ],
+        use: ExtractTextPlugin
+          .extract({
+            fallback: 'style-loader',
+            use: [
+              { loader: 'css-loader', query: { sourceMap: true, minimize: false } },
+              { loader: 'less-loader' },
+            ],
+          }),
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
