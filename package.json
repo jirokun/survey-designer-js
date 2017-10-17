@@ -7,7 +7,7 @@
     "build": "webpack",
     "build:production": "NODE_ENV=production webpack",
     "build:watch": "webpack --watch",
-    "test": "jest && node e2e_test.js",
+    "test": "jest",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
     "test:e2e": "wdio wdio.conf.js",
