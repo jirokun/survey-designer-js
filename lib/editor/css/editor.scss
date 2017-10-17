@@ -315,6 +315,9 @@ html, body {
       vertical-align: top;
       font-size: 87.5%;
     }
+    td {
+      white-space: nowrap;
+    }
     .item-editor-row {
       .option {
         text-align: center;
@@ -333,7 +336,7 @@ html, body {
         width: 40%;
       }
       .personal-item-editor-display-type {
-        margin-right: 5px;
+        margin-right: 10px;
       }
 
       .buttons {

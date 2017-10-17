@@ -211,4 +211,12 @@ img.popup {
       margin-right: 4px !important;
     }
   }
+
+  &__label_option {
+    background-color: #636c72;
+    color: #fff;
+    padding: .25em .4em;
+    font-size: 75%;
+    margin-left: 4px;
+  }
 }
