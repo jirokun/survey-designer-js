@@ -94,6 +94,10 @@ html, body {
       td {
         padding: 0 5px;
         border: 1px solid black;
+        &.error {
+          background-color: $background-color-alert-value;
+          color: $color-alert-value;
+        }
       }
     }
     .item-visibilities {
