@@ -190,6 +190,10 @@ img.popup {
     width: 2.5%;
   }
 
+  &__select {
+    width: 10em;
+  }
+
   &__select_with_input {
     display: inline-block !important;
   }
@@ -218,5 +222,9 @@ img.popup {
     padding: .25em .4em;
     font-size: 75%;
     margin-left: 4px;
+  }
+
+  &__input-number {
+    width: 5em !important;
   }
 }
