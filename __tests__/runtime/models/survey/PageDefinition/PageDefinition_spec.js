@@ -118,33 +118,63 @@ b
     });
   });
 
-  describe('validateLogicalVariable', () => {
-    it('オペレータが選択されていない箇所があるときエラーが返る', () => {
-      const survey = state.getSurvey().setIn(['pages', 0, 'logicalVariables', 0, 'operators', 0], '');
-      survey.refreshReplacer();
-      const result = survey.findPage('P001').validate(survey);
-      expect(result.size).toBe(1);
-      expect(result.get(0).getType()).toBe('ERROR');
-      expect(result.get(0).getMessage()).toBe('1-L-000で選択されていない演算子があります');
+  describe('validate', () => {
+    describe('LogicalVariable', () => {
+      it('オペレータが選択されていない箇所があるときエラーが返る', () => {
+        const survey = state.getSurvey().setIn(['pages', 0, 'logicalVariables', 0, 'operators', 0], '');
+        survey.refreshReplacer();
+        const result = survey.findPage('P001').validate(survey);
+        expect(result.size).toBe(1);
+        expect(result.get(0).getType()).toBe('ERROR');
+        expect(result.get(0).getMessage()).toBe('1-L-000で選択されていない演算子があります');
+      });
+      it('参照する回答が存在しないときエラーが返る', () => {
+        const survey = state.getSurvey().setIn(['pages', 0, 'logicalVariables', 0, 'operands', 0], '');
+        survey.refreshReplacer();
+        const result = survey.findPage('P001').validate(survey);
+        expect(result.size).toBe(1);
+        expect(result.get(0).getType()).toBe('ERROR');
+        expect(result.get(0).getMessage()).toBe('1-L-000で選択されていない設問があります');
+      });
     });
-    it('参照する回答が存在しないときエラーが返る', () => {
-      const survey = state.getSurvey().setIn(['pages', 0, 'logicalVariables', 0, 'operands', 0], '');
-      survey.refreshReplacer();
-      const result = survey.findPage('P001').validate(survey);
-      expect(result.size).toBe(1);
-      expect(result.get(0).getType()).toBe('ERROR');
-      expect(result.get(0).getMessage()).toBe('1-L-000で選択されていない設問があります');
-    });
-  });
 
-  describe('validateQuestion', () => {
-    it('再掲で参照している値が存在していない場合にエラーが返る', () => {
-      const survey = state.getSurvey().setIn(['pages', 0, 'questions', 0, 'title'], '{{1.answer}}');
-      survey.refreshReplacer();
-      const result = survey.findPage('P001').validate(survey);
-      expect(result.size).toBe(1);
-      expect(result.get(0).getType()).toBe('ERROR');
-      expect(result.get(0).getMessage()).toBe('設問 1-1 タイトルで存在しない参照があります');
+    describe('Question', () => {
+      it('再掲で参照している値が存在していない場合にエラーが返る', () => {
+        const survey = state.getSurvey().setIn(['pages', 0, 'questions', 0, 'title'], '{{1.answer}}');
+        survey.refreshReplacer();
+        const result = survey.findPage('P001').validate(survey);
+        expect(result.size).toBe(1);
+        expect(result.get(0).getType()).toBe('ERROR');
+        expect(result.get(0).getMessage()).toBe('設問 1-1 タイトルで存在しない参照があります');
+      });
+    });
+
+    describe('HTML', () => {
+      it('再掲で参照している値が存在していない場合にエラーが返る', () => {
+        const survey = state.getSurvey()
+          .setIn(['pages', 0, 'freeMode'], true)
+          .setIn(['pages', 0, 'html'], '{{1.answer}}');
+        survey.refreshReplacer();
+        const result = survey.findPage('P001').validate(survey).filter(error => error.getType() === 'ERROR');
+        expect(result.size).toBe(1);
+        expect(result.get(0).getType()).toBe('ERROR');
+        expect(result.get(0).getMessage()).toBe('設問 1 存在しない参照があります');
+      });
+    });
+
+    describe('matrixHtml', () => {
+      it('再掲で参照している値が存在していない場合にエラーが返る', () => {
+        const survey = state.getSurvey()
+          .setIn(['pages', 0, 'freeMode'], false)
+          .setIn(['pages', 0, 'questions', 0, 'dataType'], 'Matrix')
+          .setIn(['pages', 0, 'questions', 0, 'matrixHtmlEnabled'], true)
+          .setIn(['pages', 0, 'questions', 0, 'matrixHtml'], '<div>{{dummy.answer}}</div>');
+        survey.refreshReplacer();
+        const result = survey.findPage('P001').validate(survey).filter(error => error.getType() === 'ERROR');
+        expect(result.size).toBe(1);
+        expect(result.get(0).getType()).toBe('ERROR');
+        expect(result.get(0).getMessage()).toBe('設問 1-1 表形式のテーブルカスタマイズで存在しない参照があります');
+      });
     });
   });
 });

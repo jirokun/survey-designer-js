@@ -361,7 +361,59 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.size).toBe(2);
       expect(result.get(1).getType()).toBe('WARNING');
       expect(result.get(1).getMessage()).toBe('設問 1-1 テーブルの列ラベル「名称未設定」に対応する列が存在していません');
-      survey.validate();
+    });
+
+    it('テーブルカスタマイズでHTMLが登録されていないとき、itemIdに関するエラーが出力されない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: freeModeColSpanSurvey })
+        .getSurvey()
+        .setIn(['pages', 0, 'freeMode'], false)
+        .setIn(['pages', 0, 'questions', 0, 'matrixHtmlEnabled'], true);
+      survey.refreshReplacer();
+      const result = survey.validate();
+      expect(result.size).toBe(1);
+      expect(result.get(0).getType()).toBe('ERROR');
+      expect(result.get(0).getMessage()).toBe('パネルが選択されていません');
+    });
+
+    it('テーブルカスタマイズでHTMLが登録されているとき、itemIdに関するエラーが出力される', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: freeModeColSpanSurvey })
+        .getSurvey()
+        .setIn(['pages', 0, 'freeMode'], false)
+        .setIn(['pages', 0, 'questions', 0, 'matrixHtml'], '<div></div>')
+        .setIn(['pages', 0, 'questions', 0, 'matrixHtmlEnabled'], true);
+      survey.refreshReplacer();
+      const result = survey.validate().filter(error => error.getType() === 'WARNING');
+      expect(result.size).toBe(6);
+      expect(result.get(0).getMessage()).toBe('設問 1-1 テーブルの行ラベル「名称未設定」に対応する行が存在していません');
+      expect(result.get(1).getMessage()).toBe('設問 1-1 テーブルの行ラベル「名称未設定」に対応する行が存在していません');
+      expect(result.get(2).getMessage()).toBe('設問 1-1 テーブルの列ラベル「名称未設定」に対応する列が存在していません');
+      expect(result.get(3).getMessage()).toBe('設問 1-1 テーブルの列ラベル「名称未設定」に対応する列が存在していません');
+      expect(result.get(4).getMessage()).toBe('1-1-1に対応するフォームフィールドが存在しません');
+      expect(result.get(5).getMessage()).toBe('1-1-2に対応するフォームフィールドが存在しません');
+    });
+
+    it('行項目で存在しない参照がある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: freeModeColSpanSurvey })
+        .getSurvey()
+        .setIn(['pages', 0, 'freeMode'], false)
+        .setIn(['pages', 0, 'questions', 0, 'items', 0, 'label'], '{{dummy.answer}}');
+      survey.refreshReplacer();
+      const result = survey.validate();
+      expect(result.size).toBe(2);
+      expect(result.get(1).getType()).toBe('ERROR');
+      expect(result.get(1).getMessage()).toBe('設問 1-1 行項目で存在しない参照があります');
+    });
+
+    it('列項目で存在しない参照がある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: freeModeColSpanSurvey })
+        .getSurvey()
+        .setIn(['pages', 0, 'freeMode'], false)
+        .setIn(['pages', 0, 'questions', 0, 'subItems', 0, 'label'], '{{dummy.answer}}');
+      survey.refreshReplacer();
+      const result = survey.validate();
+      expect(result.size).toBe(2);
+      expect(result.get(1).getType()).toBe('ERROR');
+      expect(result.get(1).getMessage()).toBe('設問 1-1 列項目で存在しない参照があります');
     });
   });
 });
