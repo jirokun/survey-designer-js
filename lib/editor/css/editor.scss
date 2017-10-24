@@ -364,119 +364,131 @@ html, body {
 }
 
 .flow-pane {
+  position: relative;
   padding: 10px;
   min-width: 200px;
-  .page, .branch, .finisher {
-    position: relative;
-    margin-bottom: 5px;
-    width: 100%;
-    animation: fadeIn .5s ease 0s 1 normal;
-    -webkit-animation: fadeIn .5s ease 0s 1 normal;
-    
-    @keyframes fadeIn {
-        0% {opacity: 0}
-        100% {opacity: 1}
-    }
-
-    @-webkit-keyframes fadeIn {
-        0% {opacity: 0}
-        100% {opacity: 1}
-    }
-
-    .header {
+  white-space: nowrap;
+  display: table-row;
+  svg.transition-graph {
+    display: table-cell;
+    vertical-align: top;
+  }
+  .node-list {
+    display: table-cell;
+    vertical-align: top;
+    .page, .branch, .finisher {
+      width: 320px;
       position: relative;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      padding-right: $page-list-item-controller-width;
-      overflow: hidden;
-    }
-    .questions, .conditions {
-      list-style: none;
-      padding-left: 1.5em;
-      .question, .condition {
+      margin-bottom: 5px;
+      animation: fadeIn .5s ease 0s 1 normal;
+      -webkit-animation: fadeIn .5s ease 0s 1 normal;
+      
+      @keyframes fadeIn {
+          0% {opacity: 0}
+          100% {opacity: 1}
+      }
+
+      @-webkit-keyframes fadeIn {
+          0% {opacity: 0}
+          100% {opacity: 1}
+      }
+
+      .header {
         position: relative;
-        padding-right: $page-list-item-controller-width;
         white-space: nowrap;
         text-overflow: ellipsis;
+        padding-right: $page-list-item-controller-width;
         overflow: hidden;
-        a {
+      }
+      .questions, .conditions {
+        list-style: none;
+        padding-left: 1.5em;
+        .question, .condition {
+          position: relative;
+          padding-right: $page-list-item-controller-width;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          a {
+            cursor: pointer;
+          }
+        }
+        .insert-item-box {
+          height: 6px;
           cursor: pointer;
+          @extend .fade-in;
+
+        div {
+            position: relative;
+            height: 100%;
+            
+            i {
+              display: none;
+              color: #000;
+              position: absolute;
+              top: -6px;
+              left: -14px;
+              font-size: 18px;
+            }
+          }
+          div:hover {
+            background-color: #000;
+            i {
+              display: inline;
+            }
+          }
+          &:hover {
+          @extend .fade-in--finish;
+          }
         }
       }
-      .insert-item-box {
-        height: 6px;
-        cursor: pointer;
+    }
+
+    .page {
+      @include flowNode(#f4d99a, $backgroud-color-page);
+
+      &.free-edit {
+        @include flowNode(#eb9af4, $backgroud-color-page-free-edit);
+      }
+    }
+    .branch {
+      @include flowNode(#af9bff, $backgroud-color-branch)
+    }
+    .finisher {
+      @include flowNode(#a0db8e, $backgroud-color-finisher)
+    }
+    .arrow-down {
+      position: relative;
+      text-align: center;
+      font-size: large;
+      border: dashed 2px #dfdfdf;
+      margin-bottom: 2px;
+      margin: 6px 0;
+
+      .btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
         @extend .fade-in;
 
-       div {
-          position: relative;
-          height: 100%;
-          
-          i {
-            display: none;
-            color: #000;
-            position: absolute;
-            top: -6px;
-            left: -14px;
-            font-size: 18px;
-          }
-        }
-        div:hover {
-          background-color: #000;
-          i {
-            display: inline;
-          }
-        }
         &:hover {
-         @extend .fade-in--finish;
+          @extend .fade-in--finish
         }
       }
-    }
-  }
-
-  .page {
-    @include flowNode(#f4d99a, $backgroud-color-page);
-
-    &.free-edit {
-      @include flowNode(#eb9af4, $backgroud-color-page-free-edit);
-    }
-  }
-  .branch {
-    @include flowNode(#af9bff, $backgroud-color-branch)
-  }
-  .finisher {
-    @include flowNode(#a0db8e, $backgroud-color-finisher)
-  }
-  .arrow-down {
-    position: relative;
-    text-align: center;
-    font-size: large;
-    border: dashed 2px #dfdfdf;
-    margin-bottom: 2px;
-    margin: 6px 0;
-
-    .btn {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: none;
-      @extend .fade-in;
-
       &:hover {
-        @extend .fade-in--finish
-      }
-    }
-    &:hover {
-      .btn {
-        display: block;
-        width: 100%;
-        padding: 5px 0 4px 0;
-        border: none;
-        background-color: #000;
+        .btn {
+          display: block;
+          width: 100%;
+          padding: 5px 0 4px 0;
+          border: none;
+          background-color: #000;
+        }
       }
     }
   }
 }
+
 /* フロー */
 .flow {
   height: 100%;
