@@ -46,7 +46,8 @@
   box-sizing: border-box;
 }
 
-.question-form-list {
+.question-form-list,
+.MultiNumberQuestion {
   input.number {
     width: $number-input-width;
   }
@@ -190,10 +191,6 @@ img.popup {
     width: 2.5%;
   }
 
-  &__select {
-    width: 10em;
-  }
-
   &__select_with_input {
     display: inline-block !important;
   }
@@ -217,14 +214,11 @@ img.popup {
   }
 
   &__label_option {
-    background-color: #636c72;
+    background-color: #666;
     color: #fff;
-    padding: .25em .4em;
-    font-size: 75%;
-    margin-left: 4px;
-  }
-
-  &__input-number {
-    width: 5em !important;
+    padding: 3px 4px;
+    font-size: 0.75rem;
+    margin-left: 5px;
+    white-space: nowrap;
   }
 }
