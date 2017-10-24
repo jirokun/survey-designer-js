@@ -26,4 +26,10 @@ describe('NodeDefinition', () => {
       expect(result2.getIn(['conditions', 1, 'childConditions', 0, '_id'])).toBe('CC002');
     });
   });
+
+  describe('findSource', () => {
+    it('conditionで指定された遷移元を取得できる', () => {
+      expect(true).toBe(false);
+    });
+  });
 });
