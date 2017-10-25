@@ -497,23 +497,30 @@ html, body {
   }
 }
 /* ブランチエディタ */
-.branch-editor {
-  .branch-editor-header {
-    display: flex;
-    flex-direction: row;
-    width: 700px;
-    align-items: center;
+.branch-editor-container {
+  .branch-editor {
+    .branch-editor-header {
+      display: flex;
+      flex-direction: row;
+      width: 700px;
+      align-items: center;
 
-    > span {
-      padding: 5px;
+      > span {
+        padding: 5px;
+      }
+      > input {
+        width: 100px;
+      }
+      > select {
+        max-width: 150px;
+        width: auto;
+      }
     }
-    > input {
-      width: 100px;
-    }
-    > select {
-      max-width: 150px;
-      width: auto;
-    }
+  }
+  .branch-next-node-id {
+    display: inline;
+    width: auto;
+    margin: 0 5px;
   }
 }
 
