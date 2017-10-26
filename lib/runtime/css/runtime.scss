@@ -173,7 +173,15 @@ img.popup {
 
 .question__personal-info {
   &__2input {
-    width: 28% !important;
+    width: 24% !important;
+
+    &__left {
+      margin: 0 3px 0 0;
+    }
+
+    &__middle {
+      margin: 0 3px;
+    }
   }
 
   &__3input {
@@ -196,8 +204,8 @@ img.popup {
   }
 
   &__input_with_select {
-    margin-left: 10px;
-    width: 28% !important;
+    margin-left: 0;
+    width: 20% !important;
   }
 
   &__label-inline {
