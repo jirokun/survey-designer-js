@@ -1,0 +1,128 @@
+{
+  "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+  "title": "名称未設定",
+  "version": 2,
+  "pages": [
+    {
+      "_id": "cj7jybf3f00003j71dzwif25a",
+      "devId": "yLU",
+      "questions": [
+        {
+          "_id": "cj7jyh2g700043j711gze1a5p",
+          "devId": "yLU_Syk",
+          "dataType": "Matrix",
+          "title": "設問タイトル",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": true,
+          "subItemsRandom": true,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj7jyh2g700053j7159so1lad",
+              "index": 0,
+              "devId": "yLU_Syk_2Zv",
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            },
+            {
+              "_id": "cj7jyscs300093j71ln416l7t",
+              "index": 1,
+              "devId": "yLU_Syk_32W",
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [
+            {
+              "_id": "cj7jyh2g800063j71f9jyuqni",
+              "index": 0,
+              "devId": "yLU_Syk_oU8",
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            },
+            {
+              "_id": "cj7jysdj7000a3j71fha5t1ad",
+              "index": 1,
+              "devId": "yLU_Syk_97U",
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "on",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "showTotal": false,
+          "matrixType": "radio",
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": "",
+          "numberValidationRuleMap": {}
+        }
+      ],
+      "logicalVariables": [],
+      "freeMode": true,
+      "html": "<div class=\"question questionBox\" data-question-no=\"1-1\"><div class=\"MatrixQuestion\"><h2 class=\"question-title\" data-dev-id-label=\"yLU_Syk\">設問タイトル</h2><div class=\"question\"><table class=\"matrix group question-form-grid-table sdj-matrix sdj-group-rows mce-item-table\" id=\"cj7jyh2g700043j711gze1a5p_table\"><thead><tr><td>&nbsp;</td><td id=\"cj7jyh2g800063j71f9jyuqni\" class=\"\" data-col-order=\"1\"><div>名称未設定</div></td><td id=\"cj7jysdj7000a3j71fha5t1ad\" class=\"\" data-col-order=\"2\"><div>名称未設定</div></td></tr></thead><tbody><tr id=\"cj7jyh2g700053j7159so1lad\" data-row-order=\"1\"><td class=\"\"><div id=\"cj7jyh2g700053j7159so1lad_label\">名称未設定</div></td><td colspan=\"2\"><label><input type=\"radio\" name=\"cj7jyh2g700043j711gze1a5p_value1\" value=\"1\" class=\"matrix-value\" data-output-no=\"1-1-1\" data-parsley-class-handler=\"#cj7jyh2g700053j7159so1lad\" data-parsley-errors-container=\"#cj7jyh2g700053j7159so1lad_label\" data-parsley-required=\"true\" data-parsley-required-message=\"この行の選択値を選択してください\" data-dev-id=\"yLU_Syk_2Zv\"></label><label><input type=\"radio\" name=\"cj7jyh2g700043j711gze1a5p_value1\" value=\"2\" class=\"matrix-value\" data-output-no=\"1-1-1\" data-parsley-class-handler=\"#cj7jyh2g700053j7159so1lad\" data-parsley-errors-container=\"#cj7jyh2g700053j7159so1lad_label\" data-parsley-required=\"true\" data-parsley-required-message=\"この行の選択値を選択してください\" data-dev-id=\"yLU_Syk_2Zv\"></label></td></tr><tr id=\"cj7jyscs300093j71ln416l7t\" data-row-order=\"2\"><td class=\"\"><div id=\"cj7jyscs300093j71ln416l7t_label\">名称未設定</div></td><td><label><input type=\"radio\" name=\"cj7jyh2g700043j711gze1a5p_value2\" value=\"1\" class=\"matrix-value\" data-output-no=\"1-1-2\" data-parsley-class-handler=\"#cj7jyscs300093j71ln416l7t\" data-parsley-errors-container=\"#cj7jyscs300093j71ln416l7t_label\" data-parsley-required=\"true\" data-parsley-required-message=\"この行の選択値を選択してください\" data-dev-id=\"yLU_Syk_32W\"></label></td><td><label><input type=\"radio\" name=\"cj7jyh2g700043j711gze1a5p_value2\" value=\"2\" class=\"matrix-value\" data-output-no=\"1-1-2\" data-parsley-class-handler=\"#cj7jyscs300093j71ln416l7t\" data-parsley-errors-container=\"#cj7jyscs300093j71ln416l7t_label\" data-parsley-required=\"true\" data-parsley-required-message=\"この行の選択値を選択してください\" data-dev-id=\"yLU_Syk_32W\"></label></td></tr></tbody></table></div></div></div>",
+      "javaScriptCode": "",
+      "zeroSetting": true
+    }
+  ],
+  "branches": [],
+  "finishers": [
+    {
+      "_id": "cj7jybf3k00023j71fcscp844",
+      "finishType": "COMPLETE",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+    }
+  ],
+  "nodes": [
+    {
+      "_id": "cj7jybf3h00013j71sdud0mae",
+      "type": "page",
+      "refId": "cj7jybf3f00003j71dzwif25a",
+      "nextNodeId": "cj7jybf3l00033j7126lvch32"
+    },
+    {
+      "_id": "cj7jybf3l00033j7126lvch32",
+      "type": "finisher",
+      "refId": "cj7jybf3k00023j71fcscp844",
+      "nextNodeId": null
+    }
+  ],
+  "panel": null
+}

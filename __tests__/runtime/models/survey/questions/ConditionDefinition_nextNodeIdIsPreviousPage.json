@@ -1,0 +1,140 @@
+{
+  "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+  "title": "名称未設定",
+  "version": 2,
+  "pages": [
+    {
+      "_id": "cj98d9exb00003j73m9kpf3rd",
+      "devId": "quk",
+      "questions": [
+        {
+          "_id": "cj98da7cb000a3j73a2lyevm0",
+          "devId": "quk_D5W",
+          "dataType": "Checkbox",
+          "title": "設問タイトル",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj98da7cb000b3j73prpllfno",
+              "index": 0,
+              "devId": "quk_D5W_1fH",
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "1",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "matrixColVerticalWriting": false,
+          "matrixHtmlEnabled": false,
+          "matrixHtml": null,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": "",
+          "numberValidationRuleMap": {}
+        }
+      ],
+      "logicalVariables": [],
+      "freeMode": false,
+      "html": null,
+      "javaScriptCode": "",
+      "zeroSetting": null
+    },
+    {
+      "_id": "cj98d9p9m00083j73ig651w19",
+      "devId": "NLI",
+      "questions": [],
+      "logicalVariables": [],
+      "freeMode": false,
+      "html": null,
+      "javaScriptCode": "",
+      "zeroSetting": null
+    }
+  ],
+  "branches": [
+    {
+      "_id": "cj98d9kzx00043j732dax6hw6",
+      "type": null,
+      "conditions": [
+        {
+          "_id": "cj98d9kzx00053j735nipg4kk",
+          "conditionType": "all",
+          "nextNodeId": "cj98d9p9m00093j73glh8kpt9",
+          "childConditions": [
+            {
+              "_id": "cj98d9kzx00063j73dwo75zon",
+              "outputId": "cj98da7cb000b3j73prpllfno",
+              "operator": "!!",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "finishers": [
+    {
+      "_id": "cj98d9exf00023j73otvxnh1l",
+      "finishType": "SCREEN",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+    }
+  ],
+  "nodes": [
+    {
+      "_id": "cj98d9exd00013j734da2l5em",
+      "type": "page",
+      "refId": "cj98d9exb00003j73m9kpf3rd",
+      "nextNodeId": "cj98d9p9m00093j73glh8kpt9"
+    },
+    {
+      "_id": "cj98d9p9m00093j73glh8kpt9",
+      "type": "page",
+      "refId": "cj98d9p9m00083j73ig651w19",
+      "nextNodeId": "cj98d9kzx00073j73js1x2dbq"
+    },
+    {
+      "_id": "cj98d9kzx00073j73js1x2dbq",
+      "type": "branch",
+      "refId": "cj98d9kzx00043j732dax6hw6",
+      "nextNodeId": "cj98d9exg00033j731183r8mj"
+    },
+    {
+      "_id": "cj98d9exg00033j731183r8mj",
+      "type": "finisher",
+      "refId": "cj98d9exf00023j73otvxnh1l",
+      "nextNodeId": null
+    }
+  ],
+  "panel": null,
+  "cssRuntimeUrls": [
+    "https://fastsurvey.m3.com/css/common.css",
+    "https://fastsurvey.m3.com/css/survey.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css",
+    "/static/css/runtime.css"
+  ],
+  "cssPreviewUrls": [
+    "/static/css/preview.css"
+  ],
+  "cssDetailUrls": [
+    "/static/css/detail.css"
+  ],
+  "zeroSetting": true
+}

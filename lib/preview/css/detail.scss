@@ -78,8 +78,11 @@ html, body {
       display: none;
     }
     > div {
-      flex: auto; 
+      flex: auto;
       padding: 5px;
+      &:empty {
+        display: none;
+      }
     }
     table {
       width: 100%;
@@ -101,6 +104,12 @@ html, body {
     }
   }
 
+  .survey-setting-detail {
+    @extend .question-detail;
+    margin: 5px;
+    padding-bottom: 10px;
+  }
+
   .page-detail {
     border: 1px solid $border-color-page-detail;
     background-color: $background-color-page-detail;
@@ -109,6 +118,13 @@ html, body {
     margin: 6px;
     &:empty {
       display: none;
+    }
+    .page-settings {
+      display: flex;
+      > div {
+        width: 50%;
+        margin: 0 5px;
+      }
     }
     table {
       width: 100%;

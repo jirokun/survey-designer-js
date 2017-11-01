@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import SurveyDesignerState from '../../../lib/runtime/models/SurveyDesignerState';
-import PageDefinition from '../../../lib/runtime/models/survey/PageDefinition';
+import SurveyDesignerState from '../../../../lib/runtime/models/SurveyDesignerState';
+import PageDefinition from '../../../../lib/runtime/models/survey/PageDefinition';
 import json from './SurveyDesignerState.json';
 
 describe('SurveyDesignerState', () => {

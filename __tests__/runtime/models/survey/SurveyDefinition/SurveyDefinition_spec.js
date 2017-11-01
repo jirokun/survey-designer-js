@@ -1,4 +1,5 @@
 /* eslint-env jest */
+import { List } from 'immutable';
 import SurveyDesignerState from '../../../../../lib/runtime/models/SurveyDesignerState';
 import VisibilityConditionDefinition from '../../../../../lib/runtime/models/survey/questions/internal/VisibilityConditionDefinition';
 import NumberValidationRuleDefinition from '../../../../../lib/runtime/models/survey/questions/internal/NumberValidationRuleDefinition';
@@ -526,6 +527,20 @@ describe('SurveyDefinition', () => {
     });
   });
 
+  describe('updateCssUrls', () => {
+    it('CSSのURLが更新される', () => {
+      let survey = state.getSurvey();
+      const runtimeUrls = List.of('a.css', 'b.css');
+      const previewUrls = List.of('c.css', 'd.css');
+      const detailUrls = List.of('e.css', 'f.css');
+
+      survey = survey.updateCssUrls(runtimeUrls, previewUrls, detailUrls);
+      expect(survey.getCssRuntimeUrls()).toBe(runtimeUrls);
+      expect(survey.getCssPreviewUrls()).toBe(previewUrls);
+      expect(survey.getCssDetailUrls()).toBe(detailUrls);
+    });
+  });
+
   describe('getAllPageDevIds', () => {
     it('存在するnameなら、devIdを取得できる', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: getAllDevIds }).getSurvey();
@@ -705,6 +720,48 @@ describe('SurveyDefinition', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: migrateNumberValidation }, { rawRecord: true }).get('survey');
       const result = survey.isOutputDefinitionEqual(survey);
       expect(result).toBe(true);
+    });
+  });
+
+  describe('hasCssUrls', () => {
+    it('CSS URLを持っている場合、trueを返す', () => {
+      let survey = state.getSurvey();
+      const runtimeUrls = List.of('a.css', 'b.css');
+      const previewUrls = List.of('c.css', 'd.css');
+      const detailUrls = List.of('e.css', 'f.css');
+
+      survey = survey.updateCssUrls(runtimeUrls, previewUrls, detailUrls);
+      expect(survey.hasCssUrls()).toBeTruthy();
+    });
+
+    it('CSS URLを持っていない場合、falseを返す', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasCssUrls()).toBeFalsy();
+    });
+  });
+
+  describe('hasFreeModePage', () => {
+    it('freeModeのページがある場合trueを返す', () => {
+      const survey = state.getSurvey().setIn(['pages', 0, 'freeMode'], true);
+      expect(survey.hasFreeModePage()).toBe(true);
+    });
+    it('freeModeのページがない場合falseを返す', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasFreeModePage()).toBe(false);
+    });
+  });
+
+  describe('hasMatrixEnabledQuestion', () => {
+    it('テーブルカスタマイズが有効になったクエスチョンがある場合trueを返す', () => {
+      const survey = state.getSurvey()
+        .setIn(['pages', 0, 'questions', 0, 'dataType'], 'Matrix')
+        .setIn(['pages', 0, 'questions', 0, 'matrixHtmlEnabled'], true)
+        .setIn(['pages', 0, 'questions', 0, 'matrixHtml'], '<p></p>');
+      expect(survey.hasMatrixEnabledQuestion()).toBe(true);
+    });
+    it('テーブルカスタマイズが有効になったクエスチョンがない場合falseを返す', () => {
+      const survey = state.getSurvey();
+      expect(survey.hasMatrixEnabledQuestion()).toBe(false);
     });
   });
 });

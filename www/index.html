@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SurveyDesinger Editor</title>
+    <title>SurveyDesigner Editor</title>
     <!--
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/static/css/editor.css"/>
     <style>
       #global-navigation {
         height: 36px;
@@ -23,22 +24,70 @@
     </div>
     <div id="root">
     </div>
+    <script src="//ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/node_modules/tinymce/tinymce.min.js"></script>
+    <script src="/node_modules/tinymce/tinymce.js"></script>
     <script src="/static/editor.bundle.js"></script>
     <script>
+var fsCss = {
+  title: 'FSモード',
+  runtimeUrls: [
+    'http://fastsurvey.m3.com/css/common.css',
+    'http://fastsurvey.m3.com/css/survey.css',
+    'http://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css',
+    '/static/css/runtime.css'
+  ],
+  previewUrls: [
+    '/static/css/preview.css'
+  ],
+  detailUrls: [
+    '/static/css/detail.css'
+  ]
+};
+var xmlCss = {
+  title: 'XMLモード',
+  runtimeUrls: [
+    'http://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css',
+    'http://fastsurvey.m3.com/css/tiger/xml/runtime.css'
+  ],
+  previewUrls: [
+    '/static/css/preview.css',
+    'http://fastsurvey.m3.com/css/tiger/xml/preview.css'
+  ],
+  detailUrls: [
+    '/static/css/detail.css'
+  ]
+};
+var xmlMakerMrCss = {
+  title: 'メーカーMRモード',
+  runtimeUrls: [
+    'http://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css',
+    'http://fastsurvey.m3.com/css/tiger/xml/runtime.css',
+    'http://fastsurvey.m3.com/css/tiger/xml/makermr.css'
+  ],
+  previewUrls: [
+    '/static/css/preview.css',
+    'http://fastsurvey.m3.com/css/tiger/xml/preview.css'
+  ],
+  detailUrls: [
+    '/static/css/detail.css'
+  ]
+};
 $.getJSON('/sample.json').then(function(survey) {
   var el = document.getElementById('root');
   SurveyDesigner.Editor(el, {
     survey: survey,
     options: {
+      defaultCss: xmlCss,
+      cssOptions: [ fsCss, xmlCss, xmlMakerMrCss ],
       previewUrl: '/preview.html',
       showDetailUrl: '/detail.html',
       imageManagerUrl: '/image.html',
       imageListUrl: '/images.json',
       saveImageUrl: '/save',
       deleteImageUrl: '/delete',
+      cacheSuffix: new Date().getTime().toString(),
     },
   });
 });
