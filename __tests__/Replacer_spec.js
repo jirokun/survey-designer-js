@@ -263,4 +263,12 @@ describe('Replacer', () => {
       expect(replacer.validate('{{cj1qfeifo000f3j66hacqvhg9.answer}}', state.getSurvey().getAllOutputDefinitions())).toBe(false);
     });
   });
+
+  describe('extractReferenceType', () => {
+    it('正しくreferenceTypeを抽出できる', () => {
+      expect(Replacer.extractReferenceType('{{cj14nvvqj001w3k67ycbtorpn.answer}}')).toBe('answer');
+      expect(Replacer.extractReferenceType('{{cj14nvvqj001w3k67ycbtorpn.choice_value}}')).toBe('choice_value');
+      expect(Replacer.extractReferenceType('{{cj14nvvqj001w3k67ycbtorpn.choice_value}} }}')).toBe('choice_value');
+    });
+  });
 });

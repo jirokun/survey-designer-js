@@ -234,8 +234,9 @@ describe('BranchDefinition', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: sampleRadio }).getSurvey();
       const branch = survey.getIn(['branches', 0]);
       const result = branch.validate(survey);
-      expect(result.size).toBe(1);
-      expect(result.get(0).getMessage()).toBe('分岐条件の入力値が選択されていません');
+      expect(result.size).toBe(2);
+      expect(result.get(0).getMessage()).toBe('分岐設定の遷移先が存在しません');
+      expect(result.get(1).getMessage()).toBe('分岐条件の入力値が選択されていません');
     });
   });
 });

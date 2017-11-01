@@ -1,0 +1,170 @@
+{
+  "_id": "65f1ca80-ff20-11e6-a3da-52d4834d462c",
+  "title": "名称未設定",
+  "version": 2,
+  "pages": [
+    {
+      "_id": "cj98drorv00003j737pa2silh",
+      "devId": "6xm",
+      "questions": [
+        {
+          "_id": "cj98dru6p00043j73i7zvou91",
+          "devId": "6xm_RYF",
+          "dataType": "MultiNumber",
+          "title": "設問タイトル",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj98dru6q00053j73qj6mi3o8",
+              "index": 0,
+              "devId": "6xm_RYF_haQ",
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "matrixColVerticalWriting": false,
+          "matrixHtmlEnabled": false,
+          "matrixHtml": null,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": "",
+          "numberValidationRuleMap": {}
+        }
+      ],
+      "logicalVariables": [
+        {
+          "_id": "cj98duflr000p3j73de4rugkx",
+          "variableName": "000",
+          "operands": [
+            "cj98dujap000t3j73e2i35p9n",
+            "cj98dujap000t3j73e2i35p9n"
+          ],
+          "operators": [
+            "+"
+          ]
+        }
+      ],
+      "freeMode": false,
+      "html": null,
+      "javaScriptCode": "",
+      "zeroSetting": null
+    },
+    {
+      "_id": "cj98duhen000q3j73znmmp1p0",
+      "devId": "I12",
+      "questions": [
+        {
+          "_id": "cj98dujap000s3j732evl1z21",
+          "devId": "I12_osf",
+          "dataType": "MultiNumber",
+          "title": "設問タイトル",
+          "plainTitle": "設問タイトル",
+          "description": "",
+          "random": false,
+          "subItemsRandom": false,
+          "unit": "",
+          "items": [
+            {
+              "_id": "cj98dujap000t3j73e2i35p9n",
+              "index": 0,
+              "devId": "I12_osf_VFs",
+              "label": "名称未設定",
+              "plainLabel": "名称未設定",
+              "value": "",
+              "additionalInput": false,
+              "additionalInputType": "text",
+              "unit": "",
+              "randomFixed": false,
+              "exclusive": false,
+              "visibilityCondition": null,
+              "totalEqualTo": ""
+            }
+          ],
+          "subItems": [],
+          "showTotal": false,
+          "matrixType": null,
+          "matrixReverse": false,
+          "matrixSumRows": false,
+          "matrixSumCols": false,
+          "matrixColVerticalWriting": false,
+          "matrixHtmlEnabled": false,
+          "matrixHtml": null,
+          "totalEqualTo": "",
+          "minCheckCount": 1,
+          "maxCheckCount": 0,
+          "min": "",
+          "max": "",
+          "numberValidationRuleMap": {}
+        }
+      ],
+      "logicalVariables": [],
+      "freeMode": false,
+      "html": null,
+      "javaScriptCode": "",
+      "zeroSetting": null
+    }
+  ],
+  "branches": [],
+  "finishers": [
+    {
+      "_id": "cj98drorz00023j736ajr5imq",
+      "finishType": "COMPLETE",
+      "point": 0,
+      "html": "ご回答ありがとうございました。<br/>またのご協力をお待ちしております。"
+    }
+  ],
+  "nodes": [
+    {
+      "_id": "cj98drorx00013j73io2m4ci6",
+      "type": "page",
+      "refId": "cj98drorv00003j737pa2silh",
+      "nextNodeId": "cj98duhen000r3j73sf9k7coz"
+    },
+    {
+      "_id": "cj98duhen000r3j73sf9k7coz",
+      "type": "page",
+      "refId": "cj98duhen000q3j73znmmp1p0",
+      "nextNodeId": "cj98drorz00033j738gmnxipd"
+    },
+    {
+      "_id": "cj98drorz00033j738gmnxipd",
+      "type": "finisher",
+      "refId": "cj98drorz00023j736ajr5imq",
+      "nextNodeId": null
+    }
+  ],
+  "panel": null,
+  "cssRuntimeUrls": [
+    "https://fastsurvey.m3.com/css/common.css",
+    "https://fastsurvey.m3.com/css/survey.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css",
+    "/static/css/runtime.css"
+  ],
+  "cssPreviewUrls": [
+    "/static/css/preview.css"
+  ],
+  "cssDetailUrls": [
+    "/static/css/detail.css"
+  ],
+  "zeroSetting": true
+}

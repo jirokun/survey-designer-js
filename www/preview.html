@@ -19,6 +19,7 @@
     <script>
 var m = location.search.match(/json=([^&]+)/);
 var options = {
+  cacheSuffix: new Date().getTime().toString(),
   pageLoadedFn: function(survey, runtime) {
     var nodeId = runtime.getCurrentNodeId();
   }
