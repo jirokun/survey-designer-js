@@ -20,7 +20,7 @@ describe('MatrixQuestionDefinition', () => {
       .push(new ItemDefinition({ _id: `${idPrefix}2`, index: 1, plainLabel: `${labelPrefix}2`, additionalInput: false }));
   }
 
-  describe('getOutputDefinition', () => {
+  describe('getOutputDefinitions', () => {
     function validateNormalOutputDefinition(matrixType) {
       const rows = createItems('row', '行');
       const columns = createItems('column', '列');
@@ -50,6 +50,18 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.get(3).getLabel()).toBe('行2-列2');
       expect(result.get(3).getOutputType()).toBe(matrixType);
       expect(result.get(3).getOutputNo()).toBe('1-1-2-2');
+    }
+
+    function createDefinitionsWithoutOutputDefinition(matrixType, rowNum, columnNum, matrixReverse, additionalInput) {
+      let rows = List();
+      let columns = List();
+      for (let i = 0; i < rowNum; i++) {
+        rows = rows.push(new ItemDefinition({ _id: `row${i}`, index: i, plainLabel: `row${i}`, additionalInput }));
+      }
+      for (let i = 0; i < columnNum; i++) {
+        columns = columns.push(new ItemDefinition({ _id: `column${i}`, index: i, plainLabel: `column${i}`, additionalInput }));
+      }
+      return new MatrixQuestionDefinition({ _id: 'matrix1', dataType: 'Matrix', matrixType, items: rows, subItems: columns, matrixReverse });
     }
 
     it('matrixTypeがtextの場合itemsとsubItemsの分のOutputDefinitionが取得できる', () => {
@@ -183,13 +195,66 @@ describe('MatrixQuestionDefinition', () => {
       expect(result.get(2).getOutputType()).toBe('text');
       expect(result.get(2).getOutputNo()).toBe('1-1-row1-additional');
     });
+
+    [false, true].forEach((matrixReverse) => {
+      it(`matrixTypeがradioで項目が10個以上並んでいる場合outputDefinitionが正しく順番に並ぶ。matrixReverse: ${matrixReverse}`, () => {
+        const matrixType = 'radio';
+        const def = createDefinitionsWithoutOutputDefinition(matrixType, 12, 12, matrixReverse, false);
+        const result = def.getOutputDefinitions('1', '1');
+        expect(result.size).toBe(12);
+        for (let i = 0; i < 12; i++) {
+          expect(result.get(i).getOutputNo()).toBe(`1-1-${i + 1}`);
+        }
+      });
+    });
+
+    ['checkbox', 'number', 'text'].forEach((matrixType) => {
+      [false, true].forEach((matrixReverse) => {
+        it(`matrixTypeが${matrixType}で項目が10個以上並んでいる場合outputDefinitionが正しく順番に並ぶ。matrixReverse: ${matrixReverse}`, () => {
+          const def = createDefinitionsWithoutOutputDefinition(matrixType, 12, 12, matrixReverse, false);
+          const result = def.getOutputDefinitions('1', '1');
+          expect(result.size).toBe(144);
+          let counter = 0;
+          for (let i = 0; i < 12; i++) {
+            for (let j = 0; j < 12; j++) {
+              expect(result.get(counter++).getOutputNo()).toBe(`1-1-${i + 1}-${j + 1}`);
+            }
+          }
+        });
+      });
+    });
+
+    ['checkbox', 'number', 'text'].forEach((matrixType) => {
+      [false, true].forEach((matrixReverse) => {
+        it(`matrixTypeが${matrixType}で項目が10個以上あり尚且つ追加入力がある場合outputDefinitionが正しく順番に並ぶ。matrixReverse: ${matrixReverse}`, () => {
+          const def = createDefinitionsWithoutOutputDefinition(matrixType, 12, 12, matrixReverse, true);
+          const result = def.getOutputDefinitions('1', '1');
+          expect(result.size).toBe(144 + 12 + 12);
+          let counter = 0;
+          for (let i = 0; i < 12; i++) {
+            for (let j = 0; j < 12; j++) {
+              expect(result.get(counter++).getOutputNo()).toBe(`1-1-${i + 1}-${j + 1}`);
+            }
+          }
+          for (let i = 0; i < 12; i++) {
+            const rowOrColumn = matrixReverse ? 'column' : 'row';
+            expect(result.get(counter++).getOutputNo()).toBe(`1-1-${rowOrColumn}${i + 1}-additional`);
+          }
+          for (let i = 0; i < 12; i++) {
+            const rowOrColumn = matrixReverse ? 'row' : 'column';
+            expect(result.get(counter++).getOutputNo()).toBe(`1-1-${rowOrColumn}${i + 1}-additional`);
+          }
+        });
+      });
+    });
   });
 
   describe('getOutputDevId', () => {
     it('通常入力のdev-idを返す', () => {
       const question = new MatrixQuestionDefinition();
       expect(question.getOutputDevId('ww1_xx1_yy1', 'ww1_xx1_yy2')).toBe('ww1_xx1_yy1_yy2');
-    }); });
+    });
+  });
 
   describe('getOutputTotalRowDevId', () => {
     it('追加記入のdev-idを返す', () => {
