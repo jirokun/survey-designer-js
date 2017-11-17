@@ -21,6 +21,7 @@
   "jest": {
     "verbose": true,
     "coverageDirectory": "./coverage/",
+    "coverageReporters": ["json", "lcov", "cobertura"],
     "collectCoverage": true
   },
   "peerDependencies": {
