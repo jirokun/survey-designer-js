@@ -369,6 +369,27 @@ describe('SurveyDefinition', () => {
     });
   });
 
+  describe('hasNotDefaultTransitionBranch', () => {
+    it('分岐がそもそもない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: noBranchSurvey }).getSurvey();
+      expect(survey.hasNotDefaultTransitionBranch()).toBe(false);
+    });
+
+    it('デフォルトではない遷移先の分岐がある', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasScreeningBranchSurvey })
+        .getSurvey()
+        .setIn(['branches', 0, 'nextNodeId'], 'dummy');
+      expect(survey.hasNotDefaultTransitionBranch()).toBe(true);
+    });
+
+    it('デフォルトではない遷移先の分岐がない', () => {
+      const survey = SurveyDesignerState.createFromJson({ survey: hasScreeningBranchSurvey })
+        .getSurvey()
+        .setIn(['branches', 0, 'nextNodeId'], null);
+      expect(survey.hasNotDefaultTransitionBranch()).toBe(false);
+    });
+  });
+
   describe('hasReferenceInPages', () => {
     it('ページ内に再掲がある', () => {
       const survey = SurveyDesignerState.createFromJson({ survey: hasReferenceInPageSurvey }).getSurvey();

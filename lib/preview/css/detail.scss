@@ -39,9 +39,13 @@ html, body {
   .finisher-no {
     @include no($backgroud-color-finisher, $border-color-finisher);
   }
+  #surveyBox {
+    page-break-after: avoid;
+  }
   .questionsEditBox {
     margin-bottom: 10px;
     page-break-inside: avoid;
+    page-break-after: always;
     .questionBox {
       border-top: none;
       border-bottom: none;
@@ -72,17 +76,10 @@ html, body {
     border-radius: 4px;
     padding: 0 10px;
     margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    &:empty {
-      display: none;
-    }
     > div {
-      flex: auto;
-      padding: 5px;
-      &:empty {
-        display: none;
-      }
+      display: inline-block;
+      margin-right: 5px;
+      width: calc(50% - 5px);
     }
     table {
       width: 100%;
@@ -94,9 +91,13 @@ html, body {
       td {
         padding: 0 5px;
         border: 1px solid black;
+        &.error {
+          background-color: $background-color-alert-value;
+          color: $color-alert-value;
+        }
       }
     }
-    .item-visibilities {
+    .number-validation, .item-visibilities {
       width: 100%;
       > div {
         width: 100%;
