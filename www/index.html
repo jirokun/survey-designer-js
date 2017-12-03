@@ -49,29 +49,13 @@ var xmlCss = {
   title: 'XMLモード',
   runtimeUrls: [
     'http://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css',
-    'http://fastsurvey.m3.com/css/tiger/xml/runtime.css'
+    '/css/default/runtime.css',
   ],
   previewUrls: [
-    '/static/css/preview.css',
-    'http://fastsurvey.m3.com/css/tiger/xml/preview.css'
+    '/css/default/preview.css',
   ],
   detailUrls: [
-    '/static/css/detail.css'
-  ]
-};
-var xmlMakerMrCss = {
-  title: 'メーカーMRモード',
-  runtimeUrls: [
-    'http://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css',
-    'http://fastsurvey.m3.com/css/tiger/xml/runtime.css',
-    'http://fastsurvey.m3.com/css/tiger/xml/makermr.css'
-  ],
-  previewUrls: [
-    '/static/css/preview.css',
-    'http://fastsurvey.m3.com/css/tiger/xml/preview.css'
-  ],
-  detailUrls: [
-    '/static/css/detail.css'
+    '/css/default/detail.css'
   ]
 };
 $.getJSON('/sample.json').then(function(survey) {
@@ -79,8 +63,9 @@ $.getJSON('/sample.json').then(function(survey) {
   SurveyDesigner.Editor(el, {
     survey: survey,
     options: {
+      headerHtml: '<div class="header"><h1 class="header__title">survey-desinger-js</h1></div>',
       defaultCss: xmlCss,
-      cssOptions: [ fsCss, xmlCss, xmlMakerMrCss ],
+      cssOptions: [ fsCss, xmlCss ],
       previewUrl: '/preview.html',
       showDetailUrl: '/detail.html',
       imageManagerUrl: '/image.html',

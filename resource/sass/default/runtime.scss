@@ -1,0 +1,216 @@
+@import "_common.scss";
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", sans-serif;
+}
+.survey-header {
+    background-color: $THEME_COLOR;
+    color: #fff;
+    .header {
+        margin: auto;
+        width: $CONTAINER_SIZE;
+        &__title {
+            margin: 0;
+            font-size: 1rem;
+        }
+    }
+}
+
+@mixin itemBase($color:#666) {
+    display: block;
+    position: relative;
+    margin-bottom: 5px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    background: $ITEM_BACKGROUND_COLOR;
+    font-size: 0.875rem;
+    &:hover {
+        background-color: darken($ITEM_BACKGROUND_COLOR, 5%);
+    }
+}
+
+@mixin radioBase() {
+    input[type=radio] {
+        position: absolute;
+        opacity: 0;
+        margin: 0;
+        ~ span.select-tool {
+            padding: 0 0 0 28px;
+            position: relative;
+            display: inline-block;
+            margin-right: 12px;
+            cursor: pointer;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 8px;
+                left: 2px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                display: block;
+                border: 1px solid #777;
+                border-radius: 30px;
+                width: 22px;
+                height: 22px;
+                margin-top: -9px;
+                background-color: #fff;
+            }
+        }
+        &:checked ~ span.select-tool::after {
+            content: "";
+            position: absolute;
+            top: 8px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            display: block;
+            left: 7px;
+            width: 12px;
+            height: 12px;
+            margin-top: -4px;
+            background: $THEME_COLOR;
+            border-radius: 12px;
+        }
+    }
+}
+
+#content {
+    width: $CONTAINER_SIZE;
+    margin: auto;
+    #surveyBox h1 {
+        color: $THEME_COLOR;
+        font-size: 1.125rem;
+    }
+    .questionsEditBox {
+        position: relative;
+        padding: 9px;
+        border: 1px solid $THEME_COLOR;
+        h2.question-title {
+            font-size: 1rem;
+            color: $THEME_COLOR;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        label {
+            cursor: pointer;
+        }
+        select {
+            display: block;
+            height: 26px;
+            min-height: 1.2em;
+            font-weight: normal;
+            font-size: 0.875rem;
+            white-space: pre;
+        }
+        input[type="text"] {
+            padding: 3px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .disabled {
+            background-color: #ddd;
+        }
+        .additionalInput.number {
+            width: 4em;
+        }
+
+        .ChoiceQuestionBase {
+            .question-form-list-label {
+                @include itemBase();
+            }
+            input[type=checkbox] {
+                position: absolute;
+                opacity: 0;
+                margin: 0;
+                ~ span.select-tool {
+                    padding: 0 0 0 28px;
+                    position: relative;
+                    display: inline-block;
+                    margin-right: 12px;
+                    cursor: pointer;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 8px;
+                        left: 2px;
+                        -webkit-box-sizing: border-box;
+                        -moz-box-sizing: border-box;
+                        box-sizing: border-box;
+                        display: block;
+                        border: 1px solid #777;
+                        width: 22px;
+                        height: 22px;
+                        margin-top: -9px;
+                        background-color: #fff;
+                    }
+                }
+                &:checked ~ span.select-tool::after {
+                    content: "";
+                    position: absolute;
+                    top: 8px;
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    box-sizing: border-box;
+                    display: block;
+                    left: 7px;
+                    width: 12px;
+                    height: 8px;
+                    margin-top: -4px;
+                    border-left: 3px solid $THEME_COLOR;
+                    border-bottom: 3px solid $THEME_COLOR;
+                    -webkit-transform: rotate(-45deg);
+                    -moz-transform: rotate(-45deg);
+                    -ms-transform: rotate(-45deg);
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+        .ChoiceQuestionBase {
+            @include radioBase();
+        }
+        .MultiNumberQuestion {
+            .multiNumberLine {
+                @include itemBase();
+                .multiNumberLabel {
+                    width: 40em;
+                    display: inline-block;
+                }
+
+                .multiNumberAssociated {
+                    display: inline-block;
+                    &.mini {
+                        input {
+                            width: 4em;
+                        }
+                    }
+                }
+            }
+        }
+        .SingleTextQuestion {
+            input {
+                width: 20em;
+            }
+        }
+        .TextQuestion {
+            textarea {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+        .MatrixQuestion {
+            table {
+                border-collapse: collapse;
+                td, th {
+                    border: 1px solid $THEME_COLOR;
+                }
+            }
+            @include radioBase();
+        }
+    }
+}

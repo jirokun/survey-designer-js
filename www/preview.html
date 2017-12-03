@@ -19,6 +19,7 @@
     <script>
 var m = location.search.match(/json=([^&]+)/);
 var options = {
+  headerHtml: '<div class="header"><h1 class="header__title">survey-desinger-js</h1></div>',
   cacheSuffix: new Date().getTime().toString(),
   pageLoadedFn: function(survey, runtime) {
     var nodeId = runtime.getCurrentNodeId();

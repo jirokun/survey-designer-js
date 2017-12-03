@@ -1,0 +1,43 @@
+@import '../../../node_modules/react-dd-menu/src/scss/react-dd-menu.scss';
+@import "_common.scss";
+
+.preview-main {
+    .formButtons {
+        margin: auto;
+        color: #fff;
+        text-align: center;
+        background-color: #D1C4E9;
+        padding: 5px 0;
+        p {
+            margin: 0;
+        }
+        button {
+            background-color: #673AB7;
+            border: none;
+            color: white;
+            padding: 5px 20px;
+            margin: 0 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        
+    }
+}
+
+.page-no {
+    background: #f9f3e0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 2em;
+    padding: 0 10px;
+    border-left: 1px solid gold;
+    border-bottom: 1px solid gold;
+    border-radius: 0 0 0 4px;
+    z-index: 1;
+    color: #333;
+    font-size: 0.875rem;
+    z-index: 1;
+}

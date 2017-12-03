@@ -1,0 +1,208 @@
+@charset "UTF-8";
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", sans-serif; }
+
+.survey-header {
+  background-color: #00bcd4;
+  color: #fff; }
+  .survey-header .header {
+    margin: auto;
+    width: 1000px; }
+    .survey-header .header__title {
+      margin: 0;
+      font-size: 1rem; }
+
+#content {
+  width: 1000px;
+  margin: auto; }
+  #content #surveyBox h1 {
+    color: #00bcd4;
+    font-size: 1.125rem; }
+  #content .questionsEditBox {
+    position: relative;
+    padding: 9px;
+    border: 1px solid #00bcd4; }
+    #content .questionsEditBox h2.question-title {
+      font-size: 1rem;
+      color: #00bcd4; }
+    #content .questionsEditBox ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0; }
+    #content .questionsEditBox label {
+      cursor: pointer; }
+    #content .questionsEditBox select {
+      display: block;
+      height: 26px;
+      min-height: 1.2em;
+      font-weight: normal;
+      font-size: 0.875rem;
+      white-space: pre; }
+    #content .questionsEditBox input[type="text"] {
+      padding: 3px;
+      font-size: 1rem;
+      box-sizing: border-box; }
+    #content .questionsEditBox .disabled {
+      background-color: #ddd; }
+    #content .questionsEditBox .additionalInput.number {
+      width: 4em; }
+    #content .questionsEditBox .ChoiceQuestionBase .question-form-list-label {
+      display: block;
+      position: relative;
+      margin-bottom: 5px;
+      padding: 6px;
+      border: 1px solid #ccc;
+      background: #fafefe;
+      font-size: 0.875rem; }
+      #content .questionsEditBox .ChoiceQuestionBase .question-form-list-label:hover {
+        background-color: #e4f8fb; }
+    #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox] {
+      position: absolute;
+      opacity: 0;
+      margin: 0; }
+      #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox] ~ span.select-tool {
+        padding: 0 0 0 28px;
+        position: relative;
+        display: inline-block;
+        margin-right: 12px;
+        cursor: pointer; }
+        #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox] ~ span.select-tool::before {
+          content: "";
+          position: absolute;
+          top: 8px;
+          left: 2px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          display: block;
+          border: 1px solid #777;
+          width: 22px;
+          height: 22px;
+          margin-top: -9px;
+          background-color: #fff; }
+      #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox]:checked ~ span.select-tool::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        left: 7px;
+        width: 12px;
+        height: 8px;
+        margin-top: -4px;
+        border-left: 3px solid #00bcd4;
+        border-bottom: 3px solid #00bcd4;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg); }
+    #content .questionsEditBox .ChoiceQuestionBase input[type=radio] {
+      position: absolute;
+      opacity: 0;
+      margin: 0; }
+      #content .questionsEditBox .ChoiceQuestionBase input[type=radio] ~ span.select-tool {
+        padding: 0 0 0 28px;
+        position: relative;
+        display: inline-block;
+        margin-right: 12px;
+        cursor: pointer; }
+        #content .questionsEditBox .ChoiceQuestionBase input[type=radio] ~ span.select-tool::before {
+          content: "";
+          position: absolute;
+          top: 8px;
+          left: 2px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          display: block;
+          border: 1px solid #777;
+          border-radius: 30px;
+          width: 22px;
+          height: 22px;
+          margin-top: -9px;
+          background-color: #fff; }
+      #content .questionsEditBox .ChoiceQuestionBase input[type=radio]:checked ~ span.select-tool::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        left: 7px;
+        width: 12px;
+        height: 12px;
+        margin-top: -4px;
+        background: #00bcd4;
+        border-radius: 12px; }
+    #content .questionsEditBox .MultiNumberQuestion .multiNumberLine {
+      display: block;
+      position: relative;
+      margin-bottom: 5px;
+      padding: 6px;
+      border: 1px solid #ccc;
+      background: #fafefe;
+      font-size: 0.875rem; }
+      #content .questionsEditBox .MultiNumberQuestion .multiNumberLine:hover {
+        background-color: #e4f8fb; }
+      #content .questionsEditBox .MultiNumberQuestion .multiNumberLine .multiNumberLabel {
+        width: 40em;
+        display: inline-block; }
+      #content .questionsEditBox .MultiNumberQuestion .multiNumberLine .multiNumberAssociated {
+        display: inline-block; }
+        #content .questionsEditBox .MultiNumberQuestion .multiNumberLine .multiNumberAssociated.mini input {
+          width: 4em; }
+    #content .questionsEditBox .SingleTextQuestion input {
+      width: 20em; }
+    #content .questionsEditBox .TextQuestion textarea {
+      width: 100%;
+      box-sizing: border-box; }
+    #content .questionsEditBox .MatrixQuestion table {
+      border-collapse: collapse; }
+      #content .questionsEditBox .MatrixQuestion table td, #content .questionsEditBox .MatrixQuestion table th {
+        border: 1px solid #00bcd4; }
+    #content .questionsEditBox .MatrixQuestion input[type=radio] {
+      position: absolute;
+      opacity: 0;
+      margin: 0; }
+      #content .questionsEditBox .MatrixQuestion input[type=radio] ~ span.select-tool {
+        padding: 0 0 0 28px;
+        position: relative;
+        display: inline-block;
+        margin-right: 12px;
+        cursor: pointer; }
+        #content .questionsEditBox .MatrixQuestion input[type=radio] ~ span.select-tool::before {
+          content: "";
+          position: absolute;
+          top: 8px;
+          left: 2px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          display: block;
+          border: 1px solid #777;
+          border-radius: 30px;
+          width: 22px;
+          height: 22px;
+          margin-top: -9px;
+          background-color: #fff; }
+      #content .questionsEditBox .MatrixQuestion input[type=radio]:checked ~ span.select-tool::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        left: 7px;
+        width: 12px;
+        height: 12px;
+        margin-top: -4px;
+        background: #00bcd4;
+        border-radius: 12px; }
+
+/*# sourceMappingURL=runtime.css.map */
