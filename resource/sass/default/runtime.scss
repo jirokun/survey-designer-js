@@ -1,4 +1,7 @@
 @import "_common.scss";
+@import "../../../node_modules/tooltipster/dist/css/tooltipster.bundle.min.css";
+@import "../../../node_modules/photoswipe/dist/photoswipe.css";
+@import "../../../node_modules/photoswipe/dist/default-skin/default-skin.css";
 
 html, body {
     margin: 0;
@@ -31,48 +34,92 @@ html, body {
     }
 }
 
-@mixin radioBase() {
-    input[type=radio] {
-        position: absolute;
-        opacity: 0;
-        margin: 0;
-        ~ span.select-tool {
-            padding: 0 0 0 28px;
-            position: relative;
-            display: inline-block;
-            margin-right: 12px;
-            cursor: pointer;
-            &::before {
-                content: "";
-                position: absolute;
-                top: 8px;
-                left: 2px;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-                display: block;
-                border: 1px solid #777;
-                border-radius: 30px;
-                width: 22px;
-                height: 22px;
-                margin-top: -9px;
-                background-color: #fff;
-            }
-        }
-        &:checked ~ span.select-tool::after {
+@mixin fakeInput($borderRadius) {
+    position: absolute;
+    opacity: 0;
+    margin: 0;
+    ~ span.select-tool {
+        padding: 0 0 0 28px;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        &::before {
             content: "";
             position: absolute;
             top: 8px;
+            left: 2px;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
             display: block;
-            left: 7px;
-            width: 12px;
-            height: 12px;
-            margin-top: -4px;
-            background: $THEME_COLOR;
-            border-radius: 12px;
+            border: 1px solid #777;
+            border-radius: $borderRadius;
+            width: 22px;
+            height: 22px;
+            margin-top: -9px;
+            background-color: #fff;
+        }
+    }
+    &.disabled ~ span.select-tool {
+        &::before {
+            background-color: $DISABLED_COLOR;
+        }
+        &::after {
+            background-color: #ccc !important;
+        }
+    }
+}
+@mixin fakeCheckbox() {
+    &:checked ~ span.select-tool::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        left: 7px;
+        width: 12px;
+        height: 8px;
+        margin-top: -4px;
+        border-left: 3px solid $THEME_COLOR;
+        border-bottom: 3px solid $THEME_COLOR;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+}
+@mixin fakeRadio() {
+    &:checked ~ span.select-tool::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        left: 7px;
+        width: 12px;
+        height: 12px;
+        margin-top: -4px;
+        background: $THEME_COLOR;
+        border-radius: 12px;
+    }
+}
+
+.tooltipster-sidetip {
+    .tooltipster-box {
+        background: #000;
+        border: none;
+        border-radius: 0;
+    }
+    .tooltip-wrapper .tooltip-close {
+        display: none;
+    }
+    &.tooltipster-top {
+        .tooltipster-arrow-border, .tooltipster-arrow-background {
+            border-top-color: #000;
         }
     }
 }
@@ -108,71 +155,68 @@ html, body {
             font-size: 0.875rem;
             white-space: pre;
         }
-        input[type="text"] {
-            padding: 3px;
-            font-size: 1rem;
-            box-sizing: border-box;
+        input {
+            &[type="text"] {
+                padding: 3px;
+                font-size: 1rem;
+                box-sizing: border-box;
+            }
+            &.additionalInput {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
         }
         .disabled {
-            background-color: #ddd;
+            background-color: $DISABLED_COLOR !important;
         }
         .additionalInput.number {
             width: 4em;
+        }
+        .parsley-errors-list {
+            display: none;
+        }
+        .formButtons {
+            background-color: #fff;
+            color: #000;
+            .next-page {
+                background-color: $THEME_COLOR;
+                border: none;
+                color: white;
+                padding: 5px 20px;
+                margin: 0 5px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+            }
         }
 
         .ChoiceQuestionBase {
             .question-form-list-label {
                 @include itemBase();
             }
+            .err .question-form-list-label {
+                background-color: $ERROR_COLOR;
+            }
             input[type=checkbox] {
-                position: absolute;
-                opacity: 0;
-                margin: 0;
-                ~ span.select-tool {
-                    padding: 0 0 0 28px;
-                    position: relative;
-                    display: inline-block;
-                    margin-right: 12px;
-                    cursor: pointer;
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        top: 8px;
-                        left: 2px;
-                        -webkit-box-sizing: border-box;
-                        -moz-box-sizing: border-box;
-                        box-sizing: border-box;
-                        display: block;
-                        border: 1px solid #777;
-                        width: 22px;
-                        height: 22px;
-                        margin-top: -9px;
-                        background-color: #fff;
-                    }
-                }
-                &:checked ~ span.select-tool::after {
-                    content: "";
-                    position: absolute;
-                    top: 8px;
-                    -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                    box-sizing: border-box;
-                    display: block;
-                    left: 7px;
-                    width: 12px;
-                    height: 8px;
-                    margin-top: -4px;
-                    border-left: 3px solid $THEME_COLOR;
-                    border-bottom: 3px solid $THEME_COLOR;
-                    -webkit-transform: rotate(-45deg);
-                    -moz-transform: rotate(-45deg);
-                    -ms-transform: rotate(-45deg);
-                    transform: rotate(-45deg);
-                }
+                @include fakeInput(0);
+                @include fakeCheckbox();
+            }
+            input[type=text].err {
+                background-color: $ERROR_COLOR;
             }
         }
         .ChoiceQuestionBase {
-            @include radioBase();
+            .err .question-form-list-label {
+                background-color: $ERROR_COLOR;
+            }
+            input[type=radio] {
+                @include fakeInput(30px);
+                @include fakeRadio();
+            }
+            input[type=text].err {
+                background-color: $ERROR_COLOR;
+            }
         }
         .MultiNumberQuestion {
             .multiNumberLine {
@@ -190,27 +234,71 @@ html, body {
                         }
                     }
                 }
+                input[type=text].err {
+                    background-color: $ERROR_COLOR;
+                }
             }
         }
         .SingleTextQuestion {
             input {
                 width: 20em;
             }
+            input[type=text].err {
+                background-color: $ERROR_COLOR;
+            }
         }
         .TextQuestion {
             textarea {
                 width: 100%;
                 box-sizing: border-box;
+                .err {
+                    background-color: $ERROR_COLOR;
+                }
             }
         }
         .MatrixQuestion {
             table {
+                width: 100%;
+                line-height: 1.5;
                 border-collapse: collapse;
+                font-size: 0.875rem;
                 td, th {
-                    border: 1px solid $THEME_COLOR;
+                    position: relative;
+                    vertical-align: middle;
+                    text-align: center;
+                    border: 1px solid #bbb;
+                    padding: 0.6em;
+                    label {
+                        display: block;
+                        width: 100%;
+                        input[type=checkbox] {
+                            @include fakeInput(0px);
+                            @include fakeCheckbox();
+                            ~ span.select-tool {
+                                &::before {
+                                    top: -6px;
+                                }
+                                &::after {
+                                    top: -6px !important;
+                                }
+                            }
+                        }
+ 
+                        input[type=radio] {
+                            @include fakeInput(30px);
+                            @include fakeRadio();
+                            ~ span.select-tool {
+                                &::before {
+                                    top: -6px;
+                                }
+                                &::after {
+                                    top: -6px !important;
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            @include radioBase();
         }
     }
 }

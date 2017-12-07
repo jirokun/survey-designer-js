@@ -1,8 +1,13 @@
 @import '../../../node_modules/react-dd-menu/src/scss/react-dd-menu.scss';
+@import '../../../node_modules/handsontable/dist/handsontable.full.min.css';
 @import "_common.scss";
 
+$PREVIEW_COLOR: #673AB7;
+$ERROR_COLOR: #B71C1C;
+$ERROR_BACKGROUND_COLOR: #FFEBEE;
+
 .preview-main {
-    .formButtons {
+    .formButtons.preview {
         margin: auto;
         color: #fff;
         text-align: center;
@@ -12,7 +17,7 @@
             margin: 0;
         }
         button {
-            background-color: #673AB7;
+            background-color: $PREVIEW_COLOR;
             border: none;
             color: white;
             padding: 5px 20px;
@@ -40,4 +45,27 @@
     color: #333;
     font-size: 0.875rem;
     z-index: 1;
+}
+
+.optional-area {
+    padding: 9px;
+    position: relative;
+    width: $CONTAINER_SIZE;
+    box-sizing: border-box;
+    border: 1px solid $PREVIEW_COLOR;
+    margin: auto;
+    font-size: 14px;
+
+    .help {
+        color: #888;
+    }
+
+    .error-area {
+        border: 1px solid $ERROR_COLOR;
+        background-color: $ERROR_BACKGROUND_COLOR;
+        ul {
+            margin: 3px;
+            list-style-type: decimal;
+        }
+    }
 }

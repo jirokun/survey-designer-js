@@ -1,4 +1,7 @@
 @charset "UTF-8";
+@import url(../../../node_modules/tooltipster/dist/css/tooltipster.bundle.min.css);
+@import url(../../../node_modules/photoswipe/dist/photoswipe.css);
+@import url(../../../node_modules/photoswipe/dist/default-skin/default-skin.css);
 html, body {
   margin: 0;
   padding: 0;
@@ -13,6 +16,17 @@ html, body {
     .survey-header .header__title {
       margin: 0;
       font-size: 1rem; }
+
+.tooltipster-sidetip .tooltipster-box {
+  background: #000;
+  border: none;
+  border-radius: 0; }
+
+.tooltipster-sidetip .tooltip-wrapper .tooltip-close {
+  display: none; }
+
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-border, .tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background {
+  border-top-color: #000; }
 
 #content {
   width: 1000px;
@@ -44,10 +58,28 @@ html, body {
       padding: 3px;
       font-size: 1rem;
       box-sizing: border-box; }
+    #content .questionsEditBox input.additionalInput {
+      margin-left: 5px;
+      margin-right: 5px; }
     #content .questionsEditBox .disabled {
-      background-color: #ddd; }
+      background-color: #eee !important; }
     #content .questionsEditBox .additionalInput.number {
       width: 4em; }
+    #content .questionsEditBox .parsley-errors-list {
+      display: none; }
+    #content .questionsEditBox .formButtons {
+      background-color: #fff;
+      color: #000; }
+      #content .questionsEditBox .formButtons .next-page {
+        background-color: #00bcd4;
+        border: none;
+        color: white;
+        padding: 5px 20px;
+        margin: 0 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px; }
     #content .questionsEditBox .ChoiceQuestionBase .question-form-list-label {
       display: block;
       position: relative;
@@ -58,6 +90,8 @@ html, body {
       font-size: 0.875rem; }
       #content .questionsEditBox .ChoiceQuestionBase .question-form-list-label:hover {
         background-color: #e4f8fb; }
+    #content .questionsEditBox .ChoiceQuestionBase .err .question-form-list-label {
+      background-color: #fcc; }
     #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox] {
       position: absolute;
       opacity: 0;
@@ -66,7 +100,6 @@ html, body {
         padding: 0 0 0 28px;
         position: relative;
         display: inline-block;
-        margin-right: 12px;
         cursor: pointer; }
         #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox] ~ span.select-tool::before {
           content: "";
@@ -78,10 +111,15 @@ html, body {
           box-sizing: border-box;
           display: block;
           border: 1px solid #777;
+          border-radius: 0;
           width: 22px;
           height: 22px;
           margin-top: -9px;
           background-color: #fff; }
+      #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox].disabled ~ span.select-tool::before {
+        background-color: #eee; }
+      #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox].disabled ~ span.select-tool::after {
+        background-color: #ccc !important; }
       #content .questionsEditBox .ChoiceQuestionBase input[type=checkbox]:checked ~ span.select-tool::after {
         content: "";
         position: absolute;
@@ -100,6 +138,10 @@ html, body {
         -moz-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
         transform: rotate(-45deg); }
+    #content .questionsEditBox .ChoiceQuestionBase input[type=text].err {
+      background-color: #fcc; }
+    #content .questionsEditBox .ChoiceQuestionBase .err .question-form-list-label {
+      background-color: #fcc; }
     #content .questionsEditBox .ChoiceQuestionBase input[type=radio] {
       position: absolute;
       opacity: 0;
@@ -108,7 +150,6 @@ html, body {
         padding: 0 0 0 28px;
         position: relative;
         display: inline-block;
-        margin-right: 12px;
         cursor: pointer; }
         #content .questionsEditBox .ChoiceQuestionBase input[type=radio] ~ span.select-tool::before {
           content: "";
@@ -125,6 +166,10 @@ html, body {
           height: 22px;
           margin-top: -9px;
           background-color: #fff; }
+      #content .questionsEditBox .ChoiceQuestionBase input[type=radio].disabled ~ span.select-tool::before {
+        background-color: #eee; }
+      #content .questionsEditBox .ChoiceQuestionBase input[type=radio].disabled ~ span.select-tool::after {
+        background-color: #ccc !important; }
       #content .questionsEditBox .ChoiceQuestionBase input[type=radio]:checked ~ span.select-tool::after {
         content: "";
         position: absolute;
@@ -139,6 +184,8 @@ html, body {
         margin-top: -4px;
         background: #00bcd4;
         border-radius: 12px; }
+    #content .questionsEditBox .ChoiceQuestionBase input[type=text].err {
+      background-color: #fcc; }
     #content .questionsEditBox .MultiNumberQuestion .multiNumberLine {
       display: block;
       position: relative;
@@ -156,53 +203,126 @@ html, body {
         display: inline-block; }
         #content .questionsEditBox .MultiNumberQuestion .multiNumberLine .multiNumberAssociated.mini input {
           width: 4em; }
+      #content .questionsEditBox .MultiNumberQuestion .multiNumberLine input[type=text].err {
+        background-color: #fcc; }
     #content .questionsEditBox .SingleTextQuestion input {
       width: 20em; }
+    #content .questionsEditBox .SingleTextQuestion input[type=text].err {
+      background-color: #fcc; }
     #content .questionsEditBox .TextQuestion textarea {
       width: 100%;
       box-sizing: border-box; }
+      #content .questionsEditBox .TextQuestion textarea .err {
+        background-color: #fcc; }
     #content .questionsEditBox .MatrixQuestion table {
-      border-collapse: collapse; }
+      width: 100%;
+      line-height: 1.5;
+      border-collapse: collapse;
+      font-size: 0.875rem; }
       #content .questionsEditBox .MatrixQuestion table td, #content .questionsEditBox .MatrixQuestion table th {
-        border: 1px solid #00bcd4; }
-    #content .questionsEditBox .MatrixQuestion input[type=radio] {
-      position: absolute;
-      opacity: 0;
-      margin: 0; }
-      #content .questionsEditBox .MatrixQuestion input[type=radio] ~ span.select-tool {
-        padding: 0 0 0 28px;
         position: relative;
-        display: inline-block;
-        margin-right: 12px;
-        cursor: pointer; }
-        #content .questionsEditBox .MatrixQuestion input[type=radio] ~ span.select-tool::before {
-          content: "";
-          position: absolute;
-          top: 8px;
-          left: 2px;
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          box-sizing: border-box;
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #bbb;
+        padding: 0.6em; }
+        #content .questionsEditBox .MatrixQuestion table td label, #content .questionsEditBox .MatrixQuestion table th label {
           display: block;
-          border: 1px solid #777;
-          border-radius: 30px;
-          width: 22px;
-          height: 22px;
-          margin-top: -9px;
-          background-color: #fff; }
-      #content .questionsEditBox .MatrixQuestion input[type=radio]:checked ~ span.select-tool::after {
-        content: "";
-        position: absolute;
-        top: 8px;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        display: block;
-        left: 7px;
-        width: 12px;
-        height: 12px;
-        margin-top: -4px;
-        background: #00bcd4;
-        border-radius: 12px; }
+          width: 100%; }
+          #content .questionsEditBox .MatrixQuestion table td label input[type=checkbox], #content .questionsEditBox .MatrixQuestion table th label input[type=checkbox] {
+            position: absolute;
+            opacity: 0;
+            margin: 0; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=checkbox] ~ span.select-tool, #content .questionsEditBox .MatrixQuestion table th label input[type=checkbox] ~ span.select-tool {
+              padding: 0 0 0 28px;
+              position: relative;
+              display: inline-block;
+              cursor: pointer; }
+              #content .questionsEditBox .MatrixQuestion table td label input[type=checkbox] ~ span.select-tool::before, #content .questionsEditBox .MatrixQuestion table th label input[type=checkbox] ~ span.select-tool::before {
+                content: "";
+                position: absolute;
+                top: 8px;
+                left: 2px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                display: block;
+                border: 1px solid #777;
+                border-radius: 0px;
+                width: 22px;
+                height: 22px;
+                margin-top: -9px;
+                background-color: #fff; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=checkbox].disabled ~ span.select-tool::before, #content .questionsEditBox .MatrixQuestion table th label input[type=checkbox].disabled ~ span.select-tool::before {
+              background-color: #eee; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=checkbox].disabled ~ span.select-tool::after, #content .questionsEditBox .MatrixQuestion table th label input[type=checkbox].disabled ~ span.select-tool::after {
+              background-color: #ccc !important; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=checkbox]:checked ~ span.select-tool::after, #content .questionsEditBox .MatrixQuestion table th label input[type=checkbox]:checked ~ span.select-tool::after {
+              content: "";
+              position: absolute;
+              top: 8px;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              display: block;
+              left: 7px;
+              width: 12px;
+              height: 8px;
+              margin-top: -4px;
+              border-left: 3px solid #00bcd4;
+              border-bottom: 3px solid #00bcd4;
+              -webkit-transform: rotate(-45deg);
+              -moz-transform: rotate(-45deg);
+              -ms-transform: rotate(-45deg);
+              transform: rotate(-45deg); }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=checkbox] ~ span.select-tool::before, #content .questionsEditBox .MatrixQuestion table th label input[type=checkbox] ~ span.select-tool::before {
+              top: -6px; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=checkbox] ~ span.select-tool::after, #content .questionsEditBox .MatrixQuestion table th label input[type=checkbox] ~ span.select-tool::after {
+              top: -6px !important; }
+          #content .questionsEditBox .MatrixQuestion table td label input[type=radio], #content .questionsEditBox .MatrixQuestion table th label input[type=radio] {
+            position: absolute;
+            opacity: 0;
+            margin: 0; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=radio] ~ span.select-tool, #content .questionsEditBox .MatrixQuestion table th label input[type=radio] ~ span.select-tool {
+              padding: 0 0 0 28px;
+              position: relative;
+              display: inline-block;
+              cursor: pointer; }
+              #content .questionsEditBox .MatrixQuestion table td label input[type=radio] ~ span.select-tool::before, #content .questionsEditBox .MatrixQuestion table th label input[type=radio] ~ span.select-tool::before {
+                content: "";
+                position: absolute;
+                top: 8px;
+                left: 2px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                display: block;
+                border: 1px solid #777;
+                border-radius: 30px;
+                width: 22px;
+                height: 22px;
+                margin-top: -9px;
+                background-color: #fff; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=radio].disabled ~ span.select-tool::before, #content .questionsEditBox .MatrixQuestion table th label input[type=radio].disabled ~ span.select-tool::before {
+              background-color: #eee; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=radio].disabled ~ span.select-tool::after, #content .questionsEditBox .MatrixQuestion table th label input[type=radio].disabled ~ span.select-tool::after {
+              background-color: #ccc !important; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=radio]:checked ~ span.select-tool::after, #content .questionsEditBox .MatrixQuestion table th label input[type=radio]:checked ~ span.select-tool::after {
+              content: "";
+              position: absolute;
+              top: 8px;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              display: block;
+              left: 7px;
+              width: 12px;
+              height: 12px;
+              margin-top: -4px;
+              background: #00bcd4;
+              border-radius: 12px; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=radio] ~ span.select-tool::before, #content .questionsEditBox .MatrixQuestion table th label input[type=radio] ~ span.select-tool::before {
+              top: -6px; }
+            #content .questionsEditBox .MatrixQuestion table td label input[type=radio] ~ span.select-tool::after, #content .questionsEditBox .MatrixQuestion table th label input[type=radio] ~ span.select-tool::after {
+              top: -6px !important; }
 
 /*# sourceMappingURL=runtime.css.map */

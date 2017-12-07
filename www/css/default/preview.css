@@ -1,4 +1,5 @@
 /* Not really sure why, but the inverse version has a bigger gap */
+@import url(../../../node_modules/handsontable/dist/handsontable.full.min.css);
 .grow-from-left-enter {
   transform: scale(0);
   transform-origin: 0 0;
@@ -189,15 +190,15 @@
       position: absolute;
       top: 0; }
 
-.preview-main .formButtons {
+.preview-main .formButtons.preview {
   margin: auto;
   color: #fff;
   text-align: center;
   background-color: #D1C4E9;
   padding: 5px 0; }
-  .preview-main .formButtons p {
+  .preview-main .formButtons.preview p {
     margin: 0; }
-  .preview-main .formButtons button {
+  .preview-main .formButtons.preview button {
     background-color: #673AB7;
     border: none;
     color: white;
@@ -222,5 +223,22 @@
   color: #333;
   font-size: 0.875rem;
   z-index: 1; }
+
+.optional-area {
+  padding: 9px;
+  position: relative;
+  width: 1000px;
+  box-sizing: border-box;
+  border: 1px solid #673AB7;
+  margin: auto;
+  font-size: 14px; }
+  .optional-area .help {
+    color: #888; }
+  .optional-area .error-area {
+    border: 1px solid #B71C1C;
+    background-color: #FFEBEE; }
+    .optional-area .error-area ul {
+      margin: 3px;
+      list-style-type: decimal; }
 
 /*# sourceMappingURL=preview.css.map */
