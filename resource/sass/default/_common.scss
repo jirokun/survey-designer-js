@@ -5,3 +5,15 @@ $ITEM_BACKGROUND_COLOR: lighten(#E0F7FA, 6%);
 $DISABLED_COLOR: #eee;
 $ERROR_COLOR: #fcc;
 
+@mixin button($backgroundColor) {
+    background-color: $backgroundColor;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 5px 20px;
+    margin: 0 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

@@ -1,0 +1,115 @@
+@import "_common.scss";
+@import "preview.scss";
+
+$DETAIL_BORDER_COLOR: #08198e;
+$DETAIL_BACKGROUND_COLOR: #e5f0ff;
+
+@mixin detailArea($borderColor, $backgroundColor) {
+    font-size: 0.875rem;
+    border: 1px solid $borderColor;
+    background-color: $backgroundColor;
+    padding: 9px;
+    > div {
+        width: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 5px;
+    }
+    > div.item-visibilities {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 5px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    td {
+        border: 1px solid black;
+        text-align: center;
+        line-height: 1.2;
+        padding: 0 !important;
+    }
+    th {
+        border: 1px solid black;
+        background-color: darken($backgroundColor, 20%);
+        text-align: center;
+        line-height: 1.2;
+        padding: 0 !important;
+    }
+}
+#surveyBox {
+    border: 1px solid $THEME_COLOR;
+    padding: 9px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    h1 {
+        margin: 0;
+    }
+}
+.survey-setting-detail {
+    .page-settings {
+        @include detailArea($DETAIL_BORDER_COLOR, $DETAIL_BACKGROUND_COLOR);
+    }
+}
+
+.question-detail {
+    @include detailArea($DETAIL_BORDER_COLOR, $DETAIL_BACKGROUND_COLOR);
+}
+
+.page-settings {
+    @include detailArea(green, #e6f6d7);
+}
+
+.questionsEditBox {
+    margin-bottom: 10px;
+}
+.output-no {
+    background-color: #312;
+    border: 1px solid #756;
+    border-radius: 20px;
+    color: #fff;
+    padding: 1px 7px;
+    margin: 0 3px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    overflow: hidden;
+}
+.enq-title__branch {
+    display: none;
+}
+.fixed-value {
+    background-color: #009e14;
+    border: 1px solid #009e14;
+    border-radius: 20px;
+    color: #fff;
+    padding: 1px 7px;
+    margin: 0 3px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    overflow: hidden;
+}
+.answer-value {
+    background-color: #fcc;
+    border: 1px solid #f7024b;
+    border-radius: 20px;
+    color: #f7024b;
+    padding: 1px 7px;
+    margin: 0 3px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    overflow: hidden;
+}
+.branch-editor-container .branch-editor .branch-editor-header,
+.branch-editor-container .branch-editor .condition-editor {
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    align-items: center;
+}
+.detail-mode .branch-editor span {
+    padding: 1px 7px;
+}

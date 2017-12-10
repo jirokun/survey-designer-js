@@ -61,6 +61,8 @@ html, body {
     #content .questionsEditBox input.additionalInput {
       margin-left: 5px;
       margin-right: 5px; }
+    #content .questionsEditBox table {
+      background-color: white; }
     #content .questionsEditBox .disabled {
       background-color: #eee !important; }
     #content .questionsEditBox .additionalInput.number {
@@ -69,10 +71,12 @@ html, body {
       display: none; }
     #content .questionsEditBox .formButtons {
       background-color: #fff;
-      color: #000; }
+      color: #000;
+      text-align: center; }
       #content .questionsEditBox .formButtons .next-page {
         background-color: #00bcd4;
         border: none;
+        border-radius: 4px;
         color: white;
         padding: 5px 20px;
         margin: 0 5px;
@@ -324,5 +328,16 @@ html, body {
               top: -6px; }
             #content .questionsEditBox .MatrixQuestion table td label input[type=radio] ~ span.select-tool::after, #content .questionsEditBox .MatrixQuestion table th label input[type=radio] ~ span.select-tool::after {
               top: -6px !important; }
+    #content .questionsEditBox .finisher .formButtons a {
+      background-color: #00bcd4;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      padding: 5px 20px;
+      margin: 0 5px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px; }
 
 /*# sourceMappingURL=runtime.css.map */

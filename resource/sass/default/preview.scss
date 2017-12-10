@@ -6,6 +6,21 @@ $PREVIEW_COLOR: #673AB7;
 $ERROR_COLOR: #B71C1C;
 $ERROR_BACKGROUND_COLOR: #FFEBEE;
 
+@mixin nodeNo($color, $backgroundColor, $borderColor) {
+    background: $backgroundColor;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 2em;
+    padding: 0 10px;
+    border-left: 1px solid $borderColor;
+    border-bottom: 1px solid $borderColor;
+    border-radius: 0 0 0 4px;
+    z-index: 1;
+    color: $color;
+    font-size: 0.875rem;
+    z-index: 1;
+}
 .preview-main {
     .formButtons.preview {
         margin: auto;
@@ -17,34 +32,21 @@ $ERROR_BACKGROUND_COLOR: #FFEBEE;
             margin: 0;
         }
         button {
-            background-color: $PREVIEW_COLOR;
-            border: none;
-            color: white;
-            padding: 5px 20px;
-            margin: 0 5px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
+            @include button($PREVIEW_COLOR);
         }
-        
     }
 }
 
 .page-no {
-    background: #f9f3e0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    line-height: 2em;
-    padding: 0 10px;
-    border-left: 1px solid gold;
-    border-bottom: 1px solid gold;
-    border-radius: 0 0 0 4px;
-    z-index: 1;
-    color: #333;
-    font-size: 0.875rem;
-    z-index: 1;
+    @include nodeNo(#333, $ITEM_BACKGROUND_COLOR, $THEME_COLOR);
+}
+
+.finisher-no {
+    @include nodeNo(#333, $ITEM_BACKGROUND_COLOR, $THEME_COLOR);
+}
+
+.branch-no {
+    @include nodeNo(#333, $ITEM_BACKGROUND_COLOR, $THEME_COLOR);
 }
 
 .optional-area {
@@ -53,7 +55,7 @@ $ERROR_BACKGROUND_COLOR: #FFEBEE;
     width: $CONTAINER_SIZE;
     box-sizing: border-box;
     border: 1px solid $PREVIEW_COLOR;
-    margin: auto;
+    margin: 10px auto;
     font-size: 14px;
 
     .help {

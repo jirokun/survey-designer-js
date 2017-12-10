@@ -166,6 +166,9 @@ html, body {
                 margin-right: 5px;
             }
         }
+        table {
+            background-color: white;
+        }
         .disabled {
             background-color: $DISABLED_COLOR !important;
         }
@@ -178,16 +181,9 @@ html, body {
         .formButtons {
             background-color: #fff;
             color: #000;
+            text-align: center;
             .next-page {
-                background-color: $THEME_COLOR;
-                border: none;
-                color: white;
-                padding: 5px 20px;
-                margin: 0 5px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
+                @include button($THEME_COLOR);
             }
         }
 
@@ -297,6 +293,14 @@ html, body {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        .finisher {
+            .formButtons {
+                a {
+                    @include button($THEME_COLOR);
                 }
             }
         }
