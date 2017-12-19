@@ -36,9 +36,9 @@ module.exports = {
     image: ['./lib/Image'],
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'www/survey-designer-js'),
     filename: '[name].bundle.js',
-    publicPath: '/static/',
+    publicPath: '/survey-desinger-js/',
     library: 'SurveyDesigner',
     libraryTarget: 'var',
   },

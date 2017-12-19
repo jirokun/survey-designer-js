@@ -1,0 +1,318 @@
+@import "_common.scss";
+@import "../../../node_modules/tooltipster/dist/css/tooltipster.bundle.min.css";
+@import "../../../node_modules/photoswipe/dist/photoswipe.css";
+@import "../../../node_modules/photoswipe/dist/default-skin/default-skin.css";
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", sans-serif;
+}
+.survey-header {
+    background-color: $THEME_COLOR;
+    color: #fff;
+    .header {
+        margin: auto;
+        width: $CONTAINER_SIZE;
+        &__title {
+            margin: 0;
+            font-size: 1rem;
+        }
+    }
+}
+
+@mixin itemBase($color:#666) {
+    display: block;
+    position: relative;
+    margin-bottom: 5px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    background: $ITEM_BACKGROUND_COLOR;
+    font-size: 0.875rem;
+    &:hover {
+        background-color: darken($ITEM_BACKGROUND_COLOR, 5%);
+    }
+}
+
+@mixin fakeInput($borderRadius) {
+    position: absolute;
+    opacity: 0;
+    margin: 0;
+    ~ span.select-tool {
+        padding: 0 0 0 28px;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 2px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            display: block;
+            border: 1px solid #777;
+            border-radius: $borderRadius;
+            width: 22px;
+            height: 22px;
+            margin-top: -9px;
+            background-color: #fff;
+        }
+    }
+    &.disabled ~ span.select-tool {
+        &::before {
+            background-color: $DISABLED_COLOR;
+        }
+        &::after {
+            background-color: #ccc !important;
+        }
+    }
+}
+@mixin fakeCheckbox() {
+    &:checked ~ span.select-tool::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        left: 7px;
+        width: 12px;
+        height: 8px;
+        margin-top: -4px;
+        border-left: 3px solid $THEME_COLOR;
+        border-bottom: 3px solid $THEME_COLOR;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+}
+@mixin fakeRadio() {
+    &:checked ~ span.select-tool::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        left: 7px;
+        width: 12px;
+        height: 12px;
+        margin-top: -4px;
+        background: $THEME_COLOR;
+        border-radius: 12px;
+    }
+}
+
+.tooltipster-sidetip {
+    .tooltipster-box {
+        background: #000;
+        border: none;
+        border-radius: 0;
+    }
+    .tooltip-wrapper .tooltip-close {
+        display: none;
+    }
+    &.tooltipster-top {
+        .tooltipster-arrow-border, .tooltipster-arrow-background {
+            border-top-color: #000;
+        }
+    }
+}
+
+#content {
+    width: $CONTAINER_SIZE;
+    margin: auto;
+    #surveyBox h1 {
+        color: $THEME_COLOR;
+        font-size: 1.125rem;
+    }
+    .questionsEditBox {
+        position: relative;
+        padding: 9px;
+        border: 1px solid $THEME_COLOR;
+        h2.question-title {
+            font-size: 1rem;
+            color: $THEME_COLOR;
+            margin: 0.5em 0;
+            p {
+                margin: 0;
+            }
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        label {
+            cursor: pointer;
+        }
+        select {
+            display: block;
+            height: 26px;
+            min-height: 1.2em;
+            font-weight: normal;
+            font-size: 0.875rem;
+            white-space: pre;
+        }
+        input {
+            &[type="text"] {
+                padding: 3px;
+                font-size: 1rem;
+                box-sizing: border-box;
+            }
+            &.additionalInput {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+        }
+        table {
+            background-color: white;
+        }
+        .disabled {
+            background-color: $DISABLED_COLOR !important;
+        }
+        .additionalInput.number {
+            width: 4em;
+        }
+        .parsley-errors-list {
+            display: none;
+        }
+        .formButtons {
+            background-color: #fff;
+            color: #000;
+            text-align: center;
+            .next-page {
+                @include button($THEME_COLOR);
+            }
+        }
+
+        .ChoiceQuestionBase {
+            .question-form-list-label {
+                @include itemBase();
+            }
+            .err .question-form-list-label {
+                background-color: $ERROR_COLOR;
+            }
+            input[type=checkbox] {
+                @include fakeInput(0);
+                @include fakeCheckbox();
+            }
+            input[type=text].err {
+                background-color: $ERROR_COLOR;
+            }
+        }
+        .ChoiceQuestionBase {
+            .err .question-form-list-label {
+                background-color: $ERROR_COLOR;
+            }
+            input[type=radio] {
+                @include fakeInput(30px);
+                @include fakeRadio();
+            }
+            input[type=text].err {
+                background-color: $ERROR_COLOR;
+            }
+        }
+        .MultiNumberQuestion {
+            .multiNumberLine {
+                @include itemBase();
+                .multiNumberLabel {
+                    width: 40em;
+                    display: inline-block;
+                }
+
+                .multiNumberAssociated {
+                    display: inline-block;
+                    &.mini {
+                        input {
+                            width: 4em;
+                        }
+                    }
+                }
+                input[type=text].err {
+                    background-color: $ERROR_COLOR;
+                }
+            }
+        }
+        .SingleTextQuestion {
+            input {
+                width: 20em;
+            }
+            input[type=text].err {
+                background-color: $ERROR_COLOR;
+            }
+        }
+        .TextQuestion {
+            textarea {
+                width: 100%;
+                box-sizing: border-box;
+                .err {
+                    background-color: $ERROR_COLOR;
+                }
+            }
+        }
+        .MatrixQuestion {
+            .err {
+                background-color: $ERROR_COLOR;
+            }
+            table {
+                width: 100%;
+                line-height: 1.5;
+                border-collapse: collapse;
+                font-size: 0.875rem;
+                td, th {
+                    position: relative;
+                    vertical-align: middle;
+                    text-align: center;
+                    border: 1px solid #bbb;
+                    padding: 0.6em;
+                    label {
+                        display: block;
+                        width: 100%;
+                        input[type=checkbox] {
+                            @include fakeInput(0px);
+                            @include fakeCheckbox();
+                            ~ span.select-tool {
+                                &::before {
+                                    top: -6px;
+                                }
+                                &::after {
+                                    top: -6px !important;
+                                }
+                            }
+                        }
+ 
+                        input[type=radio] {
+                            @include fakeInput(30px);
+                            @include fakeRadio();
+                            ~ span.select-tool {
+                                &::before {
+                                    top: -6px;
+                                }
+                                &::after {
+                                    top: -6px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .finisher {
+            .notice {
+                text-align: center;
+            }
+            .formButtons {
+                a {
+                    @include button($THEME_COLOR);
+                }
+            }
+        }
+    }
+}

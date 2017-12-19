@@ -7,6 +7,7 @@
     "build": "webpack",
     "build:production": "NODE_ENV=production webpack",
     "build:watch": "webpack --watch",
+    "sass": "node-sass --recursive --output ./www/css/ --source-map true --source-map-contents resource/sass",
     "sass:watch": "node-sass --watch --recursive --output ./www/css/ --source-map true --source-map-contents resource/sass",
     "test": "jest",
     "test:unit": "jest",

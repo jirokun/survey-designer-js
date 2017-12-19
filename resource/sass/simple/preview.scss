@@ -1,0 +1,73 @@
+@import '../../../node_modules/react-dd-menu/src/scss/react-dd-menu.scss';
+@import '../../../node_modules/handsontable/dist/handsontable.full.min.css';
+@import "_common.scss";
+
+$PREVIEW_COLOR: #673AB7;
+$ERROR_COLOR: #B71C1C;
+$ERROR_BACKGROUND_COLOR: #FFEBEE;
+
+@mixin nodeNo($color, $backgroundColor, $borderColor) {
+    background: $backgroundColor;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 2em;
+    padding: 0 10px;
+    border-left: 1px solid $borderColor;
+    border-bottom: 1px solid $borderColor;
+    border-radius: 0 0 0 4px;
+    z-index: 1;
+    color: $color;
+    font-size: 0.875rem;
+    z-index: 1;
+}
+.preview-main {
+    .formButtons.preview {
+        margin: auto;
+        color: #fff;
+        text-align: center;
+        background-color: #D1C4E9;
+        padding: 5px 0;
+        p {
+            margin: 0;
+        }
+        button {
+            @include button($PREVIEW_COLOR);
+        }
+    }
+}
+
+.page-no {
+    @include nodeNo(#333, $ITEM_BACKGROUND_COLOR, $THEME_COLOR);
+}
+
+.finisher-no {
+    @include nodeNo(#333, $ITEM_BACKGROUND_COLOR, $THEME_COLOR);
+}
+
+.branch-no {
+    @include nodeNo(#333, $ITEM_BACKGROUND_COLOR, $THEME_COLOR);
+}
+
+.optional-area {
+    padding: 9px;
+    position: relative;
+    width: $CONTAINER_SIZE;
+    box-sizing: border-box;
+    border: 1px solid $PREVIEW_COLOR;
+    margin: 10px auto;
+    font-size: 14px;
+
+    .help {
+        color: #888;
+    }
+
+    .error-area {
+        border: 1px solid $ERROR_COLOR;
+        background-color: $ERROR_BACKGROUND_COLOR;
+        ul {
+            margin: 3px;
+            list-style-type: decimal;
+        }
+    }
+}
