@@ -36,7 +36,7 @@ module.exports = {
     image: ['./lib/Image'],
   },
   output: {
-    path: path.join(__dirname, 'www/survey-designer-js'),
+    path: path.join(__dirname, 'docs/survey-designer-js'),
     filename: '[name].bundle.js',
     publicPath: '/survey-desinger-js/',
     library: 'SurveyDesigner',
@@ -47,7 +47,7 @@ module.exports = {
     { tinymce: true },
   ],
   devServer: {
-    contentBase: [path.join(__dirname, 'www'), __dirname],
+    contentBase: [path.join(__dirname, 'docs'), __dirname],
     host: '0.0.0.0',
     port: 3000,
     disableHostCheck: true,
