@@ -46,7 +46,8 @@
   box-sizing: border-box;
 }
 
-.question-form-list {
+.question-form-list,
+.MultiNumberQuestion {
   input.number {
     width: $number-input-width;
   }
@@ -168,4 +169,64 @@ img.popup {
 
 .survey-header {
   display: none;
+}
+
+.question__personal-info {
+  &__2input {
+    width: 24% !important;
+
+    &__left {
+      margin: 0 3px 0 0;
+    }
+
+    &__middle {
+      margin: 0 3px;
+    }
+  }
+
+  &__3input {
+    width: 18% !important;
+  }
+
+  &__tel-splitter {
+    display: inline-block;
+    width: 2%;
+    text-align: center;
+  }
+
+  &__name-splitter {
+    display: inline-block;
+    width: 2.5%;
+  }
+
+  &__select_with_input {
+    display: inline-block !important;
+  }
+
+  &__input_with_select {
+    margin-left: 0;
+    width: 20% !important;
+  }
+
+  &__label-inline {
+    display: inline-block !important;
+    width: auto !important;
+  }
+
+  &__choice {
+    padding-right: 12px;
+
+    input {
+      margin-right: 4px !important;
+    }
+  }
+
+  &__label_option {
+    background-color: #666;
+    color: #fff;
+    padding: 3px 4px;
+    font-size: 0.75rem;
+    margin-left: 5px;
+    white-space: nowrap;
+  }
 }

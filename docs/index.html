@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SurveyDesigner Editor</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>survey-designer-js</h1>
+        <p>DEMO</p>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>サンプル名</th>
+            <th>編集画面</th>
+            <th>動作プレビュー画面</th>
+            <th>詳細プレビュー画面</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>空のアンケート</td>
+            <td>
+              <a target="_blank" href="edit.html?survey=survey/init.json">LINK</a>
+              <a target="_blank" href="edit.html?survey=survey/init.json&amp;env=development">(dev mode)</a>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>アンケートに関するアンケート</td>
+            <td>
+              <a target="_blank" href="edit.html?survey=survey/survey.json">LINK</a>
+              <a target="_blank" href="edit.html?survey=survey/survey.json&amp;env=development">(dev mode)</a>
+            </td>
+            <td>
+              <a target="_blank" href="preview.html?survey=survey/survey.json">LINK</a>
+              <a target="_blank" href="preview.html?survey=survey/survey.json&amp;env=development">(dev mode)</a>
+            </td>
+            <td>
+              <a target="_blank" href="detail.html?survey=survey/survey.json">LINK</a>
+              <a target="_blank" href="detail.html?survey=survey/survey.json&amp;env=development">(dev mode)</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

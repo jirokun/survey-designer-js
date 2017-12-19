@@ -315,6 +315,9 @@ html, body {
       vertical-align: top;
       font-size: 87.5%;
     }
+    td {
+      white-space: nowrap;
+    }
     .item-editor-row {
       .option {
         text-align: center;
@@ -327,6 +330,18 @@ html, body {
         padding-right: 5px;
         width: 100%;
       }
+      .personal-item-editor-tinymce-container {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 40%;
+      }
+      .personal-item-editor-display-type {
+        margin-right: 10px;
+      }
+      .personal-item-editor-optional-checkbox-td {
+        text-align: center;
+      }
+
       .buttons {
         white-space: nowrap;
       }

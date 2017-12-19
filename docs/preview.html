@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SurveyDesinger Preview</title>
+    <style>
+      .m3-enquete__user-agent-group--SP #surveyBox,
+      .m3-enquete__user-agent-group--APP #surveyBox,
+      .m3-enquete__user-agent-group--SP .questionsEditBox,
+      .m3-enquete__user-agent-group--APP .questionsEditBox {
+        width: 320px;
+      }
+    </style>
+  </head>
+  <body class="m3-enquete__user-agent-group--PC">
+
+    <div id="root">
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/url-search-params/0.10.0/url-search-params.js"></script>
+    <script src="/survey-designer-js/preview.bundle.js"></script>
+    <script>
+var options = {
+  headerHtml: '<div class="header"><h1 class="header__title">survey-desinger-js</h1></div>',
+  cacheSuffix: new Date().getTime().toString(),
+  pageLoadedFn: function(survey, runtime) {
+    var nodeId = runtime.getCurrentNodeId();
+  }
+};
+
+var url = new URL(location.href);
+var surveyUrl = url.searchParams.get('survey');
+if (surveyUrl) {
+  fetch(surveyUrl).then(function(response) {
+    return response.json();
+  }).then(function(survey) {
+    var el = document.getElementById('root');
+    SurveyDesigner.Preview(el, {
+      survey: survey,
+      options: options
+    });
+  });
+} else {
+  window.addEventListener('message', function(e) {
+    if (e.origin !== location.origin) {
+      alert('オリジンが一致しません');
+      return;
+    }
+    if (e.data.type !== 'surveyResponse') return;
+    var survey = JSON.parse(e.data.value);
+    var el = document.getElementById('root');
+    SurveyDesigner.Preview(el, {
+      survey: survey,
+      options: options
+    });
+  }, false);
+  window.opener.postMessage({ type: 'surveyRequest' }, '*');
+}
+    </script>
+  </body>
+</html>
