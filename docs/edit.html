@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
     -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/survey-designer-js/css/editor.css"/>
+    <link rel="stylesheet" href="survey-designer-js/css/editor.css"/>
     <style>
       #global-navigation {
         height: 36px;
@@ -35,13 +35,13 @@
 var simpleCss = {
   title: 'Simpleモード',
   runtimeUrls: [
-    '/css/simple/runtime.css',
+    'css/simple/runtime.css',
   ],
   previewUrls: [
-    '/css/simple/preview.css',
+    'css/simple/preview.css',
   ],
   detailUrls: [
-    '/css/simple/detail.css'
+    'css/simple/detail.css'
   ]
 };
 
@@ -58,12 +58,12 @@ fetch(surveyUrl).then(function(response) {
       headerHtml: '<div class="header"><h1 class="header__title">survey-desinger-js</h1></div>',
       defaultCss: simpleCss,
       cssOptions: [ simpleCss ],
-      previewUrl: '/preview.html',
-      showDetailUrl: '/detail.html',
-      imageManagerUrl: '/image.html',
-      imageListUrl: '/images.json',
-      saveImageUrl: '/save',
-      deleteImageUrl: '/delete',
+      previewUrl: 'preview.html',
+      showDetailUrl: 'detail.html',
+      imageManagerUrl: 'image.html',
+      imageListUrl: 'images.json',
+      saveImageUrl: 'save',
+      deleteImageUrl: 'delete',
       cacheSuffix: new Date().getTime().toString(),
     },
   });
