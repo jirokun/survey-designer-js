@@ -745,13 +745,13 @@
     ],
     "panel": null,
     "cssRuntimeUrls": [
-        "/css/simple/runtime.css"
+        "css/simple/runtime.css"
     ],
     "cssPreviewUrls": [
-        "/css/simple/preview.css"
+        "css/simple/preview.css"
     ],
     "cssDetailUrls": [
-        "/css/simple/detail.css"
+        "css/simple/detail.css"
     ],
     "zeroSetting": true
 }
