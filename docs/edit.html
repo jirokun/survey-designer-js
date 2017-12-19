@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SurveyDesigner Editor</title>
+    <!--
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/survey-designer-js/css/editor.css"/>
+    <style>
+      #global-navigation {
+        height: 36px;
+        background-color: black;
+        color: white;
+      }
+      #root {
+        height: calc(100% - 36px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="global-navigation">
+      Header
+    </div>
+    <div id="root">
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/url-search-params/0.10.0/url-search-params.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/tinymce.min.js"></script>
+    <script src="/survey-designer-js/editor.bundle.js"></script>
+    <script>
+var simpleCss = {
+  title: 'Simpleモード',
+  runtimeUrls: [
+    '/css/simple/runtime.css',
+  ],
+  previewUrls: [
+    '/css/simple/preview.css',
+  ],
+  detailUrls: [
+    '/css/simple/detail.css'
+  ]
+};
+
+var url = new URL(location.href);
+var surveyUrl = url.searchParams.get('survey');
+
+fetch(surveyUrl).then(function(response) {
+  return response.json();
+}).then(function(survey) {
+  var el = document.getElementById('root');
+  SurveyDesigner.Editor(el, {
+    survey: survey,
+    options: {
+      headerHtml: '<div class="header"><h1 class="header__title">survey-desinger-js</h1></div>',
+      defaultCss: simpleCss,
+      cssOptions: [ simpleCss ],
+      previewUrl: '/preview.html',
+      showDetailUrl: '/detail.html',
+      imageManagerUrl: '/image.html',
+      imageListUrl: '/images.json',
+      saveImageUrl: '/save',
+      deleteImageUrl: '/delete',
+      cacheSuffix: new Date().getTime().toString(),
+    },
+  });
+});
+    </script>
+  </body>
+</html>
