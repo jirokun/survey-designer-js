@@ -1,4 +1,4 @@
-# survey-designer-js <a href="https://travis-ci.org/m3dev/survey-designer-js"><img src="https://travis-ci.org/m3dev/survey-designer-js.svg?branch=develop"/></a> [![codecov](https://codecov.io/gh/m3dev/survey-designer-js/branch/develop/graph/badge.svg)](https://codecov.io/gh/m3dev/survey-designer-js)
+# survey-designer-js <a href="https://travis-ci.org/m3dev/survey-designer-js"><img src="https://travis-ci.org/m3dev/survey-designer-js.svg?branch=develop"/></a> [![codecov](https://codecov.io/gh/jirokun/survey-designer-js/branch/develop/graph/badge.svg)](https://codecov.io/gh/m3dev/survey-designer-js)
 
 アンケートデザインのためのJavaScript
 
